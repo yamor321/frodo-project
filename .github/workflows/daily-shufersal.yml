@@ -1,0 +1,43 @@
+# PREPARED, NOT ACTIVE: this repo has no `origin` remote connected yet
+# (see plan / docs/sources.md), so pushing this file alone does not turn on
+# scheduling -- GitHub only runs workflows that exist on the default branch
+# of a repo it's already hosting. Written ahead of time per the brief's
+# warning (section 3): every day layer 1 isn't running is permanently lost
+# history, since chains only retain files 3 months.
+#
+# Once connected: this commits its own output (data/raw + data/processed)
+# back to the repo using the repo-scoped GITHUB_TOKEN Actions provides
+# automatically -- no human touches the daily run, and every day's data is
+# a plain git commit (the audit trail requested during planning).
+name: Daily Shufersal snapshot (Kfar Saba dairy pilot)
+
+on:
+  schedule:
+    - cron: "0 3 * * *"  # 03:00 UTC daily, after Shufersal's own nightly PriceFull publish
+  workflow_dispatch: {}
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run daily snapshot + dairy gap computation
+        run: python scripts/daily_snapshot.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw data/processed
+          git diff --cached --quiet || git commit -m "Daily snapshot: $(date -u +%Y-%m-%d)"
+          git push

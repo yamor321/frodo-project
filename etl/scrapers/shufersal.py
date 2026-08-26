@@ -109,6 +109,71 @@ def _parse_listing_page(html: str) -> Iterator[PriceFile]:
         )
 
 
+@dataclass
+class StoreRecord:
+    """One <Store> from the chain-wide Stores file."""
+
+    chain_id: str
+    subchain_id: str
+    store_id: str
+    store_name: str
+    address: str
+    city_code: str
+    zip_code: str
+
+
+def list_stores_file(files: Iterable[PriceFile]) -> PriceFile | None:
+    """Pick the single chain-wide Stores row out of a file listing.
+
+    Unlike Price/PriceFull, Stores is published once for the whole chain
+    (category == "stores", store_id == "All"), not per branch.
+    """
+    for f in files:
+        if f.category.lower() == "stores":
+            return f
+    return None
+
+
+def parse_stores_xml(xml_bytes: bytes) -> list[StoreRecord]:
+    """Parse the chain-wide Stores XML into normalized records.
+
+    Real schema (verified live 2026-08-27): <Chain><ChainID/><ChainName/>
+    <SubChains><SubChain><SubChainID/><SubChainName/><Stores><Store><StoreID/>
+    <BikoretNo/><StoreType/><StoreName/><Address/><City/><ZIPCode/></Store>...
+    `<City>` is a numeric settlement code (סמל יישוב), not a city name string --
+    e.g. every confirmed Kfar Saba branch carries City=6900.
+    """
+    root = ET.fromstring(xml_bytes)
+    chain_id = _text(root, "ChainID")
+
+    records = []
+    for subchain in root.findall("./SubChains/SubChain"):
+        subchain_id = _text(subchain, "SubChainID")
+        for store in subchain.findall("./Stores/Store"):
+            records.append(
+                StoreRecord(
+                    chain_id=chain_id,
+                    subchain_id=subchain_id,
+                    store_id=_text(store, "StoreID"),
+                    store_name=_text(store, "StoreName"),
+                    address=_text(store, "Address"),
+                    city_code=_text(store, "City"),
+                    zip_code=_text(store, "ZIPCode"),
+                )
+            )
+    return records
+
+
+def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
+    """Store IDs whose official settlement code (City) is Kfar Saba (6900).
+
+    Objective, data-driven replacement for KFAR_SABA_STORE_IDS below (which
+    was identified by manually reading Hebrew branch names) -- verified live
+    2026-08-27: all 6 manually-identified branches carry City=="6900".
+    """
+    return {s.store_id for s in stores if s.city_code == KFAR_SABA_CITY_CODE}
+
+
 def download(price_file: PriceFile) -> bytes:
     """Download and gunzip one listed file; return raw XML bytes."""
     resp = requests.get(price_file.url, timeout=REQUEST_TIMEOUT)
@@ -157,13 +222,25 @@ def _text(el: ET.Element, tag: str) -> str:
     return child.text.strip() if child is not None and child.text else ""
 
 
-# Confirmed-live Shufersal branches inside Kfar Saba (portal store IDs),
-# per docs/sources.md.
+# Official settlement code (סמל יישוב) for Kfar Saba, per the live Stores file.
+KFAR_SABA_CITY_CODE = "6900"
+
+# Fallback only, for when a Stores file isn't available: branches identified
+# manually by reading Hebrew branch names on 2026-08-26, later confirmed
+# (2026-08-27) to all carry City==6900 in the official Stores file. Prefer
+# kfar_saba_stores(parse_stores_xml(...)) over this constant.
 KFAR_SABA_STORE_IDS = {"144", "394", "615", "682", "752", "845"}
 
 
-def kfar_saba_full_catalog_files(files: Iterable[PriceFile]) -> Iterator[PriceFile]:
-    """Filter a file listing down to full-catalog files for Kfar Saba stores."""
+def kfar_saba_full_catalog_files(
+    files: Iterable[PriceFile], store_ids: Iterable[str] = KFAR_SABA_STORE_IDS
+) -> Iterator[PriceFile]:
+    """Filter a file listing down to full-catalog files for the given stores.
+
+    Pass the dynamic result of kfar_saba_stores(parse_stores_xml(...)) as
+    store_ids; defaults to the manually-identified fallback set.
+    """
+    store_ids = set(store_ids)
     for f in files:
-        if f.store_id in KFAR_SABA_STORE_IDS and f.category.lower() == "pricefull":
+        if f.store_id in store_ids and f.category.lower() == "pricefull":
             yield f
