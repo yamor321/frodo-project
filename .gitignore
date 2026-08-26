@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Downloaded raw chain files -- large and regenerated daily by the ETL run,
+# not meant to bloat every clone. Section 3 of docs/sources.md still
+# requires permanent retention: keep these in the archive location the
+# chosen infra bundle points at (git-LFS/object storage), not necessarily
+# in this working tree.
+data/raw/*.gz
+data/raw/*.xml
