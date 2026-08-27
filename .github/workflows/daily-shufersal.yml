@@ -1,17 +1,22 @@
-# ACTIVE as of 2026-08-27: this repo is now hosted at
+# ACTIVE as of 2026-08-27: this repo is hosted at
 # github.com/yamor321/frodo-project with this file on the default branch,
-# so GitHub is already scheduling it -- no further setup needed here.
-# Written per the brief's warning (section 3): every day layer 1 isn't
-# running is permanently lost history, since chains only retain files 3
-# months.
+# so GitHub is already scheduling it -- no further setup needed for the
+# data-collection half. Written per the brief's warning (section 3): every
+# day layer 1 isn't running is permanently lost history, since chains only
+# retain files 3 months.
 #
 # It commits its own output (data/raw + data/processed + the rendered
 # site/) back to the repo using the repo-scoped GITHUB_TOKEN Actions
 # provides automatically -- no human touches the daily run, and every day's
 # data is a plain git commit (the audit trail requested during planning).
-# For the rendered site/ to actually be *served* publicly, enable GitHub
-# Pages once: repo Settings -> Pages -> Source: "Deploy from a branch" ->
-# branch "master", folder "/site". No new account needed.
+#
+# To actually SERVE site/ publicly: repo Settings -> Pages -> Source:
+# "GitHub Actions" (NOT "Deploy from a branch" -- that classic method only
+# supports "/ (root)" or "/docs", not an arbitrary folder like "/site").
+# Once that one dropdown is set, this workflow's deploy step below handles
+# the rest automatically on every run. Also needs the repo set to Public
+# (Settings -> bottom of page -> "Change visibility") -- Pages on a
+# private repo requires a paid GitHub plan; on a public repo it's free.
 name: Daily Shufersal snapshot (Kfar Saba dairy pilot)
 
 on:
@@ -24,6 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -44,3 +54,15 @@ jobs:
           git add data/raw data/processed site
           git diff --cached --quiet || git commit -m "Daily snapshot: $(date -u +%Y-%m-%d)"
           git push
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site/ as the Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
