@@ -1,0 +1,1269 @@
+[
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "140",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000047621",
+    "item_name": "גבינה לבנה 5% 250ג תנובה",
+    "store_id": "140",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "140",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "140",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000522319",
+    "item_name": "חלב טרי מהגולן 3% 1 ליטר",
+    "store_id": "140",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "140",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "140",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "140",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "140",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "140",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "144",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000047621",
+    "item_name": "גבינה לבנה 5% 250ג תנובה",
+    "store_id": "144",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "144",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "144",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000522319",
+    "item_name": "חלב טרי מהגולן 3% 1 ליטר",
+    "store_id": "144",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290000522326",
+    "item_name": "חלב טרי מהגולן 1% 1 ליטר",
+    "store_id": "144",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)",
+      "חלב טרי בשקית 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "144",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "144",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "144",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "144",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "144",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "171",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "171",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "171",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "171",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "171",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "171",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "171",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "171",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042015",
+    "item_name": "חלב 3% מהדרין שקית 1 ל",
+    "store_id": "230",
+    "actual_price": 6.41,
+    "controlled_product_names": [
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.41,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "230",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000047621",
+    "item_name": "גבינה לבנה 5% 250ג תנובה",
+    "store_id": "230",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "230",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "230",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "230",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "230",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "230",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "230",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "230",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290114310901",
+    "item_name": "גבינה לבנה 5% 250 גרם",
+    "store_id": "230",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042015",
+    "item_name": "חלב 3% מהדרין שקית 1 ל",
+    "store_id": "259",
+    "actual_price": 6.41,
+    "controlled_product_names": [
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.41,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "259",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000046136",
+    "item_name": "גבינה גלבוע 22% משקל",
+    "store_id": "259",
+    "actual_price": 50.24,
+    "controlled_product_names": [
+      "גבינה חצי קשה גלבוע 22% שומן"
+    ],
+    "controlled_consumer_price": 50.24,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "259",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "259",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000522319",
+    "item_name": "חלב טרי מהגולן 3% 1 ליטר",
+    "store_id": "259",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290000522326",
+    "item_name": "חלב טרי מהגולן 1% 1 ליטר",
+    "store_id": "259",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)",
+      "חלב טרי בשקית 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "259",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "259",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "259",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "259",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "259",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042411",
+    "item_name": "חלב בקבוק 3% יטבתה 1 ל",
+    "store_id": "335",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "335",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "335",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "335",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "335",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "335",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "335",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "335",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "335",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042015",
+    "item_name": "חלב 3% מהדרין שקית 1 ל",
+    "store_id": "036",
+    "actual_price": 6.41,
+    "controlled_product_names": [
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.41,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "036",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "036",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "036",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "036",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "036",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "036",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "036",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "036",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "375",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "375",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "375",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "375",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "375",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "375",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "375",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "375",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "394",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000047621",
+    "item_name": "גבינה לבנה 5% 250ג תנובה",
+    "store_id": "394",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "394",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "394",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "394",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "394",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "394",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "394",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "394",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042411",
+    "item_name": "חלב בקבוק 3% יטבתה 1 ל",
+    "store_id": "752",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "752",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "752",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "752",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "752",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "752",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "752",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "752",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "752",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042015",
+    "item_name": "חלב 3% מהדרין שקית 1 ל",
+    "store_id": "845",
+    "actual_price": 6.41,
+    "controlled_product_names": [
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.41,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000042435",
+    "item_name": "חלב מפוסטר 1% בקרטון 1ל",
+    "store_id": "845",
+    "actual_price": 6.92,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 6.92,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "845",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% שומן 250 ג",
+    "store_id": "845",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125400",
+    "item_name": "אשל מהדרין 4.5% 200 מ\"ל",
+    "store_id": "845",
+    "actual_price": 1.99,
+    "controlled_product_names": [
+      "אשל 4.5% שומן"
+    ],
+    "controlled_consumer_price": 1.99,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% מהדרין 200מ\"ל",
+    "store_id": "845",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה15% 200מ תנובה",
+    "store_id": "845",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה15% חצי מנה100",
+    "store_id": "845",
+    "actual_price": 2.3,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.19014084507042256,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב בקרטון 3% שומן 1 ל",
+    "store_id": "845",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  }
+]
