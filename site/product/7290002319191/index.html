@@ -160,15 +160,15 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
       <span class="price ltr">₪10.00</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139) <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪10.20</span>
-    </div>
-    <div class="prow">
       <span class="store">קרפור — קרפור סיטי  קניון כפר סבא (1030) <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/carrefour-400/">לדף הסניף</a></small></span>
       <span class="price ltr">₪10.20</span>
     </div>
     <div class="prow">
       <span class="store">קרפור — כפר סבא @ קוויק <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/carrefour-473/">לדף הסניף</a></small></span>
+      <span class="price ltr">₪10.20</span>
+    </div>
+    <div class="prow">
+      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139) <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
       <span class="price ltr">₪10.20</span>
     </div></div>
   
@@ -224,7 +224,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
-  const points = [{"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "price": 8.0, "t": 0.0, "lat": 32.1720565, "lon": 34.9043899}, {"id": "394", "name": "שופרסל — אקספרס הכרמל כפר סבא", "price": 8.0, "t": 0.0, "lat": 32.1734106, "lon": 34.9167947}, {"id": "shukhair-011", "name": "שוק העיר — כפר סבא מזרח", "price": 8.9, "t": 0.4090909090909094, "lat": 32.1760243, "lon": 34.9346463}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 10.2, "t": 1.0, "lat": 32.1774414, "lon": 34.9028504}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 9.0, "t": 0.4545454545454547, "lat": 32.1797285, "lon": 34.9399082}, {"id": "victory-079", "name": "כפר סבא הירוקה", "price": 8.5, "t": 0.22727272727272735, "lat": 32.1981936, "lon": 34.8908019}];
+  const points = [{"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "price": 8.0, "t": 0.0, "lat": 32.1720565, "lon": 34.9043899}, {"id": "394", "name": "שופרסל — אקספרס הכרמל כפר סבא", "price": 8.0, "t": 0.0, "lat": 32.1734106, "lon": 34.9167947}, {"id": "shukhair-011", "name": "שוק העיר — כפר סבא מזרח", "price": 8.9, "t": 0.4090909090909094, "lat": 32.1760243, "lon": 34.9346463}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 9.0, "t": 0.4545454545454547, "lat": 32.1797285, "lon": 34.9399082}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 10.2, "t": 1.0, "lat": 32.1774414, "lon": 34.9028504}, {"id": "victory-079", "name": "כפר סבא הירוקה", "price": 8.5, "t": 0.22727272727272735, "lat": 32.1981936, "lon": 34.8908019}];
   const BASE = "/frodo-project";
 
   function scoreColor(score){

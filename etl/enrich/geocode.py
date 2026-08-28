@@ -25,7 +25,16 @@ DEFAULT_COUNTRY = "ישראל"
 # defensive check on whatever it returns -- a bounded query can still
 # return a same-city-but-wrong-street match, so this alone doesn't fix
 # precision, but it stops a result from ever landing outside the town.
-KFAR_SABA_BOUNDS = {"min_lat": 32.14, "max_lat": 32.21, "min_lon": 34.86, "max_lon": 34.95}
+#
+# max_lon was 34.95 until confirmed live 2026-08-29 that Nominatim's own
+# administrative boundary for Kfar Saba (osm relation 1383631) extends to
+# lon 34.9570232 -- the old value silently cut off the town's eastern
+# industrial area, dropping a real, verified branch (Osher Ad, street
+# "הים") whose geocoded point (lon ~34.953) fell just outside the old box
+# and was rejected as "outside town" even though it's genuinely in Kfar
+# Saba. Widened past the real boundary with the same small margin as the
+# other three sides.
+KFAR_SABA_BOUNDS = {"min_lat": 32.14, "max_lat": 32.21, "min_lon": 34.86, "max_lon": 34.96}
 
 CACHE_PATH = pathlib.Path(__file__).resolve().parents[2] / "data" / "processed" / "geocode_cache.json"
 

@@ -172,15 +172,15 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
       <span class="price ltr">₪18.90</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139)<small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪18.90</span>
-    </div>
-    <div class="prow">
       <span class="store">קרפור — קרפור סיטי  קניון כפר סבא (1030)<small><a href="/frodo-project/store/carrefour-400/">לדף הסניף</a></small></span>
       <span class="price ltr">₪18.90</span>
     </div>
     <div class="prow">
       <span class="store">קרפור — כפר סבא @ קוויק<small><a href="/frodo-project/store/carrefour-473/">לדף הסניף</a></small></span>
+      <span class="price ltr">₪18.90</span>
+    </div>
+    <div class="prow">
+      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139)<small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
       <span class="price ltr">₪18.90</span>
     </div>
     <div class="prow">
@@ -252,7 +252,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
-  const points = [{"id": "144", "name": "שופרסל — דיל שבירו כפר סבא", "price": 17.5, "t": 0.55, "lat": 32.192092, "lon": 34.8933954}, {"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "price": 19.9, "t": 0.75, "lat": 32.1720565, "lon": 34.9043899}, {"id": "259", "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן", "price": 17.5, "t": 0.55, "lat": 32.1710877, "lon": 34.9272511}, {"id": "36", "name": "שופרסל — שלי כ\"ס- רוטשילד", "price": 19.9, "t": 0.75, "lat": 32.1752104, "lon": 34.908524}, {"id": "845", "name": "שופרסל — אקספרס נחשון כפר סבא", "price": 19.9, "t": 0.75, "lat": 32.1745694, "lon": 34.9059981}, {"id": "rami-levy-719", "name": "רמי לוי — רוטשילד כפר סבא", "price": 12.9, "t": 0.16666666666666669, "lat": 32.1739066, "lon": 34.9078919}, {"id": "tiv-taam-093", "name": "טיב טעם — כפר סבא הירוקה", "price": 22.9, "t": 1.0, "lat": 32.1908086, "lon": 34.8922787}, {"id": "dor-alon-582", "name": "דור אלון — טשרניחובסקי כ\"ס", "price": 18.9, "t": 0.6666666666666666, "lat": 32.1762122, "lon": 34.8922325}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 18.9, "t": 0.6666666666666666, "lat": 32.1774414, "lon": 34.9028504}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 15.9, "t": 0.41666666666666674, "lat": 32.1797285, "lon": 34.9399082}, {"id": "victory-079", "name": "כפר סבא הירוקה", "price": 16.9, "t": 0.49999999999999994, "lat": 32.1981936, "lon": 34.8908019}];
+  const points = [{"id": "144", "name": "שופרסל — דיל שבירו כפר סבא", "price": 17.5, "t": 0.55, "lat": 32.192092, "lon": 34.8933954}, {"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "price": 19.9, "t": 0.75, "lat": 32.1720565, "lon": 34.9043899}, {"id": "259", "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן", "price": 17.5, "t": 0.55, "lat": 32.1710877, "lon": 34.9272511}, {"id": "36", "name": "שופרסל — שלי כ\"ס- רוטשילד", "price": 19.9, "t": 0.75, "lat": 32.1752104, "lon": 34.908524}, {"id": "845", "name": "שופרסל — אקספרס נחשון כפר סבא", "price": 19.9, "t": 0.75, "lat": 32.1745694, "lon": 34.9059981}, {"id": "rami-levy-033", "name": "רמי לוי — כפר סבא", "price": 10.9, "t": 0.0, "lat": 32.172961, "lon": 34.9263439}, {"id": "rami-levy-719", "name": "רמי לוי — רוטשילד כפר סבא", "price": 12.9, "t": 0.16666666666666669, "lat": 32.1739066, "lon": 34.9078919}, {"id": "yohananof-024", "name": "יוחננוף — כפר סבא", "price": 11.9, "t": 0.08333333333333334, "lat": 32.1652687, "lon": 34.9288571}, {"id": "tiv-taam-093", "name": "טיב טעם — כפר סבא הירוקה", "price": 22.9, "t": 1.0, "lat": 32.1908086, "lon": 34.8922787}, {"id": "dor-alon-582", "name": "דור אלון — טשרניחובסקי כ\"ס", "price": 18.9, "t": 0.6666666666666666, "lat": 32.1762122, "lon": 34.8922325}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 15.9, "t": 0.41666666666666674, "lat": 32.1797285, "lon": 34.9399082}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 18.9, "t": 0.6666666666666666, "lat": 32.1774414, "lon": 34.9028504}, {"id": "victory-079", "name": "כפר סבא הירוקה", "price": 16.9, "t": 0.49999999999999994, "lat": 32.1981936, "lon": 34.8908019}];
   const BASE = "/frodo-project";
 
   function scoreColor(score){

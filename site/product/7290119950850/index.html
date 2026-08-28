@@ -136,19 +136,19 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
   <p class="lede">פער של <b>13%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-5 סניפים.</p>
   <div class="pricelist">
     <div class="prow">
-      <span class="store">קרפור — קרפור אונליין   כפר סבא @ קרפור (5304) <span class="chip good">הכי זול</span><small><a href="/frodo-project/store/carrefour-471/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪39.90</span>
-    </div>
-    <div class="prow">
       <span class="store">קרפור — קרפור היפר   כפר סבא <span class="chip good">הכי זול</span><small><a href="/frodo-project/store/carrefour-010/">לדף הסניף</a></small></span>
       <span class="price ltr">₪39.90</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139)<small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪40.90</span>
+      <span class="store">קרפור — קרפור אונליין   כפר סבא @ קרפור (5304) <span class="chip good">הכי זול</span><small><a href="/frodo-project/store/carrefour-471/">לדף הסניף</a></small></span>
+      <span class="price ltr">₪39.90</span>
     </div>
     <div class="prow">
       <span class="store">קרפור — קרפור סיטי  קניון כפר סבא (1030)<small><a href="/frodo-project/store/carrefour-400/">לדף הסניף</a></small></span>
+      <span class="price ltr">₪40.90</span>
+    </div>
+    <div class="prow">
+      <span class="store">קרפור — קרפור סיטי  רון כפר סבא (1139)<small><a href="/frodo-project/store/carrefour-404/">לדף הסניף</a></small></span>
       <span class="price ltr">₪40.90</span>
     </div>
     <div class="prow">
@@ -208,7 +208,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
-  const points = [{"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 40.9, "t": 0.2, "lat": 32.1774414, "lon": 34.9028504}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 39.9, "t": 0.0, "lat": 32.1797285, "lon": 34.9399082}];
+  const points = [{"id": "rami-levy-033", "name": "רמי לוי — כפר סבא", "price": 44.9, "t": 1.0, "lat": 32.172961, "lon": 34.9263439}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 39.9, "t": 0.0, "lat": 32.1797285, "lon": 34.9399082}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 40.9, "t": 0.2, "lat": 32.1774414, "lon": 34.9028504}];
   const BASE = "/frodo-project";
 
   function scoreColor(score){
