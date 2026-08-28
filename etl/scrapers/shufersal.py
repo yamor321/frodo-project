@@ -188,7 +188,8 @@ KFAR_SABA_CITY_NAMES = {"כפר סבא", "כפר-סבא"}
 
 
 def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
-    """Store IDs whose City field identifies Kfar Saba.
+    """Store IDs identifying Kfar Saba, from the City field or (as a last
+    resort) the store's own name.
 
     Objective, data-driven replacement for KFAR_SABA_STORE_IDS below (which
     was identified by manually reading Hebrew branch names) -- verified live
@@ -203,12 +204,28 @@ def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
     one and hoping) is what makes this function actually chain-agnostic,
     instead of coincidentally working for the two chains it happened to be
     written against.
+
+    A third gap, confirmed live 2026-08-29 by reading the real Stores.xml
+    (not a web search): Yohananof (store 024) and Keshet (store 019) both
+    publish City=="0" -- checked directly, not assumed: that's a clear
+    placeholder, not a real settlement code (which would never be "0"), so
+    it carries no usable signal at all. Their StoreName is the literal,
+    exact string "כפר סבא" though, same as branches this function already
+    recognizes by City. Only when City is one of the known placeholder
+    values does this fall back to an EXACT match on the store's own name
+    (not a substring check -- "כפר סבא" appearing inside a longer
+    promotional name wouldn't mean the store is actually there, and a
+    store with a real, different, non-placeholder City code should never
+    be pulled in just because of its name).
     """
-    return {
-        s.store_id
-        for s in stores
-        if s.city_code == KFAR_SABA_CITY_CODE or s.city_code in KFAR_SABA_CITY_NAMES
-    }
+    UNUSABLE_CITY_CODES = {"", "0", "unknown"}
+    matches = set()
+    for s in stores:
+        if s.city_code == KFAR_SABA_CITY_CODE or s.city_code in KFAR_SABA_CITY_NAMES:
+            matches.add(s.store_id)
+        elif s.city_code in UNUSABLE_CITY_CODES and s.store_name.strip() in KFAR_SABA_CITY_NAMES:
+            matches.add(s.store_id)
+    return matches
 
 
 def download(price_file: PriceFile) -> bytes:

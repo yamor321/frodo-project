@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>מנה חמה נודלס ויאטנמי75ג — Frodo Project</title>
+<title>מ.חמה נודלס טעם ויאט — Frodo Project</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -56,7 +56,7 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
-.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+.thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
 .thumb img{ width:100%; height:100%; object-fit:contain; }
 .thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
@@ -66,8 +66,22 @@ footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--l
 footer.sitefoot a{ color:var(--navy); }
 </style>
 <style>
+#gsWrap{ position:relative; margin:0 0 22px; }
+#gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
+  border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
+#gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  max-height:360px; overflow-y:auto; }
+.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+  color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
+.gsrow:last-child{ border-bottom:none; }
+.gsrow:hover{ background:var(--paper); }
+.gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
+.gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+</style>
+<style>
 .product-head{ display:flex; align-items:center; gap:16px; }
-.product-head .thumb{ width:72px; height:72px; border-radius:12px; }
+.product-head .thumb{ width:96px; height:96px; border-radius:12px; }
 .pricelist{ display:flex; flex-direction:column; gap:10px; margin:20px 0; }
 .prow{ display:flex; justify-content:space-between; align-items:center; padding:14px 18px;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
@@ -75,6 +89,26 @@ footer.sitefoot a{ color:var(--navy); }
 .prow .store{ font-weight:600; }
 .prow .store small{ display:block; font-weight:400; color:var(--ink-muted); font-size:.78rem; margin-top:2px; }
 .prow .price{ font-family:'IBM Plex Mono',monospace; font-size:1.1rem; font-variant-numeric:tabular-nums; }
+#productMap{ width:100%; height:340px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+.controls{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
+button.locbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.88rem; padding:9px 18px;
+  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); cursor:pointer; }
+button.locbtn:hover{ background:var(--navy); color:#fff; }
+#leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
+.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
+#nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
+#nearest b{ color:var(--ink); }
+.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
+.store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
+.store-popup b{ font-size:.98rem; }
+.store-popup .meta{ font-size:.82rem; color:var(--ink-muted); margin-top:2px; }
+.store-popup a.openbtn{ display:inline-block; margin-top:8px; font-weight:700; color:var(--navy); text-decoration:none; }
+.store-popup a.openbtn:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -88,59 +122,175 @@ footer.sitefoot a{ color:var(--navy); }
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
 
+  <div id="gsWrap">
+    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off">
+    <div id="gsResults"></div>
+  </div>
+
+
   <div class="kicker">Frodo Project · דף מוצר</div>
   <div class="product-head">
     <div class="thumb empty">—</div>
-    <h1>מנה חמה נודלס ויאטנמי75ג</h1>
+    <h1>מ.חמה נודלס טעם ויאט</h1>
   </div>
-  <p class="lede">פער של <b>83%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-10 סניפים.</p>
+  <p class="lede">פער של <b>80%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-9 סניפים.</p>
   <div class="pricelist">
     <div class="prow">
-      <span class="store">יוניברס גזית כ&quot;ס- ויצמן <span class="chip good">הכי זול</span><small><a href="/frodo-project/store/259/">לדף הסניף</a></small></span>
+      <span class="store">יוחננוף — כפר סבא <span class="chip good">הכי זול</span><small><a href="/frodo-project/store/yohananof-024/">לדף הסניף</a></small></span>
+      <span class="price ltr">₪5.50</span>
+    </div>
+    <div class="prow">
+      <span class="store">שופרסל — יוניברס גזית כ&quot;ס- ויצמן<small><a href="/frodo-project/store/259/">לדף הסניף</a></small></span>
       <span class="price ltr">₪6.50</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור היפר   כפר סבא<small><a href="/frodo-project/store/carrefour-010/">לדף הסניף</a></small></span>
+      <span class="store">קרפור — קרפור היפר   כפר סבא<small><a href="/frodo-project/store/carrefour-010/">לדף הסניף</a></small></span>
       <span class="price ltr">₪6.90</span>
     </div>
     <div class="prow">
-      <span class="store">דיל שבירו כפר סבא<small><a href="/frodo-project/store/144/">לדף הסניף</a></small></span>
+      <span class="store">שופרסל — דיל שבירו כפר סבא<small><a href="/frodo-project/store/144/">לדף הסניף</a></small></span>
       <span class="price ltr">₪7.90</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור אונליין   כפר סבא @ קרפור (5304)<small><a href="/frodo-project/store/carrefour-471/">לדף הסניף</a></small></span>
+      <span class="store">קרפור — קרפור אונליין   כפר סבא @ קרפור (5304)<small><a href="/frodo-project/store/carrefour-471/">לדף הסניף</a></small></span>
       <span class="price ltr">₪7.90</span>
     </div>
     <div class="prow">
-      <span class="store">שלי כ&quot;ס- רוטשילד<small><a href="/frodo-project/store/36/">לדף הסניף</a></small></span>
+      <span class="store">שופרסל — שלי כ&quot;ס- רוטשילד<small><a href="/frodo-project/store/36/">לדף הסניף</a></small></span>
       <span class="price ltr">₪8.50</span>
     </div>
     <div class="prow">
-      <span class="store">קרפור סיטי  קניון כפר סבא (1030)<small><a href="/frodo-project/store/carrefour-400/">לדף הסניף</a></small></span>
+      <span class="store">קרפור — קרפור סיטי  קניון כפר סבא (1030)<small><a href="/frodo-project/store/carrefour-400/">לדף הסניף</a></small></span>
       <span class="price ltr">₪9.10</span>
     </div>
     <div class="prow">
-      <span class="store">אקספרס כ&quot;ס- הגליל<small><a href="/frodo-project/store/375/">לדף הסניף</a></small></span>
+      <span class="store">שופרסל — אקספרס כ&quot;ס- הגליל<small><a href="/frodo-project/store/375/">לדף הסניף</a></small></span>
       <span class="price ltr">₪9.50</span>
     </div>
     <div class="prow">
-      <span class="store">BE מאיר-כפרסבא<small><a href="/frodo-project/store/648/">לדף הסניף</a></small></span>
+      <span class="store">שופרסל — BE מאיר-כפרסבא <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/648/">לדף הסניף</a></small></span>
       <span class="price ltr">₪9.90</span>
-    </div>
-    <div class="prow">
-      <span class="store">שרונים- לירון גרינבר <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/yellow-234/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪11.90</span>
-    </div>
-    <div class="prow">
-      <span class="store">איצטדיון כס - ניתוב <span class="chip warm">הכי יקר</span><small><a href="/frodo-project/store/yellow-235/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪11.90</span>
     </div></div>
+  
+  <h2 class="section-title">איפה המוצר הזה הכי זול לידך</h2>
+  <p class="section-sub">צבע = מיקום המחיר בין הזול ליקר ביותר עבור המוצר הזה בלבד (ירוק=זול, אדום=יקר) -- לא ציון הסניף הכללי.</p>
+  <div class="controls">
+    <button class="locbtn" id="locBtn">📍 מצא את המיקום שלי</button>
+  </div>
+  <div id="productMap"></div>
+  <div class="legend-scale"><span>זול יחסית</span><div class="bar"></div><span>יקר יחסית</span></div>
+  <div id="nearest"></div>
+
 
   <footer class="sitefoot">
     נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
     <a href="/frodo-project/methodology/">כל המקורות ואיך כל מספר מחושב</a>
   </footer>
 </div>
+<script>
+(function(){
+  let items = null;
+  const box = document.getElementById("gsBox");
+  const results = document.getElementById("gsResults");
+  if (!box) return;
 
+  function ensureLoaded(cb){
+    if (items) { cb(); return; }
+    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{ items = data; cb(); }).catch(()=>{ items = []; cb(); });
+  }
+
+  function render(query){
+    const q = query.trim();
+    if (!q || q.length < 2){ results.style.display = "none"; results.innerHTML = ""; return; }
+    const matches = items.filter(it => it.name.includes(q)).slice(0, 20);
+    if (!matches.length){
+      results.style.display = "block";
+      results.innerHTML = '<div class="gsrow gsempty">אין תוצאות</div>';
+      return;
+    }
+    results.style.display = "block";
+    results.innerHTML = matches.map(it =>
+      `<a class="gsrow" href="/frodo-project/product/${it.code}/"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+    ).join("");
+  }
+
+  box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
+  box.addEventListener("focus", ()=>{ ensureLoaded(()=>{}); });
+  document.addEventListener("click", (e)=>{
+    if (!e.target.closest("#gsWrap")) { results.style.display = "none"; }
+  });
+})();
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+(function(){
+  const points = [{"id": "144", "name": "שופרסל — דיל שבירו כפר סבא", "price": 7.9, "t": 0.5454545454545455, "lat": 32.192092, "lon": 34.8933954}, {"id": "259", "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן", "price": 6.5, "t": 0.22727272727272727, "lat": 32.1710877, "lon": 34.9272511}, {"id": "36", "name": "שופרסל — שלי כ\"ס- רוטשילד", "price": 8.5, "t": 0.6818181818181818, "lat": 32.1752104, "lon": 34.908524}, {"id": "375", "name": "שופרסל — אקספרס כ\"ס- הגליל", "price": 9.5, "t": 0.9090909090909091, "lat": 32.1734106, "lon": 34.9167947}, {"id": "648", "name": "שופרסל — BE מאיר-כפרסבא", "price": 9.9, "t": 1.0, "lat": 32.1809853, "lon": 34.8953621}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי  קניון כפר סבא (1030)", "price": 9.1, "t": 0.818181818181818, "lat": 32.1774414, "lon": 34.9028504}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר   כפר סבא", "price": 6.9, "t": 0.31818181818181823, "lat": 32.1797285, "lon": 34.9399082}];
+  const BASE = "/frodo-project";
+
+  function scoreColor(score){
+    const stops = [[0.12,0.48,0.27],[0.79,0.77,0.66],[0.65,0.23,0.18]];
+    const t = score <= 0.5 ? score*2 : (score-0.5)*2;
+    const [a,b] = score <= 0.5 ? [stops[0],stops[1]] : [stops[1],stops[2]];
+    const mix = a.map((v,i)=>Math.round((v + (b[i]-v)*t)*255));
+    return `rgb(${mix[0]},${mix[1]},${mix[2]})`;
+  }
+
+  const map = L.map('productMap');
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 16,
+  }).addTo(map);
+
+  const bounds = [];
+  points.forEach(p=>{
+    const color = scoreColor(p.t);
+    const icon = L.divIcon({html: `<div class="store-pin" style="width:18px;height:18px;border-radius:50%;background:${color}"></div>`, className: "", iconSize: [18,18], iconAnchor: [9,9]});
+    const marker = L.marker([p.lat, p.lon], {icon});
+    marker.bindTooltip(p.name);
+    marker.bindPopup(`
+      <div class="store-popup">
+        <b>${p.name}</b>
+        <div class="meta">₪${p.price.toFixed(2)}</div>
+        <a class="openbtn" href="${BASE}/store/${p.id}/">פתח דף סניף ←</a>
+      </div>
+    `);
+    marker.addTo(map);
+    bounds.push([p.lat, p.lon]);
+  });
+  map.fitBounds(bounds, {padding: [24,24], maxZoom: 16});
+
+  let meMarker = null;
+  function haversine(lat1,lon1,lat2,lon2){
+    const R = 6371000, toRad = d=>d*Math.PI/180;
+    const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+    const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+  function placeMe(lat, lon){
+    if (meMarker) map.removeLayer(meMarker);
+    meMarker = L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"var(--ink)", fillOpacity:1}).addTo(map);
+    map.panTo([lat, lon]);
+    let nearest = null, bestD = Infinity;
+    points.forEach(p=>{
+      const d = haversine(lat, lon, p.lat, p.lon);
+      if (d < bestD){ bestD = d; nearest = p; }
+    });
+    const box = document.getElementById("nearest");
+    if (nearest){
+      const km = (bestD/1000).toFixed(1);
+      box.style.display = "block";
+      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${BASE}/store/${nearest.id}/">${nearest.name}</a></b> — כ-${km} ק"מ, ₪${nearest.price.toFixed(2)}.`;
+    }
+  }
+  map.on('click', (e)=>{ placeMe(e.latlng.lat, e.latlng.lng); });
+  document.getElementById("locBtn").addEventListener("click", ()=>{
+    if (!navigator.geolocation){ alert("הדפדפן לא תומך באיתור מיקום"); return; }
+    navigator.geolocation.getCurrentPosition(
+      (pos)=>{ placeMe(pos.coords.latitude, pos.coords.longitude); },
+      ()=>{ alert("לא הצלחתי לקבל מיקום — אפשר גם ללחוץ ישירות על המפה"); }
+    );
+  });
+})();
+</script>
 </body>
 </html>

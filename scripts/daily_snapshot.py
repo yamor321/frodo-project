@@ -52,6 +52,57 @@ from etl.scrapers.shufersal import (
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
+# Every store name displayed anywhere on the site (map popup, store page,
+# branches table, product price rows) is prefixed with its chain's real
+# name -- without this, several chains published a store's own StoreName as
+# just "כפר סבא" with zero distinguishing detail (confirmed live: Dor Alon,
+# Osher Ad, and Rami Levy all did this independently), and two unrelated
+# chains (Tiv Taam, Victory) both happened to brand a store "כפר סבא
+# הירוקה" -- genuinely different stores, indistinguishable by name alone.
+# Users couldn't tell Rami Levy or Shuk HaIr were even on the site, since
+# nothing ever showed which chain a pin belonged to. Applied once at the
+# store_names merge point (see main()) so it propagates to every page for
+# free, without touching map.py/store.py/branches.py/product.py.
+CHAIN_HEBREW_NAMES = {
+    "": "שופרסל",
+    "carrefour-": "קרפור",
+    "victory-": "ויקטורי",
+    "shukhair-": "שוק העיר",
+    "rami-levy-": "רמי לוי",
+    "yohananof-": "יוחננוף",
+    "osher-ad-": "אושר עד",
+    "tiv-taam-": "טיב טעם",
+    "dor-alon-": "דור אלון",
+    "yellow-": "Yellow",
+    "stop-market-": "Stop Market",
+    "fresh-market-": "Fresh Market",
+    "keshet-": "קשת טעמים",
+    "salach-dabach-": "סאלח דבאח",
+}
+
+# Some chains' own Stores.xml publishes a literal placeholder instead of a
+# real address (confirmed live: Yohananof store 024 has address == "unknown",
+# the same data-quality bug that made its City field unusable too -- see
+# shufersal.kfar_saba_stores()'s name-fallback tier). Treating that as a real
+# address would geocode nonsense and show "unknown" as if it were this
+# store's actual street on its page.
+UNUSABLE_ADDRESSES = {"", "unknown", "0", "-"}
+
+
+def usable_street_addresses(
+    store_addresses: dict[str, str], overrides: dict[str, str]
+) -> dict[str, str]:
+    """`store_addresses` filtered down to entries worth geocoding/displaying
+    -- drops placeholders (see UNUSABLE_ADDRESSES above), applying `overrides`
+    first so a known-good override can rescue an otherwise-placeholder entry.
+    """
+    result = {}
+    for sid, addr in store_addresses.items():
+        resolved = overrides.get(sid, addr)
+        if resolved and resolved.strip().lower() not in UNUSABLE_ADDRESSES:
+            result[sid] = resolved
+    return result
+
 
 @dataclasses.dataclass
 class ChainCollection:
@@ -384,7 +435,9 @@ def main() -> None:
     store_names: dict[str, str] = {}
     store_addresses: dict[str, str] = {}
     for chain in chains:
-        store_names.update(chain.store_names)
+        label = CHAIN_HEBREW_NAMES.get(chain.prefix, chain.prefix.rstrip("-"))
+        for sid, raw_name in chain.store_names.items():
+            store_names[sid] = f"{label} — {raw_name}" if label else raw_name
         store_addresses.update(chain.store_addresses)
 
     # Sticky directory: today's live names/addresses feed it, and any store
@@ -415,11 +468,7 @@ def main() -> None:
     print(f"Wrote {gap_path} and {spread_path}")
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
-    streets_by_store = {
-        sid: ADDRESS_OVERRIDES.get(sid, addr)
-        for sid, addr in store_addresses.items()
-        if ADDRESS_OVERRIDES.get(sid, addr)
-    }
+    streets_by_store = usable_street_addresses(store_addresses, ADDRESS_OVERRIDES)
     geo_results = geocode_many(list(set(streets_by_store.values())))
     coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
@@ -469,20 +518,30 @@ def main() -> None:
                 coords=coords.get(store_id),
                 image_urls=image_urls,
                 as_of_date=stale_as_of.get(store_id),
+                address=streets_by_store.get(store_id),
             ),
             encoding="utf-8",
         )
 
     _prune_stale_dirs(site_dir / "product", referenced_item_codes)
+    search_index = []
     for code in referenced_item_codes:
         item_name = next((s.item_name for s in spreads if s.item_code == code), code)
         store_prices = collect_store_prices(catalogs_by_store, code, store_names)
         prod_dir = site_dir / "product" / code
         prod_dir.mkdir(parents=True, exist_ok=True)
         (prod_dir / "index.html").write_text(
-            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code)),
+            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code), coords=coords),
             encoding="utf-8",
         )
+        if store_prices:
+            search_index.append(
+                {"code": code, "name": item_name, "cheap_price": min(sp.price for sp in store_prices)}
+            )
+
+    (site_dir / "search-index.json").write_text(
+        json.dumps(search_index, ensure_ascii=False), encoding="utf-8"
+    )
 
     print(f"Rendered index, map, {len(store_names)} store pages, {len(referenced_item_codes)} product pages.")
 

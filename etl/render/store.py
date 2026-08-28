@@ -14,6 +14,7 @@ from etl.scoring.store_ranking import StoreScore
 from etl.scrapers.shufersal import PriceRecord
 
 STORE_CSS = """
+.store-address{ color:var(--ink-muted); font-size:.95rem; margin:-8px 0 14px; }
 .navrow{ display:flex; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
 .navbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.85rem; padding:8px 16px;
   border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy);
@@ -85,6 +86,7 @@ def render_store_html(
     image_urls: dict[str, str | None] | None = None,
     top_n: int = 8,
     as_of_date: str | None = None,
+    address: str | None = None,
 ) -> str:
     from etl.render.layout import page_shell
 
@@ -129,9 +131,12 @@ def render_store_html(
     best_html = "\n".join(_deal_card(s, store_id, True, image_urls) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
     worst_html = "\n".join(_deal_card(s, store_id, False, image_urls) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
 
+    address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
+
     body = f"""
   <div class="kicker">Frodo Project · דף סניף</div>
-  <h1>{escape(store_name)}</h1>{nav_html}
+  <h1>{escape(store_name)}</h1>
+  {address_html}{nav_html}
   {stale_html}
   <div class="storecard">{score_html}</div>
 

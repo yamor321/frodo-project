@@ -38,6 +38,29 @@ class KfarSabaStoresTests(unittest.TestCase):
         stores = [store("1", "5000"), store("2", "תל אביב")]
         self.assertEqual(kfar_saba_stores(stores), set())
 
+    def test_falls_back_to_the_stores_own_name_when_city_is_a_placeholder(self):
+        """Real case found live 2026-08-29 (checked directly against the
+        real Stores.xml, not a web search): Yohananof and Keshet both
+        publish City=="0" -- a placeholder, not a real settlement code --
+        but the store's own StoreName is the exact string "כפר סבא".
+        Missed entirely until this fallback was added."""
+        stores = [store("1", "0", name="כפר סבא"), store("2", "0", name="תל אביב")]
+        self.assertEqual(kfar_saba_stores(stores), {"1"})
+
+    def test_name_fallback_requires_an_exact_match_not_a_substring(self):
+        """"כפר סבא" appearing inside a longer promotional name doesn't mean
+        the store is actually there -- a substring match would be a real
+        false-positive risk, unlike the exact City-code/name checks above."""
+        stores = [store("1", "0", name="מבצע ענק בכפר סבא ובכל הארץ")]
+        self.assertEqual(kfar_saba_stores(stores), set())
+
+    def test_city_signal_still_wins_over_name_when_city_is_a_real_different_code(self):
+        """A store with a real, different, non-placeholder City code should
+        never be pulled in just because it happens to be named "כפר סבא" --
+        the name fallback only applies when City itself is unusable."""
+        stores = [store("1", "5000", name="כפר סבא")]
+        self.assertEqual(kfar_saba_stores(stores), set())
+
 
 if __name__ == "__main__":
     unittest.main()

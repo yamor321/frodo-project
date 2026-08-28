@@ -49,7 +49,7 @@ def get_image_url(barcode: str, cache: dict[str, str | None] | None = None) -> s
     for attempt in range(MAX_RETRIES):
         resp = requests.get(
             OFF_API_URL.format(barcode=barcode),
-            params={"fields": "image_front_small_url"},
+            params={"fields": "image_front_url,image_front_small_url"},
             headers={"User-Agent": USER_AGENT},
             timeout=REQUEST_TIMEOUT,
         )
@@ -77,7 +77,12 @@ def get_image_url(barcode: str, cache: dict[str, str | None] | None = None) -> s
 
     url = None
     if data.get("status") == 1:
-        url = data.get("product", {}).get("image_front_small_url") or None
+        product = data.get("product", {})
+        # Prefer the ~400px "display" resolution over the ~100px small one
+        # (a bit bigger than CHP's own 23x23 thumbnails, per the request) --
+        # coverage of the two fields isn't confirmed identical per-product,
+        # so fall back rather than assume the bigger one is always present.
+        url = product.get("image_front_url") or product.get("image_front_small_url") or None
 
     cache[barcode] = url
     if owns_cache:

@@ -55,7 +55,7 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
-.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+.thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
 .thumb img{ width:100%; height:100%; object-fit:contain; }
 .thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
@@ -64,6 +64,108 @@ footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--l
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
 """
+
+LEAFLET_CSS = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">'
+LEAFLET_JS = '<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>'
+
+# Shared by both the main map (etl/render/map.py) and the per-product
+# mini-map (etl/render/product.py) so the two can never drift into visually
+# different color scales or marker styles by accident.
+LEAFLET_MAP_CSS = """
+.controls{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
+button.locbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.88rem; padding:9px 18px;
+  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); cursor:pointer; }
+button.locbtn:hover{ background:var(--navy); color:#fff; }
+#leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
+.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
+#nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
+#nearest b{ color:var(--ink); }
+.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
+.store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
+.store-popup b{ font-size:.98rem; }
+.store-popup .meta{ font-size:.82rem; color:var(--ink-muted); margin-top:2px; }
+.store-popup a.openbtn{ display:inline-block; margin-top:8px; font-weight:700; color:var(--navy); text-decoration:none; }
+.store-popup a.openbtn:hover{ text-decoration:underline; }
+"""
+
+# Same 3-stop green/beige/red gradient everywhere a store or price gets
+# color-coded -- interpolated (not re-typed) into each page's script so the
+# main map and the product mini-map are guaranteed identical, not just similar.
+LEAFLET_SCORE_COLOR_JS = """function scoreColor(score){
+    const stops = [[0.12,0.48,0.27],[0.79,0.77,0.66],[0.65,0.23,0.18]];
+    const t = score <= 0.5 ? score*2 : (score-0.5)*2;
+    const [a,b] = score <= 0.5 ? [stops[0],stops[1]] : [stops[1],stops[2]];
+    const mix = a.map((v,i)=>Math.round((v + (b[i]-v)*t)*255));
+    return `rgb(${mix[0]},${mix[1]},${mix[2]})`;
+  }"""
+
+# A global product search, present on every page (not just the per-store
+# catalog search in store.py, which stays -- that one searches a single
+# store's full catalog including items with no comparison page of their
+# own). Distinct #gs* ids/classes so the two searches never collide on a
+# store page, which has both at once.
+GLOBAL_SEARCH_CSS = """
+#gsWrap{ position:relative; margin:0 0 22px; }
+#gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
+  border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
+#gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  max-height:360px; overflow-y:auto; }
+.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+  color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
+.gsrow:last-child{ border-bottom:none; }
+.gsrow:hover{ background:var(--paper); }
+.gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
+.gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+"""
+
+GLOBAL_SEARCH_HTML = """
+  <div id="gsWrap">
+    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off">
+    <div id="gsResults"></div>
+  </div>
+"""
+
+# Fetches site/search-index.json once, lazily (on first focus/keystroke,
+# not on every page load) -- verified via Network tab to fire exactly once
+# per page regardless of how many characters get typed.
+GLOBAL_SEARCH_SCRIPT = """<script>
+(function(){
+  let items = null;
+  const box = document.getElementById("gsBox");
+  const results = document.getElementById("gsResults");
+  if (!box) return;
+
+  function ensureLoaded(cb){
+    if (items) { cb(); return; }
+    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{ items = data; cb(); }).catch(()=>{ items = []; cb(); });
+  }
+
+  function render(query){
+    const q = query.trim();
+    if (!q || q.length < 2){ results.style.display = "none"; results.innerHTML = ""; return; }
+    const matches = items.filter(it => it.name.includes(q)).slice(0, 20);
+    if (!matches.length){
+      results.style.display = "block";
+      results.innerHTML = '<div class="gsrow gsempty">אין תוצאות</div>';
+      return;
+    }
+    results.style.display = "block";
+    results.innerHTML = matches.map(it =>
+      `<a class="gsrow" href="/frodo-project/product/${it.code}/"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+    ).join("");
+  }
+
+  box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
+  box.addEventListener("focus", ()=>{ ensureLoaded(()=>{}); });
+  document.addEventListener("click", (e)=>{
+    if (!e.target.closest("#gsWrap")) { results.style.display = "none"; }
+  });
+})();
+</script>"""
+
 
 def thumb_html(image_url: str | None, alt: str = "") -> str:
     """A small product thumbnail, or a plain fallback box when there's no
@@ -101,6 +203,7 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {FONT_LINK}
 <style>{PAGE_CSS}</style>
+<style>{GLOBAL_SEARCH_CSS}</style>
 {extra_head}
 </head>
 <body>
@@ -113,12 +216,14 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
     <span class="spacer"></span>
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
+{GLOBAL_SEARCH_HTML}
 {body}
   <footer class="sitefoot">
     נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
     <a href="/frodo-project/methodology/">כל המקורות ואיך כל מספר מחושב</a>
   </footer>
 </div>
+{GLOBAL_SEARCH_SCRIPT}
 {extra_script}
 </body>
 </html>

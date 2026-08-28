@@ -12,29 +12,13 @@ from html import escape
 from etl.enrich.geocode import GeoPoint
 from etl.scoring.store_ranking import StoreScore
 
-LEAFLET_CSS = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">'
-LEAFLET_JS = '<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>'
-
+# LEAFLET_CSS/JS, the base map CSS, and the score-color gradient all live in
+# layout.py now -- shared verbatim with the per-product mini-map in
+# product.py so the two can never drift into different-looking color scales.
 MAP_CSS = """
-.controls{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
-button.locbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.88rem; padding:9px 18px;
-  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); cursor:pointer; }
-button.locbtn:hover{ background:var(--navy); color:#fff; }
 .type-filters{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; font-size:.85rem; }
 .type-filters label{ display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
 .type-filters label.disabled{ opacity:.5; cursor:not-allowed; }
-#leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
-.legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
-.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
-#nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
-#nearest b{ color:var(--ink); }
-.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
-.leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
-.store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
-.store-popup b{ font-size:.98rem; }
-.store-popup .meta{ font-size:.82rem; color:var(--ink-muted); margin-top:2px; }
-.store-popup a.openbtn{ display:inline-block; margin-top:8px; font-weight:700; color:var(--navy); text-decoration:none; }
-.store-popup a.openbtn:hover{ text-decoration:underline; }
 """
 
 
@@ -44,7 +28,7 @@ def render_map_html(
     formats: dict[str, str],
     base_path: str = "/frodo-project",
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import LEAFLET_CSS, LEAFLET_JS, LEAFLET_MAP_CSS, LEAFLET_SCORE_COLOR_JS, page_shell
 
     points = []
     for s in scores:
@@ -85,7 +69,7 @@ def render_map_html(
   <div id="nearest"></div>
 """
 
-    extra_head = f"{LEAFLET_CSS}\n<style>{MAP_CSS}</style>"
+    extra_head = f"{LEAFLET_CSS}\n<style>{LEAFLET_MAP_CSS}</style>\n<style>{MAP_CSS}</style>"
 
     extra_script = f"""{LEAFLET_JS}
 <script>
@@ -93,13 +77,7 @@ def render_map_html(
   const stores = {data_json};
   const BASE = "{base_path}";
 
-  function scoreColor(score){{
-    const stops = [[0.12,0.48,0.27],[0.79,0.77,0.66],[0.65,0.23,0.18]];
-    const t = score <= 0.5 ? score*2 : (score-0.5)*2;
-    const [a,b] = score <= 0.5 ? [stops[0],stops[1]] : [stops[1],stops[2]];
-    const mix = a.map((v,i)=>Math.round((v + (b[i]-v)*t)*255));
-    return `rgb(${{mix[0]}},${{mix[1]}},${{mix[2]}})`;
-  }}
+  {LEAFLET_SCORE_COLOR_JS}
 
   const lats = stores.map(s=>s.lat), lons = stores.map(s=>s.lon);
   const centerLat = (Math.min(...lats)+Math.max(...lats))/2;
