@@ -104,9 +104,9 @@ def main() -> None:
     print(f"Wrote {gap_path} and {spread_path}")
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
-    queries = {sid: f"{addr}, כפר סבא, ישראל" for sid, addr in store_addresses.items() if addr}
-    geo_results = geocode_many(list(set(queries.values())))
-    coords = {sid: geo_results.get(q) for sid, q in queries.items()}
+    streets_by_store = {sid: addr for sid, addr in store_addresses.items() if addr}
+    geo_results = geocode_many(list(set(streets_by_store.values())))
+    coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
 
     formats = {sid: store_format(name) for sid, name in store_names.items()}

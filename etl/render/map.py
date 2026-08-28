@@ -62,7 +62,7 @@ def render_map_html(
     body = f"""
   <div class="kicker">Frodo Project · שכבה 2 · דירוג סניפים</div>
   <h1>מפת מחירים — שופרסל בכפר סבא</h1>
-  <p class="lede">כל נקודה = סניף. הצבע = כמה יקר הוא בממוצע ביחס לשאר הסניפים, על אלפי מוצרים משותפים. לחיצה על סניף פותחת את דף המוצרים הבולטים שלו.</p>
+  <p class="lede">כל נקודה = סניף. הצבע = כמה יקר הוא בממוצע ביחס לשאר הסניפים, על אלפי מוצרים משותפים. לחיצה על סניף פותחת את דף המוצרים הבולטים שלו. מיקום הסניף על המפה מבוסס על geocoding אוטומטי מהכתובת הרשמית ועשוי להיות משוער — לא תמיד מדויק לכניסה עצמה.</p>
 
   <div class="controls">
     <button class="locbtn" id="locBtn">📍 מצא את המיקום שלי</button>
@@ -109,7 +109,10 @@ def render_map_html(
   // guaranteed to actually render.
   L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 19,
+    // Capped below the zoom where individual building outlines start
+    // rendering -- keeps the map graphic/lean instead of relying on
+    // users not to zoom in past it.
+    maxZoom: 16,
   }}).addTo(map);
 
   const hyperLayer = L.layerGroup().addTo(map);
