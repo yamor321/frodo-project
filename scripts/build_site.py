@@ -46,12 +46,21 @@ def store_format(name: str) -> str:
 
 def main() -> None:
     print("Loading cached raw catalogs (no network)...")
-    catalogs_by_store = {}
+    # A store can have more than one cached file (re-runs on different days
+    # land in the same date-named folder) -- always take the one with the
+    # latest embedded publish timestamp, never glob order.
+    latest_by_store: dict[str, tuple[str, str]] = {}
     for path in glob.glob(str(RAW_DIR / "PriceFull*.xml")):
-        m = re.search(r"-(\d{1,3})-\d{8}-\d{6}\.xml$", path)
+        m = re.search(r"-(\d{1,3})-(\d{8}-\d{6})\.xml$", path)
         store_id = str(int(m.group(1)))  # normalize away zero-padding (e.g. "036" -> "36")
+        published_at = m.group(2)
+        if store_id not in latest_by_store or published_at > latest_by_store[store_id][0]:
+            latest_by_store[store_id] = (published_at, path)
+
+    catalogs_by_store = {}
+    for store_id, (published_at, path) in latest_by_store.items():
         catalogs_by_store[store_id] = parse_price_xml(pathlib.Path(path).read_bytes())
-        print(f"  {store_id} ({STORE_NAMES.get(store_id, '?')}): {len(catalogs_by_store[store_id])} items")
+        print(f"  {store_id} ({STORE_NAMES.get(store_id, '?')}): {len(catalogs_by_store[store_id])} items [{published_at}]")
 
     coords_raw = json.loads((ROOT / "data" / "processed" / "store_coords.json").read_text(encoding="utf-8"))
     from etl.enrich.geocode import GeoPoint

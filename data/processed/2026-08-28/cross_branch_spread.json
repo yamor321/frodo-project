@@ -686,12 +686,12 @@
   {
     "item_code": "7290118423966",
     "item_name": "חטיף דובונים לבבות 40 גר",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 4.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 7.5,
     "spread_pct": 0.5306122448979591
   },
@@ -1200,18 +1200,6 @@
     "spread_pct": 0.4693877551020407
   },
   {
-    "item_code": "7290000966564",
-    "item_name": "רימון מובחר",
-    "num_stores": 11,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 12.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
-    "expensive_price": 18.9,
-    "spread_pct": 0.46511627906976727
-  },
-  {
     "item_code": "7290115207941",
     "item_name": "ויטמינצ'יק אננס 1 ליטר",
     "num_stores": 11,
@@ -1237,7 +1225,7 @@
   },
   {
     "item_code": "7290115208047",
-    "item_name": "ויטמינציק פטל 1 ליטר",
+    "item_name": "ויטמינצ'יק פטל 1 ליטר",
     "num_stores": 11,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
@@ -1694,7 +1682,7 @@
   {
     "item_code": "7290013585257",
     "item_name": "ספרייט זירו 500 מ\"ל",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 6.9,
@@ -3698,7 +3686,7 @@
   {
     "item_code": "7290003778034",
     "item_name": "תמרים ללא חרצנים 500 גרם",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 11.9,
@@ -3780,18 +3768,6 @@
     "spread_pct": 0.33557046979865757
   },
   {
-    "item_code": "7290000963839",
-    "item_name": "אבוקדו מובחר",
-    "num_stores": 11,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
-    "expensive_price": 19.9,
-    "spread_pct": 0.33557046979865757
-  },
-  {
     "item_code": "7290000963976",
     "item_name": "נקטרינה 60",
     "num_stores": 11,
@@ -3812,18 +3788,6 @@
     "cheap_price": 14.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 19.9,
-    "spread_pct": 0.33557046979865757
-  },
-  {
-    "item_code": "7290000964980",
-    "item_name": "אבוקדו",
-    "num_stores": 11,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 19.9,
     "spread_pct": 0.33557046979865757
   },
@@ -3860,18 +3824,6 @@
     "cheap_price": 14.9,
     "expensive_store_id": "752",
     "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 19.9,
-    "spread_pct": 0.33557046979865757
-  },
-  {
-    "item_code": "7290012009105",
-    "item_name": "מארז אוכמניות  125 גרם",
-    "num_stores": 7,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 19.9,
     "spread_pct": 0.33557046979865757
   },
@@ -3986,7 +3938,7 @@
   {
     "item_code": "33383220291",
     "item_name": "אוכמניות טריות 125גרם",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -4011,11 +3963,23 @@
     "item_code": "7290008268448",
     "item_name": "אוכמניות ארוז 125גרם",
     "num_stores": 7,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 14.9,
     "expensive_store_id": "394",
     "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_price": 19.9,
+    "spread_pct": 0.33557046979865757
+  },
+  {
+    "item_code": "7290012009105",
+    "item_name": "מארז אוכמניות  125 גרם",
+    "num_stores": 6,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 19.9,
     "spread_pct": 0.33557046979865757
   },
@@ -4094,12 +4058,12 @@
   {
     "item_code": "8437006505246",
     "item_name": "מארז אוכמניות טריות 125",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 19.9,
     "spread_pct": 0.33557046979865757
   },
@@ -4274,12 +4238,12 @@
   {
     "item_code": "7290112346797",
     "item_name": "אקטיביה ש.שועל שזיף150גר",
-    "num_stores": 6,
+    "num_stores": 8,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 4.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 6.5,
     "spread_pct": 0.3265306122448979
   },
@@ -4364,6 +4328,18 @@
     "cheap_price": 18.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 24.9,
+    "spread_pct": 0.3174603174603175
+  },
+  {
+    "item_code": "7290000965918",
+    "item_name": "שזיף שגיב",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 18.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 24.9,
     "spread_pct": 0.3174603174603175
   },
@@ -4874,12 +4850,12 @@
   {
     "item_code": "8033020444525",
     "item_name": "קמח חיטה לבן מנופה 1 ק\"ג",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 9.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 12.9,
     "spread_pct": 0.30303030303030304
   },
@@ -5004,18 +4980,6 @@
     "spread_pct": 0.30150753768844224
   },
   {
-    "item_code": "7290002345022",
-    "item_name": "אנטריקוט דק דק אל גאוצו",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 25.9,
-    "spread_pct": 0.30150753768844224
-  },
-  {
     "item_code": "7290003387410",
     "item_name": "פדים להסרת איפור 3*80 יח",
     "num_stores": 11,
@@ -5054,12 +5018,12 @@
   {
     "item_code": "8006540688939",
     "item_name": "מגן תחתון אולוויז L 48",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
-    "expensive_store_id": "171",
-    "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 25.9,
     "spread_pct": 0.30150753768844224
   },
@@ -5078,7 +5042,7 @@
   {
     "item_code": "8006540689110",
     "item_name": "מגן תחתון אולוויז 56יח",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
@@ -5196,18 +5160,6 @@
     "spread_pct": 0.2958579881656805
   },
   {
-    "item_code": "7290012309939",
-    "item_name": "חלבה מסולסלת 450 גרם",
-    "num_stores": 8,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 16.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
-    "expensive_price": 21.9,
-    "spread_pct": 0.2958579881656805
-  },
-  {
     "item_code": "7290100689301",
     "item_name": "מרק בטעם עוף זך 400גר",
     "num_stores": 11,
@@ -5240,6 +5192,18 @@
     "cheap_price": 16.9,
     "expensive_store_id": "375",
     "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 21.9,
+    "spread_pct": 0.2958579881656805
+  },
+  {
+    "item_code": "7290012309939",
+    "item_name": "חלבה מסולסלת 450 גרם",
+    "num_stores": 7,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 16.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 21.9,
     "spread_pct": 0.2958579881656805
   },
@@ -5486,7 +5450,7 @@
   {
     "item_code": "7296073707325",
     "item_name": "פסטה פנה 500 גרם MANTINI",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 6.9,
@@ -6458,7 +6422,7 @@
   {
     "item_code": "7290000993294",
     "item_name": "עגבניות שרי לובלו",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 17.9,
@@ -6710,7 +6674,7 @@
   {
     "item_code": "7290105366993",
     "item_name": "סימפוניה שיפקה חריף200",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 10.9,
@@ -6900,6 +6864,18 @@
     "spread_pct": 0.27522935779816515
   },
   {
+    "item_code": "7290112841919",
+    "item_name": "פטריות שמפניון 300 גרם",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 10.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 13.9,
+    "spread_pct": 0.27522935779816515
+  },
+  {
     "item_code": "7296073342496",
     "item_name": "דלעת ארוזה",
     "num_stores": 5,
@@ -6962,7 +6938,7 @@
   {
     "item_code": "7290000692210",
     "item_name": "נוזל ניקוי לבנדר2ל אגקס",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 21.9,
@@ -7165,7 +7141,7 @@
   },
   {
     "item_code": "7290006271181",
-    "item_name": "גחנון אפוי מעדנות 750גר",
+    "item_name": "ג'חנון אפוי מעדנות 750גר",
     "num_stores": 9,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
@@ -7836,6 +7812,18 @@
     "spread_pct": 0.25454545454545463
   },
   {
+    "item_code": "7290001247730",
+    "item_name": "ספרינג מנגו פחית 330 מ\"ל",
+    "num_stores": 9,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 5.5,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 6.9,
+    "spread_pct": 0.25454545454545463
+  },
+  {
     "item_code": "7290001247747",
     "item_name": "ספרינג תפוחים פחית330מ\"ל",
     "num_stores": 7,
@@ -7916,18 +7904,6 @@
     "cheap_price": 5.5,
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 6.9,
-    "spread_pct": 0.25454545454545463
-  },
-  {
-    "item_code": "7290001247730",
-    "item_name": "ספרינג מנגו פחית 330 מ\"ל",
-    "num_stores": 8,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 5.5,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 6.9,
     "spread_pct": 0.25454545454545463
   },
@@ -8186,7 +8162,7 @@
   {
     "item_code": "7296073693093",
     "item_name": "סוללות AAA 4 יחידות",
-    "num_stores": 13,
+    "num_stores": 14,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 7.9,
@@ -8222,7 +8198,7 @@
   {
     "item_code": "7296073705390",
     "item_name": "שורש סלרי (ק)",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 7.9,
@@ -8678,7 +8654,7 @@
   {
     "item_code": "7290000194837",
     "item_name": "שקיות מזון XL עם קשירה",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 11.9,
@@ -8696,6 +8672,18 @@
     "cheap_price": 11.9,
     "expensive_store_id": "375",
     "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 14.9,
+    "spread_pct": 0.25210084033613445
+  },
+  {
+    "item_code": "7290004068028",
+    "item_name": "ציזיקי לשתיה 500 מ\"ל",
+    "num_stores": 8,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 11.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 14.9,
     "spread_pct": 0.25210084033613445
   },
@@ -8906,7 +8894,7 @@
   {
     "item_code": "7296073722670",
     "item_name": "תחליב רחצה קלאסי700מ ME",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 11.9,
@@ -9146,18 +9134,6 @@
   {
     "item_code": "7290000190198",
     "item_name": "מטליות לחות לחיטוי",
-    "num_stores": 7,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 11.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 14.9,
-    "spread_pct": 0.25210084033613445
-  },
-  {
-    "item_code": "7290004068028",
-    "item_name": "ציזיקי לשתיה 500 מ\"ל",
     "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -9578,12 +9554,12 @@
   {
     "item_code": "7290000000886",
     "item_name": "עגבניה שרי אשכולות -שקיל",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 15.9,
-    "expensive_store_id": "171",
-    "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 19.9,
     "spread_pct": 0.25157232704402505
   },
@@ -9768,6 +9744,18 @@
     "spread_pct": 0.2512562814070352
   },
   {
+    "item_code": "7290116537962",
+    "item_name": "כריות במילוי קרם וניל 34",
+    "num_stores": 6,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 19.9,
+    "expensive_store_id": "171",
+    "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_price": 24.9,
+    "spread_pct": 0.2512562814070352
+  },
+  {
     "item_code": "7296073731801",
     "item_name": "שקיות אשפה L+שרוךLU 55",
     "num_stores": 8,
@@ -9903,18 +9891,6 @@
     "item_code": "7290116537955",
     "item_name": "כריות במילוי קרם שוקולד",
     "num_stores": 5,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 19.9,
-    "expensive_store_id": "171",
-    "expensive_store_name": "אקספרס אוסטשינסקי",
-    "expensive_price": 24.9,
-    "spread_pct": 0.2512562814070352
-  },
-  {
-    "item_code": "7290116537962",
-    "item_name": "כריות במילוי קרם וניל 34",
-    "num_stores": 4,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 19.9,
@@ -10130,7 +10106,7 @@
   {
     "item_code": "7290111930898",
     "item_name": "פוף כוכבים גריל אמריקא40",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 4.0,
@@ -10274,9 +10250,9 @@
   {
     "item_code": "7290105360878",
     "item_name": "תפוציפס 4*50 גרם",
-    "num_stores": 11,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
+    "num_stores": 10,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 12.5,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
@@ -10548,18 +10524,6 @@
     "spread_pct": 0.23728813559322035
   },
   {
-    "item_code": "7290110558314",
-    "item_name": "דנונה פרו ל.סוכר פיסט200",
-    "num_stores": 8,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 5.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 7.3,
-    "spread_pct": 0.23728813559322023
-  },
-  {
     "item_code": "7290110565527",
     "item_name": "דנונה פרו 20ג חלבון 200ג",
     "num_stores": 11,
@@ -10826,6 +10790,18 @@
   {
     "item_code": "7290000000749",
     "item_name": "פלפל שישקה מתוק",
+    "num_stores": 11,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 12.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 15.9,
+    "spread_pct": 0.23255813953488372
+  },
+  {
+    "item_code": "7290000966564",
+    "item_name": "רימון מובחר",
     "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -11174,12 +11150,12 @@
   {
     "item_code": "7290005418709",
     "item_name": "קר.לחות נטורל קיבוע תלתל",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "335",
+    "expensive_store_name": "אקספרס כ\"ס- בן גוריון",
     "expensive_price": 24.5,
     "spread_pct": 0.23115577889447245
   },
@@ -11306,12 +11282,12 @@
   {
     "item_code": "7290001817377",
     "item_name": "חטיף ציטוס PUFFS פיצה60",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "230",
     "cheap_store_name": "שלי כ\"ס- ויצמן",
     "cheap_price": 5.3,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 6.5,
     "spread_pct": 0.22641509433962267
   },
@@ -11810,12 +11786,12 @@
   {
     "item_code": "4823077641367",
     "item_name": "עוג.LOVITA קרם שוקולד127",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 8.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 10.9,
     "spread_pct": 0.2247191011235955
   },
@@ -12098,7 +12074,7 @@
   {
     "item_code": "7290121010368",
     "item_name": "בורקס שוק גבינה 600 גרם",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 17.9,
@@ -12398,7 +12374,7 @@
   {
     "item_code": "7290018441565",
     "item_name": "גלידה וניל פקאן בלונדי",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 22.9,
@@ -13681,7 +13657,7 @@
   },
   {
     "item_code": "7290119371716",
-    "item_name": "תפוציפס קראנצ גריל 200",
+    "item_name": "תפוצ'יפס קראנצ' גריל 200",
     "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -14030,7 +14006,7 @@
   {
     "item_code": "7290107937641",
     "item_name": "מסטיק בזוקה קוביות צנצ58",
-    "num_stores": 13,
+    "num_stores": 14,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 11.5,
@@ -14616,6 +14592,18 @@
     "spread_pct": 0.2040816326530612
   },
   {
+    "item_code": "7290019635925",
+    "item_name": "בסגנון יוגורט יווני 140",
+    "num_stores": 8,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 4.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 5.9,
+    "spread_pct": 0.2040816326530612
+  },
+  {
     "item_code": "7290110114398",
     "item_name": "מיסט סודה ט.לימון250מ\"ל",
     "num_stores": 4,
@@ -14643,18 +14631,6 @@
     "item_code": "7290019635918",
     "item_name": "סגנון יוג.יווני תות א140",
     "num_stores": 6,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 4.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 5.9,
-    "spread_pct": 0.2040816326530612
-  },
-  {
-    "item_code": "7290019635925",
-    "item_name": "בסגנון יוגורט יווני 140",
-    "num_stores": 7,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 4.9,
@@ -15482,12 +15458,12 @@
   {
     "item_code": "7290116934150",
     "item_name": "משקה שיבולת שועל ללת\"ס1ל",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 12.9,
-    "expensive_store_id": "335",
-    "expensive_store_name": "אקספרס כ\"ס- בן גוריון",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 15.5,
     "spread_pct": 0.2015503875968992
   },
@@ -15540,9 +15516,33 @@
     "spread_pct": 0.2013422818791945
   },
   {
+    "item_code": "7290000963839",
+    "item_name": "אבוקדו מובחר",
+    "num_stores": 11,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 17.9,
+    "spread_pct": 0.2013422818791945
+  },
+  {
     "item_code": "7290000964911",
     "item_name": "אגס אנגו ארה\"ב*",
     "num_stores": 10,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 17.9,
+    "spread_pct": 0.2013422818791945
+  },
+  {
+    "item_code": "7290000964980",
+    "item_name": "אבוקדו",
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -15830,7 +15830,7 @@
   {
     "item_code": "7290000966779",
     "item_name": "תות שדה ארוז (ק)",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -16298,12 +16298,12 @@
   {
     "item_code": "60098740",
     "item_name": "דאב רול און רגיש 50 מ\"ל",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "36",
+    "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 23.9,
     "spread_pct": 0.20100502512562815
   },
@@ -16502,12 +16502,12 @@
   {
     "item_code": "710497311090",
     "item_name": "פטל אוסנה שחור 125 גרם",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 24.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 29.9,
     "spread_pct": 0.20080321285140562
   },
@@ -17318,12 +17318,12 @@
   {
     "item_code": "7290000292687",
     "item_name": "סנובון אסלה כחול 3*55ג",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 15.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 18.9,
     "spread_pct": 0.18867924528301874
   },
@@ -17396,18 +17396,6 @@
     "cheap_price": 15.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 18.9,
-    "spread_pct": 0.18867924528301874
-  },
-  {
-    "item_code": "7296073629153",
-    "item_name": "מיונז אמיתי 1 ק\"ג MAYO",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 18.9,
     "spread_pct": 0.18867924528301874
   },
@@ -17558,7 +17546,7 @@
   {
     "item_code": "4810168062200",
     "item_name": "בלינצס מילוי דובדבנים360",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 15.9,
@@ -17636,6 +17624,18 @@
     "cheap_price": 15.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 18.9,
+    "spread_pct": 0.18867924528301874
+  },
+  {
+    "item_code": "7296073629153",
+    "item_name": "מיונז אמיתי 1 ק\"ג MAYO",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 15.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 18.9,
     "spread_pct": 0.18867924528301874
   },
@@ -18157,7 +18157,7 @@
   },
   {
     "item_code": "7290000178721",
-    "item_name": "תפוציפס טבעי 200 גרם",
+    "item_name": "תפוצי'פס טבעי 200 גרם",
     "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -18194,7 +18194,7 @@
   {
     "item_code": "7290011996178",
     "item_name": "רוטב סויה בסגנון יפני300",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 10.9,
@@ -20762,7 +20762,7 @@
   {
     "item_code": "7290006271648",
     "item_name": "מיני בורקס תפוא 800",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 26.9,
@@ -21308,6 +21308,18 @@
     "cheap_price": 5.9,
     "expensive_store_id": "375",
     "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 6.9,
+    "spread_pct": 0.1694915254237288
+  },
+  {
+    "item_code": "7290016087222",
+    "item_name": "פריניר רוטב לשקשוקה 230ג",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 5.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 6.9,
     "spread_pct": 0.1694915254237288
   },
@@ -22332,6 +22344,18 @@
     "spread_pct": 0.1680672268907563
   },
   {
+    "item_code": "8852633119039",
+    "item_name": "רוטב דגים 300 מ\"ל",
+    "num_stores": 9,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 11.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 13.9,
+    "spread_pct": 0.1680672268907563
+  },
+  {
     "item_code": "5010182998861",
     "item_name": "טואלט דאק נוזל רענן750מ",
     "num_stores": 7,
@@ -22752,18 +22776,6 @@
     "spread_pct": 0.1680672268907563
   },
   {
-    "item_code": "8852633119039",
-    "item_name": "רוטב דגים 300 מ\"ל",
-    "num_stores": 8,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 11.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 13.9,
-    "spread_pct": 0.1680672268907563
-  },
-  {
     "item_code": "7290000554532",
     "item_name": "גב.צפתית מעודנת5% 200גרם",
     "num_stores": 11,
@@ -23030,7 +23042,7 @@
   {
     "item_code": "7290000552989",
     "item_name": "בשר טחון מובחר 500 גרם",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
@@ -23126,7 +23138,7 @@
   {
     "item_code": "7296073731856",
     "item_name": "גבינת גאודה פרוסה 600ג",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
@@ -23246,7 +23258,7 @@
   {
     "item_code": "7610400085946",
     "item_name": "שוק.לינדט מריר אלמונד150",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
@@ -23412,6 +23424,18 @@
     "spread_pct": 0.16706443914081145
   },
   {
+    "item_code": "8700216804189",
+    "item_name": "אריאל קפסולות לכביסה44יח",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 59.9,
+    "expensive_store_id": "230",
+    "expensive_store_name": "שלי כ\"ס- ויצמן",
+    "expensive_price": 69.9,
+    "spread_pct": 0.1669449081803006
+  },
+  {
     "item_code": "8700216804714",
     "item_name": "קפסולות אריאל  לנור44 יח",
     "num_stores": 4,
@@ -23520,6 +23544,18 @@
     "spread_pct": 0.16666666666666666
   },
   {
+    "item_code": "7290116936390",
+    "item_name": "יוגורט 4.3% טופ פקאן158ג",
+    "num_stores": 7,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 6.0,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 7.0,
+    "spread_pct": 0.16666666666666666
+  },
+  {
     "item_code": "72993637",
     "item_name": "דני שוקולד 1.5% 125 גרם",
     "num_stores": 8,
@@ -23541,18 +23577,6 @@
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 70.0,
-    "spread_pct": 0.16666666666666666
-  },
-  {
-    "item_code": "7290116936390",
-    "item_name": "יוגורט 4.3% טופ פקאן158ג",
-    "num_stores": 6,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 6.0,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 7.0,
     "spread_pct": 0.16666666666666666
   },
   {
@@ -23990,12 +24014,12 @@
   {
     "item_code": "7290110115302",
     "item_name": "פאנטה זירו ט.אורנג 1.5ל",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 8.5,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 9.9,
     "spread_pct": 0.16470588235294123
   },
@@ -24302,7 +24326,7 @@
   {
     "item_code": "8000500359488",
     "item_name": "טבלת פררו חלב+אגוז לוז92",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 18.0,
@@ -25826,7 +25850,7 @@
   {
     "item_code": "7290003726615",
     "item_name": "טופו ויילר 300 גרם",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
@@ -27578,7 +27602,7 @@
   {
     "item_code": "7296073240853",
     "item_name": "וופלים בטעם שוקולד 1 ק\"ג",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
@@ -27830,7 +27854,7 @@
   {
     "item_code": "7290000135182",
     "item_name": "סבן אפ זירו6 *330",
-    "num_stores": 7,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
@@ -27890,7 +27914,7 @@
   {
     "item_code": "7290008104050",
     "item_name": "תחליב רחצה קלאסיק220מל",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
@@ -27936,6 +27960,18 @@
     "spread_pct": 0.15075376884422112
   },
   {
+    "item_code": "7290011379018",
+    "item_name": "פטריות שמפניון - צמד",
+    "num_stores": 6,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 22.9,
+    "spread_pct": 0.15075376884422112
+  },
+  {
     "item_code": "7290011570781",
     "item_name": "כרגיל תע.לעוגה וניל450גר",
     "num_stores": 4,
@@ -27960,6 +27996,42 @@
     "spread_pct": 0.15075376884422112
   },
   {
+    "item_code": "7290013215901",
+    "item_name": "צמד פטריות פורטבלו 600 ג",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 22.9,
+    "spread_pct": 0.15075376884422112
+  },
+  {
+    "item_code": "7290013215918",
+    "item_name": "צמד פטריות מעורב 600 גרם",
+    "num_stores": 6,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 22.9,
+    "spread_pct": 0.15075376884422112
+  },
+  {
+    "item_code": "7290013215925",
+    "item_name": "צמד פטריות שמפניון 600 ג",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 22.9,
+    "spread_pct": 0.15075376884422112
+  },
+  {
     "item_code": "7290014002197",
     "item_name": "חליטת קמומיל ולימונית25ש",
     "num_stores": 7,
@@ -27968,6 +28040,18 @@
     "cheap_price": 19.9,
     "expensive_store_id": "752",
     "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 22.9,
+    "spread_pct": 0.15075376884422112
+  },
+  {
+    "item_code": "7290014079847",
+    "item_name": "פטריות פורטובלו - צמד",
+    "num_stores": 6,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 22.9,
     "spread_pct": 0.15075376884422112
   },
@@ -27997,7 +28081,7 @@
   },
   {
     "item_code": "7290019621348",
-    "item_name": "חליטה גלילית 25ש*2גרם",
+    "item_name": "חליטה גלילית 25ש2*גרם",
     "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -28478,12 +28562,12 @@
   {
     "item_code": "7290002881216",
     "item_name": "רסק תפו\"ע דיאט צנצנת720ג",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 13.5,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 15.5,
     "spread_pct": 0.14814814814814814
   },
@@ -28502,12 +28586,12 @@
   {
     "item_code": "7296073630890",
     "item_name": "ספגטי ללא גלוטן 400 גרם",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 13.5,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 15.5,
     "spread_pct": 0.14814814814814814
   },
@@ -28629,18 +28713,6 @@
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 15.5,
-    "spread_pct": 0.14814814814814814
-  },
-  {
-    "item_code": "7290000532585",
-    "item_name": "רוסטביף חצוי במשקל",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 135.0,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 155.0,
     "spread_pct": 0.14814814814814814
   },
   {
@@ -28956,6 +29028,18 @@
     "spread_pct": 0.14545454545454536
   },
   {
+    "item_code": "7290010154241",
+    "item_name": "סלט חזרת 250 גרם",
+    "num_stores": 9,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 16.5,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 18.9,
+    "spread_pct": 0.14545454545454536
+  },
+  {
     "item_code": "7290010154678",
     "item_name": "אריסה מרוקאית 250 גרם",
     "num_stores": 10,
@@ -29066,24 +29150,12 @@
   {
     "item_code": "7290112968685",
     "item_name": "חומוס גרגרים בתטבילה400ג",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.5,
     "expensive_store_id": "335",
     "expensive_store_name": "אקספרס כ\"ס- בן גוריון",
-    "expensive_price": 18.9,
-    "spread_pct": 0.14545454545454536
-  },
-  {
-    "item_code": "7290010154241",
-    "item_name": "סלט חזרת 250 גרם",
-    "num_stores": 8,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 16.5,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 18.9,
     "spread_pct": 0.14545454545454536
   },
@@ -29165,18 +29237,6 @@
     "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 6.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 7.9,
-    "spread_pct": 0.14492753623188406
-  },
-  {
-    "item_code": "6934932066626",
-    "item_name": "כוסות 180CC י100 יחידות",
-    "num_stores": 5,
-    "cheap_store_id": "375",
-    "cheap_store_name": "אקספרס כ\"ס- הגליל",
     "cheap_price": 6.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
@@ -30384,18 +30444,6 @@
     "spread_pct": 0.14388489208633093
   },
   {
-    "item_code": "7290002037569",
-    "item_name": "לחמניות באניס 6*75 גרם",
-    "num_stores": 7,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 13.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
-    "expensive_price": 15.9,
-    "spread_pct": 0.14388489208633093
-  },
-  {
     "item_code": "7290002057383",
     "item_name": "מלפפון במלח 18-25 540גרם",
     "num_stores": 7,
@@ -30896,6 +30944,18 @@
     "cheap_price": 13.9,
     "expensive_store_id": "375",
     "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 15.9,
+    "spread_pct": 0.14388489208633093
+  },
+  {
+    "item_code": "7290002037569",
+    "item_name": "לחמניות באניס 6*75 גרם",
+    "num_stores": 6,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 13.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 15.9,
     "spread_pct": 0.14388489208633093
   },
@@ -32954,7 +33014,7 @@
   {
     "item_code": "7290112340276",
     "item_name": "פינוקיות קרם קפה נמס200ג",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -33098,7 +33158,7 @@
   {
     "item_code": "7296073693109",
     "item_name": "סוללות AA 8 יחידות",
-    "num_stores": 13,
+    "num_stores": 14,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -33116,6 +33176,18 @@
     "cheap_price": 14.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 16.9,
+    "spread_pct": 0.13422818791946298
+  },
+  {
+    "item_code": "7296073723356",
+    "item_name": "ממרח זיתים ירוקים 180 גר",
+    "num_stores": 7,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 0.13422818791946298
   },
@@ -33218,7 +33290,7 @@
   {
     "item_code": "7296073745457",
     "item_name": "איולי ציפוטלה250שדה אדמה",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -33302,7 +33374,7 @@
   {
     "item_code": "7296073753919",
     "item_name": "חומוס גרגיר+שפקה500מסעדה",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -33612,18 +33684,6 @@
     "spread_pct": 0.13422818791946298
   },
   {
-    "item_code": "7290112841865",
-    "item_name": "מארז פורטובלו למילוי",
-    "num_stores": 5,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
-    "expensive_price": 16.9,
-    "spread_pct": 0.13422818791946298
-  },
-  {
     "item_code": "7290116935409",
     "item_name": "נפוליאון25%מוקצף טבעי180",
     "num_stores": 5,
@@ -33740,18 +33800,6 @@
     "cheap_price": 14.9,
     "expensive_store_id": "752",
     "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 16.9,
-    "spread_pct": 0.13422818791946298
-  },
-  {
-    "item_code": "7296073723356",
-    "item_name": "ממרח זיתים ירוקים 180 גר",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 0.13422818791946298
   },
@@ -33986,7 +34034,7 @@
   {
     "item_code": "7290005559709",
     "item_name": "בורקס פיצה 700 גרם",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
@@ -34178,7 +34226,7 @@
   {
     "item_code": "7290102399819",
     "item_name": "מולר פרוטאין יוגור.פירות",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 7.5,
@@ -34286,7 +34334,7 @@
   {
     "item_code": "7290008805520",
     "item_name": "קברנה מרלו סלקטד 750 מ\"ל",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 37.9,
@@ -34418,7 +34466,7 @@
   {
     "item_code": "7290018755839",
     "item_name": "ג.סורבה קוקוס+לימון ל420",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 22.9,
@@ -34706,7 +34754,7 @@
   {
     "item_code": "7290011499846",
     "item_name": "ריקוטה פרסקה 9% 300 גרם",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 22.9,
@@ -34719,6 +34767,18 @@
     "item_code": "7290018755815",
     "item_name": "קרמיס.פקאן וניל ולוז420ג",
     "num_stores": 7,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 22.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 25.9,
+    "spread_pct": 0.13100436681222707
+  },
+  {
+    "item_code": "7290018755846",
+    "item_name": "ג.וניל עוגיה+רום+שוקו420",
+    "num_stores": 5,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 22.9,
@@ -35126,7 +35186,7 @@
   {
     "item_code": "7290105368331",
     "item_name": "מילקי בטעם תות 170 מ\"ל",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 3.1,
@@ -35288,18 +35348,6 @@
     "cheap_price": 7.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 8.9,
-    "spread_pct": 0.12658227848101264
-  },
-  {
-    "item_code": "7290110552244",
-    "item_name": "משק.דנונה פרו20 ללתס255",
-    "num_stores": 4,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 7.9,
-    "expensive_store_id": "140",
-    "expensive_store_name": "אקספרס תל חי",
     "expensive_price": 8.9,
     "spread_pct": 0.12658227848101264
   },
@@ -35606,12 +35654,12 @@
   {
     "item_code": "7290100704882",
     "item_name": "גרעיני תירס מתוק340 סוגת",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 7.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 8.9,
     "spread_pct": 0.12658227848101264
   },
@@ -35870,12 +35918,12 @@
   {
     "item_code": "7290000497426",
     "item_name": "לחם ברמן לעניין פלוס500ג",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 15.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 17.9,
     "spread_pct": 0.12578616352201247
   },
@@ -37250,7 +37298,7 @@
   {
     "item_code": "8700216708807",
     "item_name": "כדוריות בושם פרחים270גרם",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "615",
     "cheap_store_name": "BE כפר סבא",
     "cheap_price": 39.9,
@@ -37814,7 +37862,7 @@
   {
     "item_code": "7290000521404",
     "item_name": "קברנה מרום גליל 750 מ\"ל",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 40.9,
@@ -37838,7 +37886,7 @@
   {
     "item_code": "7296073254256",
     "item_name": "ערמונים אורגני100ג גרין",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 8.2,
@@ -38018,7 +38066,7 @@
   {
     "item_code": "7290101869719",
     "item_name": "גל הכל ב1לימון למדיח600",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 32.9,
@@ -38042,7 +38090,7 @@
   {
     "item_code": "7290101869702",
     "item_name": "פיניש גל למדיח קלאסי600",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 32.9,
@@ -38234,7 +38282,7 @@
   {
     "item_code": "7290013117212",
     "item_name": "בורקס פילו גבינה 600 גרם",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 24.9,
@@ -38390,12 +38438,12 @@
   {
     "item_code": "7290008802895",
     "item_name": "קברנה סוביניון.P.C 750מל",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 49.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 55.9,
     "spread_pct": 0.12024048096192386
   },
@@ -38474,7 +38522,7 @@
   {
     "item_code": "70970475368",
     "item_name": "סוכריות גלי מגה מיקס120",
-    "num_stores": 12,
+    "num_stores": 13,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 10.9,
@@ -38906,7 +38954,7 @@
   {
     "item_code": "7290119040902",
     "item_name": "עוגיות לקפה 350 גרם",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
@@ -39014,12 +39062,12 @@
   {
     "item_code": "7296073553304",
     "item_name": "טורטיות מקמח חיטה 12*65ג",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 18.9,
     "spread_pct": 0.1183431952662722
   },
@@ -39266,7 +39314,7 @@
   {
     "item_code": "7290015790000",
     "item_name": "גרגירי רימונים",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
@@ -39974,7 +40022,7 @@
   {
     "item_code": "7290002868996",
     "item_name": "קוטג 5% שומן 250ג טרה",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 6.2,
@@ -41352,18 +41400,6 @@
     "spread_pct": 0.111731843575419
   },
   {
-    "item_code": "7290000965918",
-    "item_name": "שזיף שגיב",
-    "num_stores": 5,
-    "cheap_store_id": "375",
-    "cheap_store_name": "אקספרס כ\"ס- הגליל",
-    "cheap_price": 17.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 19.9,
-    "spread_pct": 0.111731843575419
-  },
-  {
     "item_code": "7290002771364",
     "item_name": "קפה קלוי וטחון בלי הל200",
     "num_stores": 7,
@@ -42396,18 +42432,6 @@
     "spread_pct": 0.10989010989010989
   },
   {
-    "item_code": "7290000024202",
-    "item_name": "ברקן רזרב קברנה 750 מ\"ל",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 45.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 50.9,
-    "spread_pct": 0.10893246187363835
-  },
-  {
     "item_code": "7290000024240",
     "item_name": "ברקן רזרב שרדונה 750 מ\"ל",
     "num_stores": 4,
@@ -42516,18 +42540,6 @@
     "spread_pct": 0.10752688172043011
   },
   {
-    "item_code": "3574660066203",
-    "item_name": "קרם ידיים מבושם 75מ",
-    "num_stores": 4,
-    "cheap_store_id": "615",
-    "cheap_store_name": "BE כפר סבא",
-    "cheap_price": 27.9,
-    "expensive_store_id": "230",
-    "expensive_store_name": "שלי כ\"ס- ויצמן",
-    "expensive_price": 30.9,
-    "spread_pct": 0.10752688172043011
-  },
-  {
     "item_code": "7290005992858",
     "item_name": "פטה עיזים 5% במשקל",
     "num_stores": 4,
@@ -42614,12 +42626,12 @@
   {
     "item_code": "7290000188553",
     "item_name": "קוטקס מגן תחתון נורמל",
-    "num_stores": 12,
+    "num_stores": 13,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 22.5,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 24.9,
     "spread_pct": 0.1066666666666666
   },
@@ -42698,7 +42710,7 @@
   {
     "item_code": "7290000453408",
     "item_name": "בצק פיצה דק מצונן 415 גר",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 18.9,
@@ -42816,30 +42828,6 @@
     "spread_pct": 0.10582010582010583
   },
   {
-    "item_code": "7290013215314",
-    "item_name": "פטריות פורטובלו - צמד",
-    "num_stores": 5,
-    "cheap_store_id": "230",
-    "cheap_store_name": "שלי כ\"ס- ויצמן",
-    "cheap_price": 18.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 20.9,
-    "spread_pct": 0.10582010582010583
-  },
-  {
-    "item_code": "7290014079847",
-    "item_name": "פטריות פורטובלו - צמד",
-    "num_stores": 6,
-    "cheap_store_id": "230",
-    "cheap_store_name": "שלי כ\"ס- ויצמן",
-    "cheap_price": 18.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 20.9,
-    "spread_pct": 0.10582010582010583
-  },
-  {
     "item_code": "7290112004413",
     "item_name": "וניש ספרי לכביסה לבנה750",
     "num_stores": 8,
@@ -42926,7 +42914,7 @@
   {
     "item_code": "7290000497204",
     "item_name": "פיתות קלאסיות5*100ג ברמן",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 9.5,
@@ -42974,7 +42962,7 @@
   {
     "item_code": "7290000318189",
     "item_name": "פסטרמה ברביקיו יחיעם 300",
-    "num_stores": 7,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 32.5,
@@ -43154,7 +43142,7 @@
   {
     "item_code": "7290113192508",
     "item_name": "מלפפונ.מלח קטן13-17 560ג",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 13.5,
@@ -43394,7 +43382,7 @@
   {
     "item_code": "7290004127077",
     "item_name": "קוטג תנובה 3% שומן 250",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 5.9,
@@ -43742,7 +43730,7 @@
   {
     "item_code": "7290103706272",
     "item_name": "ממחטות אף בקופסא100י XPO",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 9.9,
@@ -44390,7 +44378,7 @@
   {
     "item_code": "8000215204219",
     "item_name": "משקה אורז אורגני 1 ליטר",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 15.9,
@@ -44438,7 +44426,7 @@
   {
     "item_code": "7290000560540",
     "item_name": "גל גילוח לעור רגיש198ג",
-    "num_stores": 12,
+    "num_stores": 13,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 19.9,
@@ -44492,6 +44480,18 @@
     "cheap_price": 19.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 21.9,
+    "spread_pct": 0.10050251256281408
+  },
+  {
+    "item_code": "7290014218338",
+    "item_name": "בורקס יפו תפו\"א 600גרם",
+    "num_stores": 7,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "335",
+    "expensive_store_name": "אקספרס כ\"ס- בן גוריון",
     "expensive_price": 21.9,
     "spread_pct": 0.10050251256281408
   },
@@ -44940,18 +44940,6 @@
     "spread_pct": 0.10050251256281408
   },
   {
-    "item_code": "7290014218338",
-    "item_name": "בורקס יפו תפו\"א 600גרם",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "335",
-    "expensive_store_name": "אקספרס כ\"ס- בן גוריון",
-    "expensive_price": 21.9,
-    "spread_pct": 0.10050251256281408
-  },
-  {
     "item_code": "7290016314762",
     "item_name": "פרובנציאל מטיאס 200 גרם",
     "num_stores": 10,
@@ -45200,6 +45188,18 @@
     "cheap_price": 19.9,
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
+    "expensive_price": 21.9,
+    "spread_pct": 0.10050251256281408
+  },
+  {
+    "item_code": "7290117907559",
+    "item_name": "שומשום בציפוי שוקולד180",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 21.9,
     "spread_pct": 0.10050251256281408
   },
@@ -45722,9 +45722,9 @@
   {
     "item_code": "8711000601587",
     "item_name": "קפה קרונונג 190גר ג'קובס",
-    "num_stores": 8,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "num_stores": 10,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
     "expensive_store_id": "752",
     "expensive_store_name": "אקספרס כפר סבא דוכיפת",
@@ -46850,7 +46850,7 @@
   {
     "item_code": "7290119376636",
     "item_name": "דנונה מולטי עם תפוח 200",
-    "num_stores": 7,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 6.3,
@@ -47198,7 +47198,7 @@
   {
     "item_code": "7290110321277",
     "item_name": "קוטג בקטנה 5% 100 גרם",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 3.2,
@@ -47222,7 +47222,7 @@
   {
     "item_code": "7290018132388",
     "item_name": "מטרנה גולד שלב 2 700 גרם",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 74.9,
@@ -47258,7 +47258,7 @@
   {
     "item_code": "3500610150500",
     "item_name": "שאטו הו פורה מרלו700מ\"ל",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 75.9,
@@ -48169,7 +48169,7 @@
   },
   {
     "item_code": "7702018980833",
-    "item_name": "גל גילוח סירייס לחות200",
+    "item_name": "ג'ל גילוח סירייס לחות200",
     "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -48362,7 +48362,7 @@
   {
     "item_code": "7290117261088",
     "item_name": "גבינת בוראטה125ג יורו",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 21.9,
@@ -48434,6 +48434,18 @@
   {
     "item_code": "7290108504286",
     "item_name": "איבריקו צאנק 150ג אירו",
+    "num_stores": 4,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 21.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_price": 23.9,
+    "spread_pct": 0.09132420091324202
+  },
+  {
+    "item_code": "7290108506624",
+    "item_name": "גבינת עזים 32% 150ג אירו",
     "num_stores": 4,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
@@ -48521,6 +48533,18 @@
     "num_stores": 6,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 54.9,
+    "expensive_store_id": "36",
+    "expensive_store_name": "שלי כ\"ס- רוטשילד",
+    "expensive_price": 59.9,
+    "spread_pct": 0.09107468123861567
+  },
+  {
+    "item_code": "8000500032237",
+    "item_name": "בונ.רושה 375 גרם",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 54.9,
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
@@ -49046,12 +49070,12 @@
   {
     "item_code": "7290116532264",
     "item_name": "מאגדת גודיז אפרסק ללתס6י",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 33.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 36.9,
     "spread_pct": 0.08849557522123894
   },
@@ -49094,7 +49118,7 @@
   {
     "item_code": "7290000536743",
     "item_name": "קריספי סטיקס תירס 500גרם",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 22.9,
@@ -49346,7 +49370,7 @@
   {
     "item_code": "7296073753841",
     "item_name": "סלט ביצים 250ג המסעדה",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 22.9,
@@ -49376,6 +49400,18 @@
     "cheap_price": 22.9,
     "expensive_store_id": "394",
     "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_price": 24.9,
+    "spread_pct": 0.08733624454148473
+  },
+  {
+    "item_code": "3838824127149",
+    "item_name": "צבע סמי קיט פלטה מס1-1",
+    "num_stores": 5,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 22.9,
+    "expensive_store_id": "682",
+    "expensive_store_name": "BE כפר סבא צפון",
     "expensive_price": 24.9,
     "spread_pct": 0.08733624454148473
   },
@@ -49454,12 +49490,12 @@
   {
     "item_code": "3838824193915",
     "item_name": "צבע סמי קיט פלטה מס1-0",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 22.9,
-    "expensive_store_id": "648",
-    "expensive_store_name": "BE מאיר-כפרסבא",
+    "expensive_store_id": "682",
+    "expensive_store_name": "BE כפר סבא צפון",
     "expensive_price": 24.9,
     "spread_pct": 0.08733624454148473
   },
@@ -49568,6 +49604,18 @@
     "cheap_price": 22.9,
     "expensive_store_id": "171",
     "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_price": 24.9,
+    "spread_pct": 0.08733624454148473
+  },
+  {
+    "item_code": "7290004122676",
+    "item_name": "גבינת חמד לייט 5% 250 גר",
+    "num_stores": 8,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 22.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 24.9,
     "spread_pct": 0.08733624454148473
   },
@@ -49724,18 +49772,6 @@
     "cheap_price": 22.9,
     "expensive_store_id": "171",
     "expensive_store_name": "אקספרס אוסטשינסקי",
-    "expensive_price": 24.9,
-    "spread_pct": 0.08733624454148473
-  },
-  {
-    "item_code": "7290004122676",
-    "item_name": "גבינת חמד לייט 5% 250 גר",
-    "num_stores": 7,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 22.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 24.9,
     "spread_pct": 0.08733624454148473
   },
@@ -50496,6 +50532,18 @@
     "spread_pct": 0.08403361344537814
   },
   {
+    "item_code": "7296073747796",
+    "item_name": "שוק.חלב+אגוז לוז100ג פפה",
+    "num_stores": 4,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 11.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_price": 12.9,
+    "spread_pct": 0.08403361344537814
+  },
+  {
     "item_code": "80177616",
     "item_name": "אצבעות שוקולד קינדר100גר",
     "num_stores": 14,
@@ -51182,7 +51230,7 @@
   {
     "item_code": "7613287302151",
     "item_name": "קפסולות Starbucks איטלאן",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 23.9,
@@ -51252,14 +51300,26 @@
     "spread_pct": 0.08368200836820085
   },
   {
-    "item_code": "7290108501827",
-    "item_name": "שערות קדאיף 450ג ויליפוד",
+    "item_code": "7290013121165",
+    "item_name": "6לחמניות נקניק460גריןליט",
     "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 23.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 25.9,
+    "spread_pct": 0.08368200836820085
+  },
+  {
+    "item_code": "7290108501827",
+    "item_name": "שערות קדאיף 450ג ויליפוד",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 23.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 25.9,
     "spread_pct": 0.08368200836820085
   },
@@ -51374,7 +51434,7 @@
   {
     "item_code": "8606018615841",
     "item_name": "פיינט מילקה וניל ליבת שו",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 23.9,
@@ -52406,12 +52466,12 @@
   {
     "item_code": "7290017928821",
     "item_name": "גריסיני קלאסי 200 גרם",
-    "num_stores": 14,
+    "num_stores": 13,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 13.9,
     "spread_pct": 0.07751937984496124
   },
@@ -52694,7 +52754,7 @@
   {
     "item_code": "7296073722519",
     "item_name": "מגבוני רצפה מאסק 10י LU",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
@@ -52898,7 +52958,7 @@
   {
     "item_code": "7296073753773",
     "item_name": "חומוס פטריות250ג המסעדה",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
@@ -52982,7 +53042,7 @@
   {
     "item_code": "7296073753872",
     "item_name": "כרוב אדום 250ג המסעדה",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
@@ -53018,7 +53078,7 @@
   {
     "item_code": "7290000139135",
     "item_name": "שלווה XL חיטה תפוחה320ג",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
@@ -53054,12 +53114,12 @@
   {
     "item_code": "7290001973233",
     "item_name": "מגבונים מילוי+דיספנסר120",
-    "num_stores": 7,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 12.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 13.9,
     "spread_pct": 0.07751937984496124
   },
@@ -53726,7 +53786,7 @@
   {
     "item_code": "7290020711045",
     "item_name": "משקה שיבולת שועל 1ליטר",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 12.9,
@@ -53798,12 +53858,12 @@
   {
     "item_code": "7290008458818",
     "item_name": "טחון מן הצומח 160 גרם",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 25.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 27.9,
     "spread_pct": 0.07722007722007722
   },
@@ -54014,12 +54074,12 @@
   {
     "item_code": "305213079004",
     "item_name": "תחליב גוף וזלין 600 מ\"ל",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 25.9,
-    "expensive_store_id": "682",
-    "expensive_store_name": "BE כפר סבא צפון",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 27.9,
     "spread_pct": 0.07722007722007722
   },
@@ -54494,12 +54554,12 @@
   {
     "item_code": "7290110577872",
     "item_name": "קונפיטורת תות לייט 310 ג",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 18.5,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 19.9,
     "spread_pct": 0.0756756756756756
   },
@@ -54578,7 +54638,7 @@
   {
     "item_code": "7290111566332",
     "item_name": "נקניקיות וינר צמחונית680",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 39.9,
@@ -54806,18 +54866,6 @@
   {
     "item_code": "649660013281",
     "item_name": "מיץ שזיפים 946 מ\"ל",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 26.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
-    "expensive_price": 28.9,
-    "spread_pct": 0.07434944237918216
-  },
-  {
-    "item_code": "7290017065984",
-    "item_name": "מק אנד ציז מיקס מגור200",
     "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -55250,7 +55298,7 @@
   {
     "item_code": "7290109355504",
     "item_name": "קראנץ וניל 100ג",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 13.9,
@@ -55706,7 +55754,7 @@
   {
     "item_code": "7296073745358",
     "item_name": "גלילי ופל בייגלה 145ג",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 13.9,
@@ -55808,6 +55856,18 @@
     "cheap_price": 13.9,
     "expensive_store_id": "36",
     "expensive_store_name": "שלי כ\"ס- רוטשילד",
+    "expensive_price": 14.9,
+    "spread_pct": 0.07194244604316546
+  },
+  {
+    "item_code": "7290019635000",
+    "item_name": "גבינת פרמזן מגורד 100 ג",
+    "num_stores": 4,
+    "cheap_store_id": "259",
+    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "cheap_price": 13.9,
+    "expensive_store_id": "394",
+    "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 14.9,
     "spread_pct": 0.07194244604316546
   },
@@ -56090,7 +56150,7 @@
   {
     "item_code": "7296073727880",
     "item_name": "פסטרמה 4 סוגי פלפלים 300",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 27.9,
@@ -56114,7 +56174,7 @@
   {
     "item_code": "7296073727910",
     "item_name": "זוג נקניק סלמי+פסטרמה700",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 27.9,
@@ -56168,18 +56228,6 @@
     "cheap_price": 27.9,
     "expensive_store_id": "394",
     "expensive_store_name": "אקספרס הכרמל כפר סבא",
-    "expensive_price": 29.9,
-    "spread_pct": 0.07168458781362008
-  },
-  {
-    "item_code": "7290012576614",
-    "item_name": "ריזלינג פרמייר 750 מ\"ל",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 27.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 29.9,
     "spread_pct": 0.07168458781362008
   },
@@ -56858,7 +56906,7 @@
   {
     "item_code": "7290004033583",
     "item_name": "לחמניות חלומית 4*90 גרם",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -57002,7 +57050,7 @@
   {
     "item_code": "7290116935386",
     "item_name": "שוקו סויה 1ליטר אלטרנטיב",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -57068,6 +57116,18 @@
     "cheap_price": 14.9,
     "expensive_store_id": "394",
     "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_price": 15.9,
+    "spread_pct": 0.06711409395973154
+  },
+  {
+    "item_code": "7296073705178",
+    "item_name": "קובה חמוסטה מילוי בשר400",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "140",
+    "expensive_store_name": "אקספרס תל חי",
     "expensive_price": 15.9,
     "spread_pct": 0.06711409395973154
   },
@@ -57602,7 +57662,7 @@
   {
     "item_code": "7290016584011",
     "item_name": "חטיפוני גזר 350 גרם",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -57872,6 +57932,18 @@
     "cheap_price": 14.9,
     "expensive_store_id": "230",
     "expensive_store_name": "שלי כ\"ס- ויצמן",
+    "expensive_price": 15.9,
+    "spread_pct": 0.06711409395973154
+  },
+  {
+    "item_code": "7290112841865",
+    "item_name": "מארז פורטובלו למילוי",
+    "num_stores": 5,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "36",
+    "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 15.9,
     "spread_pct": 0.06711409395973154
   },
@@ -58200,6 +58272,18 @@
     "spread_pct": 0.06711409395973154
   },
   {
+    "item_code": "7296073731689",
+    "item_name": "צנימים מקמח מלא324 MONRO",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "36",
+    "expensive_store_name": "שלי כ\"ס- רוטשילד",
+    "expensive_price": 15.9,
+    "spread_pct": 0.06711409395973154
+  },
+  {
     "item_code": "7296073733416",
     "item_name": "עדשים ירוקות 1 ק\"ג",
     "num_stores": 4,
@@ -58226,7 +58310,7 @@
   {
     "item_code": "7296073749646",
     "item_name": "אבקת שוקו בקופסא 500 גרם",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -58322,7 +58406,7 @@
   {
     "item_code": "7290011499112",
     "item_name": "גבינה בולגרית 16% 250גרם",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
@@ -58454,12 +58538,12 @@
   {
     "item_code": "7296073724728",
     "item_name": "ס.מייפל אורגני 250מ גרין",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 29.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 31.9,
     "spread_pct": 0.06688963210702341
   },
@@ -59546,12 +59630,12 @@
   {
     "item_code": "7290014094895",
     "item_name": "אגוזי מלך קלופים 150 גרם",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 15.9,
-    "expensive_store_id": "845",
-    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
     "expensive_price": 16.9,
     "spread_pct": 0.06289308176100618
   },
@@ -60446,24 +60530,24 @@
   {
     "item_code": "4810168064068",
     "item_name": "כדורי דג פורל אדום 230 ג",
-    "num_stores": 10,
+    "num_stores": 11,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 17.9,
     "spread_pct": 0.0591715976331361
   },
   {
     "item_code": "4810168064075",
     "item_name": "כדורי דג פורל שחור230ג",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 17.9,
     "spread_pct": 0.0591715976331361
   },
@@ -60734,7 +60818,7 @@
   {
     "item_code": "8006837003100",
     "item_name": "לחם מוראטו סמולינה 550גר",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
@@ -60744,14 +60828,26 @@
     "spread_pct": 0.0591715976331361
   },
   {
-    "item_code": "8718951160897",
-    "item_name": "אגקס טריגר אקונומיקה500",
-    "num_stores": 9,
+    "item_code": "8718951001589",
+    "item_name": "אגקס מסיר שומנים 600מל",
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 16.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
+    "expensive_price": 17.9,
+    "spread_pct": 0.0591715976331361
+  },
+  {
+    "item_code": "8718951160897",
+    "item_name": "אגקס טריגר אקונומיקה500",
+    "num_stores": 10,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 16.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 17.9,
     "spread_pct": 0.0591715976331361
   },
@@ -61176,18 +61272,6 @@
     "spread_pct": 0.0591715976331361
   },
   {
-    "item_code": "8718951001589",
-    "item_name": "אגקס מסיר שומנים 600מל",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 16.9,
-    "expensive_store_id": "375",
-    "expensive_store_name": "אקספרס כ\"ס- הגליל",
-    "expensive_price": 17.9,
-    "spread_pct": 0.0591715976331361
-  },
-  {
     "item_code": "8718951176874",
     "item_name": "מי פה מיניונים 250 מ\"ל",
     "num_stores": 6,
@@ -61414,6 +61498,18 @@
     "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 21.9,
     "spread_pct": 0.05797101449275359
+  },
+  {
+    "item_code": "7290110558314",
+    "item_name": "דנונה פרו ל.סוכר פיסט200",
+    "num_stores": 7,
+    "cheap_store_id": "36",
+    "cheap_store_name": "שלי כ\"ס- רוטשילד",
+    "cheap_price": 6.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 7.3,
+    "spread_pct": 0.05797101449275354
   },
   {
     "item_code": "7290116931241",
@@ -62426,7 +62522,7 @@
   {
     "item_code": "7296073732693",
     "item_name": "קפס.לכביסה כחול 36יח LU",
-    "num_stores": 11,
+    "num_stores": 12,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 35.9,
@@ -62474,12 +62570,12 @@
   {
     "item_code": "7290103707002",
     "item_name": "נייר טואלט פסטל 32ג XPO",
-    "num_stores": 5,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 35.9,
-    "expensive_store_id": "171",
-    "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 37.9,
     "spread_pct": 0.05571030640668524
   },
@@ -62810,12 +62906,12 @@
   {
     "item_code": "8001620017456",
     "item_name": "מים סאן בנדטו ספורט6*500",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 17.0,
-    "expensive_store_id": "171",
-    "expensive_store_name": "אקספרס אוסטשינסקי",
+    "expensive_store_id": "375",
+    "expensive_store_name": "אקספרס כ\"ס- הגליל",
     "expensive_price": 17.9,
     "spread_pct": 0.05294117647058815
   },
@@ -63470,7 +63566,7 @@
   {
     "item_code": "8712561594240",
     "item_name": "ת.רחצה דאב הזנה עמוקה500",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 18.9,
@@ -63924,44 +64020,8 @@
     "spread_pct": 0.05025125628140704
   },
   {
-    "item_code": "7290011379018",
-    "item_name": "פטריות שמפניון - צמד",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 20.9,
-    "spread_pct": 0.05025125628140704
-  },
-  {
-    "item_code": "7290013215901",
-    "item_name": "צמד פטריות פורטבלו 600 ג",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 20.9,
-    "spread_pct": 0.05025125628140704
-  },
-  {
-    "item_code": "7290013215918",
-    "item_name": "צמד פטריות מעורב 600 גרם",
-    "num_stores": 6,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
-    "expensive_price": 20.9,
-    "spread_pct": 0.05025125628140704
-  },
-  {
-    "item_code": "7290013215925",
-    "item_name": "צמד פטריות שמפניון 600 ג",
+    "item_code": "7290013215314",
+    "item_name": "פטריות פורטובלו - צמד",
     "num_stores": 5,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
@@ -64052,6 +64112,18 @@
     "cheap_price": 19.9,
     "expensive_store_id": "752",
     "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 20.9,
+    "spread_pct": 0.05025125628140704
+  },
+  {
+    "item_code": "7290112841957",
+    "item_name": "צמד פטריות מעורב 600 גרם",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 19.9,
+    "expensive_store_id": "230",
+    "expensive_store_name": "שלי כ\"ס- ויצמן",
     "expensive_price": 20.9,
     "spread_pct": 0.05025125628140704
   },
@@ -64426,18 +64498,6 @@
     "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 29.9,
     "spread_pct": 0.04912280701754381
-  },
-  {
-    "item_code": "7290011668594",
-    "item_name": "תוספת בריאה לסלט 550 גרם",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 40.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
-    "expensive_price": 42.9,
-    "spread_pct": 0.0488997555012225
   },
   {
     "item_code": "7613287821348",
@@ -65438,7 +65498,7 @@
   {
     "item_code": "7613036984478",
     "item_name": "קפס.Starbucks בלונד53גר",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 23.9,
@@ -65870,7 +65930,7 @@
   {
     "item_code": "5391523057936",
     "item_name": "סימילאק גולד שלב 2 700 ג",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 69.9,
@@ -65906,7 +65966,7 @@
   {
     "item_code": "4820249751435",
     "item_name": "גלידת שמנת פיסטוק 330גרם",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 25.9,
@@ -66386,7 +66446,7 @@
   {
     "item_code": "7290018441305",
     "item_name": "מאגדת טילון טופי 400 גרם",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 28.9,
@@ -66722,7 +66782,7 @@
   {
     "item_code": "7290000023083",
     "item_name": "ערק אשקלון 700 מ\"ל",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 62.9,
@@ -66914,9 +66974,9 @@
   {
     "item_code": "7290000506111",
     "item_name": "חזרת 400 גרם פיאו",
-    "num_stores": 6,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
+    "num_stores": 7,
+    "cheap_store_id": "230",
+    "cheap_store_name": "שלי כ\"ס- ויצמן",
     "cheap_price": 13.5,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
@@ -67064,18 +67124,6 @@
     "cheap_price": 34.9,
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
-    "expensive_price": 35.9,
-    "spread_pct": 0.02865329512893983
-  },
-  {
-    "item_code": "7290000611471",
-    "item_name": "שוקיים עוף טרי תפ",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 34.9,
-    "expensive_store_id": "36",
-    "expensive_store_name": "שלי כ\"ס- רוטשילד",
     "expensive_price": 35.9,
     "spread_pct": 0.02865329512893983
   },
@@ -67262,7 +67310,7 @@
   {
     "item_code": "7290115190458",
     "item_name": "נקסט אדג חפיסה",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 37.0,
@@ -67946,7 +67994,7 @@
   {
     "item_code": "7290115190373",
     "item_name": "אל אמ פורוורד חפיסה",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 42.5,
@@ -68162,7 +68210,7 @@
   {
     "item_code": "7290008464802",
     "item_name": "בירה הייניקן פח 6*330מ\"ל",
-    "num_stores": 9,
+    "num_stores": 10,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 45.0,
@@ -68366,7 +68414,7 @@
   {
     "item_code": "59039549",
     "item_name": "ווג מנטה חפיסה",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 52.5,
@@ -68594,7 +68642,7 @@
   {
     "item_code": "50000543533",
     "item_name": "פריסקיז פטה סלמון 156 גר",
-    "num_stores": 8,
+    "num_stores": 7,
     "cheap_store_id": "259",
     "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
     "cheap_price": 6.9,
@@ -69060,6 +69108,18 @@
     "spread_pct": 0.0
   },
   {
+    "item_code": "50000429844",
+    "item_name": "פנסי פיסט הודו ועוף 85גר",
+    "num_stores": 9,
+    "cheap_store_id": "140",
+    "cheap_store_name": "אקספרס תל חי",
+    "cheap_price": 6.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 6.9,
+    "spread_pct": 0.0
+  },
+  {
     "item_code": "5017818800116",
     "item_name": "ד\"ר פפר 330 מ\"ל",
     "num_stores": 4,
@@ -69086,7 +69146,7 @@
   {
     "item_code": "5208049001841",
     "item_name": "פאלמאל דמי קפסולה חפיסה",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 37.5,
@@ -69177,6 +69237,18 @@
     "expensive_store_id": "845",
     "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 22.9,
+    "spread_pct": 0.0
+  },
+  {
+    "item_code": "6934932066626",
+    "item_name": "כוסות 180CC י100 יחידות",
+    "num_stores": 5,
+    "cheap_store_id": "140",
+    "cheap_store_name": "אקספרס תל חי",
+    "cheap_price": 7.9,
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
+    "expensive_price": 7.9,
     "spread_pct": 0.0
   },
   {
@@ -69950,7 +70022,7 @@
   {
     "item_code": "7290006461650",
     "item_name": "שייטל מצונן כשר",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 149.0,
@@ -70344,6 +70416,18 @@
     "spread_pct": 0.0
   },
   {
+    "item_code": "7290018755938",
+    "item_name": "גלידה בטעמי וניל ומסטיק",
+    "num_stores": 6,
+    "cheap_store_id": "140",
+    "cheap_store_name": "אקספרס תל חי",
+    "cheap_price": 11.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 11.9,
+    "spread_pct": 0.0
+  },
+  {
     "item_code": "7290019056553",
     "item_name": "עין גדי מים מינרל. 6*2 ל",
     "num_stores": 11,
@@ -70730,12 +70814,12 @@
   {
     "item_code": "7290101114499",
     "item_name": "בליסימו ריבת חלב 425 גרם",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 10.0,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 10.0,
     "spread_pct": 0.0
   },
@@ -70898,7 +70982,7 @@
   {
     "item_code": "7290107649858",
     "item_name": "טילון מגנום לבן 100ג",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 15.9,
@@ -71066,7 +71150,7 @@
   {
     "item_code": "7290115191493",
     "item_name": "טבק לגלגול מרלבורו גולד",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 105.0,
@@ -71570,7 +71654,7 @@
   {
     "item_code": "7296073705253",
     "item_name": "אורז בסמטי 1 ק\"ג ARNO",
-    "num_stores": 11,
+    "num_stores": 10,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 14.9,
@@ -71630,7 +71714,7 @@
   {
     "item_code": "7296073707578",
     "item_name": "יין אדום מרלו ארד 750מ",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "140",
     "cheap_store_name": "אקספרס תל חי",
     "cheap_price": 49.9,
@@ -72552,18 +72636,6 @@
     "spread_pct": 0.0
   },
   {
-    "item_code": "3838824127149",
-    "item_name": "צבע סמי קיט פלטה מס1-1",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "682",
-    "expensive_store_name": "BE כפר סבא צפון",
-    "expensive_price": 24.9,
-    "spread_pct": 0.0
-  },
-  {
     "item_code": "3838824171449",
     "item_name": "פאלטה נטורלס 4-0 חום 1יח",
     "num_stores": 4,
@@ -72573,18 +72645,6 @@
     "expensive_store_id": "682",
     "expensive_store_name": "BE כפר סבא צפון",
     "expensive_price": 31.9,
-    "spread_pct": 0.0
-  },
-  {
-    "item_code": "3838824380988",
-    "item_name": "צבע סמי קיט פלטה21-12 *",
-    "num_stores": 4,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "682",
-    "expensive_store_name": "BE כפר סבא צפון",
-    "expensive_price": 24.9,
     "spread_pct": 0.0
   },
   {
@@ -72984,18 +73044,6 @@
     "spread_pct": 0.0
   },
   {
-    "item_code": "50000429844",
-    "item_name": "פנסי פיסט הודו ועוף 85גר",
-    "num_stores": 8,
-    "cheap_store_id": "144",
-    "cheap_store_name": "דיל שבירו כפר סבא",
-    "cheap_price": 6.9,
-    "expensive_store_id": "752",
-    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
-    "expensive_price": 6.9,
-    "spread_pct": 0.0
-  },
-  {
     "item_code": "5000146980322",
     "item_name": "קרם הסרת שיער 100מ",
     "num_stores": 4,
@@ -73320,6 +73368,18 @@
     "spread_pct": 0.0
   },
   {
+    "item_code": "7290000201849",
+    "item_name": "38 טיטולים פרימיום שלב 4",
+    "num_stores": 4,
+    "cheap_store_id": "144",
+    "cheap_store_name": "דיל שבירו כפר סבא",
+    "cheap_price": 29.9,
+    "expensive_store_id": "648",
+    "expensive_store_name": "BE מאיר-כפרסבא",
+    "expensive_price": 29.9,
+    "spread_pct": 0.0
+  },
+  {
     "item_code": "7290000209012",
     "item_name": "חומץ 5% 1 ליטר",
     "num_stores": 4,
@@ -73586,12 +73646,12 @@
   {
     "item_code": "7290002771395",
     "item_name": "קפה שחור 100ג אל נחלה",
-    "num_stores": 6,
+    "num_stores": 7,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 9.9,
-    "expensive_store_id": "394",
-    "expensive_store_name": "אקספרס הכרמל כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "אקספרס נחשון כפר סבא",
     "expensive_price": 9.9,
     "spread_pct": 0.0
   },
@@ -73694,7 +73754,7 @@
   {
     "item_code": "7290006342645",
     "item_name": "טורטייה מקמח חיטה 700גרם",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 14.9,
@@ -74966,7 +75026,7 @@
   {
     "item_code": "7290019489757",
     "item_name": "תחליב הגנה לפנים75 SPF50",
-    "num_stores": 10,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 39.9,
@@ -76286,7 +76346,7 @@
   {
     "item_code": "7296073352846",
     "item_name": "מפיות חד שכבתי 100 יח",
-    "num_stores": 7,
+    "num_stores": 6,
     "cheap_store_id": "144",
     "cheap_store_name": "דיל שבירו כפר סבא",
     "cheap_price": 8.9,
@@ -78182,7 +78242,7 @@
   {
     "item_code": "7290111567759",
     "item_name": "עוגת דבש קלאסית 400 גרם",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "171",
     "cheap_store_name": "אקספרס אוסטשינסקי",
     "cheap_price": 18.9,
@@ -78273,6 +78333,18 @@
     "expensive_store_id": "394",
     "expensive_store_name": "אקספרס הכרמל כפר סבא",
     "expensive_price": 48.9,
+    "spread_pct": 0.0
+  },
+  {
+    "item_code": "4810168045562",
+    "item_name": "פילה דג סלמון מעושן קפוא",
+    "num_stores": 4,
+    "cheap_store_id": "230",
+    "cheap_store_name": "שלי כ\"ס- ויצמן",
+    "cheap_price": 29.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "אקספרס כפר סבא דוכיפת",
+    "expensive_price": 29.9,
     "spread_pct": 0.0
   },
   {
@@ -78549,18 +78621,6 @@
     "expensive_store_id": "682",
     "expensive_store_name": "BE כפר סבא צפון",
     "expensive_price": 78.9,
-    "spread_pct": 0.0
-  },
-  {
-    "item_code": "7290017637655",
-    "item_name": "שמפו קרטין ללא מלחים500מ",
-    "num_stores": 4,
-    "cheap_store_id": "259",
-    "cheap_store_name": "יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 27.5,
-    "expensive_store_id": "682",
-    "expensive_store_name": "BE כפר סבא צפון",
-    "expensive_price": 27.5,
     "spread_pct": 0.0
   },
   {
