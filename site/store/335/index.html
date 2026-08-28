@@ -9,18 +9,21 @@
 :root{
   --paper:#F3F1E9; --paper-raised:#FFFFFF; --ink:#191914; --ink-muted:#625F53;
   --line:#D8D4C5; --navy:#1F3A5F; --navy-soft:#DCE4EC; --brick:#A63A2E; --brick-soft:#F2E2DC;
+  --good:#1E7A46; --good-soft:#DCEDE2;
   --shadow:0 2px 4px rgba(25,25,20,.06), 0 16px 36px rgba(25,25,20,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
     --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
+    --good:#5FBF87; --good-soft:#1C3527;
     --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
   }
 }
 :root[data-theme="dark"]{
   --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
   --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
+  --good:#5FBF87; --good-soft:#1C3527;
   --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;}
@@ -51,13 +54,18 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:500; padding:4px 10px;
   border-radius:999px; white-space:nowrap; display:inline-block; }
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
-.chip.good{ background:var(--navy-soft); color:var(--navy); }
+.chip.good{ background:var(--good-soft); color:var(--good); }
 
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
 </style>
 <style>
+.navrow{ display:flex; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
+.navbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.85rem; padding:8px 16px;
+  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy);
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+.navbtn:hover{ background:var(--navy); color:#fff; }
 .storecard{ display:flex; flex-wrap:wrap; gap:8px 22px; align-items:baseline; margin:18px 0 30px;
   padding:14px 18px; background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
 .storecard .score{ font-family:'IBM Plex Mono',monospace; font-size:.9rem; }
@@ -89,6 +97,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <div class="kicker">Frodo Project · דף סניף</div>
   <h1>אקספרס כ&quot;ס- בן גוריון</h1>
+  <div class="navrow">
+    <a class="navbtn" href="https://waze.com/ul?ll=32.1718868,34.9103858&navigate=yes" target="_blank" rel="noopener">🧭 נווט בוויז</a>
+    <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1718868,34.9103858" target="_blank" rel="noopener">נווט בגוגל מפות</a>
+  </div>
   <div class="storecard"><span class="score">ציון: 0.63 מתוך 1 (0=זול ביותר) · 2,710 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>

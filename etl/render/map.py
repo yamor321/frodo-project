@@ -25,10 +25,10 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 .type-filters label.disabled{ opacity:.5; cursor:not-allowed; }
 #leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
 .legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
-.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--navy), #B8B49C, var(--brick)); }
+.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
 #nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
 #nearest b{ color:var(--ink); }
-.leaflet-marker-icon.store-pin{ border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); }
+.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
 """
 
 
@@ -88,7 +88,7 @@ def render_map_html(
   const BASE = "{base_path}";
 
   function scoreColor(score){{
-    const stops = [[0.12,0.23,0.37],[0.72,0.71,0.61],[0.65,0.23,0.18]];
+    const stops = [[0.12,0.48,0.27],[0.79,0.77,0.66],[0.65,0.23,0.18]];
     const t = score <= 0.5 ? score*2 : (score-0.5)*2;
     const [a,b] = score <= 0.5 ? [stops[0],stops[1]] : [stops[1],stops[2]];
     const mix = a.map((v,i)=>Math.round((v + (b[i]-v)*t)*255));
@@ -100,8 +100,9 @@ def render_map_html(
   const centerLon = (Math.min(...lons)+Math.max(...lons))/2;
 
   const map = L.map('leafletMap').setView([centerLat, centerLon], 14);
-  L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
     maxZoom: 19,
   }}).addTo(map);
 
@@ -112,7 +113,7 @@ def render_map_html(
     const color = scoreColor(s.score);
     const size = s.format === "hyper" ? 22 : 16;
     const shape = s.format === "hyper"
-      ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:4px;background:${{color}}"></div>`
+      ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:7px;background:${{color}}"></div>`
       : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
     const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
     const marker = L.marker([s.lat, s.lon], {{icon}});

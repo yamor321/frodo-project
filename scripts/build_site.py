@@ -87,7 +87,12 @@ def main() -> None:
         store_dir = SITE_DIR / "store" / store_id
         store_dir.mkdir(parents=True, exist_ok=True)
         html = render_store_html(
-            store_id, name, scores_by_id.get(store_id), spreads, catalogs_by_store.get(store_id, [])
+            store_id,
+            name,
+            scores_by_id.get(store_id),
+            spreads,
+            catalogs_by_store.get(store_id, []),
+            coords=coords.get(store_id),
         )
         (store_dir / "index.html").write_text(html, encoding="utf-8")
 

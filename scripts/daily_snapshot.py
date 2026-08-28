@@ -127,7 +127,14 @@ def main() -> None:
         store_dir = site_dir / "store" / store_id
         store_dir.mkdir(parents=True, exist_ok=True)
         (store_dir / "index.html").write_text(
-            render_store_html(store_id, name, scores_by_id.get(store_id), spreads, catalogs_by_store.get(store_id, [])),
+            render_store_html(
+                store_id,
+                name,
+                scores_by_id.get(store_id),
+                spreads,
+                catalogs_by_store.get(store_id, []),
+                coords=coords.get(store_id),
+            ),
             encoding="utf-8",
         )
         best, worst = top_deals(spreads, store_id)

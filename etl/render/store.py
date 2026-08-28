@@ -8,11 +8,17 @@ from __future__ import annotations
 import json
 from html import escape
 
+from etl.enrich.geocode import GeoPoint
 from etl.scoring.cross_branch_spread import SpreadResult
 from etl.scoring.store_ranking import StoreScore
 from etl.scrapers.shufersal import PriceRecord
 
 STORE_CSS = """
+.navrow{ display:flex; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
+.navbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.85rem; padding:8px 16px;
+  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy);
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+.navbtn:hover{ background:var(--navy); color:#fff; }
 .storecard{ display:flex; flex-wrap:wrap; gap:8px 22px; align-items:baseline; margin:18px 0 30px;
   padding:14px 18px; background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
 .storecard .score{ font-family:'IBM Plex Mono',monospace; font-size:.9rem; }
@@ -67,11 +73,22 @@ def render_store_html(
     score: StoreScore | None,
     spreads: list[SpreadResult],
     catalog: list[PriceRecord],
+    coords: GeoPoint | None = None,
     top_n: int = 8,
 ) -> str:
     from etl.render.layout import page_shell
 
     best_deals, worst_deals = top_deals(spreads, store_id, top_n)
+
+    nav_html = ""
+    if coords is not None:
+        waze_url = f"https://waze.com/ul?ll={coords.lat},{coords.lon}&navigate=yes"
+        gmaps_url = f"https://www.google.com/maps/dir/?api=1&destination={coords.lat},{coords.lon}"
+        nav_html = f"""
+  <div class="navrow">
+    <a class="navbtn" href="{waze_url}" target="_blank" rel="noopener">🧭 נווט בוויז</a>
+    <a class="navbtn" href="{gmaps_url}" target="_blank" rel="noopener">נווט בגוגל מפות</a>
+  </div>"""
 
     search_items = [
         {"name": r.item_name, "price": r.item_price, "code": r.item_code}
@@ -91,7 +108,7 @@ def render_store_html(
 
     body = f"""
   <div class="kicker">Frodo Project · דף סניף</div>
-  <h1>{escape(store_name)}</h1>
+  <h1>{escape(store_name)}</h1>{nav_html}
   <div class="storecard">{score_html}</div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>

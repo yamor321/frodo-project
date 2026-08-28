@@ -10,3 +10,7 @@ venv/
 # in this working tree.
 data/raw/*.gz
 data/raw/*.xml
+
+# Local mirror of site/ under /frodo-project used to test absolute-path
+# navigation via a local http.server -- not part of the deployed output.
+webroot/
