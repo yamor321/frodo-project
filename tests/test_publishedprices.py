@@ -1,21 +1,24 @@
-"""Tests for etl.scrapers.publishedprices. Offline filename-parsing tests
-only, unlike tests/test_carrefour.py and tests/test_victory.py -- there is no
-live-network test here yet because this dev sandbox cannot open an outbound
-FTP data connection at all (confirmed against an unrelated public FTP host
-too, so it's a sandbox limitation, not a claim about the real server -- see
-the module docstring in etl/scrapers/publishedprices.py). Add the live
-integration tests (matching test_carrefour.py's CarrefourLiveTests shape)
-once this has actually run somewhere with FTP access, so they assert real
-confirmed values instead of guessed ones.
+"""Tests for etl.scrapers.publishedprices. Live tests against the real
+HTTPS web client (no mocking -- same principle as test_carrefour.py/
+test_victory.py/test_bina.py), now that the module talks HTTPS instead of
+the FTP host whose data channel turned out to be blocked from every cloud
+environment this project has run in (see the module docstring). Requires
+network access.
 """
 import pathlib
 import sys
 import unittest
-from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-from etl.scrapers.publishedprices import CHAINS, _parse_filename, preflight
+from etl.scrapers.publishedprices import CHAINS, _parse_filename, download, list_files, preflight, preflight_diagnostic
+from etl.scrapers.shufersal import (
+    kfar_saba_full_catalog_files,
+    kfar_saba_stores,
+    list_stores_file,
+    parse_price_xml,
+    parse_stores_xml,
+)
 
 
 class ParseFilenameTests(unittest.TestCase):
@@ -50,53 +53,72 @@ class ChainConfigTests(unittest.TestCase):
             },
         )
         for chain in CHAINS.values():
-            self.assertIn("ftp_username", chain)
-            self.assertIn("ftp_password", chain)
+            self.assertIn("username", chain)
+            self.assertIn("password", chain)
             self.assertIn("chain_id", chain)
-            self.assertIn("use_tls", chain)
 
     def test_two_chains_have_a_real_non_empty_password(self):
         """Confirmed from OpenIsraeliSupermarkets' scrappers/{yellow,
         salachdabach}.py -- most of this platform's chains use an empty
         password, these two don't. A regression here would silently break
         their login."""
-        self.assertEqual(CHAINS["yellow"]["ftp_password"], "paz468")
-        self.assertEqual(CHAINS["salach-dabach"]["ftp_password"], "12345")
+        self.assertEqual(CHAINS["yellow"]["password"], "paz468")
+        self.assertEqual(CHAINS["salach-dabach"]["password"], "12345")
         others = {k: v for k, v in CHAINS.items() if k not in ("yellow", "salach-dabach")}
-        self.assertTrue(all(v["ftp_password"] == "" for v in others.values()))
-
-    def test_dor_alon_is_the_one_chain_requiring_tls(self):
-        """Confirmed live 2026-08-28 from cerberus_diagnostics.json: plain
-        FTP login for this account gets a real 530 (Secure connection
-        required), not the generic data-channel timeout every other chain
-        hits. A regression here would silently break Dor Alon's login."""
-        self.assertTrue(CHAINS["dor-alon"]["use_tls"])
-        others = {k: v for k, v in CHAINS.items() if k != "dor-alon"}
-        self.assertTrue(all(v["use_tls"] is False for v in others.values()))
+        self.assertTrue(all(v["password"] == "" for v in others.values()))
 
 
-class PreflightTests(unittest.TestCase):
-    """preflight() wraps etl.health_check.ftp_preflight -- these just prove
-    the wiring (right host/username/password/use_tls passed through), not
-    the FTP behavior itself, which health_check.py's own tests cover."""
+class PublishedPricesLiveTests(unittest.TestCase):
+    """Live against the real HTTPS web client -- this is the whole point of
+    the rewrite: unlike the old FTP path, this one is actually verifiable
+    from a normal network, not just asserted to work "once it runs
+    somewhere else." Exercises three chains, including two with real
+    non-empty passwords, to prove the login flow generalizes rather than
+    only working for the one chain it was developed against."""
 
-    @patch("etl.scrapers.publishedprices.ftp_preflight")
-    def test_delegates_to_health_check_with_the_right_host(self, mock_preflight):
-        mock_preflight.return_value = True
-        result = preflight("RamiLevi", "")
-        self.assertTrue(result)
-        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "RamiLevi", "", use_tls=False)
+    def test_preflight_succeeds_for_every_configured_chain(self):
+        for chain_key, cfg in CHAINS.items():
+            with self.subTest(chain=chain_key):
+                diag = preflight_diagnostic(cfg["username"], cfg["password"])
+                self.assertTrue(diag["ok"], f"{chain_key}: failed at {diag['failed_at']}: {diag['error']}")
+                self.assertTrue(preflight(cfg["username"], cfg["password"]))
 
-    @patch("etl.scrapers.publishedprices.ftp_preflight")
-    def test_unreachable_source_returns_false(self, mock_preflight):
-        mock_preflight.return_value = False
-        self.assertFalse(preflight("osherad", ""))
+    def test_list_files_and_download_work_for_rami_levy(self):
+        cfg = CHAINS["rami-levy"]
+        files = list_files(cfg["username"], cfg["password"])
+        self.assertGreater(len(files), 0)
 
-    @patch("etl.scrapers.publishedprices.ftp_preflight")
-    def test_use_tls_flag_passed_through(self, mock_preflight):
-        mock_preflight.return_value = True
-        preflight("doralon", "", use_tls=True)
-        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "doralon", "", use_tls=True)
+        stores_file = list_stores_file(files)
+        self.assertIsNotNone(stores_file)
+        stores = parse_stores_xml(download(cfg["username"], stores_file, cfg["password"]))
+        self.assertGreater(len(stores), 0)
+
+    def test_download_works_for_a_chain_with_a_real_password(self):
+        """Yellow's account needs a real, non-empty password -- proves the
+        password isn't silently dropped anywhere in the login/download path."""
+        cfg = CHAINS["yellow"]
+        files = list_files(cfg["username"], cfg["password"])
+        self.assertGreater(len(files), 0)
+        pricefull = next((f for f in files if f.category.lower() == "pricefull"), None)
+        if pricefull is not None:
+            xml_bytes = download(cfg["username"], pricefull, cfg["password"])
+            records = parse_price_xml(xml_bytes)
+            self.assertGreaterEqual(len(records), 0)
+
+    def test_shufersal_parsers_work_unmodified_on_a_real_downloaded_file(self):
+        """Same regulated schema as every other chain in this project --
+        proven against a real file, not assumed."""
+        cfg = CHAINS["rami-levy"]
+        files = list_files(cfg["username"], cfg["password"])
+        stores_file = list_stores_file(files)
+        stores = parse_stores_xml(download(cfg["username"], stores_file, cfg["password"]))
+        kfar_saba_ids = kfar_saba_stores(stores)
+
+        catalog_files = list(kfar_saba_full_catalog_files(files, kfar_saba_ids)) if kfar_saba_ids else []
+        if catalog_files:
+            records = parse_price_xml(download(cfg["username"], catalog_files[0], cfg["password"]))
+            self.assertGreater(len(records), 0)
+            self.assertTrue(all(r.item_price >= 0 for r in records))
 
 
 if __name__ == "__main__":

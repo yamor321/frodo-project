@@ -207,10 +207,11 @@ def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock)
     _collect_* functions would just be repetition.
 
     preflight() runs first and skips straight to an empty result on failure
-    -- not routed through _safe_collect's exception handling, since an
-    unreachable data channel (confirmed to happen from this project's own
-    dev sandbox, see publishedprices.py's module docstring) is the expected,
-    handled case here, not a bug to print a traceback about.
+    -- not routed through _safe_collect's exception handling, since a login
+    failure is the expected, handled case here, not a bug to print a
+    traceback about (this platform's actual FTP data-channel block is dead
+    code now -- see publishedprices.py's module docstring for why it moved
+    to the HTTPS web client instead).
 
     None of these chains have a known-store-id fallback constant yet (no
     chain here has ever completed a real run to learn its Kfar Saba store id
@@ -230,20 +231,20 @@ def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock)
     """
     prefix = f"{chain_key}-"
     chain_cfg = publishedprices.CHAINS[chain_key]
-    username, password, use_tls = chain_cfg["ftp_username"], chain_cfg["ftp_password"], chain_cfg["use_tls"]
+    username, password = chain_cfg["username"], chain_cfg["password"]
 
     print(f"Checking {chain_key} (Cerberus, health check first)...")
-    diag = publishedprices.preflight_diagnostic(username, password, use_tls)
+    diag = publishedprices.preflight_diagnostic(username, password)
     with diagnostics_lock:
         diagnostics[chain_key] = diag
     if not diag["ok"]:
         print(f"  {chain_key}: unreachable this run (failed at '{diag['failed_at']}': {diag['error']}) -- skipping, not retrying.")
         return ChainCollection(prefix, lambda f: b"", [], {}, {})
 
-    def download_fn(f, u=username, p=password, tls=use_tls):
-        return publishedprices.download(u, f, p, tls)
+    def download_fn(f, u=username, p=password):
+        return publishedprices.download(u, f, p)
 
-    files = publishedprices.list_files(username, password, use_tls)
+    files = publishedprices.list_files(username, password)
     stores_file = list_stores_file(files)
     if stores_file is None:
         print(f"  No {chain_key} Stores file found this run -- skipping.")

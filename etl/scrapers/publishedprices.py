@@ -1,73 +1,53 @@
-"""Client for the shared "Cerberus" price-transparency FTP platform at
-url.retail.publishedprices.co.il, used by Rami Levy, Yohananof, Osher Ad,
+"""Client for the shared "Cerberus Web Client" price-transparency platform
+at url.publishedprices.co.il, used by Rami Levy, Yohananof, Osher Ad,
 Tiv Taam, Dor Alon (AM:PM), Yellow, Stop Market, Fresh Market/Super Dosh,
 Keshet Teamim, and Salach Dabach (branded "Angus") -- all ten confirmed to
 have a real Kfar Saba branch (see docs/sources.md, 28.08.2026 research
 passes) -- plus ~20 other chains on the same platform with no known Kfar
 Saba presence.
 
-**Confirmed live 2026-08-28, from this project's own session:** the FTP
-server accepts a login with each chain's own username and an EMPTY password
--- no personal account, no admin approval, nothing to register. Verified
-independently with both Python's ftplib and curl, against three real chain
-usernames:
+**This module used to talk FTP to a different host (url.retail.
+publishedprices.co.il). That's now dead code, not just unused -- confirmed
+from TWO independent cloud environments (this dev sandbox AND a real
+GitHub Actions run, commit 66f1517) that the FTP data channel is blocked
+outright: login succeeds, every LIST/RETR times out, for all ten chains.
+See docs/sources.md's "Cerberus" sections for the full diagnostic trail
+(including a real, fixed TLS bug for Dor Alon that turned out not to matter
+-- the block sits beneath login regardless of FTP vs FTPS).**
 
-    ftp.login(user="RamiLevi", passwd="")   -> 230 Password Ok, User logged in
-    ftp.login(user="yohananof", passwd="")  -> 230 Password Ok, User logged in
-    ftp.login(user="osherad", passwd="")    -> 230 Password Ok, User logged in
+**The fix: this platform ALSO exposes a normal HTTPS web client (the same
+UI a human uses in a browser) at a DIFFERENT host -- url.publishedprices.co.il,
+no "retail." -- and it is NOT subject to the FTP block, confirmed live
+2026-08-28.** The exact same username/password used for FTP logs into this
+web client too -- nothing to register, no new credentials needed. Verified
+end-to-end against three different chains, including ones with a real
+non-empty password (Paz_bo/paz468, SalachD/12345): login succeeds, the file
+listing returns real current files, and a real file downloads and gunzips
+to the same `<Root><ChainID>...` schema already confirmed everywhere else
+in this project.
 
-This is a DIFFERENT host from the HTTP portal at
-https://url.publishedprices.co.il (no "retail." in the hostname), which is a
-separate, admin-gated web UI with its own human-reviewed account-request
-form. That portal is not needed for this project -- registering there can be
-dropped.
+The flow, confirmed live by reading the actual page + its AJAX calls (not
+guessed from a summary):
+1. GET /login -> a `<meta name="csrftoken" content="...">` tag carries a
+   token that must be echoed back on the next POST.
+2. POST /login/user with username, password, csrftoken, r="" -> sets a
+   session cookie and redirects to /file on success.
+3. GET /file -> a FRESH csrftoken (it rotates per page load, the /login
+   one won't work here).
+4. POST /file/json/dir with csrftoken + jQuery-DataTables-style paging
+   params (sEcho, iDisplayStart, iDisplayLength) -> JSON `{"aaData": [...]}`
+   listing every file. iDisplayLength=100000 returned all 2,787 of Rami
+   Levy's files in one call -- no pagination needed at this project's scale.
+5. GET /file/d/<filename> -> the raw file bytes (gzip for Price*/PriceFull*,
+   uncompressed .xml for Stores).
 
-Username/chain_id values below are not this project's own discovery -- read
+Username/chain_id values are not this project's own discovery -- read
 verbatim from OpenIsraeliSupermarkets/israeli-supermarket-scarpers
 (github.com/OpenIsraeliSupermarkets/israeli-supermarket-scarpers), an
 actively maintained open-source scraper covering 30+ Israeli chains, whose
-`cerberus.py` engine implements this exact FTP handshake against this exact
-host (default ftp_host="url.retail.publishedprices.co.il", ftp_password="").
-
-**Not yet confirmed (blocked, not skipped):** this dev sandbox's shell cannot
-open any outbound FTP data connection at all -- confirmed generally, not just
-against this host: the same PASV/active timeout happens against
-ftp.debian.org too, and a bare connection to an unrelated FTP host on port 21
-also just hangs. The control channel (login) works fine over the same
-connection; only the data channel (LIST/RETR, passive or active) never
-completes. That means, until this runs somewhere with a working data channel:
-- The exact listing/filename shape on THIS server is assumed, not confirmed,
-  to match the convention already verified for Shufersal/Carrefour/Victory
-  (same regulation, same schema every time so far).
-- Kfar Saba branch numbers for these three chains are UNKNOWN -- they can
-  only come from a real downloaded Stores file.
-- Whether shufersal.parse_price_xml()/parse_stores_xml() work unmodified here
-  is UNCONFIRMED for the same reason.
-
-GitHub Actions runners have ordinary unrestricted outbound internet access
-(unlike this sandbox), so this is expected to work once it runs there -- the
-mirror image of the Victory situation (there GitHub was blocked and a home
-network worked; here this dev sandbox is blocked and GitHub is expected to
-work). That expectation needs a live CI run to actually confirm.
-
-**Health check, not a blind attempt:** `preflight()` below runs the same
-FTP login it would need anyway plus one lightweight, scoped LIST, with a
-short timeout -- so a chain whose data channel is unreachable this run gets
-skipped in seconds, not discovered by a hung listing/download attempt.
-Callers (any future daily_snapshot.py integration) are expected to call this
-BEFORE attempting real collection, exactly the lesson this module itself was
-built around (see etl/health_check.py's docstring).
-
-**Dor Alon needs FTPS, confirmed live 2026-08-28 from a committed diagnostics
-file, not guessed:** `daily_snapshot.py` writes `data/processed/<date>/
-cerberus_diagnostics.json` every run (see its module docstring for why --
-this dev sandbox can't read GitHub Actions' own logs). That file showed
-Dor Alon failing at the login step with a real FTP error (`530 Secure
-connection required`), distinct from every other chain's generic data-
-channel timeout. Confirmed directly: plain `ftplib.FTP` login gets the same
-530; `ftplib.FTP_TLS` (+ `prot_p()` to secure the data channel too) logs in
-fine. `CHAINS["dor-alon"]["use_tls"]` is `True`; every other chain tested so
-far accepts plain FTP, so don't assume TLS is needed platform-wide.
+`cerberus.py` engine uses these same credentials over FTP against a
+sibling host. That project's FTP approach is exactly what this module used
+to do and no longer does, for the reasons above.
 
 **No independent fallback exists for Victory/Machsanei HaShuk:** checked
 whether either chain is also reachable through this platform as a backup
@@ -80,39 +60,44 @@ door.
 """
 from __future__ import annotations
 
-import ftplib
 import gzip
 import io
 import re
 
-from etl.health_check import ftp_preflight, ftp_preflight_diagnostic
+import requests
+
 from etl.scrapers.shufersal import PriceFile
 
-FTP_HOST = "url.retail.publishedprices.co.il"
-FTP_TIMEOUT = 30
+BASE_URL = "https://url.publishedprices.co.il"
+REQUEST_TIMEOUT = 30
 
-# ftp_username/ftp_password + chain_id, read verbatim from
-# OpenIsraeliSupermarkets' scrappers/{ramilevy,yohananof,osherad,tivtaam,
-# doralon,yellow,stop_market,superdosh,keshet,salachdabach}.py (see module
-# docstring). Most of this platform's chains use an empty password; two
-# below don't -- these are the credentials that project publishes for
-# reading this legally-mandated public data, not a secret this project
-# discovered or is bypassing anything to get.
+_CSRF_RE = re.compile(r'name="csrftoken"[^>]*(?:value|content)="([^"]+)"')
+
+_USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+
+# username/password + chain_id, read verbatim from OpenIsraeliSupermarkets'
+# scrappers/{ramilevy,yohananof,osherad,tivtaam,doralon,yellow,stop_market,
+# superdosh,keshet,salachdabach}.py (see module docstring). Most of this
+# platform's chains use an empty password; two below don't -- these are the
+# credentials that project publishes for reading this legally-mandated
+# public data, not a secret this project discovered or is bypassing
+# anything to get. Same credentials work over both FTP (dead, see module
+# docstring) and this HTTPS client -- nothing chain-specific about the
+# transport.
 CHAINS = {
-    "rami-levy": {"ftp_username": "RamiLevi", "ftp_password": "", "chain_id": "7290058140886", "use_tls": False},
-    "yohananof": {"ftp_username": "yohananof", "ftp_password": "", "chain_id": "7290803800003", "use_tls": False},
-    "osher-ad": {"ftp_username": "osherad", "ftp_password": "", "chain_id": "7290103152017", "use_tls": False},
-    "tiv-taam": {"ftp_username": "TivTaam", "ftp_password": "", "chain_id": "7290873255550", "use_tls": False},
-    # Confirmed live 2026-08-28: this account rejects plain FTP with a real
-    # error (530 Secure connection required), not the generic data-channel
-    # timeout every other chain here hits -- found from cerberus_diagnostics.json,
-    # not guessed. Plain ftplib.FTP login fails; ftplib.FTP_TLS login succeeds.
-    "dor-alon": {"ftp_username": "doralon", "ftp_password": "", "chain_id": "7290492000005", "use_tls": True},
-    "yellow": {"ftp_username": "Paz_bo", "ftp_password": "paz468", "chain_id": "7290644700005", "use_tls": False},
-    "stop-market": {"ftp_username": "Stop_Market", "ftp_password": "", "chain_id": "72906390", "use_tls": False},
-    "fresh-market": {"ftp_username": "freshmarket", "ftp_password": "", "chain_id": "7290876100000", "use_tls": False},
-    "keshet": {"ftp_username": "Keshet", "ftp_password": "", "chain_id": "7290785400000", "use_tls": False},
-    "salach-dabach": {"ftp_username": "SalachD", "ftp_password": "12345", "chain_id": "7290526500006", "use_tls": False},
+    "rami-levy": {"username": "RamiLevi", "password": "", "chain_id": "7290058140886"},
+    "yohananof": {"username": "yohananof", "password": "", "chain_id": "7290803800003"},
+    "osher-ad": {"username": "osherad", "password": "", "chain_id": "7290103152017"},
+    "tiv-taam": {"username": "TivTaam", "password": "", "chain_id": "7290873255550"},
+    "dor-alon": {"username": "doralon", "password": "", "chain_id": "7290492000005"},
+    "yellow": {"username": "Paz_bo", "password": "paz468", "chain_id": "7290644700005"},
+    "stop-market": {"username": "Stop_Market", "password": "", "chain_id": "72906390"},
+    "fresh-market": {"username": "freshmarket", "password": "", "chain_id": "7290876100000"},
+    "keshet": {"username": "Keshet", "password": "", "chain_id": "7290785400000"},
+    "salach-dabach": {"username": "SalachD", "password": "12345", "chain_id": "7290526500006"},
 }
 
 # Same dash-separated convention confirmed for Shufersal/Carrefour/Victory:
@@ -141,37 +126,74 @@ def _parse_filename(name: str) -> dict | None:
     return {"category": category, "chain_id": chain_id, "subchain_id": subchain_id, "store_id": store_id, "ext": ext}
 
 
-def _connect(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> ftplib.FTP:
-    """One connection per call rather than a shared/pooled session:
-    ftplib.FTP isn't safe to share across concurrent threads, and
-    fetch_concurrently() runs downloads on a thread pool -- an independent
-    connection per call is the correct match, not an oversight."""
-    ftp = ftplib.FTP_TLS(timeout=FTP_TIMEOUT) if use_tls else ftplib.FTP(timeout=FTP_TIMEOUT)
-    ftp.connect(FTP_HOST, 21)
-    ftp.login(user=ftp_username, passwd=ftp_password)
-    if use_tls:
-        ftp.prot_p()  # secure the data channel too, not just the control channel
-    return ftp
+def _get_csrf(session: requests.Session, path: str) -> str:
+    resp = session.get(f"{BASE_URL}{path}", timeout=REQUEST_TIMEOUT)
+    resp.raise_for_status()
+    m = _CSRF_RE.search(resp.text)
+    if not m:
+        raise ValueError(f"csrftoken not found on {path} -- page structure may have changed")
+    return m.group(1)
 
 
-def preflight(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> bool:
+def _login(username: str, password: str = "") -> requests.Session:
+    """One session per call rather than a shared/pooled one -- matches this
+    project's existing per-call-connection precedent (see e.g. Shuk HaIr's
+    _connect()) and sidesteps any thread-safety question, since
+    fetch_concurrently() runs chains on a thread pool.
+
+    Raises PermissionError if login didn't actually succeed (POST
+    /login/user returns 200 either way -- success is a redirect to /file,
+    not the status code).
+    """
+    session = requests.Session()
+    session.headers.update({"User-Agent": _USER_AGENT})
+    token = _get_csrf(session, "/login")
+    resp = session.post(
+        f"{BASE_URL}/login/user",
+        data={"username": username, "password": password, "csrftoken": token, "r": ""},
+        timeout=REQUEST_TIMEOUT,
+    )
+    resp.raise_for_status()
+    if not resp.url.rstrip("/").endswith("/file"):
+        raise PermissionError(f"login failed for {username!r} (landed on {resp.url}, not /file)")
+    return session
+
+
+def preflight(username: str, password: str = "") -> bool:
     """Cheap reachability check -- call this BEFORE list_files()/download()
-    so an unreachable chain is skipped in seconds instead of discovered by a
-    hung listing attempt. See etl/health_check.py and the module docstring."""
-    return ftp_preflight(FTP_HOST, ftp_username, ftp_password, use_tls=use_tls)
+    so a chain that can't log in this run is skipped instead of discovered
+    partway through a real collection attempt."""
+    return preflight_diagnostic(username, password)["ok"]
 
 
-def preflight_diagnostic(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> dict:
-    """Same check as preflight(), but returns which step failed and the real
-    exception -- see etl/health_check.ftp_preflight_diagnostic. Exists so a
-    CI-only failure can be understood from a committed diagnostics file
-    (this dev sandbox can't reach GitHub Actions' own logs directly) instead
-    of guessed at."""
-    return ftp_preflight_diagnostic(FTP_HOST, ftp_username, ftp_password, use_tls=use_tls)
+def preflight_diagnostic(username: str, password: str = "") -> dict:
+    """Same check as preflight(), but returns which step failed and the
+    real exception -- see docs/sources.md for why this project writes these
+    to a committed file rather than trusting a boolean: it's what caught
+    Dor Alon's real (since-superseded) FTP/TLS bug, not a guess."""
+    result = {"host": BASE_URL, "username": username, "ok": False, "failed_at": None, "error": None}
+    try:
+        result["failed_at"] = "login"
+        session = _login(username, password)
+        result["failed_at"] = "list"
+        token = _get_csrf(session, "/file")
+        resp = session.post(
+            f"{BASE_URL}/file/json/dir",
+            data={"csrftoken": token, "sEcho": 1, "iDisplayStart": 0, "iDisplayLength": 1},
+            timeout=REQUEST_TIMEOUT,
+        )
+        resp.raise_for_status()
+        if resp.json().get("error"):
+            raise ValueError(str(resp.json()["error"]))
+        result["ok"] = True
+        result["failed_at"] = None
+    except Exception as exc:  # noqa: BLE001 -- deliberately broad, see docstring
+        result["error"] = f"{type(exc).__name__}: {exc}"
+    return result
 
 
-def list_files(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> list[PriceFile]:
-    """List this chain's Stores and PriceFull files.
+def list_files(username: str, password: str = "") -> list[PriceFile]:
+    """List every Price/PriceFull/Stores file this chain's account can see.
 
     Does NOT run preflight() itself -- callers doing a real collection run
     should call preflight() first and skip entirely on failure, per this
@@ -179,34 +201,31 @@ def list_files(ftp_username: str, ftp_password: str = "", use_tls: bool = False)
     an unreachable source is harder to distinguish from "genuinely zero
     files" than a caller that checked and skipped on purpose.
 
-    Scoped server-side to two glob patterns (not a full directory dump) --
-    this project never needs Price/Promo delta files, only PriceFull +
-    Stores, same as Shufersal/Carrefour/Victory. UNCONFIRMED: whether this
-    server's NLST honors the same wildcard glob syntax the reference scraper
-    uses (see module docstring) -- needs a live run to verify.
+    iDisplayLength=100000 in one call, confirmed live to return everything
+    (2,787 files for Rami Levy) rather than needing real pagination -- this
+    project's per-chain volumes never approach that ceiling.
     """
-    ftp = _connect(ftp_username, ftp_password, use_tls)
-    try:
-        names: list[str] = []
-        for pattern in ("*store*", "*pricefull*"):
-            try:
-                names.extend(ftp.nlst(pattern))
-            except ftplib.error_perm:
-                continue  # no matches for this pattern -- not an error
-    finally:
-        ftp.quit()
+    session = _login(username, password)
+    token = _get_csrf(session, "/file")
+    resp = session.post(
+        f"{BASE_URL}/file/json/dir",
+        data={"csrftoken": token, "sEcho": 1, "iDisplayStart": 0, "iDisplayLength": 100000},
+        timeout=REQUEST_TIMEOUT,
+    )
+    resp.raise_for_status()
+    entries = resp.json().get("aaData", [])
 
     files = []
-    for name in names:
-        parsed = _parse_filename(name)
+    for entry in entries:
+        parsed = _parse_filename(entry["name"])
         if parsed is None:
             continue
         files.append(
             PriceFile(
-                url=name,  # FTP path, not an HTTP URL -- download() RETRs this by name
-                filename=name,
-                updated_at="",
-                size="",
+                url=f"{BASE_URL}/file/d/{entry['name']}",
+                filename=entry["name"],
+                updated_at=entry.get("ftime", ""),
+                size=str(entry.get("size", "")),
                 file_type=parsed["ext"].upper(),
                 category=parsed["category"],
                 store_id=parsed["store_id"],
@@ -216,16 +235,12 @@ def list_files(ftp_username: str, ftp_password: str = "", use_tls: bool = False)
     return files
 
 
-def download(ftp_username: str, price_file: PriceFile, ftp_password: str = "", use_tls: bool = False) -> bytes:
+def download(username: str, price_file: PriceFile, password: str = "") -> bytes:
     """Download and (if needed) gunzip one listed file."""
-    ftp = _connect(ftp_username, ftp_password, use_tls)
-    buf = io.BytesIO()
-    try:
-        ftp.retrbinary(f"RETR {price_file.filename}", buf.write)
-    finally:
-        ftp.quit()
-    buf.seek(0)
+    session = _login(username, password)
+    resp = session.get(price_file.url, timeout=REQUEST_TIMEOUT)
+    resp.raise_for_status()
     if price_file.filename.lower().endswith(".gz"):
-        with gzip.GzipFile(fileobj=buf) as gz:
+        with gzip.GzipFile(fileobj=io.BytesIO(resp.content)) as gz:
             return gz.read()
-    return buf.read()
+    return resp.content
