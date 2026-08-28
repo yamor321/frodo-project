@@ -13,6 +13,7 @@ import dataclasses
 import datetime as dt
 import json
 import pathlib
+import shutil
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
@@ -60,6 +61,23 @@ def store_format(name: str) -> str:
     Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
     catches Shufersal's."""
     return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
+
+
+def _prune_stale_dirs(parent_dir: pathlib.Path, keep_names: set[str]) -> None:
+    """Remove any subdirectory of `parent_dir` not in `keep_names`.
+
+    The generation loops below only ever WRITE the pages a run currently
+    references -- they never delete one that's no longer needed. A page
+    that was correctly generated on one run (e.g. a product comparison
+    later found to rest on a bad barcode match, see etl/scoring/
+    item_code_filters.py) would otherwise sit on disk forever, unlinked
+    from the live site but still committed and reachable by direct URL.
+    """
+    if not parent_dir.exists():
+        return
+    for child in parent_dir.iterdir():
+        if child.is_dir() and child.name not in keep_names:
+            shutil.rmtree(child)
 
 
 def main() -> None:
@@ -195,6 +213,7 @@ def main() -> None:
     image_urls = get_image_urls(list(referenced_item_codes))
     print(f"  {sum(1 for u in image_urls.values() if u)}/{len(referenced_item_codes)} found")
 
+    _prune_stale_dirs(site_dir / "store", set(store_names))
     for store_id, name in store_names.items():
         store_dir = site_dir / "store" / store_id
         store_dir.mkdir(parents=True, exist_ok=True)
@@ -211,6 +230,7 @@ def main() -> None:
             encoding="utf-8",
         )
 
+    _prune_stale_dirs(site_dir / "product", referenced_item_codes)
     for code in referenced_item_codes:
         item_name = next((s.item_name for s in spreads if s.item_code == code), code)
         store_prices = collect_store_prices(catalogs_by_store, code, store_names)
