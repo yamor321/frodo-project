@@ -51,14 +51,19 @@ def render_product_html(
     ordered = sorted(store_prices, key=lambda sp: sp.price)
     cheapest = ordered[0] if ordered else None
     priciest = ordered[-1] if ordered else None
+    # A tie at the min (or max) is still the min (or max) -- tag every store
+    # that matches the price, not just whichever sorted first. If every
+    # store has the same price there's no meaningful "cheapest"/"priciest"
+    # distinction, so skip both tags rather than mark everything both ways.
+    same_price_everywhere = bool(cheapest and priciest and cheapest.price == priciest.price)
 
     rows = []
     for sp in ordered:
         cls = "prow highlight" if sp.store_id == from_store_id else "prow"
         tag = ""
-        if cheapest and sp.store_id == cheapest.store_id:
+        if not same_price_everywhere and cheapest and sp.price == cheapest.price:
             tag = ' <span class="chip good">הכי זול</span>'
-        elif priciest and sp.store_id == priciest.store_id:
+        elif not same_price_everywhere and priciest and sp.price == priciest.price:
             tag = ' <span class="chip warm">הכי יקר</span>'
         rows.append(
             f"""

@@ -75,6 +75,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 #nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
 #nearest b{ color:var(--ink); }
 .leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
 </style>
 </head>
 <body>
@@ -130,9 +131,14 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
   const centerLon = (Math.min(...lons)+Math.max(...lons))/2;
 
   const map = L.map('leafletMap').setView([centerLat, centerLon], 14);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
+  // Plain OpenStreetMap tiles: no signup, no API key, no watermark -- the
+  // CARTO basemaps tried earlier turned out to require a key in production
+  // (showed as an "API KEY REQUIRED" watermark once deployed, even though a
+  // handful of local test loads had gone through). A CSS filter on the
+  // tile pane above does the "leaner" styling instead, on tiles that are
+  // guaranteed to actually render.
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 19,
   }).addTo(map);
 
