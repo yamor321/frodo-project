@@ -15,6 +15,7 @@ import json
 import pathlib
 import shutil
 import sys
+import traceback
 from typing import Callable
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
@@ -75,6 +76,24 @@ def store_format(name: str) -> str:
     Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
     catches Shufersal's."""
     return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
+
+
+def _safe_collect(chain_name: str, collect_fn: Callable[[], "ChainCollection"], prefix: str) -> "ChainCollection":
+    """Run one chain's discovery, but never let it take the whole run down.
+
+    Each chain talks to a different real-world portal this project doesn't
+    control -- one being temporarily unreachable, rate-limiting, or
+    returning something unexpected is a "that chain is missing today", not
+    a reason the other chains (and the rest of the site) shouldn't update.
+    The full traceback still prints, so a real failure is visible in the
+    workflow log, not swallowed silently.
+    """
+    try:
+        return collect_fn()
+    except Exception:
+        print(f"\n{chain_name} collection failed, skipping it for today:")
+        traceback.print_exc()
+        return ChainCollection(prefix, lambda f: b"", [], {}, {})
 
 
 def _prune_stale_dirs(parent_dir: pathlib.Path, keep_names: set[str]) -> None:
@@ -173,7 +192,11 @@ def main() -> None:
     # target files are combined into one flat list below and fetched in a
     # single concurrent batch, so chain 2 doesn't wait for chain 1's
     # downloads to finish before its own start.
-    chains = [_collect_shufersal(), _collect_carrefour(), _collect_victory()]
+    chains = [
+        _safe_collect("Shufersal", _collect_shufersal, ""),
+        _safe_collect("Carrefour", _collect_carrefour, "carrefour-"),
+        _safe_collect("Victory", _collect_victory, "victory-"),
+    ]
 
     controlled = current_dairy_controlled_prices()
     print(f"\n{len(controlled)} controlled dairy products fetched.")
