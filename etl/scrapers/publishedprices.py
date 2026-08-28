@@ -1,7 +1,8 @@
 """Client for the shared "Cerberus" price-transparency FTP platform at
-url.retail.publishedprices.co.il, used by Rami Levy, Yohananof, and Osher Ad
-(and ~30 other chains not relevant to this pilot) to publish their regulated
-Price/PriceFull/Stores files.
+url.retail.publishedprices.co.il, used by Rami Levy, Yohananof, Osher Ad,
+Tiv Taam, Dor Alon (AM:PM), and Yellow -- all six confirmed to have a real
+Kfar Saba branch (see docs/sources.md, 28.08.2026 research pass) -- plus
+~25 other chains on the same platform with no known Kfar Saba presence.
 
 **Confirmed live 2026-08-28, from this project's own session:** the FTP
 server accepts a login with each chain's own username and an EMPTY password
@@ -46,6 +47,23 @@ GitHub Actions runners have ordinary unrestricted outbound internet access
 mirror image of the Victory situation (there GitHub was blocked and a home
 network worked; here this dev sandbox is blocked and GitHub is expected to
 work). That expectation needs a live CI run to actually confirm.
+
+**Health check, not a blind attempt:** `preflight()` below runs the same
+FTP login it would need anyway plus one lightweight, scoped LIST, with a
+short timeout -- so a chain whose data channel is unreachable this run gets
+skipped in seconds, not discovered by a hung listing/download attempt.
+Callers (any future daily_snapshot.py integration) are expected to call this
+BEFORE attempting real collection, exactly the lesson this module itself was
+built around (see etl/health_check.py's docstring).
+
+**No independent fallback exists for Victory/Machsanei HaShuk:** checked
+whether either chain is also reachable through this platform as a backup
+path when laibcatalog.co.il is blocked (see etl/scrapers/victory.py). Both
+have a "Matrix"-engine legacy scraper in the same reference project, but it
+also targets laibcatalog.co.il (a different page on the SAME host, not a
+different host) -- so it would fail identically to the TCP-level block
+already diagnosed there. No real fallback, just two paths to one blocked
+door.
 """
 from __future__ import annotations
 
@@ -54,17 +72,25 @@ import gzip
 import io
 import re
 
+from etl.health_check import ftp_preflight
 from etl.scrapers.shufersal import PriceFile
 
 FTP_HOST = "url.retail.publishedprices.co.il"
 FTP_TIMEOUT = 30
 
-# ftp_username + chain_id per OpenIsraeliSupermarkets' scrappers/{ramilevy,
-# yohananof,osherad}.py (see module docstring). Empty password, always.
+# ftp_username/ftp_password + chain_id, read verbatim from
+# OpenIsraeliSupermarkets' scrappers/{ramilevy,yohananof,osherad,tivtaam,
+# doralon,yellow}.py (see module docstring). Most of this platform's chains
+# use an empty password; three below don't -- these are the credentials that
+# project publishes for reading this legally-mandated public data, not a
+# secret this project discovered or is bypassing anything to get.
 CHAINS = {
-    "rami-levy": {"ftp_username": "RamiLevi", "chain_id": "7290058140886"},
-    "yohananof": {"ftp_username": "yohananof", "chain_id": "7290803800003"},
-    "osher-ad": {"ftp_username": "osherad", "chain_id": "7290103152017"},
+    "rami-levy": {"ftp_username": "RamiLevi", "ftp_password": "", "chain_id": "7290058140886"},
+    "yohananof": {"ftp_username": "yohananof", "ftp_password": "", "chain_id": "7290803800003"},
+    "osher-ad": {"ftp_username": "osherad", "ftp_password": "", "chain_id": "7290103152017"},
+    "tiv-taam": {"ftp_username": "TivTaam", "ftp_password": "", "chain_id": "7290873255550"},
+    "dor-alon": {"ftp_username": "doralon", "ftp_password": "", "chain_id": "7290492000005"},
+    "yellow": {"ftp_username": "Paz_bo", "ftp_password": "paz468", "chain_id": "7290644700005"},
 }
 
 # Same dash-separated convention confirmed for Shufersal/Carrefour/Victory:
@@ -93,19 +119,32 @@ def _parse_filename(name: str) -> dict | None:
     return {"category": category, "chain_id": chain_id, "subchain_id": subchain_id, "store_id": store_id, "ext": ext}
 
 
-def _connect(ftp_username: str) -> ftplib.FTP:
+def _connect(ftp_username: str, ftp_password: str = "") -> ftplib.FTP:
     """One connection per call rather than a shared/pooled session:
     ftplib.FTP isn't safe to share across concurrent threads, and
     fetch_concurrently() runs downloads on a thread pool -- an independent
     connection per call is the correct match, not an oversight."""
     ftp = ftplib.FTP(timeout=FTP_TIMEOUT)
     ftp.connect(FTP_HOST, 21)
-    ftp.login(user=ftp_username, passwd="")
+    ftp.login(user=ftp_username, passwd=ftp_password)
     return ftp
 
 
-def list_files(ftp_username: str) -> list[PriceFile]:
+def preflight(ftp_username: str, ftp_password: str = "") -> bool:
+    """Cheap reachability check -- call this BEFORE list_files()/download()
+    so an unreachable chain is skipped in seconds instead of discovered by a
+    hung listing attempt. See etl/health_check.py and the module docstring."""
+    return ftp_preflight(FTP_HOST, ftp_username, ftp_password)
+
+
+def list_files(ftp_username: str, ftp_password: str = "") -> list[PriceFile]:
     """List this chain's Stores and PriceFull files.
+
+    Does NOT run preflight() itself -- callers doing a real collection run
+    should call preflight() first and skip entirely on failure, per this
+    module's own health-check principle; a function that quietly no-ops on
+    an unreachable source is harder to distinguish from "genuinely zero
+    files" than a caller that checked and skipped on purpose.
 
     Scoped server-side to two glob patterns (not a full directory dump) --
     this project never needs Price/Promo delta files, only PriceFull +
@@ -113,7 +152,7 @@ def list_files(ftp_username: str) -> list[PriceFile]:
     server's NLST honors the same wildcard glob syntax the reference scraper
     uses (see module docstring) -- needs a live run to verify.
     """
-    ftp = _connect(ftp_username)
+    ftp = _connect(ftp_username, ftp_password)
     try:
         names: list[str] = []
         for pattern in ("*store*", "*pricefull*"):
@@ -144,9 +183,9 @@ def list_files(ftp_username: str) -> list[PriceFile]:
     return files
 
 
-def download(ftp_username: str, price_file: PriceFile) -> bytes:
+def download(ftp_username: str, price_file: PriceFile, ftp_password: str = "") -> bytes:
     """Download and (if needed) gunzip one listed file."""
-    ftp = _connect(ftp_username)
+    ftp = _connect(ftp_username, ftp_password)
     buf = io.BytesIO()
     try:
         ftp.retrbinary(f"RETR {price_file.filename}", buf.write)

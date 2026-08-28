@@ -11,10 +11,11 @@ confirmed values instead of guessed ones.
 import pathlib
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-from etl.scrapers.publishedprices import CHAINS, _parse_filename
+from etl.scrapers.publishedprices import CHAINS, _parse_filename, preflight
 
 
 class ParseFilenameTests(unittest.TestCase):
@@ -37,11 +38,43 @@ class ParseFilenameTests(unittest.TestCase):
 
 
 class ChainConfigTests(unittest.TestCase):
-    def test_three_chains_configured(self):
-        self.assertEqual(set(CHAINS), {"rami-levy", "yohananof", "osher-ad"})
+    def test_six_kfar_saba_chains_configured(self):
+        """All six confirmed live to have a real Kfar Saba branch (see
+        docs/sources.md, 28.08.2026) -- not the platform's full ~30-chain
+        roster, just the ones actually relevant to this pilot."""
+        self.assertEqual(
+            set(CHAINS), {"rami-levy", "yohananof", "osher-ad", "tiv-taam", "dor-alon", "yellow"}
+        )
         for chain in CHAINS.values():
             self.assertIn("ftp_username", chain)
+            self.assertIn("ftp_password", chain)
             self.assertIn("chain_id", chain)
+
+    def test_yellow_is_the_one_chain_with_a_real_password(self):
+        """Confirmed from OpenIsraeliSupermarkets' scrappers/yellow.py --
+        most of this platform's chains use an empty password, this one
+        doesn't. A regression here would silently break Yellow's login."""
+        self.assertEqual(CHAINS["yellow"]["ftp_password"], "paz468")
+        non_yellow = {k: v for k, v in CHAINS.items() if k != "yellow"}
+        self.assertTrue(all(v["ftp_password"] == "" for v in non_yellow.values()))
+
+
+class PreflightTests(unittest.TestCase):
+    """preflight() wraps etl.health_check.ftp_preflight -- these just prove
+    the wiring (right host/username/password passed through), not the FTP
+    behavior itself, which health_check.py's own tests cover."""
+
+    @patch("etl.scrapers.publishedprices.ftp_preflight")
+    def test_delegates_to_health_check_with_the_right_host(self, mock_preflight):
+        mock_preflight.return_value = True
+        result = preflight("RamiLevi", "")
+        self.assertTrue(result)
+        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "RamiLevi", "")
+
+    @patch("etl.scrapers.publishedprices.ftp_preflight")
+    def test_unreachable_source_returns_false(self, mock_preflight):
+        mock_preflight.return_value = False
+        self.assertFalse(preflight("osherad", ""))
 
 
 if __name__ == "__main__":
