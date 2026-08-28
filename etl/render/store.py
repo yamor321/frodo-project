@@ -14,6 +14,7 @@ from etl.scoring.store_ranking import StoreScore
 from etl.scrapers.shufersal import PriceRecord
 
 STORE_CSS = """
+.store-address{ color:var(--ink-muted); font-size:.95rem; margin:-8px 0 14px; }
 .navrow{ display:flex; gap:10px; flex-wrap:wrap; margin:-6px 0 22px; }
 .navbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.85rem; padding:8px 16px;
   border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy);
@@ -25,10 +26,11 @@ STORE_CSS = """
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.9rem; margin:0 0 16px; }
 section.list{ display:flex; flex-direction:column; gap:12px; }
-.card.spread{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.card.spread{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.card.spread .info{ display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
 .card.spread .name{ font-weight:600; font-size:.98rem; }
 .card.spread .name small{ display:block; color:var(--ink-muted); font-weight:400; font-size:.78rem; margin-top:2px; }
-.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; }
+.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; margin-inline-start:auto; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
@@ -54,7 +56,11 @@ def top_deals(
     return best_deals, worst_deals
 
 
-def _deal_card(s: SpreadResult, this_store_id: str, this_store_is_cheap: bool) -> str:
+def _deal_card(
+    s: SpreadResult, this_store_id: str, this_store_is_cheap: bool, image_urls: dict[str, str | None]
+) -> str:
+    from etl.render.layout import thumb_html
+
     this_price = s.cheap_price if this_store_is_cheap else s.expensive_price
     other_name = s.expensive_store_name if this_store_is_cheap else s.cheap_store_name
     other_price = s.expensive_price if this_store_is_cheap else s.cheap_price
@@ -62,7 +68,10 @@ def _deal_card(s: SpreadResult, this_store_id: str, this_store_is_cheap: bool) -
     sign = "-" if this_store_is_cheap else "+"
     return f"""
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
+      <div class="info">
+        {thumb_html(image_urls.get(s.item_code), s.item_name)}
+        <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
+      </div>
       <div class="prices">₪{this_price:.2f} <span class="chip {chip_class}">{sign}{s.spread_pct*100:.0f}%</span></div>
     </div>"""
 
@@ -74,11 +83,27 @@ def render_store_html(
     spreads: list[SpreadResult],
     catalog: list[PriceRecord],
     coords: GeoPoint | None = None,
+    image_urls: dict[str, str | None] | None = None,
     top_n: int = 8,
+    as_of_date: str | None = None,
+    address: str | None = None,
 ) -> str:
     from etl.render.layout import page_shell
 
+    image_urls = image_urls or {}
     best_deals, worst_deals = top_deals(spreads, store_id, top_n)
+
+    stale_html = ""
+    if as_of_date:
+        # Set only when this run's own live collection for this chain
+        # failed and these are the most recent prices this project actually
+        # has instead (see etl/raw_snapshot_fallback.py) -- never silently
+        # presented as freshly collected, per this project's honesty-in-
+        # labeling principle. Phrased to stay accurate whether as_of_date is
+        # an earlier day OR earlier today (the daily workflow can run
+        # several times a day) -- "source unavailable today" would
+        # self-contradict when as_of_date IS today's date.
+        stale_html = f'<div style="margin:-10px 0 18px;"><span class="chip warm">המחירים כאן מהאיסוף האחרון שהצליח, {escape(as_of_date)} — הריצה הנוכחית לא הצליחה לרענן אותם</span></div>'
 
     nav_html = ""
     if coords is not None:
@@ -98,17 +123,21 @@ def render_store_html(
     search_json = json.dumps(search_items, ensure_ascii=False)
 
     score_html = (
-        f'<span class="score">ציון: {score.avg_percentile:.2f} מתוך 1 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
+        f'<span class="score">ציון: {score.avg_percentile*100:.0f} מתוך 100 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
         if score
         else ""
     )
 
-    best_html = "\n".join(_deal_card(s, store_id, True) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
-    worst_html = "\n".join(_deal_card(s, store_id, False) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    best_html = "\n".join(_deal_card(s, store_id, True, image_urls) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+
+    address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
 
     body = f"""
   <div class="kicker">Frodo Project · דף סניף</div>
-  <h1>{escape(store_name)}</h1>{nav_html}
+  <h1>{escape(store_name)}</h1>
+  {address_html}{nav_html}
+  {stale_html}
   <div class="storecard">{score_html}</div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>

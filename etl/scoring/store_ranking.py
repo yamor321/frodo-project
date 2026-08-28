@@ -15,6 +15,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass
 
+from etl.scoring.item_code_filters import is_reliable_item_code
 from etl.scrapers.shufersal import PriceRecord
 
 
@@ -34,7 +35,7 @@ def compute_store_scores(
     by_item: dict[str, dict[str, float]] = defaultdict(dict)
     for store_id, records in catalogs_by_store.items():
         for r in records:
-            if r.item_price > 0:
+            if r.item_price > 0 and is_reliable_item_code(r.item_code):
                 by_item[r.item_code][store_id] = r.item_price
 
     percentile_sums: dict[str, float] = defaultdict(float)

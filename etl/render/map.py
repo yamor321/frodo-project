@@ -12,24 +12,13 @@ from html import escape
 from etl.enrich.geocode import GeoPoint
 from etl.scoring.store_ranking import StoreScore
 
-LEAFLET_CSS = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">'
-LEAFLET_JS = '<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>'
-
+# LEAFLET_CSS/JS, the base map CSS, and the score-color gradient all live in
+# layout.py now -- shared verbatim with the per-product mini-map in
+# product.py so the two can never drift into different-looking color scales.
 MAP_CSS = """
-.controls{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
-button.locbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.88rem; padding:9px 18px;
-  border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); cursor:pointer; }
-button.locbtn:hover{ background:var(--navy); color:#fff; }
 .type-filters{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; font-size:.85rem; }
 .type-filters label{ display:inline-flex; align-items:center; gap:6px; cursor:pointer; }
 .type-filters label.disabled{ opacity:.5; cursor:not-allowed; }
-#leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
-.legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
-.legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
-#nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
-#nearest b{ color:var(--ink); }
-.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
-.leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
 """
 
 
@@ -39,7 +28,7 @@ def render_map_html(
     formats: dict[str, str],
     base_path: str = "/frodo-project",
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import LEAFLET_CSS, LEAFLET_JS, LEAFLET_MAP_CSS, LEAFLET_SCORE_COLOR_JS, page_shell
 
     points = []
     for s in scores:
@@ -61,8 +50,8 @@ def render_map_html(
 
     body = f"""
   <div class="kicker">Frodo Project · שכבה 2 · דירוג סניפים</div>
-  <h1>מפת מחירים — שופרסל בכפר סבא</h1>
-  <p class="lede">כל נקודה = סניף. הצבע = כמה יקר הוא בממוצע ביחס לשאר הסניפים, על אלפי מוצרים משותפים. לחיצה על סניף פותחת את דף המוצרים הבולטים שלו.</p>
+  <h1>מפת מחירים — כפר סבא</h1>
+  <p class="lede">כל נקודה = סניף. הצבע = כמה יקר הוא בממוצע ביחס לשאר הסניפים, על אלפי מוצרים משותפים. לחיצה על סניף פותחת את דף המוצרים הבולטים שלו. מיקום הסניף על המפה מבוסס על geocoding אוטומטי מהכתובת הרשמית ועשוי להיות משוער — לא תמיד מדויק לכניסה עצמה.</p>
 
   <div class="controls">
     <button class="locbtn" id="locBtn">📍 מצא את המיקום שלי</button>
@@ -80,7 +69,7 @@ def render_map_html(
   <div id="nearest"></div>
 """
 
-    extra_head = f"{LEAFLET_CSS}\n<style>{MAP_CSS}</style>"
+    extra_head = f"{LEAFLET_CSS}\n<style>{LEAFLET_MAP_CSS}</style>\n<style>{MAP_CSS}</style>"
 
     extra_script = f"""{LEAFLET_JS}
 <script>
@@ -88,13 +77,7 @@ def render_map_html(
   const stores = {data_json};
   const BASE = "{base_path}";
 
-  function scoreColor(score){{
-    const stops = [[0.12,0.48,0.27],[0.79,0.77,0.66],[0.65,0.23,0.18]];
-    const t = score <= 0.5 ? score*2 : (score-0.5)*2;
-    const [a,b] = score <= 0.5 ? [stops[0],stops[1]] : [stops[1],stops[2]];
-    const mix = a.map((v,i)=>Math.round((v + (b[i]-v)*t)*255));
-    return `rgb(${{mix[0]}},${{mix[1]}},${{mix[2]}})`;
-  }}
+  {LEAFLET_SCORE_COLOR_JS}
 
   const lats = stores.map(s=>s.lat), lons = stores.map(s=>s.lon);
   const centerLat = (Math.min(...lats)+Math.max(...lats))/2;
@@ -109,7 +92,10 @@ def render_map_html(
   // guaranteed to actually render.
   L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 19,
+    // Capped below the zoom where individual building outlines start
+    // rendering -- keeps the map graphic/lean instead of relying on
+    // users not to zoom in past it.
+    maxZoom: 16,
   }}).addTo(map);
 
   const hyperLayer = L.layerGroup().addTo(map);
@@ -123,8 +109,20 @@ def render_map_html(
       : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
     const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
     const marker = L.marker([s.lat, s.lon], {{icon}});
-    marker.bindTooltip(`<b>${{s.name}}</b><br>ציון ${{s.score.toFixed(2)}} מתוך 1 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים`);
-    marker.on('click', ()=>{{ window.location.href = `${{BASE}}/store/${{s.id}}/`; }});
+    // Tooltip is hover-only, so it's a no-op on touch devices -- that's fine,
+    // it's just a desktop quick-glance label. The actual identification +
+    // navigation happens through the popup below, which opens on tap/click
+    // on every device: without this, a mobile tap had no hover step at all,
+    // so the very first touch fired the click handler and jumped straight
+    // into the store page with no chance to see which store it even was.
+    marker.bindTooltip(s.name);
+    marker.bindPopup(`
+      <div class="store-popup">
+        <b>${{s.name}}</b>
+        <div class="meta">ציון ${{Math.round(s.score*100)}} מתוך 100 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים</div>
+        <a class="openbtn" href="${{BASE}}/store/${{s.id}}/">פתח דף סניף ←</a>
+      </div>
+    `);
     (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
   }});
 
@@ -155,7 +153,7 @@ def render_map_html(
     if (nearest){{
       const km = (bestD/1000).toFixed(1);
       box.style.display = "block";
-      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ציון ${{nearest.score.toFixed(2)}} מתוך 1.`;
+      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ציון ${{Math.round(nearest.score*100)}} מתוך 100.`;
     }}
   }}
 

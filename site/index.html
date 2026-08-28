@@ -2,220 +2,252 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>מחירי חלב כפר סבא</title>
+<title>מחירי סופרמרקטים כפר סבא — Frodo Project</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Assistant:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F1F3EC; --paper-raised:#FBFBF6; --ink:#1B2118; --ink-muted:#5C6754;
-  --line:#DCE0D2; --brand:#2F5233; --brand-ink:#1D3320; --brand-soft:#E1E8D9;
-  --good:#1F6E5C; --good-soft:#DDEFE9; --neutral-chip:#EEF0E7; --neutral-ink:#4B5545;
-  --warm:#B8632E; --warm-soft:#F5E4D4;
-  --shadow:0 1px 2px rgba(27,33,24,.06), 0 10px 28px rgba(27,33,24,.07);
+  --paper:#F3F1E9; --paper-raised:#FFFFFF; --ink:#191914; --ink-muted:#625F53;
+  --line:#D8D4C5; --navy:#1F3A5F; --navy-soft:#DCE4EC; --brick:#A63A2E; --brick-soft:#F2E2DC;
+  --good:#1E7A46; --good-soft:#DCEDE2;
+  --shadow:0 2px 4px rgba(25,25,20,.06), 0 16px 36px rgba(25,25,20,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#12160F; --paper-raised:#191F14; --ink:#E9EDE3; --ink-muted:#9BAA8E;
-    --line:#2B3323; --brand:#7FBF8E; --brand-ink:#CFEAD3; --brand-soft:#1E2C1D;
-    --good:#5FC7A9; --good-soft:#183A30; --neutral-chip:#232B1E; --neutral-ink:#AAB79C;
-    --warm:#E2A159; --warm-soft:#382712;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.35);
+    --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
+    --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
+    --good:#5FBF87; --good-soft:#1C3527;
+    --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#12160F; --paper-raised:#191F14; --ink:#E9EDE3; --ink-muted:#9BAA8E;
-  --line:#2B3323; --brand:#7FBF8E; --brand-ink:#CFEAD3; --brand-soft:#1E2C1D;
-  --good:#5FC7A9; --good-soft:#183A30; --neutral-chip:#232B1E; --neutral-ink:#AAB79C;
-  --warm:#E2A159; --warm-soft:#382712;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.35);
+  --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
+  --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
+  --good:#5FBF87; --good-soft:#1C3527;
+  --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;}
-body{ margin:0; background:var(--paper); color:var(--ink);
-  font-family:'Assistant',-apple-system,'Segoe UI',sans-serif; direction:rtl;
-  -webkit-font-smoothing:antialiased; }
-.page{ max-width:840px; margin:0 auto; padding:36px 20px 90px; }
-h1,h2{ font-family:'Rubik',-apple-system,sans-serif; font-weight:800; text-wrap:balance; margin:0; }
+body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
+  direction:rtl; -webkit-font-smoothing:antialiased; }
+.page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
-a{ color:var(--brand-ink); text-decoration-color:var(--brand); text-underline-offset:3px; }
+a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
 a:hover{ text-decoration-thickness:2px; }
-nav.topnav{ display:flex; align-items:center; gap:18px; padding:24px 0 0; font-size:.88rem; }
+a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
+
+nav.topnav{ display:flex; align-items:center; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
+  margin-bottom:28px; font-size:.88rem; }
 nav.topnav a{ color:var(--ink); text-decoration:none; font-weight:600; }
-nav.topnav a.brand{ font-family:'Rubik',sans-serif; font-weight:800; font-size:1.05rem; }
-.cta-map{ display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:11px 22px;
-  background:#fff; color:var(--brand-ink); border-radius:999px; font-weight:700; text-decoration:none;
-  font-size:.92rem; }
-.cta-map:hover{ opacity:.9; }
-header.hero{ padding-bottom:26px; border-bottom:2px solid var(--ink); margin-bottom:8px; }
-.eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:700;
-  letter-spacing:.04em; color:var(--brand-ink); background:var(--brand-soft);
-  padding:5px 12px; border-radius:999px; margin-bottom:16px; }
-h1{ font-size:clamp(1.9rem,5vw,2.6rem); line-height:1.15; margin-bottom:14px; }
-.lede{ color:var(--ink-muted); font-size:1.08rem; line-height:1.6; max-width:56ch; }
-.storecard{ display:flex; flex-wrap:wrap; gap:8px 22px; align-items:baseline; margin-top:22px;
-  padding:14px 18px; background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
-.storecard .meta{ font-size:.85rem; color:var(--ink-muted); }
-.headline-stat{ margin:34px 0 30px; padding:22px 24px; background:var(--brand); color:#fff;
+nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink); }
+nav.topnav .spacer{ flex:1; }
+nav.topnav a.current{ color:var(--navy); }
+
+h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.12;
+  margin:0 0 14px; text-wrap:balance; }
+h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; margin:0 0 10px; }
+.kicker{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--navy); margin-bottom:10px; }
+.lede{ color:var(--ink-muted); font-size:1.05rem; line-height:1.6; max-width:60ch; margin:0 0 8px; }
+
+.card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
+  box-shadow:var(--shadow); }
+.chip{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:500; padding:4px 10px;
+  border-radius:999px; white-space:nowrap; display:inline-block; }
+.chip.warm{ background:var(--brick-soft); color:var(--brick); }
+.chip.good{ background:var(--good-soft); color:var(--good); }
+
+.thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
+footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
+  color:var(--ink-muted); line-height:1.7; }
+footer.sitefoot a{ color:var(--navy); }
+</style>
+<style>
+#gsWrap{ position:relative; margin:0 0 22px; }
+#gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
+  border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
+#gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
+  background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  max-height:360px; overflow-y:auto; }
+.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+  color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
+.gsrow:last-child{ border-bottom:none; }
+.gsrow:hover{ background:var(--paper); }
+.gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
+.gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+</style>
+<style>
+.headline-stat{ margin:26px 0 30px; padding:22px 24px; background:var(--navy); color:#fff;
   border-radius:16px; box-shadow:var(--shadow); }
-.headline-stat .num{ font-family:'Rubik',sans-serif; font-weight:800; font-size:clamp(1.6rem,5vw,2.4rem);
+.headline-stat .num{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.6rem,5vw,2.4rem);
   font-variant-numeric:tabular-nums; line-height:1.2; }
 .headline-stat p{ margin:10px 0 0; opacity:.92; font-size:.98rem; max-width:52ch; line-height:1.55; }
-section.list{ display:flex; flex-direction:column; gap:14px; margin:30px 0; }
-.card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px;
-  padding:18px 20px; box-shadow:var(--shadow); display:flex; align-items:center;
-  justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.headline-stat a.cta-map{ display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:11px 22px;
+  background:#fff; color:var(--navy); border-radius:999px; font-weight:700; text-decoration:none; font-size:.92rem; }
+.headline-stat a.cta-map:hover{ opacity:.9; }
+
+.storecard{ display:flex; flex-wrap:wrap; gap:8px 22px; align-items:baseline; margin-top:20px;
+  padding:14px 18px; background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
+.storecard .meta{ font-size:.85rem; color:var(--ink-muted); }
+
+section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px; }
+.card{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .card .name{ font-size:1.02rem; font-weight:600; }
 .card .name small{ display:block; font-weight:400; color:var(--ink-muted); font-size:.82rem; margin-top:3px; }
 .card .prices{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
-.price-actual{ font-family:'Rubik',sans-serif; font-weight:800; font-size:1.5rem; font-variant-numeric:tabular-nums; }
+.price-actual{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:1.15rem; font-variant-numeric:tabular-nums; }
 .price-ref{ font-size:.85rem; color:var(--ink-muted); font-variant-numeric:tabular-nums; }
-.chip{ font-family:'IBM Plex Mono',monospace; font-size:.8rem; font-weight:500; padding:4px 10px;
-  border-radius:999px; white-space:nowrap; }
-.chip.neutral{ background:var(--neutral-chip); color:var(--neutral-ink); }
-.chip.warm{ background:var(--warm-soft); color:var(--warm); }
+.chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 .card.spread{ flex-direction:column; align-items:flex-start; gap:12px; }
 .range{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
 .range-point{ display:flex; flex-direction:column; gap:2px; }
-.range-point b{ font-family:'Rubik',sans-serif; font-weight:800; font-size:1.35rem; font-variant-numeric:tabular-nums; }
+.range-point b{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:1.2rem; font-variant-numeric:tabular-nums; }
 .range-point.cheap b{ color:var(--good); }
 .range-point small{ color:var(--ink-muted); font-size:.78rem; }
 .range-arrow{ color:var(--ink-muted); font-size:1.2rem; }
-.transparency-note{ font-size:.85rem; color:var(--ink-muted); line-height:1.6;
-  border-inline-start:3px solid var(--line); padding:10px 16px; margin:26px 0; }
-h2.section-title{ font-size:1.15rem; margin:44px 0 6px; }
-p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 18px; max-width:60ch; line-height:1.55; }
-footer{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); }
-footer h2{ font-size:1rem; margin-bottom:10px; }
-footer ul{ margin:0; padding-inline-start:20px; font-size:.86rem; color:var(--ink-muted); line-height:1.9; }
-.feedback-tag{ margin-top:30px; font-size:.8rem; color:var(--ink-muted); text-align:center; }
-@media (max-width:520px){ .page{ padding:24px 14px 70px; } .card{ flex-direction:column; align-items:flex-start; } }
+
+h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
+p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-width:60ch; line-height:1.55; }
+@media (max-width:520px){ .card{ flex-direction:column; align-items:flex-start; } }
 </style>
 </head>
 <body>
 <div class="page">
+  <nav class="topnav">
+    <a class="brand" href="/frodo-project/">Frodo Project</a>
+    <a class="current" href="/frodo-project/">בית</a>
+    <a class="" href="/frodo-project/map/">מפה</a>
+    <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
+    <span class="spacer"></span>
+    <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
+  </nav>
 
-  <nav class="topnav"><a class="brand" href="/frodo-project/">Frodo Project</a><a href="/frodo-project/map/">מפה</a></nav>
+  <div id="gsWrap">
+    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off">
+    <div id="gsResults"></div>
+  </div>
 
-  <header class="hero">
-    <span class="eyebrow">Frodo Project · פיילוט כפר סבא</span>
-    <h1>אותו מוצר, אותה עיר, פערי מחיר אמיתיים</h1>
-    <p class="lede">שופרסל מפעילה כמה סניפים בכפר סבא, בפורמטים שונים. השוואה בין המחירים שהרשת עצמה מפרסמת — אותו ברקוד, אותו יום — מראה פערים בין הסניפים על אותו מוצר בדיוק.</p>
-    <div class="storecard">
-      <b>שופרסל · סניפי כפר סבא</b>
-      <span class="meta ltr">עודכן 28.08.2026, 10:23</span>
-    </div>
-  </header>
+
+  <div class="kicker">Frodo Project · פיילוט כפר סבא</div>
+  <h1>אותו מוצר, אותה עיר, פערי מחיר אמיתיים</h1>
+  <p class="lede">כמה רשתות שיווק מפעילות סניפים בכפר סבא, בפורמטים שונים. השוואה בין המחירים שכל רשת מפרסמת בעצמה — אותו ברקוד, אותו יום — מראה פערים אמיתיים בין הסניפים על אותו מוצר בדיוק.</p>
+  <div class="storecard">
+    <b>כפר סבא · השוואת מחירים בין סניפים</b>
+    <span class="meta ltr">עודכן 29.08.2026, 02:22</span>
+  </div>
 
   <div class="headline-stat">
-    <div class="num ltr">₪3.90 ← ₪7.90</div>
-    <p><b>מלון מובחר</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪3.90
-    ביוניברס גזית כ&quot;ס- ויצמן, ₪7.90 באקספרס כפר סבא דוכיפת.
-    פער של 102.6% על אותו מוצר בדיוק.</p>
+    <div class="num ltr">₪1.90 ← ₪9.90</div>
+    <p><b>קוביות שום 80 גרם</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪1.90
+    ביוחננוף — כפר סבא, ₪9.90 בקרפור — קרפור סיטי  רון כפר סבא (1139).
+    פער של 421.1% על אותו מוצר בדיוק.</p>
     <a class="cta-map" href="/frodo-project/map/">כנסו למפה — ראו את הסניפים לידכם ←</a>
   </div>
   <h2 class="section-title">המוצרים עם הפער הגדול ביותר בין סניפים</h2>
-  <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום.</p>
+  <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום. <a href="/frodo-project/branches/">כל 13,773 הפערים ←</a></p>
 
   <section class="list">
     <div class="card spread">
-      <div class="name">מלון מובחר <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290120344556/">קוביות שום 80 גרם</a></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪3.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪7.90</b><small>אקספרס כפר סבא דוכיפת</small></span>
+        <span class="range-point"><b class="ltr">₪9.90</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
       </div>
-      <span class="chip warm">+102.6%</span>
+      <span class="chip warm">+421.1%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">נביעות מים מינרלים 1 ל <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-10 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/9771565038319/">ידיעות אחרונות יום א</a></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪4.00</b><small>דיל שבירו כפר סבא</small></span>
+        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/carrefour-010/">קרפור — קרפור היפר   כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪7.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪4.00</b><small><a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a></small></span>
       </div>
-      <span class="chip warm">+97.5%</span>
+      <span class="chip warm">+344.4%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">גזר תפזורת <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/9771565038326/">ידיעות אחרונות יום ב</a></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪4.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/carrefour-010/">קרפור — קרפור היפר   כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪8.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪4.00</b><small><a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a></small></span>
       </div>
-      <span class="chip warm">+81.6%</span>
+      <span class="chip warm">+344.4%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">תפוח אדמה קטן לאפיה <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-8 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290015855228/">אספרגוס</a></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪4.90</b><small>דיל שבירו כפר סבא</small></span>
+        <span class="range-point cheap"><b class="ltr">₪6.99</b><small><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪8.90</b><small>אקספרס הכרמל כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪28.90</b><small><a href="/frodo-project/store/victory-079/">כפר סבא הירוקה</a></small></span>
       </div>
-      <span class="chip warm">+81.6%</span>
+      <span class="chip warm">+313.4%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">סלק <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290019997191/">גרעיני תירס מתוק במי מלח</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-7 סניפים</small></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪3.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪3.50</b><small><a href="/frodo-project/store/victory-079/">כפר סבא הירוקה</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪6.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪10.10</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+188.6%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">בצל יבש <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290122783377/">ביסלי מאנציז מיקס 1</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪3.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪4.50</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪6.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪12.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+186.7%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">גזר ארוז <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290019981978/">תחתיות ארטישוק שדה ב</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-7 סניפים</small></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪3.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪6.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪13.90</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+183.7%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">גזר ארוז <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7290002331490/">מים מינרליים נביעות</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-18 סניפים</small></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪3.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪2.90</b><small><a href="/frodo-project/store/rami-levy-033/">רמי לוי — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪6.90</b><small>אקספרס נחשון כפר סבא</small></span>
+        <span class="range-point"><b class="ltr">₪7.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+172.4%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">ענבים אדומים <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-8 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/7701001013596/">מארז שום יבש</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪16.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪2.90</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪29.90</b><small>אקספרס תל חי</small></span>
+        <span class="range-point"><b class="ltr">₪7.90</b><small><a href="/frodo-project/store/752/">שופרסל — אקספרס כפר סבא דוכיפת</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+172.4%</span>
     </div>
 
     <div class="card spread">
-      <div class="name">ענבים אדומים פלם <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-10 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/9771565025005/">מעריב שישי</a></div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪16.90</b><small>יוניברס גזית כ&quot;ס- ויצמן</small></span>
+        <span class="range-point cheap"><b class="ltr">₪6.00</b><small><a href="/frodo-project/store/rami-levy-033/">רמי לוי — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪29.90</b><small>אקספרס תל חי</small></span>
+        <span class="range-point"><b class="ltr">₪15.90</b><small><a href="/frodo-project/store/carrefour-400/">קרפור — קרפור סיטי  קניון כפר סבא (1030)</a></small></span>
       </div>
-      <span class="chip warm">+76.9%</span>
+      <span class="chip warm">+165.0%</span>
     </div>
   </section>
 
@@ -1104,18 +1136,1064 @@ footer ul{ margin:0; padding-inline-start:20px; font-size:.86rem; color:var(--in
         <span class="chip neutral">0.0%</span>
       </div>
     </div>
+
+    <div class="card">
+      <div class="name">גבינה בסגנון דנאבלו 28% נטו-דנמרק<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪90.00</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip warm">+70.3%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ&quot;ל תנובה<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.84</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">PRESIDENT שמנת חמוצה טבעית 15% שומן 180 גרם<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪9.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+248.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% תנובה 250 גרם מהדרין<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% טרה 250 גרם מהדרין<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% תנובה 200 מ&quot;ל מהדרין<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.78</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15%תנובה 200 מ&quot;ל<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.84</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 3% מהדרין בקרטון+פקק תנובה 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה 28% נעם<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪52.85</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה 22% נעם<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪50.24</span>
+        <span class="price-ref ltr">מקסימום: ₪50.24</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% טרה 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.90</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">+0.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל תנובה 3% שומן 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.75</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">-1.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה תנובה 5%<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה תנובה 5%<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% 200מל מהדרי<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.90</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">-4.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% 200מל מהדרין<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.75</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">-1.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% תנובה<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">-33.1%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.70</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">-4.9%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה סקי 5% שו<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% טרה 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.90</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">+0.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל תנובה 3% שומן 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.75</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">-1.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">תנובה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.80</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">-1.4%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה תנובה 5%<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה תנובה 5%<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% 200מל מהדרי<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.95</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">-2.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% 200מל מהדרין<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.75</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">-1.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% תנובה<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.20</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">-22.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.30</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+16.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה סקי 5% שו<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.80</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">-1.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪9.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+248.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪12.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+354.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% 250 גר<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% 250 גר<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% 200מל מהדרי<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% 200מל מהדרין<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.78</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה מגורדת עמק 28%<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪52.85</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה חצי קשה 22% נע<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪50.20</span>
+        <span class="price-ref ltr">מקסימום: ₪50.24</span>
+        <span class="chip neutral">-0.1%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה חצי קשה 22% גל<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪50.24</span>
+        <span class="price-ref ltr">מקסימום: ₪50.24</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה גלבוע 22% במשקל תנובה<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪50.24</span>
+        <span class="price-ref ltr">מקסימום: ₪50.24</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15% שומן 180גרם PRESIDE<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪11.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+304.9%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15% שומן 300גרם PRESIDE<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪14.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+410.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ&quot;ל<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.20</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+12.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב דל שומן בקרטון+פקק 1 ליטר 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה  5%  250 גר בדצ<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.20</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip warm">+22.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% 250 גר<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה חריץ עמק 28% במשקל<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪52.85</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% 250 גר<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב טרי מהגולן 3% בקרטון 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב טרי מחלבות רמת הגולן 1% בקרטון 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ&quot;ל<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.84</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב קרטון+פקק 3% תנובה 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה 15% 200 מ&quot;ל<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.84</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 3% קרטון מהדרין<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 1% קרטון פיקוח 1<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 3% קרטון מהדרין<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5% פיקוח<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 3% קרטון פיקוח 1<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪7.35</span>
+        <span class="price-ref ltr">מקסימום: ₪7.35</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">טרה גבינה לבנה 5% 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪9.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+248.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪12.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+354.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה 28% במשק<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪32.00</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">-39.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.10</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+9.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב תנובה בקרטון 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה רכה 5% בד<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% בד&quot;צ מהדרין<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ מהדרין 2<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה 28% הר ח<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪29.00</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">-45.1%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">טרה גבינה לבנה 5% 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה  28% הר<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪33.00</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">-37.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+23.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב תנובה בקרטון 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה רכה 5% בד<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% בד&quot;צ מהדרין<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ מהדרין 2<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪10.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+283.8%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪13.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+389.4%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪9.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+248.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+23.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה צהובה 28% במשק<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪32.00</span>
+        <span class="price-ref ltr">מקסימום: ₪52.85</span>
+        <span class="chip neutral">-39.5%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב תנובה בקרטון 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה רכה 5% בד<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% בד&quot;צ מהדרין<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ מהדרין 2<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">טרה גבינה לבנה 5% 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">טרה גבינה לבנה 5% 25<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+23.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב תנובה בקרטון 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה רכה 5% בד<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% בד&quot;צ מהדרין<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ מהדרין 2<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪10.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+283.8%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪13.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+389.4%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.50</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+23.2%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב תנובה בקרטון 1%<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.92</span>
+        <span class="price-ref ltr">מקסימום: ₪6.92</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% בד&quot;צ מהדרין<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל 3% בד&quot;צ מהדרין 2<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.79</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">+0.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל, לבן 3% שומן<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.78</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪9.90</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+248.6%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה יטבתה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪3.20</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip warm">+12.7%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">חלב 3% שומן שקית 1 ליטר פיקוח<small>מפוקח כ: חלב טרי בשקית 3% שומן (רגיל)</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪6.41</span>
+        <span class="price-ref ltr">מקסימום: ₪6.41</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5%, 250ג&#x27; בד&quot;צ<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5%, 250ג&#x27;<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גבינה לבנה 5%<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">סקי גבינה לבנה 5% 250 גר<small>מפוקח כ: גבינה לבנה 5%</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪5.87</span>
+        <span class="price-ref ltr">מקסימום: ₪5.87</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">אשל 4.5% שומן<small>מפוקח כ: אשל 4.5% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.99</span>
+        <span class="price-ref ltr">מקסימום: ₪1.99</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">גיל לבן 3%<small>מפוקח כ: גיל 3% שומן</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪1.78</span>
+        <span class="price-ref ltr">מקסימום: ₪1.78</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה אורגינל 15% 200 מל פיקוח תנ<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.84</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">0.0%</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="name">שמנת חמוצה אורגינל 15% שומן חצי מנה פי<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small></div>
+      <div class="prices">
+        <span class="price-actual ltr">₪2.20</span>
+        <span class="price-ref ltr">מקסימום: ₪2.84</span>
+        <span class="chip neutral">-22.5%</span>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <h2>מקורות ושיטה</h2>
-    <ul>
-      <li><a href="https://prices.shufersal.co.il/" target="_blank" rel="noopener">פורטל שקיפות המחירים של שופרסל</a> — קובצי המחירים המלאים של כל סניף, כפי שהרשת מחויבת לפרסם בחוק.</li>
-      <li><a href="https://data.gov.il/dataset/price_controlled_consumer_products" target="_blank" rel="noopener">מאגר המחירים המפוקחים, data.gov.il</a> — משרד הכלכלה והתעשייה ומשרד החקלאות.</li>
-      <li><a href="https://www.nevo.co.il/law_html/law01/500_150.htm" target="_blank" rel="noopener">תקנות קידום התחרות בענף המזון (שקיפות מחירים), התשע"ה-2014</a> — הבסיס החוקי לפרסום קובצי המחירים.</li>
-    </ul>
-    <p class="feedback-tag">נוצר אוטומטית מנתוני האמת האחרונים · עוד רשתות בכפר סבא, ואז ערים נוספות, בדרך.</p>
+  <footer class="sitefoot">
+    נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
+    <a href="/frodo-project/methodology/">כל המקורות ואיך כל מספר מחושב</a>
   </footer>
-
 </div>
+<script>
+(function(){
+  let items = null;
+  const box = document.getElementById("gsBox");
+  const results = document.getElementById("gsResults");
+  if (!box) return;
+
+  function ensureLoaded(cb){
+    if (items) { cb(); return; }
+    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{ items = data; cb(); }).catch(()=>{ items = []; cb(); });
+  }
+
+  function render(query){
+    const q = query.trim();
+    if (!q || q.length < 2){ results.style.display = "none"; results.innerHTML = ""; return; }
+    const matches = items.filter(it => it.name.includes(q)).slice(0, 20);
+    if (!matches.length){
+      results.style.display = "block";
+      results.innerHTML = '<div class="gsrow gsempty">אין תוצאות</div>';
+      return;
+    }
+    results.style.display = "block";
+    results.innerHTML = matches.map(it =>
+      `<a class="gsrow" href="/frodo-project/product/${it.code}/"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+    ).join("");
+  }
+
+  box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
+  box.addEventListener("focus", ()=>{ ensureLoaded(()=>{}); });
+  document.addEventListener("click", (e)=>{
+    if (!e.target.closest("#gsWrap")) { results.style.display = "none"; }
+  });
+})();
+</script>
+
 </body>
 </html>

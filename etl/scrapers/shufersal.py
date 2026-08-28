@@ -17,8 +17,11 @@ from typing import Iterable, Iterator
 import requests
 from bs4 import BeautifulSoup
 
+from etl.concurrency import fetch_concurrently
+
 BASE_URL = "https://prices.shufersal.co.il/"
 REQUEST_TIMEOUT = 20
+LISTING_BATCH_SIZE = 8
 
 
 @dataclass
@@ -56,6 +59,16 @@ class PriceRecord:
     price_update_time: str
 
 
+def _fetch_listing_page(session: requests.Session, page: int) -> list["PriceFile"]:
+    resp = session.get(
+        BASE_URL,
+        params={"page": page, "sort": "Branch", "sortdir": "ASC"},
+        timeout=REQUEST_TIMEOUT,
+    )
+    resp.raise_for_status()
+    return list(_parse_listing_page(resp.text))
+
+
 def list_files(max_pages: int = 200) -> Iterator[PriceFile]:
     """Walk the portal's file-listing table and yield every row found.
 
@@ -64,21 +77,28 @@ def list_files(max_pages: int = 200) -> Iterator[PriceFile]:
     no-op). The table *does* support deterministic sorting via
     ?sort=Branch&sortdir=ASC, so this walks every page in that order and lets
     callers filter client-side. A page with zero rows ends the walk.
+
+    Pages are independent GETs (page N doesn't depend on page N-1's
+    content), so they're fetched LISTING_BATCH_SIZE at a time instead of one
+    at a time -- measured live at ~3s/page, a full walk (the portal lists
+    every store nationwide, not just Kfar Saba, so this can run to hundreds
+    of pages) was taking 10+ minutes fetched sequentially. Results still
+    come out in page order; the walk stops at the first page in that order
+    with zero rows, same as before.
     """
     session = requests.Session()
     page = 1
     while page <= max_pages:
-        resp = session.get(
-            BASE_URL,
-            params={"page": page, "sort": "Branch", "sortdir": "ASC"},
-            timeout=REQUEST_TIMEOUT,
+        batch = list(range(page, min(page + LISTING_BATCH_SIZE, max_pages + 1)))
+        results = fetch_concurrently(
+            [lambda p=p: _fetch_listing_page(session, p) for p in batch],
+            max_workers=LISTING_BATCH_SIZE,
         )
-        resp.raise_for_status()
-        rows = list(_parse_listing_page(resp.text))
-        if not rows:
-            return
-        yield from rows
-        page += 1
+        for rows in results:
+            if not rows:  # empty page, or a failed fetch (None) -- either ends the walk
+                return
+            yield from rows
+        page += LISTING_BATCH_SIZE
 
 
 def _parse_listing_page(html: str) -> Iterator[PriceFile]:
@@ -164,14 +184,48 @@ def parse_stores_xml(xml_bytes: bytes) -> list[StoreRecord]:
     return records
 
 
+KFAR_SABA_CITY_NAMES = {"כפר סבא", "כפר-סבא"}
+
+
 def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
-    """Store IDs whose official settlement code (City) is Kfar Saba (6900).
+    """Store IDs identifying Kfar Saba, from the City field or (as a last
+    resort) the store's own name.
 
     Objective, data-driven replacement for KFAR_SABA_STORE_IDS below (which
     was identified by manually reading Hebrew branch names) -- verified live
-    2026-08-27: all 6 manually-identified branches carry City=="6900".
+    2026-08-27: all 6 manually-identified Shufersal branches carry
+    City=="6900" (the official settlement code). Carrefour's Stores file
+    uses the same numeric convention.
+
+    Not every chain does, though -- verified live 2026-08-28: Victory's own
+    Stores file puts the literal city NAME ("כפר סבא") in this field
+    instead of the settlement code, which silently returned zero matches
+    until this was caught. Matching both forms here (rather than picking
+    one and hoping) is what makes this function actually chain-agnostic,
+    instead of coincidentally working for the two chains it happened to be
+    written against.
+
+    A third gap, confirmed live 2026-08-29 by reading the real Stores.xml
+    (not a web search): Yohananof (store 024) and Keshet (store 019) both
+    publish City=="0" -- checked directly, not assumed: that's a clear
+    placeholder, not a real settlement code (which would never be "0"), so
+    it carries no usable signal at all. Their StoreName is the literal,
+    exact string "כפר סבא" though, same as branches this function already
+    recognizes by City. Only when City is one of the known placeholder
+    values does this fall back to an EXACT match on the store's own name
+    (not a substring check -- "כפר סבא" appearing inside a longer
+    promotional name wouldn't mean the store is actually there, and a
+    store with a real, different, non-placeholder City code should never
+    be pulled in just because of its name).
     """
-    return {s.store_id for s in stores if s.city_code == KFAR_SABA_CITY_CODE}
+    UNUSABLE_CITY_CODES = {"", "0", "unknown"}
+    matches = set()
+    for s in stores:
+        if s.city_code == KFAR_SABA_CITY_CODE or s.city_code in KFAR_SABA_CITY_NAMES:
+            matches.add(s.store_id)
+        elif s.city_code in UNUSABLE_CITY_CODES and s.store_name.strip() in KFAR_SABA_CITY_NAMES:
+            matches.add(s.store_id)
+    return matches
 
 
 def download(price_file: PriceFile) -> bytes:
@@ -235,12 +289,22 @@ KFAR_SABA_STORE_IDS = {"144", "394", "615", "682", "752", "845"}
 def kfar_saba_full_catalog_files(
     files: Iterable[PriceFile], store_ids: Iterable[str] = KFAR_SABA_STORE_IDS
 ) -> Iterator[PriceFile]:
-    """Filter a file listing down to full-catalog files for the given stores.
+    """Filter a file listing down to the latest full-catalog file per store.
 
     Pass the dynamic result of kfar_saba_stores(parse_stores_xml(...)) as
     store_ids; defaults to the manually-identified fallback set.
+
+    Some chains (verified live for Carrefour, 2026-08-28: stores 471/473
+    each published two full PriceFull snapshots on the same day) publish
+    more than one PriceFull per store per day -- always keep the latest by
+    the timestamp embedded in the filename, not just the first/last one
+    encountered in listing order.
     """
     store_ids = set(store_ids)
+    latest: dict[str, PriceFile] = {}
     for f in files:
-        if f.store_id in store_ids and f.category.lower() == "pricefull":
-            yield f
+        if f.store_id not in store_ids or f.category.lower() != "pricefull":
+            continue
+        if f.store_id not in latest or f.filename > latest[f.store_id].filename:
+            latest[f.store_id] = f
+    yield from latest.values()

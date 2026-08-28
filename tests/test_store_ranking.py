@@ -20,11 +20,14 @@ def rec(item_code, price, store_id):
 
 class ComputeStoreScoresTests(unittest.TestCase):
     def test_consistently_cheapest_store_scores_near_zero(self):
+        # Realistic-length codes: is_reliable_item_code() rejects anything
+        # under 8 digits, and these fixtures should reflect real barcode
+        # shapes, not trip that filter by accident.
         catalogs = {
-            "A": [rec("1", 1.0, "A"), rec("2", 1.0, "A")],
-            "B": [rec("1", 2.0, "B"), rec("2", 2.0, "B")],
-            "C": [rec("1", 3.0, "C"), rec("2", 3.0, "C")],
-            "D": [rec("1", 4.0, "D"), rec("2", 4.0, "D")],
+            "A": [rec("11111111", 1.0, "A"), rec("22222222", 1.0, "A")],
+            "B": [rec("11111111", 2.0, "B"), rec("22222222", 2.0, "B")],
+            "C": [rec("11111111", 3.0, "C"), rec("22222222", 3.0, "C")],
+            "D": [rec("11111111", 4.0, "D"), rec("22222222", 4.0, "D")],
         }
         scores = {s.store_id: s for s in compute_store_scores(catalogs, {}, min_stores=4)}
         self.assertAlmostEqual(scores["A"].avg_percentile, 0.0)
@@ -34,18 +37,18 @@ class ComputeStoreScoresTests(unittest.TestCase):
 
     def test_below_min_stores_excluded(self):
         catalogs = {
-            "A": [rec("1", 1.0, "A")],
-            "B": [rec("1", 2.0, "B")],
+            "A": [rec("11111111", 1.0, "A")],
+            "B": [rec("11111111", 2.0, "B")],
         }
         scores = compute_store_scores(catalogs, {}, min_stores=4)
         self.assertEqual(scores, [])
 
     def test_scores_sorted_cheapest_first(self):
         catalogs = {
-            "A": [rec("1", 5.0, "A")],
-            "B": [rec("1", 1.0, "B")],
-            "C": [rec("1", 3.0, "C")],
-            "D": [rec("1", 2.0, "D")],
+            "A": [rec("11111111", 5.0, "A")],
+            "B": [rec("11111111", 1.0, "B")],
+            "C": [rec("11111111", 3.0, "C")],
+            "D": [rec("11111111", 2.0, "D")],
         }
         scores = compute_store_scores(catalogs, {}, min_stores=4)
         self.assertEqual([s.store_id for s in scores], ["B", "D", "C", "A"])

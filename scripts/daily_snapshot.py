@@ -1,4 +1,4 @@
-"""Daily collection run: Shufersal Kfar Saba branches -> permanent raw
+"""Daily collection run: every chain's Kfar Saba branches -> permanent raw
 snapshot + dairy price-gap output + cross-branch spread + rendered
 multi-page site (home, map, one page per store, one page per compared
 product).
@@ -13,21 +13,34 @@ import dataclasses
 import datetime as dt
 import json
 import pathlib
+import shutil
 import sys
+import threading
+import traceback
+from typing import Callable
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.benchmarks.moag_controlled_prices import current_dairy_controlled_prices
+from etl.concurrency import fetch_concurrently
+from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
+from etl.enrich.product_images import get_image_urls
+from etl.enrich.store_directory import update_and_save as update_store_directory
+from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
+from etl.render.methodology import render_methodology_html
 from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
+from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
+from etl.scrapers import bina, carrefour, publishedprices, victory
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
+    PriceFile,
     download,
     kfar_saba_full_catalog_files,
     kfar_saba_stores,
@@ -39,12 +52,273 @@ from etl.scrapers.shufersal import (
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
+# Every store name displayed anywhere on the site (map popup, store page,
+# branches table, product price rows) is prefixed with its chain's real
+# name -- without this, several chains published a store's own StoreName as
+# just "כפר סבא" with zero distinguishing detail (confirmed live: Dor Alon,
+# Osher Ad, and Rami Levy all did this independently), and two unrelated
+# chains (Tiv Taam, Victory) both happened to brand a store "כפר סבא
+# הירוקה" -- genuinely different stores, indistinguishable by name alone.
+# Users couldn't tell Rami Levy or Shuk HaIr were even on the site, since
+# nothing ever showed which chain a pin belonged to. Applied once at the
+# store_names merge point (see main()) so it propagates to every page for
+# free, without touching map.py/store.py/branches.py/product.py.
+CHAIN_HEBREW_NAMES = {
+    "": "שופרסל",
+    "carrefour-": "קרפור",
+    "victory-": "ויקטורי",
+    "shukhair-": "שוק העיר",
+    "rami-levy-": "רמי לוי",
+    "yohananof-": "יוחננוף",
+    "osher-ad-": "אושר עד",
+    "tiv-taam-": "טיב טעם",
+    "dor-alon-": "דור אלון",
+    "yellow-": "Yellow",
+    "stop-market-": "Stop Market",
+    "fresh-market-": "Fresh Market",
+    "keshet-": "קשת טעמים",
+    "salach-dabach-": "סאלח דבאח",
+}
+
+# Some chains' own Stores.xml publishes a literal placeholder instead of a
+# real address (confirmed live: Yohananof store 024 has address == "unknown",
+# the same data-quality bug that made its City field unusable too -- see
+# shufersal.kfar_saba_stores()'s name-fallback tier). Treating that as a real
+# address would geocode nonsense and show "unknown" as if it were this
+# store's actual street on its page.
+UNUSABLE_ADDRESSES = {"", "unknown", "0", "-"}
+
+
+def usable_street_addresses(
+    store_addresses: dict[str, str], overrides: dict[str, str]
+) -> dict[str, str]:
+    """`store_addresses` filtered down to entries worth geocoding/displaying
+    -- drops placeholders (see UNUSABLE_ADDRESSES above), applying `overrides`
+    first so a known-good override can rescue an otherwise-placeholder entry.
+    """
+    result = {}
+    for sid, addr in store_addresses.items():
+        resolved = overrides.get(sid, addr)
+        if resolved and resolved.strip().lower() not in UNUSABLE_ADDRESSES:
+            result[sid] = resolved
+    return result
+
+
+@dataclasses.dataclass
+class ChainCollection:
+    """One chain's discovery results, ready for the combined download step.
+
+    Store IDs are namespaced per chain (prefix + the chain's own store_id)
+    everywhere downstream (catalogs_by_store, store_names, coords, formats,
+    /store/{id}/ URLs) so they can never collide -- every chain here
+    happens to use small numeric branch codes, and more than one has
+    already been seen reusing the same one. Shufersal (the pilot chain)
+    keeps its bare numeric IDs since its URLs are already live.
+    """
+
+    prefix: str
+    download_fn: Callable[[PriceFile], bytes]
+    catalog_files: list[PriceFile]
+    store_names: dict[str, str]
+    store_addresses: dict[str, str]
+
 
 def store_format(name: str) -> str:
     """See docs/sources.md: the chain's own format branding in the name is
     the only real size signal -- the official StoreType field only
-    distinguishes physical/online, not store size."""
-    return "hyper" if ("דיל" in name or "יוניברס" in name) else "neighborhood"
+    distinguishes physical/online, not store size. "היפר" catches
+    Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
+    catches Shufersal's."""
+    return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
+
+
+def _safe_collect(chain_name: str, collect_fn: Callable[[], "ChainCollection"], prefix: str) -> "ChainCollection":
+    """Run one chain's discovery, but never let it take the whole run down.
+
+    Each chain talks to a different real-world portal this project doesn't
+    control -- one being temporarily unreachable, rate-limiting, or
+    returning something unexpected is a "that chain is missing today", not
+    a reason the other chains (and the rest of the site) shouldn't update.
+    The full traceback still prints, so a real failure is visible in the
+    workflow log, not swallowed silently.
+    """
+    try:
+        return collect_fn()
+    except Exception:
+        print(f"\n{chain_name} collection failed, skipping it for today:")
+        traceback.print_exc()
+        return ChainCollection(prefix, lambda f: b"", [], {}, {})
+
+
+def _prune_stale_dirs(parent_dir: pathlib.Path, keep_names: set[str]) -> None:
+    """Remove any subdirectory of `parent_dir` not in `keep_names`.
+
+    The generation loops below only ever WRITE the pages a run currently
+    references -- they never delete one that's no longer needed. A page
+    that was correctly generated on one run (e.g. a product comparison
+    later found to rest on a bad barcode match, see etl/scoring/
+    item_code_filters.py) would otherwise sit on disk forever, unlinked
+    from the live site but still committed and reachable by direct URL.
+    """
+    if not parent_dir.exists():
+        return
+    for child in parent_dir.iterdir():
+        if child.is_dir() and child.name not in keep_names:
+            shutil.rmtree(child)
+
+
+def _collect_shufersal() -> ChainCollection:
+    print("Listing Shufersal portal...")
+    all_files = list(list_files(max_pages=200))
+    stores_file = list_stores_file(all_files)
+    if stores_file is None:
+        print(f"No Stores file found this run -- falling back to known IDs: {sorted(KFAR_SABA_STORE_IDS)}")
+        return ChainCollection("", download, [], {}, {})
+
+    stores = parse_stores_xml(download(stores_file))
+    store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
+    print(f"Shufersal Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    return ChainCollection(
+        prefix="",
+        download_fn=download,
+        catalog_files=list(kfar_saba_full_catalog_files(all_files, store_ids)),
+        store_names={s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_carrefour() -> ChainCollection:
+    print("Listing Carrefour portal...")
+    files = carrefour.list_files()
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Carrefour Stores file found this run -- skipping Carrefour for today.")
+        return ChainCollection("carrefour-", carrefour.download, [], {}, {})
+
+    stores = parse_stores_xml(carrefour.download(stores_file))
+    store_ids = kfar_saba_stores(stores) or carrefour.KFAR_SABA_STORE_IDS
+    print(f"Carrefour Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "carrefour-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=carrefour.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_victory() -> ChainCollection:
+    print("Listing Victory portal...")
+    files = victory.list_files(victory.VICTORY_CHAIN_IDS)
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Victory Stores file found this run -- skipping Victory for today.")
+        return ChainCollection("victory-", victory.download, [], {}, {})
+
+    stores = parse_stores_xml(victory.download(stores_file))
+    store_ids = kfar_saba_stores(stores)
+    print(f"Victory Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "victory-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=victory.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_shuk_hair() -> ChainCollection:
+    print("Listing Shuk HaIr portal...")
+    chain = bina.CHAINS["shuk-hair"]
+    files = bina.list_files(chain["url_perfix"], chain["chain_id"])
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Shuk HaIr Stores file found this run -- skipping Shuk HaIr for today.")
+        return ChainCollection("shukhair-", bina.download, [], {}, {})
+
+    stores = parse_stores_xml(bina.download(stores_file))
+    store_ids = kfar_saba_stores(stores) or bina.SHUK_HAIR_KFAR_SABA_STORE_IDS
+    print(f"Shuk HaIr Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "shukhair-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=bina.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock) -> ChainCollection:
+    """One function for all ten Cerberus/publishedprices.co.il chains
+    (etl/scrapers/publishedprices.py's CHAINS) -- unlike Shufersal/Carrefour/
+    Victory/Shuk HaIr, they share one uniform client, so ten near-identical
+    _collect_* functions would just be repetition.
+
+    preflight() runs first and skips straight to an empty result on failure
+    -- not routed through _safe_collect's exception handling, since a login
+    failure is the expected, handled case here, not a bug to print a
+    traceback about (this platform's actual FTP data-channel block is dead
+    code now -- see publishedprices.py's module docstring for why it moved
+    to the HTTPS web client instead).
+
+    None of these chains have a known-store-id fallback constant yet (no
+    chain here has ever completed a real run to learn its Kfar Saba store id
+    from) -- the raw-snapshot fallback in main() simply has nothing to fall
+    back to for them until one succeeds for the first time, same as Victory
+    or Shuk HaIr's own first run.
+
+    `diagnostics` is a shared dict (one entry per chain_key, guarded by
+    `diagnostics_lock` since ten of these run concurrently) that this run's
+    real preflight result gets written into regardless of outcome. This dev
+    sandbox can't reach GitHub Actions' own logs (sign-in required even on a
+    public repo -- already confirmed the hard way once, for Victory), but a
+    committed file's raw content on a public repo IS readable without
+    sign-in -- see main()'s write of data/processed/<date>/
+    cerberus_diagnostics.json. Don't guess at a CI-only failure from this
+    dev sandbox's own (different) network behavior a second time.
+    """
+    prefix = f"{chain_key}-"
+    chain_cfg = publishedprices.CHAINS[chain_key]
+    username, password = chain_cfg["username"], chain_cfg["password"]
+
+    print(f"Checking {chain_key} (Cerberus, health check first)...")
+    diag = publishedprices.preflight_diagnostic(username, password)
+    with diagnostics_lock:
+        diagnostics[chain_key] = diag
+    if not diag["ok"]:
+        print(f"  {chain_key}: unreachable this run (failed at '{diag['failed_at']}': {diag['error']}) -- skipping, not retrying.")
+        return ChainCollection(prefix, lambda f: b"", [], {}, {})
+
+    def download_fn(f, u=username, p=password):
+        return publishedprices.download(u, f, p)
+
+    files = publishedprices.list_files(username, password)
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print(f"  No {chain_key} Stores file found this run -- skipping.")
+        return ChainCollection(prefix, download_fn, [], {}, {})
+
+    stores = parse_stores_xml(download_fn(stores_file))
+    store_ids = kfar_saba_stores(stores)
+    print(f"  {chain_key} Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=download_fn,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _cerberus_collect_task(chain_key: str, diagnostics: dict, diagnostics_lock) -> Callable[[], "ChainCollection"]:
+    """A fresh closure per chain_key -- a plain lambda inside a loop/
+    comprehension would all share the loop variable's final value."""
+    return lambda: _safe_collect(
+        chain_key, lambda: _collect_cerberus_chain(chain_key, diagnostics, diagnostics_lock), f"{chain_key}-"
+    )
 
 
 def main() -> None:
@@ -57,35 +331,125 @@ def main() -> None:
     processed_dir.mkdir(parents=True, exist_ok=True)
     site_dir.mkdir(parents=True, exist_ok=True)
 
-    print("Listing Shufersal portal...")
-    all_files = list(list_files(max_pages=200))
+    # Discovery (listing + Stores file) happens per chain -- each chain's
+    # API/portal shape is different enough that unifying this part isn't
+    # worth it (except the ten uniform Cerberus chains below). The part that
+    # actually dominates run time -- downloading every store's full catalog
+    # -- is NOT done per chain: every chain's target files are combined into
+    # one flat list below and fetched in a single concurrent batch, so chain
+    # 2 doesn't wait for chain 1's downloads to finish before its own start.
+    chains = [
+        _safe_collect("Shufersal", _collect_shufersal, ""),
+        _safe_collect("Carrefour", _collect_carrefour, "carrefour-"),
+        _safe_collect("Victory", _collect_victory, "victory-"),
+        _safe_collect("Shuk HaIr", _collect_shuk_hair, "shukhair-"),
+    ]
 
-    stores_file = list_stores_file(all_files)
-    store_names: dict[str, str] = {}
-    store_addresses: dict[str, str] = {}
-    if stores_file is not None:
-        stores = parse_stores_xml(download(stores_file))
-        store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
-        store_names = {s.store_id: s.store_name for s in stores if s.store_id in store_ids}
-        store_addresses = {s.store_id: s.address for s in stores if s.store_id in store_ids}
-        print(f"Kfar Saba stores (from official City==6900 filter): {sorted(store_ids)}")
-    else:
-        store_ids = KFAR_SABA_STORE_IDS
-        print(f"No Stores file found this run -- falling back to known IDs: {sorted(store_ids)}")
+    # Ten chains sharing one FTP platform (see etl/scrapers/publishedprices.py)
+    # -- discovery for each is its own independent network round-trip
+    # (preflight + login + listing), so run them concurrently rather than
+    # ten sequential connect attempts. Each is still isolated by
+    # _safe_collect, same as every other chain -- one bad connection here
+    # can't sink the batch.
+    print(f"\nChecking {len(publishedprices.CHAINS)} Cerberus chains concurrently...")
+    cerberus_diagnostics: dict = {}
+    cerberus_diagnostics_lock = threading.Lock()
+    cerberus_tasks = [
+        _cerberus_collect_task(chain_key, cerberus_diagnostics, cerberus_diagnostics_lock)
+        for chain_key in publishedprices.CHAINS
+    ]
+    chains.extend(c for c in fetch_concurrently(cerberus_tasks) if c is not None)
+
+    # Written regardless of outcome, so a CI-only failure can be read back
+    # from this committed file's raw content (no sign-in needed for that,
+    # unlike an Actions run's own log output -- see _collect_cerberus_chain's
+    # docstring). Don't repeat the mistake already made once for Victory:
+    # guessing at a CI-only failure instead of seeing the real exception.
+    diag_path = processed_dir / "cerberus_diagnostics.json"
+    diag_path.write_text(json.dumps(cerberus_diagnostics, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Wrote {diag_path}")
+
+    # A chain with zero live catalog_files today (host unreachable, see
+    # _safe_collect) falls back to the most recent raw snapshot this project
+    # already has on disk, instead of that chain's store(s) just vanishing
+    # for the day. Needs each chain's known store ids independent of live
+    # discovery, since discovery is exactly what failed -- reuses the same
+    # fallback constants already used inside each chain's own _collect_*().
+    KNOWN_STORE_IDS_BY_PREFIX = {
+        "": KFAR_SABA_STORE_IDS,
+        "carrefour-": carrefour.KFAR_SABA_STORE_IDS,
+        "victory-": victory.KFAR_SABA_STORE_IDS,
+        "shukhair-": bina.SHUK_HAIR_KFAR_SABA_STORE_IDS,
+    }
+    CHAIN_DISPLAY_NAMES = {"": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory", "shukhair-": "Shuk HaIr"}
+    fallback_catalogs: dict[str, list] = {}
+    stale_as_of: dict[str, str] = {}
+    for chain in chains:
+        if chain.catalog_files:
+            continue
+        known_ids = KNOWN_STORE_IDS_BY_PREFIX.get(chain.prefix)
+        if not known_ids:
+            continue
+        print(f"\n{CHAIN_DISPLAY_NAMES.get(chain.prefix, chain.prefix)}: no live files today, checking previous raw snapshots...")
+        found, as_of = find_fallback_catalogs(ROOT / "data" / "raw", chain.prefix, known_ids, now.date())
+        if found:
+            print(f"  Falling back to: {as_of}")
+        else:
+            print(f"  No usable snapshot found in the last week either -- store(s) will be missing today.")
+        fallback_catalogs.update(found)
+        stale_as_of.update(as_of)
 
     controlled = current_dairy_controlled_prices()
-    print(f"{len(controlled)} controlled dairy products fetched.")
+    print(f"\n{len(controlled)} controlled dairy products fetched.")
+
+    tasks = []
+    task_owners: list[tuple[ChainCollection, PriceFile]] = []
+    for chain in chains:
+        for f in chain.catalog_files:
+            tasks.append(lambda f=f, dl=chain.download_fn: dl(f))
+            task_owners.append((chain, f))
+
+    print(f"\nDownloading {len(tasks)} store catalogs across {len(chains)} chains concurrently...")
+    blobs = fetch_concurrently(tasks)
 
     all_gaps = []
     catalogs_by_store: dict[str, list] = {}
-    for f in kfar_saba_full_catalog_files(all_files, store_ids):
-        xml_bytes = download(f)
+    for (chain, f), xml_bytes in zip(task_owners, blobs):
+        key = chain.prefix + f.store_id
+        if xml_bytes is None:
+            print(f"  {key}: download failed, skipped")
+            continue
         (raw_dir / f.filename).with_suffix(".xml").write_bytes(xml_bytes)
         catalog = parse_price_xml(xml_bytes)
-        catalogs_by_store[f.store_id] = catalog
+        catalogs_by_store[key] = catalog
         gaps = compute_gaps(catalog, controlled)
-        print(f"  store {f.store_id}: {len(catalog)} items, {len(gaps)} matched")
+        print(f"  {key}: {len(catalog)} items, {len(gaps)} matched")
         all_gaps.extend(gaps)
+
+    for key, catalog in fallback_catalogs.items():
+        catalogs_by_store[key] = catalog
+        gaps = compute_gaps(catalog, controlled)
+        print(f"  {key}: {len(catalog)} items ({stale_as_of[key]}, fallback), {len(gaps)} matched")
+        all_gaps.extend(gaps)
+
+    store_names: dict[str, str] = {}
+    store_addresses: dict[str, str] = {}
+    for chain in chains:
+        label = CHAIN_HEBREW_NAMES.get(chain.prefix, chain.prefix.rstrip("-"))
+        for sid, raw_name in chain.store_names.items():
+            store_names[sid] = f"{label} — {raw_name}" if label else raw_name
+        store_addresses.update(chain.store_addresses)
+
+    # Sticky directory: today's live names/addresses feed it, and any store
+    # only present today via the raw-snapshot fallback (no live Stores file
+    # this run) borrows its name/address back from the last time it WAS seen
+    # live, instead of rendering with an empty name.
+    directory = update_store_directory(store_names, store_addresses)
+    for store_id in fallback_catalogs:
+        if store_id not in store_names:
+            store_names[store_id] = directory.get(store_id, {}).get("name", store_id)
+        if store_id not in store_addresses and store_id in directory:
+            store_addresses[store_id] = directory[store_id].get("address", "")
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
@@ -104,9 +468,9 @@ def main() -> None:
     print(f"Wrote {gap_path} and {spread_path}")
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
-    queries = {sid: f"{addr}, כפר סבא, ישראל" for sid, addr in store_addresses.items() if addr}
-    geo_results = geocode_many(list(set(queries.values())))
-    coords = {sid: geo_results.get(q) for sid, q in queries.items()}
+    streets_by_store = usable_street_addresses(store_addresses, ADDRESS_OVERRIDES)
+    geo_results = geocode_many(list(set(streets_by_store.values())))
+    coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
 
     formats = {sid: store_format(name) for sid, name in store_names.items()}
@@ -117,12 +481,30 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    methodology_dir = site_dir / "methodology"
+    methodology_dir.mkdir(exist_ok=True)
+    (methodology_dir / "index.html").write_text(render_methodology_html(), encoding="utf-8")
+
+    branches_dir = site_dir / "branches"
+    branches_dir.mkdir(exist_ok=True)
+    (branches_dir / "index.html").write_text(render_branches_html(spreads), encoding="utf-8")
+
     map_dir = site_dir / "map"
     map_dir.mkdir(exist_ok=True)
     (map_dir / "index.html").write_text(render_map_html(scores, coords, formats), encoding="utf-8")
 
     scores_by_id = {s.store_id: s for s in scores}
     referenced_item_codes = set()
+    for store_id in store_names:
+        best, worst = top_deals(spreads, store_id)
+        for s in best + worst:
+            referenced_item_codes.add(s.item_code)
+
+    print(f"\nFetching product images for {len(referenced_item_codes)} products (cached)...")
+    image_urls = get_image_urls(list(referenced_item_codes))
+    print(f"  {sum(1 for u in image_urls.values() if u)}/{len(referenced_item_codes)} found")
+
+    _prune_stale_dirs(site_dir / "store", set(store_names))
     for store_id, name in store_names.items():
         store_dir = site_dir / "store" / store_id
         store_dir.mkdir(parents=True, exist_ok=True)
@@ -134,21 +516,32 @@ def main() -> None:
                 spreads,
                 catalogs_by_store.get(store_id, []),
                 coords=coords.get(store_id),
+                image_urls=image_urls,
+                as_of_date=stale_as_of.get(store_id),
+                address=streets_by_store.get(store_id),
             ),
             encoding="utf-8",
         )
-        best, worst = top_deals(spreads, store_id)
-        for s in best + worst:
-            referenced_item_codes.add(s.item_code)
 
+    _prune_stale_dirs(site_dir / "product", referenced_item_codes)
+    search_index = []
     for code in referenced_item_codes:
         item_name = next((s.item_name for s in spreads if s.item_code == code), code)
         store_prices = collect_store_prices(catalogs_by_store, code, store_names)
         prod_dir = site_dir / "product" / code
         prod_dir.mkdir(parents=True, exist_ok=True)
         (prod_dir / "index.html").write_text(
-            render_product_html(code, item_name, store_prices), encoding="utf-8"
+            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code), coords=coords),
+            encoding="utf-8",
         )
+        if store_prices:
+            search_index.append(
+                {"code": code, "name": item_name, "cheap_price": min(sp.price for sp in store_prices)}
+            )
+
+    (site_dir / "search-index.json").write_text(
+        json.dumps(search_index, ensure_ascii=False), encoding="utf-8"
+    )
 
     print(f"Rendered index, map, {len(store_names)} store pages, {len(referenced_item_codes)} product pages.")
 

@@ -17,7 +17,7 @@
 # the rest automatically on every run. Also needs the repo set to Public
 # (Settings -> bottom of page -> "Change visibility") -- Pages on a
 # private repo requires a paid GitHub plan; on a public repo it's free.
-name: Daily Shufersal snapshot (Kfar Saba dairy pilot)
+name: Daily price snapshot (Kfar Saba pilot -- Shufersal + Carrefour)
 
 on:
   schedule:
