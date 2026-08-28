@@ -184,14 +184,31 @@ def parse_stores_xml(xml_bytes: bytes) -> list[StoreRecord]:
     return records
 
 
+KFAR_SABA_CITY_NAMES = {"כפר סבא", "כפר-סבא"}
+
+
 def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
-    """Store IDs whose official settlement code (City) is Kfar Saba (6900).
+    """Store IDs whose City field identifies Kfar Saba.
 
     Objective, data-driven replacement for KFAR_SABA_STORE_IDS below (which
     was identified by manually reading Hebrew branch names) -- verified live
-    2026-08-27: all 6 manually-identified branches carry City=="6900".
+    2026-08-27: all 6 manually-identified Shufersal branches carry
+    City=="6900" (the official settlement code). Carrefour's Stores file
+    uses the same numeric convention.
+
+    Not every chain does, though -- verified live 2026-08-28: Victory's own
+    Stores file puts the literal city NAME ("כפר סבא") in this field
+    instead of the settlement code, which silently returned zero matches
+    until this was caught. Matching both forms here (rather than picking
+    one and hoping) is what makes this function actually chain-agnostic,
+    instead of coincidentally working for the two chains it happened to be
+    written against.
     """
-    return {s.store_id for s in stores if s.city_code == KFAR_SABA_CITY_CODE}
+    return {
+        s.store_id
+        for s in stores
+        if s.city_code == KFAR_SABA_CITY_CODE or s.city_code in KFAR_SABA_CITY_NAMES
+    }
 
 
 def download(price_file: PriceFile) -> bytes:

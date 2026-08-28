@@ -20,32 +20,35 @@ def rec(item_code, item_name, price, store_id):
 
 class ComputeSpreadsTests(unittest.TestCase):
     def test_finds_largest_spread_first(self):
+        # Realistic-length codes: is_reliable_item_code() rejects anything
+        # under 8 digits, and these fixtures should reflect real barcode
+        # shapes, not trip that filter by accident.
         catalogs = {
-            "144": [rec("1", "מים", 4.00, "144"), rec("2", "לחם", 5.00, "144")],
-            "394": [rec("1", "מים", 6.00, "394"), rec("2", "לחם", 5.00, "394")],
-            "615": [rec("1", "מים", 7.90, "615"), rec("2", "לחם", 5.10, "615")],
-            "682": [rec("1", "מים", 5.00, "682"), rec("2", "לחם", 5.00, "682")],
+            "144": [rec("11111111", "מים", 4.00, "144"), rec("22222222", "לחם", 5.00, "144")],
+            "394": [rec("11111111", "מים", 6.00, "394"), rec("22222222", "לחם", 5.00, "394")],
+            "615": [rec("11111111", "מים", 7.90, "615"), rec("22222222", "לחם", 5.10, "615")],
+            "682": [rec("11111111", "מים", 5.00, "682"), rec("22222222", "לחם", 5.00, "682")],
         }
         results = compute_spreads(catalogs, {"144": "A", "615": "B"}, min_stores=4)
-        self.assertEqual(results[0].item_code, "1")
+        self.assertEqual(results[0].item_code, "11111111")
         self.assertAlmostEqual(results[0].spread_pct, (7.90 - 4.00) / 4.00)
         self.assertEqual(results[0].cheap_store_name, "A")
         self.assertEqual(results[0].expensive_store_name, "B")
 
     def test_excludes_items_below_min_stores(self):
         catalogs = {
-            "144": [rec("1", "נדיר", 4.00, "144")],
-            "394": [rec("1", "נדיר", 8.00, "394")],
+            "144": [rec("11111111", "נדיר", 4.00, "144")],
+            "394": [rec("11111111", "נדיר", 8.00, "394")],
         }
         results = compute_spreads(catalogs, {}, min_stores=4)
         self.assertEqual(results, [])
 
     def test_zero_spread_item_included_with_zero_pct(self):
         catalogs = {
-            "1": [rec("x", "קבוע", 3.00, "1")],
-            "2": [rec("x", "קבוע", 3.00, "2")],
-            "3": [rec("x", "קבוע", 3.00, "3")],
-            "4": [rec("x", "קבוע", 3.00, "4")],
+            "1": [rec("99999999", "קבוע", 3.00, "1")],
+            "2": [rec("99999999", "קבוע", 3.00, "2")],
+            "3": [rec("99999999", "קבוע", 3.00, "3")],
+            "4": [rec("99999999", "קבוע", 3.00, "4")],
         }
         results = compute_spreads(catalogs, {}, min_stores=4)
         self.assertEqual(len(results), 1)
@@ -62,6 +65,20 @@ class ComputeSpreadsTests(unittest.TestCase):
             "carrefour-404": [rec("7290000000145", "סלי אבל", 70.00, "113")],
             "230": [rec("7290000000145", "כרוב אדום", 7.00, "230")],
             "36": [rec("7290000000145", "כרוב אדום", 6.95, "36")],
+        }
+        results = compute_spreads(catalogs, {}, min_stores=4)
+        self.assertEqual(results, [])
+
+    def test_excludes_short_internal_plu_codes(self):
+        """Real case found comparing live Victory and Carrefour catalogs:
+        "2001" is yellow grapefruit at Victory but an unrelated product at
+        Carrefour -- a fake 832% spread that was the homepage headline
+        right after the first collision (above) was fixed."""
+        catalogs = {
+            "victory-079": [rec("2001", "אשכולית צהובה", 5.90, "079")],
+            "carrefour-404": [rec("2001", "מוצר לא קשור", 55.00, "113")],
+            "230": [rec("2001", "אשכולית צהובה", 6.00, "230")],
+            "36": [rec("2001", "אשכולית צהובה", 5.95, "36")],
         }
         results = compute_spreads(catalogs, {}, min_stores=4)
         self.assertEqual(results, [])

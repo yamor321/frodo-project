@@ -15,6 +15,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
+from etl.concurrency import fetch_concurrently
 from etl.enrich.product_images import get_image_urls
 from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
@@ -25,17 +26,19 @@ from etl.render.store import render_store_html, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
-from etl.scrapers import carrefour
+from etl.scrapers import carrefour, victory
 from etl.scrapers.shufersal import kfar_saba_full_catalog_files, kfar_saba_stores, list_stores_file, parse_price_xml, parse_stores_xml
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw" / "2026-08-28"
 SITE_DIR = ROOT / "site"
 
-# Carrefour store IDs are namespaced so they can never collide with
-# Shufersal's own bare numeric IDs -- see the same constant in
-# scripts/daily_snapshot.py.
+# Chain store IDs are namespaced so they can never collide with each
+# other's own bare numeric IDs -- see the same constants in
+# scripts/daily_snapshot.py. Shufersal stays unprefixed (pilot chain,
+# already-live URLs).
 CARREFOUR_PREFIX = "carrefour-"
+VICTORY_PREFIX = "victory-"
 
 STORE_NAMES = {
     "230": 'שלי כ"ס- ויצמן', "36": 'שלי כ"ס- רוטשילד', "144": "דיל שבירו כפר סבא",
@@ -91,19 +94,47 @@ def main() -> None:
         catalogs_by_store[store_id] = parse_price_xml(pathlib.Path(path).read_bytes())
         print(f"  {store_id} ({store_names.get(store_id, '?')}): {len(catalogs_by_store[store_id])} items [{published_at}]")
 
-    print("\nFetching Carrefour catalogs (live -- fast, no pagination needed)...")
+    print("\nListing Carrefour and Victory (live -- fast, no pagination needed)...")
     carrefour_files = carrefour.list_files()
     carrefour_stores_file = list_stores_file(carrefour_files)
+    carrefour_catalog_files = []
     if carrefour_stores_file is not None:
         c_stores = parse_stores_xml(carrefour.download(carrefour_stores_file))
         c_store_ids = kfar_saba_stores(c_stores) or carrefour.KFAR_SABA_STORE_IDS
         for s in c_stores:
             if s.store_id in c_store_ids:
                 store_names[CARREFOUR_PREFIX + s.store_id] = s.store_name
-        for f in kfar_saba_full_catalog_files(carrefour_files, c_store_ids):
-            key = CARREFOUR_PREFIX + f.store_id
-            catalogs_by_store[key] = parse_price_xml(carrefour.download(f))
-            print(f"  {key} ({store_names.get(key, '?')}): {len(catalogs_by_store[key])} items")
+        carrefour_catalog_files = list(kfar_saba_full_catalog_files(carrefour_files, c_store_ids))
+
+    victory_files = victory.list_files(victory.VICTORY_CHAIN_IDS)
+    victory_stores_file = list_stores_file(victory_files)
+    victory_catalog_files = []
+    if victory_stores_file is not None:
+        v_stores = parse_stores_xml(victory.download(victory_stores_file))
+        v_store_ids = kfar_saba_stores(v_stores)
+        for s in v_stores:
+            if s.store_id in v_store_ids:
+                store_names[VICTORY_PREFIX + s.store_id] = s.store_name
+        victory_catalog_files = list(kfar_saba_full_catalog_files(victory_files, v_store_ids))
+
+    # Downloaded in one combined concurrent batch, not one chain after the
+    # other -- neither chain has to wait for the other's downloads to
+    # finish before its own start.
+    tasks = [lambda f=f: carrefour.download(f) for f in carrefour_catalog_files] + [
+        lambda f=f: victory.download(f) for f in victory_catalog_files
+    ]
+    owners = [(CARREFOUR_PREFIX, f) for f in carrefour_catalog_files] + [
+        (VICTORY_PREFIX, f) for f in victory_catalog_files
+    ]
+    print(f"Downloading {len(tasks)} Carrefour+Victory store catalogs concurrently...")
+    blobs = fetch_concurrently(tasks)
+    for (prefix, f), xml_bytes in zip(owners, blobs):
+        if xml_bytes is None:
+            print(f"  {prefix}{f.store_id}: download failed, skipped")
+            continue
+        key = prefix + f.store_id
+        catalogs_by_store[key] = parse_price_xml(xml_bytes)
+        print(f"  {key} ({store_names.get(key, '?')}): {len(catalogs_by_store[key])} items")
 
     coords_raw = json.loads((ROOT / "data" / "processed" / "store_coords.json").read_text(encoding="utf-8"))
     from etl.enrich.geocode import GeoPoint

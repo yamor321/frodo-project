@@ -16,7 +16,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
-from etl.scrapers import carrefour
+from etl.scrapers import carrefour, victory
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     StoreRecord,
@@ -29,6 +29,7 @@ from etl.scrapers.shufersal import (
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CARREFOUR_PREFIX = "carrefour-"
+VICTORY_PREFIX = "victory-"
 
 
 def _geocode_chain(relevant: list[StoreRecord], key_prefix: str = "") -> dict:
@@ -79,6 +80,18 @@ def main() -> None:
         out.update(_geocode_chain(c_relevant, key_prefix=CARREFOUR_PREFIX))
     else:
         print("No Carrefour Stores file found this run -- skipping.")
+
+    print("\nListing Victory portal...")
+    victory_files = victory.list_files(victory.VICTORY_CHAIN_IDS)
+    victory_stores_file = list_stores_file(victory_files)
+    if victory_stores_file is not None:
+        v_stores = parse_stores_xml(victory.download(victory_stores_file))
+        v_store_ids = kfar_saba_stores(v_stores)
+        v_relevant = [s for s in v_stores if s.store_id in v_store_ids]
+        print(f"{len(v_relevant)} Kfar Saba Victory stores found.")
+        out.update(_geocode_chain(v_relevant, key_prefix=VICTORY_PREFIX))
+    else:
+        print("No Victory Stores file found this run -- skipping.")
 
     out_path = ROOT / "data" / "processed" / "store_coords.json"
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")

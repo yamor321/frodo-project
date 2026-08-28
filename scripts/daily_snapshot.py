@@ -1,4 +1,4 @@
-"""Daily collection run: Shufersal Kfar Saba branches -> permanent raw
+"""Daily collection run: every chain's Kfar Saba branches -> permanent raw
 snapshot + dairy price-gap output + cross-branch spread + rendered
 multi-page site (home, map, one page per store, one page per compared
 product).
@@ -15,6 +15,7 @@ import json
 import pathlib
 import shutil
 import sys
+from typing import Callable
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
@@ -32,9 +33,10 @@ from etl.render.store import render_store_html, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
-from etl.scrapers import carrefour
+from etl.scrapers import carrefour, victory
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
+    PriceFile,
     download,
     kfar_saba_full_catalog_files,
     kfar_saba_stores,
@@ -46,12 +48,24 @@ from etl.scrapers.shufersal import (
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-# Carrefour store IDs are namespaced in every shared dict (catalogs_by_store,
-# store_names, coords, formats) so they can never collide with Shufersal's
-# own bare numeric IDs -- both chains happen to use small numeric codes.
-# Shufersal itself stays unprefixed since it's the pilot chain and its URLs
-# (/store/144/, etc.) are already live.
-CARREFOUR_PREFIX = "carrefour-"
+
+@dataclasses.dataclass
+class ChainCollection:
+    """One chain's discovery results, ready for the combined download step.
+
+    Store IDs are namespaced per chain (prefix + the chain's own store_id)
+    everywhere downstream (catalogs_by_store, store_names, coords, formats,
+    /store/{id}/ URLs) so they can never collide -- every chain here
+    happens to use small numeric branch codes, and more than one has
+    already been seen reusing the same one. Shufersal (the pilot chain)
+    keeps its bare numeric IDs since its URLs are already live.
+    """
+
+    prefix: str
+    download_fn: Callable[[PriceFile], bytes]
+    catalog_files: list[PriceFile]
+    store_names: dict[str, str]
+    store_addresses: dict[str, str]
 
 
 def store_format(name: str) -> str:
@@ -80,6 +94,68 @@ def _prune_stale_dirs(parent_dir: pathlib.Path, keep_names: set[str]) -> None:
             shutil.rmtree(child)
 
 
+def _collect_shufersal() -> ChainCollection:
+    print("Listing Shufersal portal...")
+    all_files = list(list_files(max_pages=200))
+    stores_file = list_stores_file(all_files)
+    if stores_file is None:
+        print(f"No Stores file found this run -- falling back to known IDs: {sorted(KFAR_SABA_STORE_IDS)}")
+        return ChainCollection("", download, [], {}, {})
+
+    stores = parse_stores_xml(download(stores_file))
+    store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
+    print(f"Shufersal Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    return ChainCollection(
+        prefix="",
+        download_fn=download,
+        catalog_files=list(kfar_saba_full_catalog_files(all_files, store_ids)),
+        store_names={s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_carrefour() -> ChainCollection:
+    print("Listing Carrefour portal...")
+    files = carrefour.list_files()
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Carrefour Stores file found this run -- skipping Carrefour for today.")
+        return ChainCollection("carrefour-", carrefour.download, [], {}, {})
+
+    stores = parse_stores_xml(carrefour.download(stores_file))
+    store_ids = kfar_saba_stores(stores) or carrefour.KFAR_SABA_STORE_IDS
+    print(f"Carrefour Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "carrefour-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=carrefour.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _collect_victory() -> ChainCollection:
+    print("Listing Victory portal...")
+    files = victory.list_files(victory.VICTORY_CHAIN_IDS)
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Victory Stores file found this run -- skipping Victory for today.")
+        return ChainCollection("victory-", victory.download, [], {}, {})
+
+    stores = parse_stores_xml(victory.download(stores_file))
+    store_ids = kfar_saba_stores(stores)
+    print(f"Victory Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "victory-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=victory.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
 def main() -> None:
     now = dt.datetime.now()
     today = now.date().isoformat()
@@ -90,71 +166,47 @@ def main() -> None:
     processed_dir.mkdir(parents=True, exist_ok=True)
     site_dir.mkdir(parents=True, exist_ok=True)
 
-    print("Listing Shufersal portal...")
-    all_files = list(list_files(max_pages=200))
-
-    stores_file = list_stores_file(all_files)
-    store_names: dict[str, str] = {}
-    store_addresses: dict[str, str] = {}
-    if stores_file is not None:
-        stores = parse_stores_xml(download(stores_file))
-        store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
-        store_names = {s.store_id: s.store_name for s in stores if s.store_id in store_ids}
-        store_addresses = {s.store_id: s.address for s in stores if s.store_id in store_ids}
-        print(f"Kfar Saba stores (from official City==6900 filter): {sorted(store_ids)}")
-    else:
-        store_ids = KFAR_SABA_STORE_IDS
-        print(f"No Stores file found this run -- falling back to known IDs: {sorted(store_ids)}")
+    # Discovery (listing + Stores file) happens per chain -- each chain's
+    # API/portal shape is different enough that unifying this part isn't
+    # worth it. The part that actually dominates run time -- downloading
+    # every store's full catalog -- is NOT done per chain: every chain's
+    # target files are combined into one flat list below and fetched in a
+    # single concurrent batch, so chain 2 doesn't wait for chain 1's
+    # downloads to finish before its own start.
+    chains = [_collect_shufersal(), _collect_carrefour(), _collect_victory()]
 
     controlled = current_dairy_controlled_prices()
-    print(f"{len(controlled)} controlled dairy products fetched.")
+    print(f"\n{len(controlled)} controlled dairy products fetched.")
 
-    files_to_fetch = list(kfar_saba_full_catalog_files(all_files, store_ids))
-    print(f"Downloading {len(files_to_fetch)} store catalogs concurrently...")
-    xml_blobs = fetch_concurrently([lambda f=f: download(f) for f in files_to_fetch])
+    tasks = []
+    task_owners: list[tuple[ChainCollection, PriceFile]] = []
+    for chain in chains:
+        for f in chain.catalog_files:
+            tasks.append(lambda f=f, dl=chain.download_fn: dl(f))
+            task_owners.append((chain, f))
+
+    print(f"\nDownloading {len(tasks)} store catalogs across {len(chains)} chains concurrently...")
+    blobs = fetch_concurrently(tasks)
 
     all_gaps = []
     catalogs_by_store: dict[str, list] = {}
-    for f, xml_bytes in zip(files_to_fetch, xml_blobs):
+    for (chain, f), xml_bytes in zip(task_owners, blobs):
+        key = chain.prefix + f.store_id
         if xml_bytes is None:
-            print(f"  store {f.store_id}: download failed, skipped")
+            print(f"  {key}: download failed, skipped")
             continue
         (raw_dir / f.filename).with_suffix(".xml").write_bytes(xml_bytes)
         catalog = parse_price_xml(xml_bytes)
-        catalogs_by_store[f.store_id] = catalog
+        catalogs_by_store[key] = catalog
         gaps = compute_gaps(catalog, controlled)
-        print(f"  store {f.store_id}: {len(catalog)} items, {len(gaps)} matched")
+        print(f"  {key}: {len(catalog)} items, {len(gaps)} matched")
         all_gaps.extend(gaps)
 
-    print("\nListing Carrefour portal...")
-    carrefour_files = carrefour.list_files()
-    carrefour_stores_file = list_stores_file(carrefour_files)
-    if carrefour_stores_file is not None:
-        c_stores = parse_stores_xml(carrefour.download(carrefour_stores_file))
-        c_store_ids = kfar_saba_stores(c_stores) or carrefour.KFAR_SABA_STORE_IDS
-        for s in c_stores:
-            if s.store_id in c_store_ids:
-                key = CARREFOUR_PREFIX + s.store_id
-                store_names[key] = s.store_name
-                store_addresses[key] = s.address
-        print(f"Carrefour Kfar Saba stores (from official City==6900 filter): {sorted(c_store_ids)}")
-
-        carrefour_catalog_files = list(kfar_saba_full_catalog_files(carrefour_files, c_store_ids))
-        print(f"Downloading {len(carrefour_catalog_files)} Carrefour store catalogs concurrently...")
-        carrefour_blobs = fetch_concurrently([lambda f=f: carrefour.download(f) for f in carrefour_catalog_files])
-        for f, xml_bytes in zip(carrefour_catalog_files, carrefour_blobs):
-            if xml_bytes is None:
-                print(f"  carrefour store {f.store_id}: download failed, skipped")
-                continue
-            (raw_dir / f.filename).with_suffix(".xml").write_bytes(xml_bytes)
-            catalog = parse_price_xml(xml_bytes)
-            key = CARREFOUR_PREFIX + f.store_id
-            catalogs_by_store[key] = catalog
-            gaps = compute_gaps(catalog, controlled)
-            print(f"  carrefour store {f.store_id}: {len(catalog)} items, {len(gaps)} matched")
-            all_gaps.extend(gaps)
-    else:
-        print("No Carrefour Stores file found this run -- skipping Carrefour for today.")
+    store_names: dict[str, str] = {}
+    store_addresses: dict[str, str] = {}
+    for chain in chains:
+        store_names.update(chain.store_names)
+        store_addresses.update(chain.store_addresses)
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
