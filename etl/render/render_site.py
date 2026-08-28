@@ -45,6 +45,13 @@ h1,h2{ font-family:'Rubik',-apple-system,sans-serif; font-weight:800; text-wrap:
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--brand-ink); text-decoration-color:var(--brand); text-underline-offset:3px; }
 a:hover{ text-decoration-thickness:2px; }
+nav.topnav{ display:flex; align-items:center; gap:18px; padding:24px 0 0; font-size:.88rem; }
+nav.topnav a{ color:var(--ink); text-decoration:none; font-weight:600; }
+nav.topnav a.brand{ font-family:'Rubik',sans-serif; font-weight:800; font-size:1.05rem; }
+.cta-map{ display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:11px 22px;
+  background:#fff; color:var(--brand-ink); border-radius:999px; font-weight:700; text-decoration:none;
+  font-size:.92rem; }
+.cta-map:hover{ opacity:.9; }
 header.hero{ padding-bottom:26px; border-bottom:2px solid var(--ink); margin-bottom:8px; }
 .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:700;
   letter-spacing:.04em; color:var(--brand-ink); background:var(--brand-soft);
@@ -140,6 +147,7 @@ def render_index_html(
     <p><b>{escape(hero.item_name)}</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪{hero.cheap_price:.2f}
     ב{escape(hero.cheap_store_name)}, ₪{hero.expensive_price:.2f} ב{escape(hero.expensive_store_name)}.
     פער של {hero.spread_pct*100:.1f}% על אותו מוצר בדיוק.</p>
+    <a class="cta-map" href="/frodo-project/map/">כנסו למפה — ראו את הסניפים לידכם ←</a>
   </div>"""
         if hero
         else ""
@@ -158,6 +166,8 @@ def render_index_html(
 </head>
 <body>
 <div class="page">
+
+  <nav class="topnav"><a class="brand" href="/frodo-project/">Frodo Project</a><a href="/frodo-project/map/">מפה</a></nav>
 
   <header class="hero">
     <span class="eyebrow">Frodo Project · פיילוט כפר סבא</span>

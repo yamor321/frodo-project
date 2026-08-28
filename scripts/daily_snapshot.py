@@ -1,5 +1,7 @@
 """Daily collection run: Shufersal Kfar Saba branches -> permanent raw
-snapshot + dairy price-gap output + cross-branch spread + rendered site.
+snapshot + dairy price-gap output + cross-branch spread + rendered
+multi-page site (home, map, one page per store, one page per compared
+product).
 
 Per the brief (section 3): every day this doesn't run is permanently lost
 history, since chains are only required to retain files for 3 months.
@@ -16,9 +18,14 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.benchmarks.moag_controlled_prices import current_dairy_controlled_prices
+from etl.enrich.geocode import geocode_many
+from etl.render.map import render_map_html
+from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
+from etl.render.store import render_store_html, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
+from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     download,
@@ -31,6 +38,13 @@ from etl.scrapers.shufersal import (
 )
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+
+def store_format(name: str) -> str:
+    """See docs/sources.md: the chain's own format branding in the name is
+    the only real size signal -- the official StoreType field only
+    distinguishes physical/online, not store size."""
+    return "hyper" if ("דיל" in name or "יוניברס" in name) else "neighborhood"
 
 
 def main() -> None:
@@ -48,10 +62,12 @@ def main() -> None:
 
     stores_file = list_stores_file(all_files)
     store_names: dict[str, str] = {}
+    store_addresses: dict[str, str] = {}
     if stores_file is not None:
         stores = parse_stores_xml(download(stores_file))
         store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
-        store_names = {s.store_id: s.store_name for s in stores}
+        store_names = {s.store_id: s.store_name for s in stores if s.store_id in store_ids}
+        store_addresses = {s.store_id: s.address for s in stores if s.store_id in store_ids}
         print(f"Kfar Saba stores (from official City==6900 filter): {sorted(store_ids)}")
     else:
         store_ids = KFAR_SABA_STORE_IDS
@@ -72,7 +88,8 @@ def main() -> None:
         all_gaps.extend(gaps)
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
-    print(f"\n{len(spreads)} items found in >=4 branches with a computable spread.")
+    scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
+    print(f"\n{len(spreads)} comparable items, {len(scores)} scored stores.")
 
     gap_path = processed_dir / "dairy_gap.json"
     gap_path.write_text(
@@ -86,9 +103,47 @@ def main() -> None:
     )
     print(f"Wrote {gap_path} and {spread_path}")
 
-    html = render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M"))
-    (site_dir / "index.html").write_text(html, encoding="utf-8")
-    print(f"Rendered {site_dir / 'index.html'}")
+    print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
+    queries = {sid: f"{addr}, כפר סבא, ישראל" for sid, addr in store_addresses.items() if addr}
+    geo_results = geocode_many(list(set(queries.values())))
+    coords = {sid: geo_results.get(q) for sid, q in queries.items()}
+    coords = {sid: pt for sid, pt in coords.items() if pt is not None}
+
+    formats = {sid: store_format(name) for sid, name in store_names.items()}
+
+    print("\nRendering pages...")
+    (site_dir / "index.html").write_text(
+        render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M")),
+        encoding="utf-8",
+    )
+
+    map_dir = site_dir / "map"
+    map_dir.mkdir(exist_ok=True)
+    (map_dir / "index.html").write_text(render_map_html(scores, coords, formats), encoding="utf-8")
+
+    scores_by_id = {s.store_id: s for s in scores}
+    referenced_item_codes = set()
+    for store_id, name in store_names.items():
+        store_dir = site_dir / "store" / store_id
+        store_dir.mkdir(parents=True, exist_ok=True)
+        (store_dir / "index.html").write_text(
+            render_store_html(store_id, name, scores_by_id.get(store_id), spreads, catalogs_by_store.get(store_id, [])),
+            encoding="utf-8",
+        )
+        best, worst = top_deals(spreads, store_id)
+        for s in best + worst:
+            referenced_item_codes.add(s.item_code)
+
+    for code in referenced_item_codes:
+        item_name = next((s.item_name for s in spreads if s.item_code == code), code)
+        store_prices = collect_store_prices(catalogs_by_store, code, store_names)
+        prod_dir = site_dir / "product" / code
+        prod_dir.mkdir(parents=True, exist_ok=True)
+        (prod_dir / "index.html").write_text(
+            render_product_html(code, item_name, store_prices), encoding="utf-8"
+        )
+
+    print(f"Rendered index, map, {len(store_names)} store pages, {len(referenced_item_codes)} product pages.")
 
 
 if __name__ == "__main__":
