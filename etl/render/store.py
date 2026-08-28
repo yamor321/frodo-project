@@ -93,11 +93,15 @@ def render_store_html(
 
     stale_html = ""
     if as_of_date:
-        # Set only when today's live collection for this chain failed and
-        # the prices shown are the most recent ones this project actually
-        # has (see etl/raw_snapshot_fallback.py) -- never silently presented
-        # as current, per this project's own honesty-in-labeling principle.
-        stale_html = f'<div style="margin:-10px 0 18px;"><span class="chip warm">המחירים כאן מעודכנים ל-{escape(as_of_date)} — המקור לא היה זמין היום</span></div>'
+        # Set only when this run's own live collection for this chain
+        # failed and these are the most recent prices this project actually
+        # has instead (see etl/raw_snapshot_fallback.py) -- never silently
+        # presented as freshly collected, per this project's honesty-in-
+        # labeling principle. Phrased to stay accurate whether as_of_date is
+        # an earlier day OR earlier today (the daily workflow can run
+        # several times a day) -- "source unavailable today" would
+        # self-contradict when as_of_date IS today's date.
+        stale_html = f'<div style="margin:-10px 0 18px;"><span class="chip warm">המחירים כאן מהאיסוף האחרון שהצליח, {escape(as_of_date)} — הריצה הנוכחית לא הצליחה לרענן אותם</span></div>'
 
     nav_html = ""
     if coords is not None:

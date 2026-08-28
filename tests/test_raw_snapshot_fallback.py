@@ -76,9 +76,14 @@ class FindFallbackCatalogsTests(unittest.TestCase):
         self.assertEqual(catalogs, {})
         self.assertEqual(as_of, {})
 
-    def test_does_not_search_todays_own_directory(self):
-        """`before` is exclusive -- a chain-level failure today shouldn't
-        somehow "find" today's (nonexistent, since it failed) file."""
+    def test_finds_a_same_day_earlier_success(self):
+        """The real case that caught the original bug: the daily workflow
+        triggers on every push, so "today" can have multiple runs. An
+        earlier run today succeeded and wrote today's own raw file; a later
+        run today fails live -- must still find that same-day file rather
+        than treating `before` as always-excluded. Confirmed live 2026-08-28:
+        Victory's page vanished from the deployed site in exactly this
+        scenario before this fix (see module docstring)."""
         today_dir = self.tmp / "2026-08-28"
         today_dir.mkdir()
         (today_dir / "PriceFull7290696200003-001-079-20260828-050544.xml").write_bytes(REAL_PRICE_XML)
@@ -86,7 +91,21 @@ class FindFallbackCatalogsTests(unittest.TestCase):
         catalogs, as_of = find_fallback_catalogs(
             self.tmp, "victory-", {"079"}, dt.date(2026, 8, 28)
         )
-        self.assertEqual(catalogs, {})
+        self.assertIn("victory-079", catalogs)
+        self.assertEqual(as_of["victory-079"], "2026-08-28")
+
+    def test_prefers_todays_own_snapshot_over_an_older_one(self):
+        today_dir = self.tmp / "2026-08-28"
+        today_dir.mkdir()
+        (today_dir / "PriceFull7290696200003-001-079-20260828-050544.xml").write_bytes(REAL_PRICE_XML)
+        yesterday_dir = self.tmp / "2026-08-27"
+        yesterday_dir.mkdir()
+        (yesterday_dir / "PriceFull7290696200003-001-079-20260827-050544.xml").write_bytes(REAL_PRICE_XML)
+
+        _catalogs, as_of = find_fallback_catalogs(
+            self.tmp, "victory-", {"079"}, dt.date(2026, 8, 28)
+        )
+        self.assertEqual(as_of["victory-079"], "2026-08-28")
 
 
 if __name__ == "__main__":

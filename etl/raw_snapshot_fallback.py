@@ -18,6 +18,20 @@ chain comes up empty, so a store the site already knows about doesn't
 silently vanish for a day; it shows the most recent real prices still
 available, clearly labeled with the date they're actually from (never
 presented as if they were today's -- see render_store_html's as_of_date).
+
+**Bug found and fixed from the first real production case, not caught
+locally:** the daily workflow now triggers on every push, not just once a
+day (see .github/workflows/daily-shufersal.yml), so "today" can have
+several runs -- Victory succeeded in an earlier run on 2026-08-28
+(data/raw/2026-08-28/PriceFull7290696200003-...-079-...xml exists, real,
+committed) and then failed in a later same-day run, but the live site
+still lost the store's page entirely. The original version of this function
+started its search at `before - 1 day`, deliberately excluding `before`
+(today) itself, on the assumption that a same-day failure means today's own
+directory has nothing usable yet -- true for a single-run day, false once
+multiple runs happen per day. Fixed by starting the search at `before`
+itself (days_back=0): a same-day earlier success is found first, before
+falling back further to yesterday and beyond.
 """
 from __future__ import annotations
 
@@ -44,12 +58,17 @@ def find_fallback_catalogs(
     to the same day in practice, but nothing here assumes that, since a
     single missing day for one store shouldn't block finding an otherwise
     available one.
+
+    Searches `before` itself first (days_back=0), then walks backward --
+    NOT exclusive of today. A same-day earlier run's success is exactly what
+    this needs to find when a later same-day run fails (see module
+    docstring for the real case that caught this).
     """
     catalogs: dict[str, list[PriceRecord]] = {}
     as_of: dict[str, str] = {}
     remaining = set(store_ids)
 
-    for days_back in range(1, max_lookback_days + 1):
+    for days_back in range(0, max_lookback_days + 1):
         if not remaining:
             break
         day = (before - dt.timedelta(days=days_back)).isoformat()
