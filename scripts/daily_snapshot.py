@@ -36,7 +36,7 @@ from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
-from etl.scrapers import carrefour, victory
+from etl.scrapers import bina, carrefour, victory
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     PriceFile,
@@ -177,6 +177,28 @@ def _collect_victory() -> ChainCollection:
     )
 
 
+def _collect_shuk_hair() -> ChainCollection:
+    print("Listing Shuk HaIr portal...")
+    chain = bina.CHAINS["shuk-hair"]
+    files = bina.list_files(chain["url_perfix"], chain["chain_id"])
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Shuk HaIr Stores file found this run -- skipping Shuk HaIr for today.")
+        return ChainCollection("shukhair-", bina.download, [], {}, {})
+
+    stores = parse_stores_xml(bina.download(stores_file))
+    store_ids = kfar_saba_stores(stores) or bina.SHUK_HAIR_KFAR_SABA_STORE_IDS
+    print(f"Shuk HaIr Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "shukhair-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=bina.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
 def main() -> None:
     now = dt.datetime.now()
     today = now.date().isoformat()
@@ -198,6 +220,7 @@ def main() -> None:
         _safe_collect("Shufersal", _collect_shufersal, ""),
         _safe_collect("Carrefour", _collect_carrefour, "carrefour-"),
         _safe_collect("Victory", _collect_victory, "victory-"),
+        _safe_collect("Shuk HaIr", _collect_shuk_hair, "shukhair-"),
     ]
 
     # A chain with zero live catalog_files today (host unreachable, see
@@ -210,8 +233,9 @@ def main() -> None:
         "": KFAR_SABA_STORE_IDS,
         "carrefour-": carrefour.KFAR_SABA_STORE_IDS,
         "victory-": victory.KFAR_SABA_STORE_IDS,
+        "shukhair-": bina.SHUK_HAIR_KFAR_SABA_STORE_IDS,
     }
-    CHAIN_DISPLAY_NAMES = {"": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory"}
+    CHAIN_DISPLAY_NAMES = {"": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory", "shukhair-": "Shuk HaIr"}
     fallback_catalogs: dict[str, list] = {}
     stale_as_of: dict[str, str] = {}
     for chain in chains:

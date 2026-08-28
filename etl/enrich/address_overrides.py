@@ -26,4 +26,11 @@ ADDRESS_OVERRIDES: dict[str, str] = {
     # https://doar.org.il/%D7%9B%D7%A4%D7%A8-%D7%A1%D7%91%D7%90/%D7%A1%D7%A0%D7%99%D7%A3-%D7%A7%D7%A0%D7%99%D7%95%D7%9F-%D7%92%D7%99-%D7%9B%D7%A4%D7%A8-%D7%A1%D7%91%D7%90-613/
     # https://www.electra.co.il/%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%D7%99%D7%9D/%D7%9E%D7%A8%D7%9B%D7%96%D7%99%D7%9D_%D7%9E%D7%A1%D7%97%D7%A8%D7%99%D7%99%D7%9D/%D7%A7%D7%A0%D7%99%D7%95%D7%9F_g_%D7%9B%D7%A4%D7%A8_%D7%A1%D7%91%D7%90
     "259": "ויצמן 207",
+    # Stores.xml Address == "אלי הורוביץ 26" -- spelled with an extra ו that
+    # doesn't match OSM's own street name. Nominatim returns zero results for
+    # the Stores.xml spelling but one clean, sensible result (Kfar Saba's
+    # industrial zone) for "אלי הורביץ" -- same street, not a different
+    # location; confirmed live 2026-08-28 (both "אלי הורביץ 26" and the
+    # English "Eli Hurvitz 26" resolve to the identical point).
+    "shukhair-011": "אלי הורביץ 26",
 }
