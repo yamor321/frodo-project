@@ -13,13 +13,6 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "yellow": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "Paz_bo",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
   "rami-levy": {
     "host": "url.retail.publishedprices.co.il",
     "username": "RamiLevi",
@@ -34,6 +27,13 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
+  "yellow": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "Paz_bo",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
   "dor-alon": {
     "host": "url.retail.publishedprices.co.il",
     "username": "doralon",
@@ -41,16 +41,16 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "stop-market": {
+  "salach-dabach": {
     "host": "url.retail.publishedprices.co.il",
-    "username": "Stop_Market",
+    "username": "SalachD",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "salach-dabach": {
+  "stop-market": {
     "host": "url.retail.publishedprices.co.il",
-    "username": "SalachD",
+    "username": "Stop_Market",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
