@@ -51,10 +51,21 @@ is expected to keep failing in the GitHub Actions environment specifically
 until/unless that block lifts on their end. daily_snapshot.py's
 `_safe_collect()` already isolates this -- one chain being unreachable
 does not take the rest of the site down, it just means Victory's one
-branch is missing from that day's build. Timeouts below are kept short
-(not the 60s used before this was diagnosed) so a real block is detected
-in seconds, not by burning minutes of every CI run retrying a connection
-that was never going to succeed.
+branch is missing from that day's build (recovered from a prior raw
+snapshot when there is one -- see etl/raw_snapshot_fallback.py). Timeouts
+below are kept short (not the 60s used before this was diagnosed) so a
+real block is detected in seconds, not by burning minutes of every CI run
+retrying a connection that was never going to succeed.
+
+**Checked for an alternate path, 2026-08-28, after finding one for the
+Cerberus/publishedprices.co.il platform (see that module's docstring) --
+none exists here.** laibcatalog.co.il resolves to a single IP
+(82.80.16.207), no CDN in front of it (plain Microsoft-IIS/10.0, no
+CDN/WAF response headers), and `www.laibcatalog.co.il` resolves to the
+same IP -- one small, directly-hosted server, not a shared platform with
+an independent second front-end the way Cerberus had a separate FTP vs.
+HTTPS host. The TCP-level block is almost certainly on that one host/IP
+itself, not something with another door to find.
 """
 from __future__ import annotations
 
