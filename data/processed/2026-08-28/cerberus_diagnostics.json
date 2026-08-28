@@ -1,18 +1,4 @@
 {
-  "tiv-taam": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "TivTaam",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
-  "osher-ad": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "osherad",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
   "yohananof": {
     "host": "url.retail.publishedprices.co.il",
     "username": "yohananof",
@@ -23,6 +9,20 @@
   "yellow": {
     "host": "url.retail.publishedprices.co.il",
     "username": "Paz_bo",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
+  "tiv-taam": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "TivTaam",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
+  "osher-ad": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "osherad",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
@@ -41,16 +41,16 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "fresh-market": {
+  "salach-dabach": {
     "host": "url.retail.publishedprices.co.il",
-    "username": "freshmarket",
+    "username": "SalachD",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "keshet": {
+  "fresh-market": {
     "host": "url.retail.publishedprices.co.il",
-    "username": "Keshet",
+    "username": "freshmarket",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
@@ -62,9 +62,9 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "salach-dabach": {
+  "keshet": {
     "host": "url.retail.publishedprices.co.il",
-    "username": "SalachD",
+    "username": "Keshet",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
