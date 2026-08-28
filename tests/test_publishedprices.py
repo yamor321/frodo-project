@@ -53,6 +53,7 @@ class ChainConfigTests(unittest.TestCase):
             self.assertIn("ftp_username", chain)
             self.assertIn("ftp_password", chain)
             self.assertIn("chain_id", chain)
+            self.assertIn("use_tls", chain)
 
     def test_two_chains_have_a_real_non_empty_password(self):
         """Confirmed from OpenIsraeliSupermarkets' scrappers/{yellow,
@@ -64,23 +65,38 @@ class ChainConfigTests(unittest.TestCase):
         others = {k: v for k, v in CHAINS.items() if k not in ("yellow", "salach-dabach")}
         self.assertTrue(all(v["ftp_password"] == "" for v in others.values()))
 
+    def test_dor_alon_is_the_one_chain_requiring_tls(self):
+        """Confirmed live 2026-08-28 from cerberus_diagnostics.json: plain
+        FTP login for this account gets a real 530 (Secure connection
+        required), not the generic data-channel timeout every other chain
+        hits. A regression here would silently break Dor Alon's login."""
+        self.assertTrue(CHAINS["dor-alon"]["use_tls"])
+        others = {k: v for k, v in CHAINS.items() if k != "dor-alon"}
+        self.assertTrue(all(v["use_tls"] is False for v in others.values()))
+
 
 class PreflightTests(unittest.TestCase):
     """preflight() wraps etl.health_check.ftp_preflight -- these just prove
-    the wiring (right host/username/password passed through), not the FTP
-    behavior itself, which health_check.py's own tests cover."""
+    the wiring (right host/username/password/use_tls passed through), not
+    the FTP behavior itself, which health_check.py's own tests cover."""
 
     @patch("etl.scrapers.publishedprices.ftp_preflight")
     def test_delegates_to_health_check_with_the_right_host(self, mock_preflight):
         mock_preflight.return_value = True
         result = preflight("RamiLevi", "")
         self.assertTrue(result)
-        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "RamiLevi", "")
+        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "RamiLevi", "", use_tls=False)
 
     @patch("etl.scrapers.publishedprices.ftp_preflight")
     def test_unreachable_source_returns_false(self, mock_preflight):
         mock_preflight.return_value = False
         self.assertFalse(preflight("osherad", ""))
+
+    @patch("etl.scrapers.publishedprices.ftp_preflight")
+    def test_use_tls_flag_passed_through(self, mock_preflight):
+        mock_preflight.return_value = True
+        preflight("doralon", "", use_tls=True)
+        mock_preflight.assert_called_once_with("url.retail.publishedprices.co.il", "doralon", "", use_tls=True)
 
 
 if __name__ == "__main__":

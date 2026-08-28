@@ -15,6 +15,7 @@ import json
 import pathlib
 import shutil
 import sys
+import threading
 import traceback
 from typing import Callable
 
@@ -199,7 +200,7 @@ def _collect_shuk_hair() -> ChainCollection:
     )
 
 
-def _collect_cerberus_chain(chain_key: str) -> ChainCollection:
+def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock) -> ChainCollection:
     """One function for all ten Cerberus/publishedprices.co.il chains
     (etl/scrapers/publishedprices.py's CHAINS) -- unlike Shufersal/Carrefour/
     Victory/Shuk HaIr, they share one uniform client, so ten near-identical
@@ -216,20 +217,33 @@ def _collect_cerberus_chain(chain_key: str) -> ChainCollection:
     from) -- the raw-snapshot fallback in main() simply has nothing to fall
     back to for them until one succeeds for the first time, same as Victory
     or Shuk HaIr's own first run.
+
+    `diagnostics` is a shared dict (one entry per chain_key, guarded by
+    `diagnostics_lock` since ten of these run concurrently) that this run's
+    real preflight result gets written into regardless of outcome. This dev
+    sandbox can't reach GitHub Actions' own logs (sign-in required even on a
+    public repo -- already confirmed the hard way once, for Victory), but a
+    committed file's raw content on a public repo IS readable without
+    sign-in -- see main()'s write of data/processed/<date>/
+    cerberus_diagnostics.json. Don't guess at a CI-only failure from this
+    dev sandbox's own (different) network behavior a second time.
     """
     prefix = f"{chain_key}-"
     chain_cfg = publishedprices.CHAINS[chain_key]
-    username, password = chain_cfg["ftp_username"], chain_cfg["ftp_password"]
+    username, password, use_tls = chain_cfg["ftp_username"], chain_cfg["ftp_password"], chain_cfg["use_tls"]
 
     print(f"Checking {chain_key} (Cerberus, health check first)...")
-    if not publishedprices.preflight(username, password):
-        print(f"  {chain_key}: unreachable this run (preflight failed) -- skipping, not retrying.")
+    diag = publishedprices.preflight_diagnostic(username, password, use_tls)
+    with diagnostics_lock:
+        diagnostics[chain_key] = diag
+    if not diag["ok"]:
+        print(f"  {chain_key}: unreachable this run (failed at '{diag['failed_at']}': {diag['error']}) -- skipping, not retrying.")
         return ChainCollection(prefix, lambda f: b"", [], {}, {})
 
-    def download_fn(f, u=username, p=password):
-        return publishedprices.download(u, f, p)
+    def download_fn(f, u=username, p=password, tls=use_tls):
+        return publishedprices.download(u, f, p, tls)
 
-    files = publishedprices.list_files(username, password)
+    files = publishedprices.list_files(username, password, use_tls)
     stores_file = list_stores_file(files)
     if stores_file is None:
         print(f"  No {chain_key} Stores file found this run -- skipping.")
@@ -247,10 +261,12 @@ def _collect_cerberus_chain(chain_key: str) -> ChainCollection:
     )
 
 
-def _cerberus_collect_task(chain_key: str) -> Callable[[], "ChainCollection"]:
+def _cerberus_collect_task(chain_key: str, diagnostics: dict, diagnostics_lock) -> Callable[[], "ChainCollection"]:
     """A fresh closure per chain_key -- a plain lambda inside a loop/
     comprehension would all share the loop variable's final value."""
-    return lambda: _safe_collect(chain_key, lambda: _collect_cerberus_chain(chain_key), f"{chain_key}-")
+    return lambda: _safe_collect(
+        chain_key, lambda: _collect_cerberus_chain(chain_key, diagnostics, diagnostics_lock), f"{chain_key}-"
+    )
 
 
 def main() -> None:
@@ -284,8 +300,22 @@ def main() -> None:
     # _safe_collect, same as every other chain -- one bad connection here
     # can't sink the batch.
     print(f"\nChecking {len(publishedprices.CHAINS)} Cerberus chains concurrently...")
-    cerberus_tasks = [_cerberus_collect_task(chain_key) for chain_key in publishedprices.CHAINS]
+    cerberus_diagnostics: dict = {}
+    cerberus_diagnostics_lock = threading.Lock()
+    cerberus_tasks = [
+        _cerberus_collect_task(chain_key, cerberus_diagnostics, cerberus_diagnostics_lock)
+        for chain_key in publishedprices.CHAINS
+    ]
     chains.extend(c for c in fetch_concurrently(cerberus_tasks) if c is not None)
+
+    # Written regardless of outcome, so a CI-only failure can be read back
+    # from this committed file's raw content (no sign-in needed for that,
+    # unlike an Actions run's own log output -- see _collect_cerberus_chain's
+    # docstring). Don't repeat the mistake already made once for Victory:
+    # guessing at a CI-only failure instead of seeing the real exception.
+    diag_path = processed_dir / "cerberus_diagnostics.json"
+    diag_path.write_text(json.dumps(cerberus_diagnostics, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Wrote {diag_path}")
 
     # A chain with zero live catalog_files today (host unreachable, see
     # _safe_collect) falls back to the most recent raw snapshot this project

@@ -58,6 +58,17 @@ Callers (any future daily_snapshot.py integration) are expected to call this
 BEFORE attempting real collection, exactly the lesson this module itself was
 built around (see etl/health_check.py's docstring).
 
+**Dor Alon needs FTPS, confirmed live 2026-08-28 from a committed diagnostics
+file, not guessed:** `daily_snapshot.py` writes `data/processed/<date>/
+cerberus_diagnostics.json` every run (see its module docstring for why --
+this dev sandbox can't read GitHub Actions' own logs). That file showed
+Dor Alon failing at the login step with a real FTP error (`530 Secure
+connection required`), distinct from every other chain's generic data-
+channel timeout. Confirmed directly: plain `ftplib.FTP` login gets the same
+530; `ftplib.FTP_TLS` (+ `prot_p()` to secure the data channel too) logs in
+fine. `CHAINS["dor-alon"]["use_tls"]` is `True`; every other chain tested so
+far accepts plain FTP, so don't assume TLS is needed platform-wide.
+
 **No independent fallback exists for Victory/Machsanei HaShuk:** checked
 whether either chain is also reachable through this platform as a backup
 path when laibcatalog.co.il is blocked (see etl/scrapers/victory.py). Both
@@ -74,7 +85,7 @@ import gzip
 import io
 import re
 
-from etl.health_check import ftp_preflight
+from etl.health_check import ftp_preflight, ftp_preflight_diagnostic
 from etl.scrapers.shufersal import PriceFile
 
 FTP_HOST = "url.retail.publishedprices.co.il"
@@ -88,16 +99,20 @@ FTP_TIMEOUT = 30
 # reading this legally-mandated public data, not a secret this project
 # discovered or is bypassing anything to get.
 CHAINS = {
-    "rami-levy": {"ftp_username": "RamiLevi", "ftp_password": "", "chain_id": "7290058140886"},
-    "yohananof": {"ftp_username": "yohananof", "ftp_password": "", "chain_id": "7290803800003"},
-    "osher-ad": {"ftp_username": "osherad", "ftp_password": "", "chain_id": "7290103152017"},
-    "tiv-taam": {"ftp_username": "TivTaam", "ftp_password": "", "chain_id": "7290873255550"},
-    "dor-alon": {"ftp_username": "doralon", "ftp_password": "", "chain_id": "7290492000005"},
-    "yellow": {"ftp_username": "Paz_bo", "ftp_password": "paz468", "chain_id": "7290644700005"},
-    "stop-market": {"ftp_username": "Stop_Market", "ftp_password": "", "chain_id": "72906390"},
-    "fresh-market": {"ftp_username": "freshmarket", "ftp_password": "", "chain_id": "7290876100000"},
-    "keshet": {"ftp_username": "Keshet", "ftp_password": "", "chain_id": "7290785400000"},
-    "salach-dabach": {"ftp_username": "SalachD", "ftp_password": "12345", "chain_id": "7290526500006"},
+    "rami-levy": {"ftp_username": "RamiLevi", "ftp_password": "", "chain_id": "7290058140886", "use_tls": False},
+    "yohananof": {"ftp_username": "yohananof", "ftp_password": "", "chain_id": "7290803800003", "use_tls": False},
+    "osher-ad": {"ftp_username": "osherad", "ftp_password": "", "chain_id": "7290103152017", "use_tls": False},
+    "tiv-taam": {"ftp_username": "TivTaam", "ftp_password": "", "chain_id": "7290873255550", "use_tls": False},
+    # Confirmed live 2026-08-28: this account rejects plain FTP with a real
+    # error (530 Secure connection required), not the generic data-channel
+    # timeout every other chain here hits -- found from cerberus_diagnostics.json,
+    # not guessed. Plain ftplib.FTP login fails; ftplib.FTP_TLS login succeeds.
+    "dor-alon": {"ftp_username": "doralon", "ftp_password": "", "chain_id": "7290492000005", "use_tls": True},
+    "yellow": {"ftp_username": "Paz_bo", "ftp_password": "paz468", "chain_id": "7290644700005", "use_tls": False},
+    "stop-market": {"ftp_username": "Stop_Market", "ftp_password": "", "chain_id": "72906390", "use_tls": False},
+    "fresh-market": {"ftp_username": "freshmarket", "ftp_password": "", "chain_id": "7290876100000", "use_tls": False},
+    "keshet": {"ftp_username": "Keshet", "ftp_password": "", "chain_id": "7290785400000", "use_tls": False},
+    "salach-dabach": {"ftp_username": "SalachD", "ftp_password": "12345", "chain_id": "7290526500006", "use_tls": False},
 }
 
 # Same dash-separated convention confirmed for Shufersal/Carrefour/Victory:
@@ -126,25 +141,36 @@ def _parse_filename(name: str) -> dict | None:
     return {"category": category, "chain_id": chain_id, "subchain_id": subchain_id, "store_id": store_id, "ext": ext}
 
 
-def _connect(ftp_username: str, ftp_password: str = "") -> ftplib.FTP:
+def _connect(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> ftplib.FTP:
     """One connection per call rather than a shared/pooled session:
     ftplib.FTP isn't safe to share across concurrent threads, and
     fetch_concurrently() runs downloads on a thread pool -- an independent
     connection per call is the correct match, not an oversight."""
-    ftp = ftplib.FTP(timeout=FTP_TIMEOUT)
+    ftp = ftplib.FTP_TLS(timeout=FTP_TIMEOUT) if use_tls else ftplib.FTP(timeout=FTP_TIMEOUT)
     ftp.connect(FTP_HOST, 21)
     ftp.login(user=ftp_username, passwd=ftp_password)
+    if use_tls:
+        ftp.prot_p()  # secure the data channel too, not just the control channel
     return ftp
 
 
-def preflight(ftp_username: str, ftp_password: str = "") -> bool:
+def preflight(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> bool:
     """Cheap reachability check -- call this BEFORE list_files()/download()
     so an unreachable chain is skipped in seconds instead of discovered by a
     hung listing attempt. See etl/health_check.py and the module docstring."""
-    return ftp_preflight(FTP_HOST, ftp_username, ftp_password)
+    return ftp_preflight(FTP_HOST, ftp_username, ftp_password, use_tls=use_tls)
 
 
-def list_files(ftp_username: str, ftp_password: str = "") -> list[PriceFile]:
+def preflight_diagnostic(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> dict:
+    """Same check as preflight(), but returns which step failed and the real
+    exception -- see etl/health_check.ftp_preflight_diagnostic. Exists so a
+    CI-only failure can be understood from a committed diagnostics file
+    (this dev sandbox can't reach GitHub Actions' own logs directly) instead
+    of guessed at."""
+    return ftp_preflight_diagnostic(FTP_HOST, ftp_username, ftp_password, use_tls=use_tls)
+
+
+def list_files(ftp_username: str, ftp_password: str = "", use_tls: bool = False) -> list[PriceFile]:
     """List this chain's Stores and PriceFull files.
 
     Does NOT run preflight() itself -- callers doing a real collection run
@@ -159,7 +185,7 @@ def list_files(ftp_username: str, ftp_password: str = "") -> list[PriceFile]:
     server's NLST honors the same wildcard glob syntax the reference scraper
     uses (see module docstring) -- needs a live run to verify.
     """
-    ftp = _connect(ftp_username, ftp_password)
+    ftp = _connect(ftp_username, ftp_password, use_tls)
     try:
         names: list[str] = []
         for pattern in ("*store*", "*pricefull*"):
@@ -190,9 +216,9 @@ def list_files(ftp_username: str, ftp_password: str = "") -> list[PriceFile]:
     return files
 
 
-def download(ftp_username: str, price_file: PriceFile, ftp_password: str = "") -> bytes:
+def download(ftp_username: str, price_file: PriceFile, ftp_password: str = "", use_tls: bool = False) -> bytes:
     """Download and (if needed) gunzip one listed file."""
-    ftp = _connect(ftp_username, ftp_password)
+    ftp = _connect(ftp_username, ftp_password, use_tls)
     buf = io.BytesIO()
     try:
         ftp.retrbinary(f"RETR {price_file.filename}", buf.write)
