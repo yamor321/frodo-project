@@ -23,6 +23,13 @@ on:
   schedule:
     - cron: "0 3 * * *"  # 03:00 UTC daily, after Shufersal's own nightly PriceFull publish
   workflow_dispatch: {}
+  push:
+    branches: [master]
+    # Safe from an infinite loop: GitHub doesn't re-trigger workflows for
+    # pushes made with the default GITHUB_TOKEN (used by the "Commit and
+    # push" step below), only for pushes from a real account/PAT like this
+    # one. Added so every real push deploys immediately, with no manual
+    # "Run workflow" click needed.
 
 jobs:
   snapshot:
