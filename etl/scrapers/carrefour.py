@@ -30,6 +30,16 @@ from etl.scrapers.shufersal import PriceFile
 BASE_URL = "https://prices.carrefour.co.il/"
 REQUEST_TIMEOUT = 20
 
+_session = requests.Session()
+_session.headers.update(
+    {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        )
+    }
+)
+
 # Verified live 2026-08-28 against the portal's own Stores file (city_code
 # == "6900" for all five -- same official settlement-code filter as
 # Shufersal, via shufersal.kfar_saba_stores()). Two of the five have no
@@ -70,7 +80,7 @@ def list_files() -> list[PriceFile]:
     No pagination needed: the homepage embeds today's complete listing
     directly, unlike Shufersal's paginated webgrid table.
     """
-    resp = requests.get(BASE_URL, timeout=REQUEST_TIMEOUT, headers={"User-Agent": "Mozilla/5.0"})
+    resp = _session.get(BASE_URL, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     html = resp.text
 
@@ -108,7 +118,7 @@ def download(price_file: PriceFile) -> bytes:
     """Download one listed file. `.gz` files (Price/PriceFull/Promo/
     PromoFull) are gunzipped like Shufersal's; the Stores file is published
     uncompressed (`.xml`) and returned as-is."""
-    resp = requests.get(price_file.url, timeout=REQUEST_TIMEOUT)
+    resp = _session.get(price_file.url, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     if price_file.filename.lower().endswith(".gz"):
         with gzip.GzipFile(fileobj=io.BytesIO(resp.content)) as gz:
