@@ -30,6 +30,11 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 #nearest b{ color:var(--ink); }
 .leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
 .leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
+.store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
+.store-popup b{ font-size:.98rem; }
+.store-popup .meta{ font-size:.82rem; color:var(--ink-muted); margin-top:2px; }
+.store-popup a.openbtn{ display:inline-block; margin-top:8px; font-weight:700; color:var(--navy); text-decoration:none; }
+.store-popup a.openbtn:hover{ text-decoration:underline; }
 """
 
 
@@ -126,8 +131,20 @@ def render_map_html(
       : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
     const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
     const marker = L.marker([s.lat, s.lon], {{icon}});
-    marker.bindTooltip(`<b>${{s.name}}</b><br>ציון ${{Math.round(s.score*100)}} מתוך 100 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים`);
-    marker.on('click', ()=>{{ window.location.href = `${{BASE}}/store/${{s.id}}/`; }});
+    // Tooltip is hover-only, so it's a no-op on touch devices -- that's fine,
+    // it's just a desktop quick-glance label. The actual identification +
+    // navigation happens through the popup below, which opens on tap/click
+    // on every device: without this, a mobile tap had no hover step at all,
+    // so the very first touch fired the click handler and jumped straight
+    // into the store page with no chance to see which store it even was.
+    marker.bindTooltip(s.name);
+    marker.bindPopup(`
+      <div class="store-popup">
+        <b>${{s.name}}</b>
+        <div class="meta">ציון ${{Math.round(s.score*100)}} מתוך 100 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים</div>
+        <a class="openbtn" href="${{BASE}}/store/${{s.id}}/">פתח דף סניף ←</a>
+      </div>
+    `);
     (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
   }});
 

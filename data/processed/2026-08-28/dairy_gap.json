@@ -1938,165 +1938,6 @@
     "ambiguous": true
   },
   {
-    "item_code": "4225278",
-    "item_name": "גבינה בסגנון דנאבלו 28% נטו-דנמרק",
-    "store_id": "011",
-    "actual_price": 90.0,
-    "controlled_product_names": [
-      "גבינה חצי קשה עמק (רגילה) 28% שומן"
-    ],
-    "controlled_consumer_price": 52.85,
-    "gap_pct": 0.7029328287606433,
-    "ambiguous": false
-  },
-  {
-    "item_code": "72963746",
-    "item_name": "שמנת חמוצה 15% 200 מ\"ל תנובה",
-    "store_id": "011",
-    "actual_price": 2.84,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "4823065727868",
-    "item_name": "PRESIDENT שמנת חמוצה טבעית 15% שומן 180 גרם",
-    "store_id": "011",
-    "actual_price": 9.9,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 2.485915492957747,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290000048185",
-    "item_name": "גבינה לבנה 5% תנובה 250 גרם מהדרין",
-    "store_id": "011",
-    "actual_price": 5.87,
-    "controlled_product_names": [
-      "גבינה לבנה 5%"
-    ],
-    "controlled_consumer_price": 5.87,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290000474502",
-    "item_name": "גבינה לבנה 5% טרה 250 גרם מהדרין",
-    "store_id": "011",
-    "actual_price": 5.87,
-    "controlled_product_names": [
-      "גבינה לבנה 5%"
-    ],
-    "controlled_consumer_price": 5.87,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290000522319",
-    "item_name": "חלב טרי רמת הגולן 3% 1 ליטר",
-    "store_id": "011",
-    "actual_price": 7.35,
-    "controlled_product_names": [
-      "חלב טרי בקרטון 3% שומן (רגיל)",
-      "חלב טרי בשקית 3% שומן (רגיל)"
-    ],
-    "controlled_consumer_price": null,
-    "gap_pct": null,
-    "ambiguous": true
-  },
-  {
-    "item_code": "7290004125417",
-    "item_name": "גיל 3% תנובה 200 מ\"ל מהדרין",
-    "store_id": "011",
-    "actual_price": 1.78,
-    "controlled_product_names": [
-      "גיל 3% שומן"
-    ],
-    "controlled_consumer_price": 1.78,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004125455",
-    "item_name": "שמנת חמוצה 15%תנובה 200 מ\"ל",
-    "store_id": "011",
-    "actual_price": 2.84,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004131074",
-    "item_name": "חלב 3% מהדרין בקרטון+פקק תנובה 1 ליטר",
-    "store_id": "011",
-    "actual_price": 7.35,
-    "controlled_product_names": [
-      "חלב טרי בקרטון 3% שומן (רגיל)"
-    ],
-    "controlled_consumer_price": 7.35,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290005079658",
-    "item_name": "גבינה צהובה 28% נעם",
-    "store_id": "011",
-    "actual_price": 52.85,
-    "controlled_product_names": [
-      "גבינה חצי קשה עמק (רגילה) 28% שומן"
-    ],
-    "controlled_consumer_price": 52.85,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290005079672",
-    "item_name": "גבינה צהובה 22% נעם",
-    "store_id": "011",
-    "actual_price": 50.24,
-    "controlled_product_names": [
-      "גבינה חצי קשה גלבוע 22% שומן"
-    ],
-    "controlled_consumer_price": 50.24,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290107932080",
-    "item_name": "חלב 3% בבקבוק יטבתה 1 ליטר",
-    "store_id": "011",
-    "actual_price": 9.4,
-    "controlled_product_names": [
-      "חלב טרי בקרטון 3% שומן (רגיל)",
-      "חלב טרי בשקית 3% שומן (רגיל)"
-    ],
-    "controlled_consumer_price": null,
-    "gap_pct": null,
-    "ambiguous": true
-  },
-  {
-    "item_code": "7290107932134",
-    "item_name": "חלב 1% בבקבוק יטבתה 1 ליטר",
-    "store_id": "011",
-    "actual_price": 9.4,
-    "controlled_product_names": [
-      "חלב טרי בקרטון 1% שומן (רגיל)",
-      "חלב טרי בשקית 1% שומן (רגיל)"
-    ],
-    "controlled_consumer_price": null,
-    "gap_pct": null,
-    "ambiguous": true
-  },
-  {
     "item_code": "72961223",
     "item_name": "גיל, לבן 3% שומן",
     "store_id": "079",
@@ -2274,6 +2115,165 @@
     "controlled_product_names": [
       "חלב טרי בקרטון 3% שומן (רגיל)",
       "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "4225278",
+    "item_name": "גבינה בסגנון דנאבלו 28% נטו-דנמרק",
+    "store_id": "011",
+    "actual_price": 90.0,
+    "controlled_product_names": [
+      "גבינה חצי קשה עמק (רגילה) 28% שומן"
+    ],
+    "controlled_consumer_price": 52.85,
+    "gap_pct": 0.7029328287606433,
+    "ambiguous": false
+  },
+  {
+    "item_code": "72963746",
+    "item_name": "שמנת חמוצה 15% 200 מ\"ל תנובה",
+    "store_id": "011",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "4823065727868",
+    "item_name": "PRESIDENT שמנת חמוצה טבעית 15% שומן 180 גרם",
+    "store_id": "011",
+    "actual_price": 9.9,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 2.485915492957747,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000048185",
+    "item_name": "גבינה לבנה 5% תנובה 250 גרם מהדרין",
+    "store_id": "011",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% טרה 250 גרם מהדרין",
+    "store_id": "011",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000522319",
+    "item_name": "חלב טרי רמת הגולן 3% 1 ליטר",
+    "store_id": "011",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290004125417",
+    "item_name": "גיל 3% תנובה 200 מ\"ל מהדרין",
+    "store_id": "011",
+    "actual_price": 1.78,
+    "controlled_product_names": [
+      "גיל 3% שומן"
+    ],
+    "controlled_consumer_price": 1.78,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה 15%תנובה 200 מ\"ל",
+    "store_id": "011",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004131074",
+    "item_name": "חלב 3% מהדרין בקרטון+פקק תנובה 1 ליטר",
+    "store_id": "011",
+    "actual_price": 7.35,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": 7.35,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290005079658",
+    "item_name": "גבינה צהובה 28% נעם",
+    "store_id": "011",
+    "actual_price": 52.85,
+    "controlled_product_names": [
+      "גבינה חצי קשה עמק (רגילה) 28% שומן"
+    ],
+    "controlled_consumer_price": 52.85,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290005079672",
+    "item_name": "גבינה צהובה 22% נעם",
+    "store_id": "011",
+    "actual_price": 50.24,
+    "controlled_product_names": [
+      "גבינה חצי קשה גלבוע 22% שומן"
+    ],
+    "controlled_consumer_price": 50.24,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290107932080",
+    "item_name": "חלב 3% בבקבוק יטבתה 1 ליטר",
+    "store_id": "011",
+    "actual_price": 9.4,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 3% שומן (רגיל)",
+      "חלב טרי בשקית 3% שומן (רגיל)"
+    ],
+    "controlled_consumer_price": null,
+    "gap_pct": null,
+    "ambiguous": true
+  },
+  {
+    "item_code": "7290107932134",
+    "item_name": "חלב 1% בבקבוק יטבתה 1 ליטר",
+    "store_id": "011",
+    "actual_price": 9.4,
+    "controlled_product_names": [
+      "חלב טרי בקרטון 1% שומן (רגיל)",
+      "חלב טרי בשקית 1% שומן (רגיל)"
     ],
     "controlled_consumer_price": null,
     "gap_pct": null,
