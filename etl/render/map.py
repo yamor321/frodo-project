@@ -126,7 +126,7 @@ def render_map_html(
       : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
     const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
     const marker = L.marker([s.lat, s.lon], {{icon}});
-    marker.bindTooltip(`<b>${{s.name}}</b><br>ציון ${{s.score.toFixed(2)}} מתוך 1 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים`);
+    marker.bindTooltip(`<b>${{s.name}}</b><br>ציון ${{Math.round(s.score*100)}} מתוך 100 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים`);
     marker.on('click', ()=>{{ window.location.href = `${{BASE}}/store/${{s.id}}/`; }});
     (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
   }});
@@ -158,7 +158,7 @@ def render_map_html(
     if (nearest){{
       const km = (bestD/1000).toFixed(1);
       box.style.display = "block";
-      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ציון ${{nearest.score.toFixed(2)}} מתוך 1.`;
+      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ציון ${{Math.round(nearest.score*100)}} מתוך 100.`;
     }}
   }}
 

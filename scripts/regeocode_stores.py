@@ -13,6 +13,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
+from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
@@ -38,19 +39,25 @@ def main() -> None:
     relevant = [s for s in stores if s.store_id in store_ids]
     print(f"{len(relevant)} Kfar Saba stores found.")
 
-    streets_by_store = {s.store_id: s.address for s in relevant if s.address}
+    streets_by_store = {
+        s.store_id: ADDRESS_OVERRIDES.get(s.store_id, s.address)
+        for s in relevant
+        if ADDRESS_OVERRIDES.get(s.store_id, s.address)
+    }
     geo_results = geocode_many(list(set(streets_by_store.values())))
 
     out = {}
     for s in relevant:
-        point = geo_results.get(s.address) if s.address else None
-        entry = {"name": s.store_name, "query": s.address}
+        street = streets_by_store.get(s.store_id)
+        point = geo_results.get(street) if street else None
+        entry = {"name": s.store_name, "query": street}
         if point:
             entry["lat"] = point.lat
             entry["lon"] = point.lon
         out[s.store_id] = entry
         status = f"{point.lat}, {point.lon}" if point else "NO MATCH"
-        print(f"  {s.store_id} ({s.store_name}) -- address={s.address!r} -> {status}")
+        override_note = " (override)" if s.store_id in ADDRESS_OVERRIDES else ""
+        print(f"  {s.store_id} ({s.store_name}) -- address={street!r}{override_note} -> {status}")
 
     out_path = ROOT / "data" / "processed" / "store_coords.json"
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")

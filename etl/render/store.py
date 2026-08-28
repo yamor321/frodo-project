@@ -108,7 +108,7 @@ def render_store_html(
     search_json = json.dumps(search_items, ensure_ascii=False)
 
     score_html = (
-        f'<span class="score">ציון: {score.avg_percentile:.2f} מתוך 1 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
+        f'<span class="score">ציון: {score.avg_percentile*100:.0f} מתוך 100 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
         if score
         else ""
     )

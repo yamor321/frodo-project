@@ -89,6 +89,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
     <a class="brand" href="/frodo-project/">Frodo Project</a>
     <a class="" href="/frodo-project/">בית</a>
     <a class="current" href="/frodo-project/map/">מפה</a>
+    <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
@@ -113,14 +114,14 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
   <div id="nearest"></div>
 
   <footer class="sitefoot">
-    <a href="https://prices.shufersal.co.il/" target="_blank" rel="noopener">פורטל שקיפות המחירים של שופרסל</a> ·
-    נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית.
+    נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
+    <a href="/frodo-project/methodology/">כל המקורות ואיך כל מספר מחושב</a>
   </footer>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
-  const stores = [{"id": "144", "name": "דיל שבירו כפר סבא", "score": 0.0594, "items": 6164, "lat": 32.192092, "lon": 34.8933954, "format": "hyper"}, {"id": "36", "name": "שלי כ\"ס- רוטשילד", "score": 0.3446, "items": 5144, "lat": 32.1752104, "lon": 34.908524, "format": "neighborhood"}, {"id": "230", "name": "שלי כ\"ס- ויצמן", "score": 0.4778, "items": 4369, "lat": 32.1755487, "lon": 34.9071512, "format": "neighborhood"}, {"id": "648", "name": "BE מאיר-כפרסבא", "score": 0.56, "items": 1307, "lat": 32.1809853, "lon": 34.8953621, "format": "neighborhood"}, {"id": "171", "name": "אקספרס אוסטשינסקי", "score": 0.5642, "items": 3449, "lat": 32.1720565, "lon": 34.9043899, "format": "neighborhood"}, {"id": "335", "name": "אקספרס כ\"ס- בן גוריון", "score": 0.6271, "items": 2713, "lat": 32.1718868, "lon": 34.9103858, "format": "neighborhood"}, {"id": "682", "name": "BE כפר סבא צפון", "score": 0.7062, "items": 1185, "lat": 32.1924423, "lon": 34.8889114, "format": "neighborhood"}, {"id": "375", "name": "אקספרס כ\"ס- הגליל", "score": 0.746, "items": 4006, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "394", "name": "אקספרס הכרמל כפר סבא", "score": 0.8556, "items": 4131, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "752", "name": "אקספרס כפר סבא דוכיפת", "score": 0.9122, "items": 2670, "lat": 32.1846318, "lon": 34.9294381, "format": "neighborhood"}, {"id": "845", "name": "אקספרס נחשון כפר סבא", "score": 0.9889, "items": 2759, "lat": 32.1745694, "lon": 34.9059981, "format": "neighborhood"}];
+  const stores = [{"id": "144", "name": "דיל שבירו כפר סבא", "score": 0.0594, "items": 6164, "lat": 32.192092, "lon": 34.8933954, "format": "hyper"}, {"id": "259", "name": "יוניברס גזית כ\"ס- ויצמן", "score": 0.1878, "items": 6202, "lat": 32.1710877, "lon": 34.9272511, "format": "hyper"}, {"id": "36", "name": "שלי כ\"ס- רוטשילד", "score": 0.3446, "items": 5144, "lat": 32.1752104, "lon": 34.908524, "format": "neighborhood"}, {"id": "615", "name": "BE כפר סבא", "score": 0.4059, "items": 1401, "lat": 32.1787356, "lon": 34.903319, "format": "neighborhood"}, {"id": "140", "name": "אקספרס תל חי", "score": 0.4645, "items": 3166, "lat": 32.1696571, "lon": 34.912684, "format": "neighborhood"}, {"id": "230", "name": "שלי כ\"ס- ויצמן", "score": 0.4778, "items": 4369, "lat": 32.1755487, "lon": 34.9071512, "format": "neighborhood"}, {"id": "648", "name": "BE מאיר-כפרסבא", "score": 0.56, "items": 1307, "lat": 32.1809853, "lon": 34.8953621, "format": "neighborhood"}, {"id": "171", "name": "אקספרס אוסטשינסקי", "score": 0.5642, "items": 3449, "lat": 32.1720565, "lon": 34.9043899, "format": "neighborhood"}, {"id": "335", "name": "אקספרס כ\"ס- בן גוריון", "score": 0.6271, "items": 2713, "lat": 32.1718868, "lon": 34.9103858, "format": "neighborhood"}, {"id": "682", "name": "BE כפר סבא צפון", "score": 0.7062, "items": 1185, "lat": 32.1924423, "lon": 34.8889114, "format": "neighborhood"}, {"id": "375", "name": "אקספרס כ\"ס- הגליל", "score": 0.746, "items": 4006, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "394", "name": "אקספרס הכרמל כפר סבא", "score": 0.8556, "items": 4131, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "752", "name": "אקספרס כפר סבא דוכיפת", "score": 0.9122, "items": 2670, "lat": 32.1846318, "lon": 34.9294381, "format": "neighborhood"}, {"id": "845", "name": "אקספרס נחשון כפר סבא", "score": 0.9889, "items": 2759, "lat": 32.1745694, "lon": 34.9059981, "format": "neighborhood"}];
   const BASE = "/frodo-project";
 
   function scoreColor(score){
@@ -161,7 +162,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
       : `<div class="store-pin" style="width:${size}px;height:${size}px;border-radius:50%;background:${color}"></div>`;
     const icon = L.divIcon({html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]});
     const marker = L.marker([s.lat, s.lon], {icon});
-    marker.bindTooltip(`<b>${s.name}</b><br>ציון ${s.score.toFixed(2)} מתוך 1 (0=זול ביותר)<br>${s.items.toLocaleString()} מוצרים משותפים`);
+    marker.bindTooltip(`<b>${s.name}</b><br>ציון ${Math.round(s.score*100)} מתוך 100 (0=זול ביותר)<br>${s.items.toLocaleString()} מוצרים משותפים`);
     marker.on('click', ()=>{ window.location.href = `${BASE}/store/${s.id}/`; });
     (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
   });
@@ -193,7 +194,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
     if (nearest){
       const km = (bestD/1000).toFixed(1);
       box.style.display = "block";
-      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${BASE}/store/${nearest.id}/">${nearest.name}</a></b> — כ-${km} ק"מ, ציון ${nearest.score.toFixed(2)} מתוך 1.`;
+      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${BASE}/store/${nearest.id}/">${nearest.name}</a></b> — כ-${km} ק"מ, ציון ${Math.round(nearest.score*100)} מתוך 100.`;
     }
   }
 

@@ -18,9 +18,13 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.benchmarks.moag_controlled_prices import current_dairy_controlled_prices
+from etl.concurrency import fetch_concurrently
+from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
+from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
+from etl.render.methodology import render_methodology_html
 from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
@@ -77,10 +81,16 @@ def main() -> None:
     controlled = current_dairy_controlled_prices()
     print(f"{len(controlled)} controlled dairy products fetched.")
 
+    files_to_fetch = list(kfar_saba_full_catalog_files(all_files, store_ids))
+    print(f"Downloading {len(files_to_fetch)} store catalogs concurrently...")
+    xml_blobs = fetch_concurrently([lambda f=f: download(f) for f in files_to_fetch])
+
     all_gaps = []
     catalogs_by_store: dict[str, list] = {}
-    for f in kfar_saba_full_catalog_files(all_files, store_ids):
-        xml_bytes = download(f)
+    for f, xml_bytes in zip(files_to_fetch, xml_blobs):
+        if xml_bytes is None:
+            print(f"  store {f.store_id}: download failed, skipped")
+            continue
         (raw_dir / f.filename).with_suffix(".xml").write_bytes(xml_bytes)
         catalog = parse_price_xml(xml_bytes)
         catalogs_by_store[f.store_id] = catalog
@@ -105,7 +115,11 @@ def main() -> None:
     print(f"Wrote {gap_path} and {spread_path}")
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
-    streets_by_store = {sid: addr for sid, addr in store_addresses.items() if addr}
+    streets_by_store = {
+        sid: ADDRESS_OVERRIDES.get(sid, addr)
+        for sid, addr in store_addresses.items()
+        if ADDRESS_OVERRIDES.get(sid, addr)
+    }
     geo_results = geocode_many(list(set(streets_by_store.values())))
     coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
@@ -117,6 +131,14 @@ def main() -> None:
         render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M")),
         encoding="utf-8",
     )
+
+    methodology_dir = site_dir / "methodology"
+    methodology_dir.mkdir(exist_ok=True)
+    (methodology_dir / "index.html").write_text(render_methodology_html(), encoding="utf-8")
+
+    branches_dir = site_dir / "branches"
+    branches_dir.mkdir(exist_ok=True)
+    (branches_dir / "index.html").write_text(render_branches_html(spreads), encoding="utf-8")
 
     map_dir = site_dir / "map"
     map_dir.mkdir(exist_ok=True)

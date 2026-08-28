@@ -88,7 +88,7 @@ FONT_LINK = (
 
 def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_script: str = "") -> str:
     """Wrap `body` HTML in the shared shell. `current` selects the bold nav
-    link ('home' | 'map')."""
+    link ('home' | 'map' | 'methodology')."""
 
     def nav_class(key: str) -> str:
         return "current" if key == current else ""
@@ -109,13 +109,14 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
     <a class="brand" href="/frodo-project/">Frodo Project</a>
     <a class="{nav_class('home')}" href="/frodo-project/">בית</a>
     <a class="{nav_class('map')}" href="/frodo-project/map/">מפה</a>
+    <a class="{nav_class('methodology')}" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
 {body}
   <footer class="sitefoot">
-    <a href="https://prices.shufersal.co.il/" target="_blank" rel="noopener">פורטל שקיפות המחירים של שופרסל</a> ·
-    נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית.
+    נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
+    <a href="/frodo-project/methodology/">כל המקורות ואיך כל מספר מחושב</a>
   </footer>
 </div>
 {extra_script}

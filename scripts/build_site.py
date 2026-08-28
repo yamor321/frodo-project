@@ -15,7 +15,9 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.enrich.product_images import get_image_urls
+from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
+from etl.render.methodology import render_methodology_html
 from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
@@ -84,6 +86,16 @@ def main() -> None:
         render_index_html(spreads, gaps, generated_at="28.08.2026 (build מקומי)"), encoding="utf-8"
     )
     print("  site/index.html")
+
+    methodology_dir = SITE_DIR / "methodology"
+    methodology_dir.mkdir(exist_ok=True)
+    (methodology_dir / "index.html").write_text(render_methodology_html(), encoding="utf-8")
+    print("  site/methodology/index.html")
+
+    branches_dir = SITE_DIR / "branches"
+    branches_dir.mkdir(exist_ok=True)
+    (branches_dir / "index.html").write_text(render_branches_html(spreads), encoding="utf-8")
+    print("  site/branches/index.html")
 
     map_dir = SITE_DIR / "map"
     map_dir.mkdir(exist_ok=True)
