@@ -25,17 +25,36 @@ instead of a settlement code -- is handled in shufersal.kfar_saba_stores()
 directly, since that function needs to work for every chain, not just this
 one.
 
-Two runs against this module from GitHub Actions both failed while the
-exact same code ran clean locally against live data every time -- couldn't
-get the actual traceback out of GitHub's log viewer (requires sign-in even
-on a public repo), but this is consistent with laibcatalog.co.il (a
-smaller platform than Shufersal/Carrefour, already flagged in docs/
-sources.md as having changed/broken before) rejecting requests with
-Python's default User-Agent from a well-known cloud IP range, which a
-basic bot-filter would plausibly do. Requests here go through a shared
-Session with a browser-like User-Agent -- this was the one concrete,
-untested difference against carrefour.py's client, which sets one on its
-initial request and has not failed in CI.
+**Confirmed 2026-08-28, from the actual GitHub Actions log (the user
+fetched it -- GitHub requires sign-in to view Actions logs even on a
+public repo, which this project's Claude session has no path to on its
+own): GitHub's runners cannot open a TCP connection to laibcatalog.co.il
+at all.**
+
+    urllib3.exceptions.ConnectTimeoutError: ... Connection to
+    laibcatalog.co.il timed out. (connect timeout=60)
+
+That's a connect-level timeout, not an HTTP error -- no 403, no response
+of any kind, the handshake itself never completes. A User-Agent header
+(tried first, on the theory that a bot-filter was rejecting Python's
+default one) cannot fix this: that's an HTTP-layer signal, and this never
+gets far enough to send one. The far more likely explanation is
+laibcatalog.co.il (a smaller platform than Shufersal/Carrefour, already
+flagged in docs/sources.md as having changed/broken before) firewalling
+off GitHub's/Azure's known IP ranges outright -- not unusual for a small
+site defending against scraping traffic, and outside what any client-side
+code change here can work around. The same code runs clean every time
+from a home network.
+
+Practical consequence: `_collect_victory()` in scripts/daily_snapshot.py
+is expected to keep failing in the GitHub Actions environment specifically
+until/unless that block lifts on their end. daily_snapshot.py's
+`_safe_collect()` already isolates this -- one chain being unreachable
+does not take the rest of the site down, it just means Victory's one
+branch is missing from that day's build. Timeouts below are kept short
+(not the 60s used before this was diagnosed) so a real block is detected
+in seconds, not by burning minutes of every CI run retrying a connection
+that was never going to succeed.
 """
 from __future__ import annotations
 
@@ -49,7 +68,11 @@ from urllib3.util.retry import Retry
 from etl.scrapers.shufersal import PriceFile
 
 BASE_URL = "https://laibcatalog.co.il"
-REQUEST_TIMEOUT = 60  # live listing calls observed to take 10-20s
+# (connect timeout, read timeout) -- connect fails fast since an actual
+# network block manifests immediately, not by taking longer to think about
+# it; read stays generous for a slow-but-working response (observed live:
+# successful listing calls take 10-20s once connected).
+REQUEST_TIMEOUT = (10, 30)
 
 _session = requests.Session()
 _session.headers.update(
@@ -61,8 +84,9 @@ _session.headers.update(
     }
 )
 # Retries at the transport level (connection errors, 5xx, 429) -- covers a
-# transient blip without needing a manual retry loop at every call site.
-_retry_adapter = HTTPAdapter(max_retries=Retry(total=3, backoff_factor=1.5, status_forcelist=[429, 500, 502, 503, 504]))
+# genuinely transient blip. Kept small: if the connect timeout above is
+# hit, it's a real network block, not something more retries fix.
+_retry_adapter = HTTPAdapter(max_retries=Retry(total=2, backoff_factor=0.5, status_forcelist=[429, 500, 502, 503, 504]))
 _session.mount("https://", _retry_adapter)
 _session.mount("http://", _retry_adapter)
 
