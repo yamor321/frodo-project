@@ -11,6 +11,8 @@ from html import escape
 from etl.scrapers.shufersal import PriceRecord
 
 PRODUCT_CSS = """
+.product-head{ display:flex; align-items:center; gap:16px; }
+.product-head .thumb{ width:72px; height:72px; border-radius:12px; }
 .pricelist{ display:flex; flex-direction:column; gap:10px; margin:20px 0; }
 .prow{ display:flex; justify-content:space-between; align-items:center; padding:14px 18px;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
@@ -45,8 +47,9 @@ def render_product_html(
     item_name: str,
     store_prices: list[StorePrice],
     from_store_id: str | None = None,
+    image_url: str | None = None,
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import page_shell, thumb_html
 
     ordered = sorted(store_prices, key=lambda sp: sp.price)
     cheapest = ordered[0] if ordered else None
@@ -80,7 +83,10 @@ def render_product_html(
 
     body = f"""
   <div class="kicker">Frodo Project · דף מוצר</div>
-  <h1>{escape(item_name)}</h1>
+  <div class="product-head">
+    {thumb_html(image_url, item_name)}
+    <h1>{escape(item_name)}</h1>
+  </div>
   {spread_line}
   <div class="pricelist">{''.join(rows)}</div>
 """

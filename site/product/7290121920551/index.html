@@ -56,11 +56,18 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
+.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
 </style>
 <style>
+.product-head{ display:flex; align-items:center; gap:16px; }
+.product-head .thumb{ width:72px; height:72px; border-radius:12px; }
 .pricelist{ display:flex; flex-direction:column; gap:10px; margin:20px 0; }
 .prow{ display:flex; justify-content:space-between; align-items:center; padding:14px 18px;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; }
@@ -81,7 +88,10 @@ footer.sitefoot a{ color:var(--navy); }
   </nav>
 
   <div class="kicker">Frodo Project · דף מוצר</div>
-  <h1>מילקה שוקולד צימוקים90ג</h1>
+  <div class="product-head">
+    <div class="thumb empty">—</div>
+    <h1>מילקה שוקולד צימוקים90ג</h1>
+  </div>
   <p class="lede">פער של <b>11%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-4 סניפים.</p>
   <div class="pricelist">
     <div class="prow">

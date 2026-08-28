@@ -14,6 +14,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
+from etl.enrich.product_images import get_image_urls
 from etl.render.map import render_map_html
 from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
@@ -91,6 +92,14 @@ def main() -> None:
 
     scores_by_id = {s.store_id: s for s in scores}
     referenced_item_codes = set()
+    for store_id in STORE_NAMES:
+        best, worst = top_deals(spreads, store_id)
+        for s in best + worst:
+            referenced_item_codes.add(s.item_code)
+
+    print(f"\nFetching product images for {len(referenced_item_codes)} products (cached)...")
+    image_urls = get_image_urls(list(referenced_item_codes))
+    print(f"  {sum(1 for u in image_urls.values() if u)}/{len(referenced_item_codes)} found")
 
     for store_id, name in STORE_NAMES.items():
         store_dir = SITE_DIR / "store" / store_id
@@ -102,12 +111,9 @@ def main() -> None:
             spreads,
             catalogs_by_store.get(store_id, []),
             coords=coords.get(store_id),
+            image_urls=image_urls,
         )
         (store_dir / "index.html").write_text(html, encoding="utf-8")
-
-        best, worst = top_deals(spreads, store_id)
-        for s in best + worst:
-            referenced_item_codes.add(s.item_code)
     print(f"  site/store/*/index.html ({len(STORE_NAMES)} stores)")
 
     for code in referenced_item_codes:
@@ -116,7 +122,8 @@ def main() -> None:
         prod_dir = SITE_DIR / "product" / code
         prod_dir.mkdir(parents=True, exist_ok=True)
         (prod_dir / "index.html").write_text(
-            render_product_html(code, item_name, store_prices), encoding="utf-8"
+            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code)),
+            encoding="utf-8",
         )
     print(f"  site/product/*/index.html ({len(referenced_item_codes)} products, every link from a store page resolves)")
 

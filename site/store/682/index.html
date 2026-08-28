@@ -56,6 +56,11 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
+.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
@@ -72,10 +77,11 @@ footer.sitefoot a{ color:var(--navy); }
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.9rem; margin:0 0 16px; }
 section.list{ display:flex; flex-direction:column; gap:12px; }
-.card.spread{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.card.spread{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.card.spread .info{ display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
 .card.spread .name{ font-weight:600; font-size:.98rem; }
 .card.spread .name small{ display:block; color:var(--ink-muted); font-weight:400; font-size:.78rem; margin-top:2px; }
-.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; }
+.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; margin-inline-start:auto; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
@@ -111,42 +117,66 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000135151/">סודה נגיעות למון ליים275</a><small>לעומת דיל שבירו כפר סבא: ₪3.90</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/013/5151/front_en.3.200.jpg" alt="סודה נגיעות למון ליים275" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290000135151/">סודה נגיעות למון ליים275</a><small>לעומת דיל שבירו כפר סבא: ₪3.90</small></div>
+      </div>
       <div class="prices">₪6.20 <span class="chip warm">+59%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290008464611/">הסודה של טמפו 275 מ&quot;ל</a><small>לעומת דיל שבירו כפר סבא: ₪3.90</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/846/4611/front_he.3.200.jpg" alt="הסודה של טמפו 275 מ&quot;ל" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290008464611/">הסודה של טמפו 275 מ&quot;ל</a><small>לעומת דיל שבירו כפר סבא: ₪3.90</small></div>
+      </div>
       <div class="prices">₪6.20 <span class="chip warm">+59%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290100850916/">דוריטוס חמוץ חריף 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/085/0916/front_he.17.200.jpg" alt="דוריטוס חמוץ חריף 70 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290100850916/">דוריטוס חמוץ חריף 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      </div>
       <div class="prices">₪6.90 <span class="chip warm">+53%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290100850923/">דוריטוס גריל 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/085/0923/front_en.3.200.jpg" alt="דוריטוס גריל 70 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290100850923/">דוריטוס גריל 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      </div>
       <div class="prices">₪6.90 <span class="chip warm">+53%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290100850930/">דוריטוס בטעם טבעי 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290100850930/">דוריטוס בטעם טבעי 70 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪4.50</small></div>
+      </div>
       <div class="prices">₪6.90 <span class="chip warm">+53%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000073767/">מנה חמה נודלס בטעם בקר71</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪6.50</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/007/3767/front_en.3.200.jpg" alt="מנה חמה נודלס בטעם בקר71" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290000073767/">מנה חמה נודלס בטעם בקר71</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪6.50</small></div>
+      </div>
       <div class="prices">₪9.90 <span class="chip warm">+52%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290100680650/">מנה חמה נודלס תאילנדי76ג</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪6.50</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/068/0650/front_he.3.200.jpg" alt="מנה חמה נודלס תאילנדי76ג" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290100680650/">מנה חמה נודלס תאילנדי76ג</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪6.50</small></div>
+      </div>
       <div class="prices">₪9.90 <span class="chip warm">+52%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000066141/">ביסלי גריל 70 גרם</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪4.60</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/006/6141/front_en.4.200.jpg" alt="ביסלי גריל 70 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290000066141/">ביסלי גריל 70 גרם</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪4.60</small></div>
+      </div>
       <div class="prices">₪6.90 <span class="chip warm">+50%</span></div>
     </div></section>
 

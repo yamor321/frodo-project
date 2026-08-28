@@ -56,6 +56,11 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
+.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
@@ -72,10 +77,11 @@ footer.sitefoot a{ color:var(--navy); }
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.9rem; margin:0 0 16px; }
 section.list{ display:flex; flex-direction:column; gap:12px; }
-.card.spread{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.card.spread{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.card.spread .info{ display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
 .card.spread .name{ font-weight:600; font-size:.98rem; }
 .card.spread .name small{ display:block; color:var(--ink-muted); font-weight:400; font-size:.78rem; margin-top:2px; }
-.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; }
+.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; margin-inline-start:auto; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
@@ -107,12 +113,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7296073122333/">שקדי מרק400ג MONRO</a><small>לעומת אקספרס נחשון כפר סבא: ₪11.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7296073122333/">שקדי מרק400ג MONRO</a><small>לעומת אקספרס נחשון כפר סבא: ₪11.90</small></div>
+      </div>
       <div class="prices">₪9.50 <span class="chip good">-25%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290112197443/">טרו שוקולד חלב 100 גרם</a><small>לעומת אקספרס כ&quot;ס- הגליל: ₪16.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290112197443/">טרו שוקולד חלב 100 גרם</a><small>לעומת אקספרס כ&quot;ס- הגליל: ₪16.90</small></div>
+      </div>
       <div class="prices">₪14.90 <span class="chip good">-13%</span></div>
     </div></section>
 
@@ -120,42 +132,66 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000965055/">מלון מובחר</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪3.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000965055/">מלון מובחר</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪3.90</small></div>
+      </div>
       <div class="prices">₪7.90 <span class="chip warm">+103%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290006764065/">בירה נשר מאלט בק.חוזר500</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪4.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290006764065/">בירה נשר מאלט בק.חוזר500</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪4.90</small></div>
+      </div>
       <div class="prices">₪8.00 <span class="chip warm">+63%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000965062/">מלון ספרדי</a><small>לעומת דיל שבירו כפר סבא: ₪4.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000965062/">מלון ספרדי</a><small>לעומת דיל שבירו כפר סבא: ₪4.90</small></div>
+      </div>
       <div class="prices">₪7.90 <span class="chip warm">+61%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000965086/">מלון קנרי</a><small>לעומת דיל שבירו כפר סבא: ₪4.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000965086/">מלון קנרי</a><small>לעומת דיל שבירו כפר סבא: ₪4.90</small></div>
+      </div>
       <div class="prices">₪7.90 <span class="chip warm">+61%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290107951111/">בפלות בטעם לימון 200 גרם</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪5.90</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/795/1111/front_he.5.200.jpg" alt="בפלות בטעם לימון 200 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290107951111/">בפלות בטעם לימון 200 גרם</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪5.90</small></div>
+      </div>
       <div class="prices">₪9.50 <span class="chip warm">+61%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000962559/">קורנית (טימין) (ק)</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪5.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000962559/">קורנית (טימין) (ק)</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪5.90</small></div>
+      </div>
       <div class="prices">₪8.90 <span class="chip warm">+51%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000961552/">פלפל כתום</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪9.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000961552/">פלפל כתום</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪9.90</small></div>
+      </div>
       <div class="prices">₪14.90 <span class="chip warm">+51%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290115207989/">ויטמינציק לימון 1 ליטר</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪12.90</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/520/7989/front_da.3.200.jpg" alt="ויטמינציק לימון 1 ליטר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290115207989/">ויטמינציק לימון 1 ליטר</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪12.90</small></div>
+      </div>
       <div class="prices">₪18.90 <span class="chip warm">+47%</span></div>
     </div></section>
 

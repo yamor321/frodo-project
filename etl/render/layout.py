@@ -55,10 +55,27 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
+.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
 """
+
+def thumb_html(image_url: str | None, alt: str = "") -> str:
+    """A small product thumbnail, or a plain fallback box when there's no
+    image -- never a broken `<img>`. `image_url` is `None` for most
+    products (Open Food Facts coverage is partial), which is expected and
+    not an error."""
+    from html import escape
+
+    if image_url:
+        return f'<div class="thumb"><img src="{escape(image_url)}" alt="{escape(alt)}" loading="lazy"></div>'
+    return '<div class="thumb empty">—</div>'
+
 
 FONT_LINK = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">'

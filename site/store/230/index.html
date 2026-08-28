@@ -56,6 +56,11 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
 
+.thumb{ width:44px; height:44px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.thumb img{ width:100%; height:100%; object-fit:contain; }
+.thumb.empty{ color:var(--ink-muted); font-size:1.2rem; }
+
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
@@ -72,10 +77,11 @@ footer.sitefoot a{ color:var(--navy); }
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.9rem; margin:0 0 16px; }
 section.list{ display:flex; flex-direction:column; gap:12px; }
-.card.spread{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.card.spread{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.card.spread .info{ display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
 .card.spread .name{ font-weight:600; font-size:.98rem; }
 .card.spread .name small{ display:block; color:var(--ink-muted); font-weight:400; font-size:.78rem; margin-top:2px; }
-.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; }
+.card.spread .prices{ font-family:'IBM Plex Mono',monospace; font-size:.95rem; white-space:nowrap; margin-inline-start:auto; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
@@ -107,42 +113,66 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7296073020370/">צלחת גדולה BASIC 100 יח&#x27;</a><small>לעומת אקספרס כפר סבא דוכיפת: ₪22.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7296073020370/">צלחת גדולה BASIC 100 יח&#x27;</a><small>לעומת אקספרס כפר סבא דוכיפת: ₪22.90</small></div>
+      </div>
       <div class="prices">₪19.90 <span class="chip good">-15%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290016087529/">רוטב עגבניות פריניר 400ג</a><small>לעומת אקספרס נחשון כפר סבא: ₪9.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290016087529/">רוטב עגבניות פריניר 400ג</a><small>לעומת אקספרס נחשון כפר סבא: ₪9.90</small></div>
+      </div>
       <div class="prices">₪8.90 <span class="chip good">-11%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290009952858/">משקה מצונן 1 ליטר</a><small>לעומת אקספרס נחשון כפר סבא: ₪11.00</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290009952858/">משקה מצונן 1 ליטר</a><small>לעומת אקספרס נחשון כפר סבא: ₪11.00</small></div>
+      </div>
       <div class="prices">₪10.00 <span class="chip good">-10%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290112841865/">מארז פורטובלו למילוי</a><small>לעומת שלי כ&quot;ס- רוטשילד: ₪15.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290112841865/">מארז פורטובלו למילוי</a><small>לעומת שלי כ&quot;ס- רוטשילד: ₪15.90</small></div>
+      </div>
       <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7296073705178/">קובה חמוסטה מילוי בשר400</a><small>לעומת אקספרס תל חי: ₪15.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7296073705178/">קובה חמוסטה מילוי בשר400</a><small>לעומת אקספרס תל חי: ₪15.90</small></div>
+      </div>
       <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7296073705246/">סיגר במילוי בשר 400 גרם</a><small>לעומת אקספרס נחשון כפר סבא: ₪15.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7296073705246/">סיגר במילוי בשר 400 גרם</a><small>לעומת אקספרס נחשון כפר סבא: ₪15.90</small></div>
+      </div>
       <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290004127817/">גב.לבנה 9% שומן 500 גרם</a><small>לעומת אקספרס נחשון כפר סבא: ₪12.90</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/412/7817/front_en.3.200.jpg" alt="גב.לבנה 9% שומן 500 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290004127817/">גב.לבנה 9% שומן 500 גרם</a><small>לעומת אקספרס נחשון כפר סבא: ₪12.90</small></div>
+      </div>
       <div class="prices">₪12.10 <span class="chip good">-7%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290020188120/">נוזל כלים24%לימון XPO1.5</a><small>לעומת אקספרס תל חי: ₪16.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290020188120/">נוזל כלים24%לימון XPO1.5</a><small>לעומת אקספרס תל חי: ₪16.90</small></div>
+      </div>
       <div class="prices">₪15.90 <span class="chip good">-6%</span></div>
     </div></section>
 
@@ -150,42 +180,66 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000518251/">מתוק וקל זהב 100 שקיות</a><small>לעומת דיל שבירו כפר סבא: ₪13.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000518251/">מתוק וקל זהב 100 שקיות</a><small>לעומת דיל שבירו כפר סבא: ₪13.90</small></div>
+      </div>
       <div class="prices">₪18.90 <span class="chip warm">+36%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000001760/">קארע</a><small>לעומת דיל שבירו כפר סבא: ₪29.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290000001760/">קארע</a><small>לעומת דיל שבירו כפר סבא: ₪29.90</small></div>
+      </div>
       <div class="prices">₪39.90 <span class="chip warm">+33%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290002517825/">פלפל לבן טחון 40 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪10.00</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290002517825/">פלפל לבן טחון 40 גרם</a><small>לעומת דיל שבירו כפר סבא: ₪10.00</small></div>
+      </div>
       <div class="prices">₪12.90 <span class="chip warm">+29%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290017023229/">שוופס מוגז תות ליים4*330</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290017023229/">שוופס מוגז תות ליים4*330</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      </div>
       <div class="prices">₪17.90 <span class="chip warm">+29%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290017023236/">שוופס מוגז ענבים4*330מ&quot;ל</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290017023236/">שוופס מוגז ענבים4*330מ&quot;ל</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      </div>
       <div class="prices">₪17.90 <span class="chip warm">+29%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290119777440/">שוופס מוגז לימונדה4*330מ</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7290119777440/">שוופס מוגז לימונדה4*330מ</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪13.90</small></div>
+      </div>
       <div class="prices">₪17.90 <span class="chip warm">+29%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7509546689623/">מ.אופטיק וייט פחם כשלפ75</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪25.90</small></div>
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/7509546689623/">מ.אופטיק וייט פחם כשלפ75</a><small>לעומת יוניברס גזית כ&quot;ס- ויצמן: ₪25.90</small></div>
+      </div>
       <div class="prices">₪32.90 <span class="chip warm">+27%</span></div>
     </div>
 
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/7290000518336/">מוש צמר גפן ללת&quot;ס100גרם</a><small>לעומת דיל שבירו כפר סבא: ₪5.50</small></div>
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/051/8336/front_en.3.200.jpg" alt="מוש צמר גפן ללת&quot;ס100גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/7290000518336/">מוש צמר גפן ללת&quot;ס100גרם</a><small>לעומת דיל שבירו כפר סבא: ₪5.50</small></div>
+      </div>
       <div class="prices">₪6.90 <span class="chip warm">+25%</span></div>
     </div></section>
 
