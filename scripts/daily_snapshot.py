@@ -36,7 +36,7 @@ from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
-from etl.scrapers import bina, carrefour, victory
+from etl.scrapers import bina, carrefour, publishedprices, victory
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     PriceFile,
@@ -199,6 +199,60 @@ def _collect_shuk_hair() -> ChainCollection:
     )
 
 
+def _collect_cerberus_chain(chain_key: str) -> ChainCollection:
+    """One function for all ten Cerberus/publishedprices.co.il chains
+    (etl/scrapers/publishedprices.py's CHAINS) -- unlike Shufersal/Carrefour/
+    Victory/Shuk HaIr, they share one uniform client, so ten near-identical
+    _collect_* functions would just be repetition.
+
+    preflight() runs first and skips straight to an empty result on failure
+    -- not routed through _safe_collect's exception handling, since an
+    unreachable data channel (confirmed to happen from this project's own
+    dev sandbox, see publishedprices.py's module docstring) is the expected,
+    handled case here, not a bug to print a traceback about.
+
+    None of these chains have a known-store-id fallback constant yet (no
+    chain here has ever completed a real run to learn its Kfar Saba store id
+    from) -- the raw-snapshot fallback in main() simply has nothing to fall
+    back to for them until one succeeds for the first time, same as Victory
+    or Shuk HaIr's own first run.
+    """
+    prefix = f"{chain_key}-"
+    chain_cfg = publishedprices.CHAINS[chain_key]
+    username, password = chain_cfg["ftp_username"], chain_cfg["ftp_password"]
+
+    print(f"Checking {chain_key} (Cerberus, health check first)...")
+    if not publishedprices.preflight(username, password):
+        print(f"  {chain_key}: unreachable this run (preflight failed) -- skipping, not retrying.")
+        return ChainCollection(prefix, lambda f: b"", [], {}, {})
+
+    def download_fn(f, u=username, p=password):
+        return publishedprices.download(u, f, p)
+
+    files = publishedprices.list_files(username, password)
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print(f"  No {chain_key} Stores file found this run -- skipping.")
+        return ChainCollection(prefix, download_fn, [], {}, {})
+
+    stores = parse_stores_xml(download_fn(stores_file))
+    store_ids = kfar_saba_stores(stores)
+    print(f"  {chain_key} Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=download_fn,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+    )
+
+
+def _cerberus_collect_task(chain_key: str) -> Callable[[], "ChainCollection"]:
+    """A fresh closure per chain_key -- a plain lambda inside a loop/
+    comprehension would all share the loop variable's final value."""
+    return lambda: _safe_collect(chain_key, lambda: _collect_cerberus_chain(chain_key), f"{chain_key}-")
+
+
 def main() -> None:
     now = dt.datetime.now()
     today = now.date().isoformat()
@@ -211,17 +265,27 @@ def main() -> None:
 
     # Discovery (listing + Stores file) happens per chain -- each chain's
     # API/portal shape is different enough that unifying this part isn't
-    # worth it. The part that actually dominates run time -- downloading
-    # every store's full catalog -- is NOT done per chain: every chain's
-    # target files are combined into one flat list below and fetched in a
-    # single concurrent batch, so chain 2 doesn't wait for chain 1's
-    # downloads to finish before its own start.
+    # worth it (except the ten uniform Cerberus chains below). The part that
+    # actually dominates run time -- downloading every store's full catalog
+    # -- is NOT done per chain: every chain's target files are combined into
+    # one flat list below and fetched in a single concurrent batch, so chain
+    # 2 doesn't wait for chain 1's downloads to finish before its own start.
     chains = [
         _safe_collect("Shufersal", _collect_shufersal, ""),
         _safe_collect("Carrefour", _collect_carrefour, "carrefour-"),
         _safe_collect("Victory", _collect_victory, "victory-"),
         _safe_collect("Shuk HaIr", _collect_shuk_hair, "shukhair-"),
     ]
+
+    # Ten chains sharing one FTP platform (see etl/scrapers/publishedprices.py)
+    # -- discovery for each is its own independent network round-trip
+    # (preflight + login + listing), so run them concurrently rather than
+    # ten sequential connect attempts. Each is still isolated by
+    # _safe_collect, same as every other chain -- one bad connection here
+    # can't sink the batch.
+    print(f"\nChecking {len(publishedprices.CHAINS)} Cerberus chains concurrently...")
+    cerberus_tasks = [_cerberus_collect_task(chain_key) for chain_key in publishedprices.CHAINS]
+    chains.extend(c for c in fetch_concurrently(cerberus_tasks) if c is not None)
 
     # A chain with zero live catalog_files today (host unreachable, see
     # _safe_collect) falls back to the most recent raw snapshot this project
