@@ -66,11 +66,14 @@ def _deal_card(
     other_price = s.expensive_price if this_store_is_cheap else s.cheap_price
     chip_class = "good" if this_store_is_cheap else "warm"
     sign = "-" if this_store_is_cheap else "+"
+    # &from= lets the product page highlight the row for the store the
+    # visitor drilled down from (see .prow.highlight in etl/render/product.py).
+    product_url = f"/frodo-project/product/?code={s.item_code}&from={this_store_id}"
     return f"""
     <div class="card spread">
       <div class="info">
         {thumb_html(image_urls.get(s.item_code), s.item_name)}
-        <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
+        <div class="name"><a href="{product_url}">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
       </div>
       <div class="prices">₪{this_price:.2f} <span class="chip {chip_class}">{sign}{s.spread_pct*100:.0f}%</span></div>
     </div>"""

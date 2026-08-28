@@ -20,7 +20,7 @@ from etl.enrich.product_images import get_image_urls
 from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
-from etl.render.product import collect_store_prices, render_product_html
+from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
@@ -200,17 +200,20 @@ def main() -> None:
         (store_dir / "index.html").write_text(html, encoding="utf-8")
     print(f"  site/store/*/index.html ({len(store_names)} stores)")
 
-    _prune_stale_dirs(SITE_DIR / "product", referenced_item_codes)
-    for code in referenced_item_codes:
-        item_name = next((s.item_name for s in spreads if s.item_code == code), code)
-        store_prices = collect_store_prices(catalogs_by_store, code, store_names)
-        prod_dir = SITE_DIR / "product" / code
-        prod_dir.mkdir(parents=True, exist_ok=True)
-        (prod_dir / "index.html").write_text(
-            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code)),
-            encoding="utf-8",
-        )
-    print(f"  site/product/*/index.html ({len(referenced_item_codes)} products, every link from a store page resolves)")
+    _prune_stale_dirs(SITE_DIR / "product", set())
+    product_dir = SITE_DIR / "product"
+    product_dir.mkdir(parents=True, exist_ok=True)
+    (product_dir / "index.html").write_text(render_product_shell_html(), encoding="utf-8")
+
+    all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
+    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
+    (SITE_DIR / "products.json").write_text(json.dumps(products_payload, ensure_ascii=False), encoding="utf-8")
+
+    search_index = [
+        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price} for s in spreads
+    ]
+    (SITE_DIR / "search-index.json").write_text(json.dumps(search_index, ensure_ascii=False), encoding="utf-8")
+    print(f"  site/product/index.html + site/products.json ({len(products_payload):,} products, every /branches/ link resolves)")
 
 
 if __name__ == "__main__":

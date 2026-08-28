@@ -90,7 +90,7 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
     const shown = filtered.slice(0, 500);
     tbody.innerHTML = shown.map(r => `
       <tr>
-        <td><a href="/frodo-project/product/${{r.code}}/">${{r.name}}</a></td>
+        <td><a href="/frodo-project/product/?code=${{r.code}}">${{r.name}}</a></td>
         <td class="num">₪${{r.cheap_price.toFixed(2)}}<div class="store-name">${{r.cheap_store}}</div></td>
         <td class="num">₪${{r.expensive_price.toFixed(2)}}<div class="store-name">${{r.expensive_store}}</div></td>
         <td class="num">${{r.pct.toFixed(1)}}%</td>

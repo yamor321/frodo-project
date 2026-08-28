@@ -56,7 +56,7 @@ def _spread_card(s: SpreadResult) -> str:
     coverage = f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{s.num_stores} סניפים</small>' if s.num_stores >= 5 else ""
     return f"""
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a>{coverage}</div>
+      <div class="name"><a href="/frodo-project/product/?code={s.item_code}">{escape(s.item_name)}</a>{coverage}</div>
       <div class="range">
         <span class="range-point cheap"><b class="ltr">₪{s.cheap_price:.2f}</b><small><a href="/frodo-project/store/{s.cheap_store_id}/">{escape(s.cheap_store_name)}</a></small></span>
         <span class="range-arrow">←</span>

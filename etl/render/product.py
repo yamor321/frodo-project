@@ -1,15 +1,19 @@
-"""Renders site/product/{barcode}/index.html -- one product compared across
-every branch that carries it (brief section 3: the actual cross-branch
-comparison, at full resolution, not just the min/max used for the spread
-list). `from_store_id` highlights the branch the visitor drilled down from.
+"""Renders site/product/index.html -- ONE generic page for every comparable
+product, not a pre-baked file per barcode. Previously this module wrote
+site/product/{barcode}/index.html for every code, but only codes referenced
+from some store's top-8 best/worst list ever got a file -- meanwhile
+site/branches/index.html links to every product compute_spreads() finds
+(13,000+), so the vast majority of those links 404'd. This page instead
+reads ?code= (and optional &from=) from the URL and renders client-side
+from site/products.json, so every comparable product resolves, and the
+page never needs to be regenerated file-by-file as the catalog grows.
 """
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
-from html import escape
 
 from etl.enrich.geocode import GeoPoint
+from etl.scoring.cross_branch_spread import SpreadResult
 from etl.scrapers.shufersal import PriceRecord
 
 PRODUCT_CSS = """
@@ -33,183 +37,248 @@ class StorePrice:
     price: float
 
 
-def collect_store_prices(
-    catalogs_by_store: dict[str, list[PriceRecord]], item_code: str, store_names: dict[str, str]
-) -> list[StorePrice]:
-    prices = []
+def collect_all_store_prices(
+    catalogs_by_store: dict[str, list[PriceRecord]],
+    store_names: dict[str, str],
+    min_stores: int = 4,
+) -> dict[str, list[StorePrice]]:
+    """Single-pass grouping of every catalog record by item_code, mirroring
+    compute_spreads()'s own grouping (etl/scoring/cross_branch_spread.py --
+    same reliability filter, same min_stores threshold) on purpose: this
+    must cover exactly the product universe /branches/ links to, not a
+    separately-drifting scope. Calling collect_store_prices() once per code
+    in a loop (the old per-code-page approach) is O(codes x total records)
+    -- with 13,000+ codes and tens of thousands of catalog rows that's far
+    too slow; this does one O(total records) pass instead.
+    """
+    from collections import defaultdict
+
+    from etl.scoring.item_code_filters import is_reliable_item_code
+
+    by_item: dict[str, dict[str, tuple[str, float]]] = defaultdict(dict)
     for store_id, records in catalogs_by_store.items():
         for r in records:
-            if r.item_code == item_code and r.item_price > 0:
-                prices.append(StorePrice(store_id, store_names.get(store_id, store_id), r.item_price))
-                break
-    return prices
+            if r.item_price > 0 and is_reliable_item_code(r.item_code):
+                by_item[r.item_code][store_id] = (r.item_name, r.item_price)
+
+    result: dict[str, list[StorePrice]] = {}
+    for code, prices_by_store in by_item.items():
+        if len(prices_by_store) < min_stores:
+            continue
+        result[code] = [
+            StorePrice(sid, store_names.get(sid, sid), price) for sid, (_name, price) in prices_by_store.items()
+        ]
+    return result
 
 
-def render_product_html(
-    item_code: str,
-    item_name: str,
-    store_prices: list[StorePrice],
-    from_store_id: str | None = None,
-    image_url: str | None = None,
-    coords: dict[str, GeoPoint] | None = None,
-    base_path: str = "/frodo-project",
-) -> str:
-    from etl.render.layout import (
-        LEAFLET_CSS,
-        LEAFLET_JS,
-        LEAFLET_MAP_CSS,
-        LEAFLET_SCORE_COLOR_JS,
-        page_shell,
-        thumb_html,
+def build_products_payload(
+    spreads: list[SpreadResult],
+    all_store_prices: dict[str, list[StorePrice]],
+    image_urls: dict[str, str | None],
+    coords: dict[str, GeoPoint],
+) -> dict:
+    """JSON-serializable payload for site/products.json. One entry per
+    product in `spreads` (the same universe /branches/ already lists), each
+    carrying every store's price for it -- this is what the generic product
+    page fetches once and renders client-side.
+    """
+    payload = {}
+    for s in spreads:
+        prices = []
+        for sp in all_store_prices.get(s.item_code, []):
+            entry = {"store_id": sp.store_id, "store_name": sp.store_name, "price": sp.price}
+            pt = coords.get(sp.store_id)
+            if pt is not None:
+                entry["lat"] = pt.lat
+                entry["lon"] = pt.lon
+            prices.append(entry)
+        payload[s.item_code] = {
+            "name": s.item_name,
+            "image_url": image_urls.get(s.item_code),
+            "prices": prices,
+        }
+    return payload
+
+
+def render_product_shell_html(base_path: str = "/frodo-project") -> str:
+    """The single generic product page. Reads ?code= and optional &from=
+    from the URL, fetches `{base_path}/products.json` once, and renders the
+    same pricelist + mini-map view the old per-barcode static pages had --
+    same markup/classes, same mini-map behavior (etl/render/layout.py's
+    LEAFLET_* helpers), just built client-side instead of at snapshot time.
+    """
+    from etl.render.layout import LEAFLET_CSS, LEAFLET_JS, LEAFLET_MAP_CSS, LEAFLET_SCORE_COLOR_JS, page_shell
+
+    body = """
+  <div class="kicker">Frodo Project · דף מוצר</div>
+  <div id="productRoot"><p class="lede">טוען...</p></div>
+"""
+
+    extra_head = f"<style>{PRODUCT_CSS}</style>\n{LEAFLET_CSS}\n<style>{LEAFLET_MAP_CSS}</style>"
+
+    # Plain (non f-string) JS body -- avoids doubling every literal `{`/`}`
+    # in a giant f-string. The one dynamic value (BASE) is spliced in via a
+    # single .replace() below instead.
+    script_body = (
+        LEAFLET_SCORE_COLOR_JS
+        + """
+(function(){
+  const params = new URLSearchParams(location.search);
+  const code = params.get("code");
+  const fromStore = params.get("from");
+  const root = document.getElementById("productRoot");
+
+  function thumbHtml(url, alt){
+    if (url) return '<div class="thumb"><img src="' + url + '" alt="' + alt + '" loading="lazy"></div>';
+    return '<div class="thumb empty">—</div>';
+  }
+
+  function esc(s){
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function initMap(points){
+    const map = L.map('productMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 16,
+    }).addTo(map);
+    const bounds = [];
+    points.forEach(function(p){
+      const color = scoreColor(p.t);
+      const icon = L.divIcon({html: '<div class="store-pin" style="width:18px;height:18px;border-radius:50%;background:' + color + '"></div>', className: "", iconSize: [18,18], iconAnchor: [9,9]});
+      const marker = L.marker([p.lat, p.lon], {icon: icon});
+      marker.bindTooltip(p.name);
+      marker.bindPopup(
+        '<div class="store-popup"><b>' + esc(p.name) + '</b>' +
+        '<div class="meta">₪' + p.price.toFixed(2) + '</div>' +
+        '<a class="openbtn" href="' + BASE_PATH + '/store/' + p.id + '/">פתח דף סניף ←</a></div>'
+      );
+      marker.addTo(map);
+      bounds.push([p.lat, p.lon]);
+    });
+    map.fitBounds(bounds, {padding: [24,24], maxZoom: 16});
+
+    let meMarker = null;
+    function haversine(lat1,lon1,lat2,lon2){
+      const R = 6371000, toRad = function(d){ return d*Math.PI/180; };
+      const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+      const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+    function placeMe(lat, lon){
+      if (meMarker) map.removeLayer(meMarker);
+      meMarker = L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"var(--ink)", fillOpacity:1}).addTo(map);
+      map.panTo([lat, lon]);
+      let nearest = null, bestD = Infinity;
+      points.forEach(function(p){
+        const d = haversine(lat, lon, p.lat, p.lon);
+        if (d < bestD){ bestD = d; nearest = p; }
+      });
+      const box = document.getElementById("nearest");
+      if (nearest){
+        const km = (bestD/1000).toFixed(1);
+        box.style.display = "block";
+        box.innerHTML = 'הסניף הקרוב ביותר: <b><a href="' + BASE_PATH + '/store/' + nearest.id + '/">' + esc(nearest.name) + '</a></b> — כ-' + km + ' ק"מ, ₪' + nearest.price.toFixed(2) + '.';
+      }
+    }
+    map.on('click', function(e){ placeMe(e.latlng.lat, e.latlng.lng); });
+    const locBtn = document.getElementById("locBtn");
+    if (locBtn) locBtn.addEventListener("click", function(){
+      if (!navigator.geolocation){ alert("הדפדפן לא תומך באיתור מיקום"); return; }
+      navigator.geolocation.getCurrentPosition(
+        function(pos){ placeMe(pos.coords.latitude, pos.coords.longitude); },
+        function(){ alert("לא הצלחתי לקבל מיקום — אפשר גם ללחוץ ישירות על המפה"); }
+      );
+    });
+  }
+
+  function render(product){
+    const ordered = product.prices.slice().sort(function(a,b){ return a.price-b.price; });
+    const cheapest = ordered[0], priciest = ordered[ordered.length-1];
+    const samePriceEverywhere = cheapest && priciest && cheapest.price === priciest.price;
+
+    const rows = ordered.map(function(sp){
+      let tag = "";
+      if (!samePriceEverywhere && sp.price === cheapest.price) tag = ' <span class="chip good">הכי זול</span>';
+      else if (!samePriceEverywhere && sp.price === priciest.price) tag = ' <span class="chip warm">הכי יקר</span>';
+      const cls = sp.store_id === fromStore ? "prow highlight" : "prow";
+      return (
+        '<div class="' + cls + '">' +
+        '<span class="store">' + esc(sp.store_name) + tag + '<small><a href="' + BASE_PATH + '/store/' + sp.store_id + '/">לדף הסניף</a></small></span>' +
+        '<span class="price ltr">₪' + sp.price.toFixed(2) + '</span></div>'
+      );
+    }).join("");
+
+    let spreadLine = "";
+    if (cheapest && priciest && cheapest.price > 0 && cheapest.store_id !== priciest.store_id) {
+      const pct = (priciest.price - cheapest.price) / cheapest.price * 100;
+      spreadLine = '<p class="lede">פער של <b>' + pct.toFixed(0) + '%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-' + ordered.length + ' סניפים.</p>';
+    }
+
+    document.title = product.name + " — Frodo Project";
+
+    const mapPoints = [];
+    const prices = ordered.map(function(sp){ return sp.price; });
+    const minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
+    const span = maxP - minP;
+    ordered.forEach(function(sp){
+      if (sp.lat == null || sp.lon == null) return;
+      const t = span > 0 ? (sp.price - minP) / span : 0.0;
+      mapPoints.push({id: sp.store_id, name: sp.store_name, price: sp.price, t: t, lat: sp.lat, lon: sp.lon});
+    });
+
+    const mapSection = mapPoints.length ? (
+      '<h2 class="section-title">איפה המוצר הזה הכי זול לידך</h2>' +
+      '<p class="section-sub">צבע = מיקום המחיר בין הזול ליקר ביותר עבור המוצר הזה בלבד (ירוק=זול, אדום=יקר) -- לא ציון הסניף הכללי.</p>' +
+      '<div class="controls"><button class="locbtn" id="locBtn">📍 מצא את המיקום שלי</button></div>' +
+      '<div id="productMap"></div>' +
+      '<div class="legend-scale"><span>זול יחסית</span><div class="bar"></div><span>יקר יחסית</span></div>' +
+      '<div id="nearest"></div>'
+    ) : (
+      '<h2 class="section-title">איפה המוצר הזה הכי זול לידך</h2>' +
+      '<p class="section-sub">אין עדיין מספיק נתוני מיקום לסניפים שמוכרים את המוצר הזה.</p>'
+    );
+
+    root.innerHTML =
+      '<div class="product-head">' + thumbHtml(product.image_url, esc(product.name)) + '<h1>' + esc(product.name) + '</h1></div>' +
+      spreadLine +
+      '<div class="pricelist">' + rows + '</div>' +
+      mapSection;
+
+    if (mapPoints.length) {
+      // A map-init failure (e.g. the Leaflet CDN blocked or unreachable)
+      // must not wipe out the pricelist that's already correctly rendered
+      // above -- without this, an unrelated map error bubbles up through
+      // the fetch().then() chain into the top-level .catch(), which
+      // overwrites root.innerHTML with a generic "failed to load" message
+      // even though the real product data loaded and rendered just fine.
+      try { initMap(mapPoints); } catch (e) { console.error("Product mini-map failed to init:", e); }
+    }
+  }
+
+  if (!code) {
+    root.innerHTML = '<p class="lede">לא צוין קוד מוצר. <a href="' + BASE_PATH + '/branches/">חפשו מוצר ברשימת הפערים ←</a></p>';
+  } else {
+    fetch(BASE_PATH + "/products.json").then(function(r){ return r.json(); }).then(function(all){
+      const product = all[code];
+      if (!product) {
+        root.innerHTML = '<p class="lede">המוצר הזה לא נמצא (אולי אין מספיק סניפים שמוכרים אותו היום כדי להשוות). <a href="' + BASE_PATH + '/branches/">חפשו מוצר אחר ←</a></p>';
+        return;
+      }
+      render(product);
+    }).catch(function(){
+      root.innerHTML = '<p class="lede">שגיאה בטעינת נתוני המוצר. נסו לרענן.</p>';
+    });
+  }
+})();
+"""
     )
 
-    ordered = sorted(store_prices, key=lambda sp: sp.price)
-    cheapest = ordered[0] if ordered else None
-    priciest = ordered[-1] if ordered else None
-    # A tie at the min (or max) is still the min (or max) -- tag every store
-    # that matches the price, not just whichever sorted first. If every
-    # store has the same price there's no meaningful "cheapest"/"priciest"
-    # distinction, so skip both tags rather than mark everything both ways.
-    same_price_everywhere = bool(cheapest and priciest and cheapest.price == priciest.price)
+    extra_script = (
+        f'{LEAFLET_JS}\n<script>\nconst BASE_PATH = "{base_path}";\n' + script_body + "\n</script>"
+    )
 
-    rows = []
-    for sp in ordered:
-        cls = "prow highlight" if sp.store_id == from_store_id else "prow"
-        tag = ""
-        if not same_price_everywhere and cheapest and sp.price == cheapest.price:
-            tag = ' <span class="chip good">הכי זול</span>'
-        elif not same_price_everywhere and priciest and sp.price == priciest.price:
-            tag = ' <span class="chip warm">הכי יקר</span>'
-        rows.append(
-            f"""
-    <div class="{cls}">
-      <span class="store">{escape(sp.store_name)}{tag}<small><a href="/frodo-project/store/{sp.store_id}/">לדף הסניף</a></small></span>
-      <span class="price ltr">₪{sp.price:.2f}</span>
-    </div>"""
-        )
-
-    spread_line = ""
-    if cheapest and priciest and cheapest.price > 0 and cheapest.store_id != priciest.store_id:
-        pct = (priciest.price - cheapest.price) / cheapest.price * 100
-        spread_line = f'<p class="lede">פער של <b>{pct:.0f}%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-{len(ordered)} סניפים.</p>'
-
-    # Per-product normalization, not the store's sitewide percentile score --
-    # a store that's expensive overall can still be the cheapest place for
-    # THIS item, and that's exactly what a visitor standing in the aisle
-    # wants to see. t=0 is the cheapest store for this barcode, t=1 the
-    # priciest, among only the stores that carry it.
-    coords = coords or {}
-    map_points = []
-    if store_prices:
-        prices = [sp.price for sp in store_prices]
-        min_p, max_p = min(prices), max(prices)
-        span = max_p - min_p
-        for sp in store_prices:
-            pt = coords.get(sp.store_id)
-            if pt is None:
-                continue
-            t = (sp.price - min_p) / span if span > 0 else 0.0
-            map_points.append(
-                {"id": sp.store_id, "name": sp.store_name, "price": sp.price, "t": t, "lat": pt.lat, "lon": pt.lon}
-            )
-
-    if map_points:
-        map_html = """
-  <h2 class="section-title">איפה המוצר הזה הכי זול לידך</h2>
-  <p class="section-sub">צבע = מיקום המחיר בין הזול ליקר ביותר עבור המוצר הזה בלבד (ירוק=זול, אדום=יקר) -- לא ציון הסניף הכללי.</p>
-  <div class="controls">
-    <button class="locbtn" id="locBtn">📍 מצא את המיקום שלי</button>
-  </div>
-  <div id="productMap"></div>
-  <div class="legend-scale"><span>זול יחסית</span><div class="bar"></div><span>יקר יחסית</span></div>
-  <div id="nearest"></div>
-"""
-    else:
-        map_html = """
-  <h2 class="section-title">איפה המוצר הזה הכי זול לידך</h2>
-  <p class="section-sub">אין עדיין מספיק נתוני מיקום לסניפים שמוכרים את המוצר הזה.</p>
-"""
-
-    body = f"""
-  <div class="kicker">Frodo Project · דף מוצר</div>
-  <div class="product-head">
-    {thumb_html(image_url, item_name)}
-    <h1>{escape(item_name)}</h1>
-  </div>
-  {spread_line}
-  <div class="pricelist">{''.join(rows)}</div>
-  {map_html}
-"""
-
-    extra_head = f"<style>{PRODUCT_CSS}</style>"
-    extra_script = ""
-    if map_points:
-        map_json = json.dumps(map_points, ensure_ascii=False)
-        extra_head += f"\n{LEAFLET_CSS}\n<style>{LEAFLET_MAP_CSS}</style>"
-        extra_script = f"""{LEAFLET_JS}
-<script>
-(function(){{
-  const points = {map_json};
-  const BASE = "{base_path}";
-
-  {LEAFLET_SCORE_COLOR_JS}
-
-  const map = L.map('productMap');
-  L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 16,
-  }}).addTo(map);
-
-  const bounds = [];
-  points.forEach(p=>{{
-    const color = scoreColor(p.t);
-    const icon = L.divIcon({{html: `<div class="store-pin" style="width:18px;height:18px;border-radius:50%;background:${{color}}"></div>`, className: "", iconSize: [18,18], iconAnchor: [9,9]}});
-    const marker = L.marker([p.lat, p.lon], {{icon}});
-    marker.bindTooltip(p.name);
-    marker.bindPopup(`
-      <div class="store-popup">
-        <b>${{p.name}}</b>
-        <div class="meta">₪${{p.price.toFixed(2)}}</div>
-        <a class="openbtn" href="${{BASE}}/store/${{p.id}}/">פתח דף סניף ←</a>
-      </div>
-    `);
-    marker.addTo(map);
-    bounds.push([p.lat, p.lon]);
-  }});
-  map.fitBounds(bounds, {{padding: [24,24], maxZoom: 16}});
-
-  let meMarker = null;
-  function haversine(lat1,lon1,lat2,lon2){{
-    const R = 6371000, toRad = d=>d*Math.PI/180;
-    const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
-    const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  }}
-  function placeMe(lat, lon){{
-    if (meMarker) map.removeLayer(meMarker);
-    meMarker = L.circleMarker([lat, lon], {{radius:9, color:"#fff", weight:3, fillColor:"var(--ink)", fillOpacity:1}}).addTo(map);
-    map.panTo([lat, lon]);
-    let nearest = null, bestD = Infinity;
-    points.forEach(p=>{{
-      const d = haversine(lat, lon, p.lat, p.lon);
-      if (d < bestD){{ bestD = d; nearest = p; }}
-    }});
-    const box = document.getElementById("nearest");
-    if (nearest){{
-      const km = (bestD/1000).toFixed(1);
-      box.style.display = "block";
-      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ₪${{nearest.price.toFixed(2)}}.`;
-    }}
-  }}
-  map.on('click', (e)=>{{ placeMe(e.latlng.lat, e.latlng.lng); }});
-  document.getElementById("locBtn").addEventListener("click", ()=>{{
-    if (!navigator.geolocation){{ alert("הדפדפן לא תומך באיתור מיקום"); return; }}
-    navigator.geolocation.getCurrentPosition(
-      (pos)=>{{ placeMe(pos.coords.latitude, pos.coords.longitude); }},
-      ()=>{{ alert("לא הצלחתי לקבל מיקום — אפשר גם ללחוץ ישירות על המפה"); }}
-    );
-  }});
-}})();
-</script>"""
-
-    return page_shell(f"{item_name} — Frodo Project", "map", body, extra_head, extra_script)
+    return page_shell("מוצר — Frodo Project", "product", body, extra_head, extra_script)

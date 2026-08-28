@@ -154,7 +154,7 @@ GLOBAL_SEARCH_SCRIPT = """<script>
     }
     results.style.display = "block";
     results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/${it.code}/"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+      `<a class="gsrow" href="/frodo-project/product/?code=${it.code}"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
     ).join("");
   }
 

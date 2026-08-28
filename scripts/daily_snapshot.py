@@ -30,7 +30,7 @@ from etl.enrich.store_directory import update_and_save as update_store_directory
 from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
-from etl.render.product import collect_store_prices, render_product_html
+from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
@@ -523,27 +523,37 @@ def main() -> None:
             encoding="utf-8",
         )
 
-    _prune_stale_dirs(site_dir / "product", referenced_item_codes)
-    search_index = []
-    for code in referenced_item_codes:
-        item_name = next((s.item_name for s in spreads if s.item_code == code), code)
-        store_prices = collect_store_prices(catalogs_by_store, code, store_names)
-        prod_dir = site_dir / "product" / code
-        prod_dir.mkdir(parents=True, exist_ok=True)
-        (prod_dir / "index.html").write_text(
-            render_product_html(code, item_name, store_prices, image_url=image_urls.get(code), coords=coords),
-            encoding="utf-8",
-        )
-        if store_prices:
-            search_index.append(
-                {"code": code, "name": item_name, "cheap_price": min(sp.price for sp in store_prices)}
-            )
+    # One generic product page (site/product/index.html) instead of a file
+    # per barcode -- see etl/render/product.py's module docstring for why
+    # (the old per-code approach only ever covered the ~300 items referenced
+    # from a store's top-8 list, while /branches/ links to every comparable
+    # product; most of those links 404'd). Remove any leftover per-code
+    # directories from before this migration.
+    _prune_stale_dirs(site_dir / "product", set())
+    product_dir = site_dir / "product"
+    product_dir.mkdir(parents=True, exist_ok=True)
+    (product_dir / "index.html").write_text(render_product_shell_html(), encoding="utf-8")
 
+    all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
+    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
+    (site_dir / "products.json").write_text(
+        json.dumps(products_payload, ensure_ascii=False), encoding="utf-8"
+    )
+
+    # Global search covers the same full product universe as products.json
+    # (not just the ~300 referenced-from-a-store-page subset) so a search
+    # result is never a link to a page that then reports "not found".
+    search_index = [
+        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price} for s in spreads
+    ]
     (site_dir / "search-index.json").write_text(
         json.dumps(search_index, ensure_ascii=False), encoding="utf-8"
     )
 
-    print(f"Rendered index, map, {len(store_names)} store pages, {len(referenced_item_codes)} product pages.")
+    print(
+        f"Rendered index, map, {len(store_names)} store pages, "
+        f"1 generic product page ({len(products_payload):,} products in products.json)."
+    )
 
 
 if __name__ == "__main__":
