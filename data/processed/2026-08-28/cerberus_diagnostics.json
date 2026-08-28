@@ -1,4 +1,11 @@
 {
+  "osher-ad": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "osherad",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
   "yohananof": {
     "host": "url.retail.publishedprices.co.il",
     "username": "yohananof",
@@ -13,23 +20,16 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "tiv-taam": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "TivTaam",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
-  "osher-ad": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "osherad",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
   "rami-levy": {
     "host": "url.retail.publishedprices.co.il",
     "username": "RamiLevi",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
+  "tiv-taam": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "TivTaam",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
@@ -41,20 +41,6 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
-  "salach-dabach": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "SalachD",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
-  "fresh-market": {
-    "host": "url.retail.publishedprices.co.il",
-    "username": "freshmarket",
-    "ok": false,
-    "failed_at": "list",
-    "error": "TimeoutError: timed out"
-  },
   "stop-market": {
     "host": "url.retail.publishedprices.co.il",
     "username": "Stop_Market",
@@ -62,9 +48,23 @@
     "failed_at": "list",
     "error": "TimeoutError: timed out"
   },
+  "salach-dabach": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "SalachD",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
   "keshet": {
     "host": "url.retail.publishedprices.co.il",
     "username": "Keshet",
+    "ok": false,
+    "failed_at": "list",
+    "error": "TimeoutError: timed out"
+  },
+  "fresh-market": {
+    "host": "url.retail.publishedprices.co.il",
+    "username": "freshmarket",
     "ok": false,
     "failed_at": "list",
     "error": "TimeoutError: timed out"
