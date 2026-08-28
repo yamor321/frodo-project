@@ -31,6 +31,7 @@ from etl.render.store import render_store_html, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
+from etl.scrapers import carrefour
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     download,
@@ -44,12 +45,21 @@ from etl.scrapers.shufersal import (
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
+# Carrefour store IDs are namespaced in every shared dict (catalogs_by_store,
+# store_names, coords, formats) so they can never collide with Shufersal's
+# own bare numeric IDs -- both chains happen to use small numeric codes.
+# Shufersal itself stays unprefixed since it's the pilot chain and its URLs
+# (/store/144/, etc.) are already live.
+CARREFOUR_PREFIX = "carrefour-"
+
 
 def store_format(name: str) -> str:
     """See docs/sources.md: the chain's own format branding in the name is
     the only real size signal -- the official StoreType field only
-    distinguishes physical/online, not store size."""
-    return "hyper" if ("דיל" in name or "יוניברס" in name) else "neighborhood"
+    distinguishes physical/online, not store size. "היפר" catches
+    Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
+    catches Shufersal's."""
+    return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
 
 
 def main() -> None:
@@ -97,6 +107,36 @@ def main() -> None:
         gaps = compute_gaps(catalog, controlled)
         print(f"  store {f.store_id}: {len(catalog)} items, {len(gaps)} matched")
         all_gaps.extend(gaps)
+
+    print("\nListing Carrefour portal...")
+    carrefour_files = carrefour.list_files()
+    carrefour_stores_file = list_stores_file(carrefour_files)
+    if carrefour_stores_file is not None:
+        c_stores = parse_stores_xml(carrefour.download(carrefour_stores_file))
+        c_store_ids = kfar_saba_stores(c_stores) or carrefour.KFAR_SABA_STORE_IDS
+        for s in c_stores:
+            if s.store_id in c_store_ids:
+                key = CARREFOUR_PREFIX + s.store_id
+                store_names[key] = s.store_name
+                store_addresses[key] = s.address
+        print(f"Carrefour Kfar Saba stores (from official City==6900 filter): {sorted(c_store_ids)}")
+
+        carrefour_catalog_files = list(kfar_saba_full_catalog_files(carrefour_files, c_store_ids))
+        print(f"Downloading {len(carrefour_catalog_files)} Carrefour store catalogs concurrently...")
+        carrefour_blobs = fetch_concurrently([lambda f=f: carrefour.download(f) for f in carrefour_catalog_files])
+        for f, xml_bytes in zip(carrefour_catalog_files, carrefour_blobs):
+            if xml_bytes is None:
+                print(f"  carrefour store {f.store_id}: download failed, skipped")
+                continue
+            (raw_dir / f.filename).with_suffix(".xml").write_bytes(xml_bytes)
+            catalog = parse_price_xml(xml_bytes)
+            key = CARREFOUR_PREFIX + f.store_id
+            catalogs_by_store[key] = catalog
+            gaps = compute_gaps(catalog, controlled)
+            print(f"  carrefour store {f.store_id}: {len(catalog)} items, {len(gaps)} matched")
+            all_gaps.extend(gaps)
+    else:
+        print("No Carrefour Stores file found this run -- skipping Carrefour for today.")
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)

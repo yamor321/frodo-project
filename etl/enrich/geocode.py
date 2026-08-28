@@ -36,13 +36,20 @@ def _within_kfar_saba_bounds(lat: float, lon: float) -> bool:
 
 
 def _is_specific_street(street: str) -> bool:
-    """Reject an address that's really just the city name repeated -- the
-    actual cause of two real stores (Shufersal 615 and 140) collapsing to
-    Kfar Saba's city centroid: their Stores.xml Address field held the
-    literal string "כפר סבא" with no street, which passed a bare
-    truthiness check but isn't specific enough to geocode meaningfully."""
+    """Reject an address that isn't really a street. Two confirmed real
+    cases: (1) the literal city name with no street ("כפר סבא") -- the
+    cause of Shufersal 615/140 collapsing to Kfar Saba's city centroid,
+    passed a bare truthiness check but isn't specific enough to geocode
+    meaningfully; (2) a URL instead of a physical address -- Carrefour's
+    online-only branches (471, 473) carry their website as the Stores.xml
+    Address field since they have no physical storefront to place a pin
+    for."""
     normalized = street.strip()
-    return bool(normalized) and normalized not in {"כפר סבא", "כפר-סבא"}
+    if not normalized or normalized in {"כפר סבא", "כפר-סבא"}:
+        return False
+    if "http://" in normalized or "https://" in normalized or "www." in normalized:
+        return False
+    return True
 
 
 @dataclass

@@ -30,6 +30,13 @@ class SpecificStreetTests(unittest.TestCase):
     def test_accepts_a_real_street_address(self):
         self.assertTrue(_is_specific_street("רוטשילד 65"))
 
+    def test_rejects_a_url_instead_of_a_street(self):
+        """Real case: Carrefour's online-only branches (471, 473) carry
+        their website as the Stores.xml Address field, since there's no
+        physical storefront to place a pin for."""
+        self.assertFalse(_is_specific_street("https://www.quik.co.il"))
+        self.assertFalse(_is_specific_street("https://www.carrefour.co.il"))
+
 
 class BoundsCheckTests(unittest.TestCase):
     def test_accepts_a_known_real_kfar_saba_point(self):

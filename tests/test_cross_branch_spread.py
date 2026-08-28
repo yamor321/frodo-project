@@ -51,6 +51,21 @@ class ComputeSpreadsTests(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].spread_pct, 0.0)
 
+    def test_excludes_unreliable_internal_plu_style_codes(self):
+        """Real case found comparing live Shufersal and Carrefour catalogs:
+        7290000000145 is red cabbage at Shufersal but an unrelated gift
+        basket at Carrefour -- same code, coincidentally reused by each
+        chain's own internal numbering, not the same product. A fake 914%
+        spread would have been the homepage's own headline."""
+        catalogs = {
+            "144": [rec("7290000000145", "כרוב אדום", 6.90, "144")],
+            "carrefour-404": [rec("7290000000145", "סלי אבל", 70.00, "113")],
+            "230": [rec("7290000000145", "כרוב אדום", 7.00, "230")],
+            "36": [rec("7290000000145", "כרוב אדום", 6.95, "36")],
+        }
+        results = compute_spreads(catalogs, {}, min_stores=4)
+        self.assertEqual(results, [])
+
 
 if __name__ == "__main__":
     unittest.main()

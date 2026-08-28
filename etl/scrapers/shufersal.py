@@ -255,12 +255,22 @@ KFAR_SABA_STORE_IDS = {"144", "394", "615", "682", "752", "845"}
 def kfar_saba_full_catalog_files(
     files: Iterable[PriceFile], store_ids: Iterable[str] = KFAR_SABA_STORE_IDS
 ) -> Iterator[PriceFile]:
-    """Filter a file listing down to full-catalog files for the given stores.
+    """Filter a file listing down to the latest full-catalog file per store.
 
     Pass the dynamic result of kfar_saba_stores(parse_stores_xml(...)) as
     store_ids; defaults to the manually-identified fallback set.
+
+    Some chains (verified live for Carrefour, 2026-08-28: stores 471/473
+    each published two full PriceFull snapshots on the same day) publish
+    more than one PriceFull per store per day -- always keep the latest by
+    the timestamp embedded in the filename, not just the first/last one
+    encountered in listing order.
     """
     store_ids = set(store_ids)
+    latest: dict[str, PriceFile] = {}
     for f in files:
-        if f.store_id in store_ids and f.category.lower() == "pricefull":
-            yield f
+        if f.store_id not in store_ids or f.category.lower() != "pricefull":
+            continue
+        if f.store_id not in latest or f.filename > latest[f.store_id].filename:
+            latest[f.store_id] = f
+    yield from latest.values()
