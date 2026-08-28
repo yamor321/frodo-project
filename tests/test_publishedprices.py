@@ -38,25 +38,31 @@ class ParseFilenameTests(unittest.TestCase):
 
 
 class ChainConfigTests(unittest.TestCase):
-    def test_six_kfar_saba_chains_configured(self):
-        """All six confirmed live to have a real Kfar Saba branch (see
+    def test_ten_kfar_saba_chains_configured(self):
+        """All ten confirmed live to have a real Kfar Saba branch (see
         docs/sources.md, 28.08.2026) -- not the platform's full ~30-chain
         roster, just the ones actually relevant to this pilot."""
         self.assertEqual(
-            set(CHAINS), {"rami-levy", "yohananof", "osher-ad", "tiv-taam", "dor-alon", "yellow"}
+            set(CHAINS),
+            {
+                "rami-levy", "yohananof", "osher-ad", "tiv-taam", "dor-alon", "yellow",
+                "stop-market", "fresh-market", "keshet", "salach-dabach",
+            },
         )
         for chain in CHAINS.values():
             self.assertIn("ftp_username", chain)
             self.assertIn("ftp_password", chain)
             self.assertIn("chain_id", chain)
 
-    def test_yellow_is_the_one_chain_with_a_real_password(self):
-        """Confirmed from OpenIsraeliSupermarkets' scrappers/yellow.py --
-        most of this platform's chains use an empty password, this one
-        doesn't. A regression here would silently break Yellow's login."""
+    def test_two_chains_have_a_real_non_empty_password(self):
+        """Confirmed from OpenIsraeliSupermarkets' scrappers/{yellow,
+        salachdabach}.py -- most of this platform's chains use an empty
+        password, these two don't. A regression here would silently break
+        their login."""
         self.assertEqual(CHAINS["yellow"]["ftp_password"], "paz468")
-        non_yellow = {k: v for k, v in CHAINS.items() if k != "yellow"}
-        self.assertTrue(all(v["ftp_password"] == "" for v in non_yellow.values()))
+        self.assertEqual(CHAINS["salach-dabach"]["ftp_password"], "12345")
+        others = {k: v for k, v in CHAINS.items() if k not in ("yellow", "salach-dabach")}
+        self.assertTrue(all(v["ftp_password"] == "" for v in others.values()))
 
 
 class PreflightTests(unittest.TestCase):

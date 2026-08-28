@@ -25,12 +25,14 @@ from etl.concurrency import fetch_concurrently
 from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
+from etl.enrich.store_directory import update_and_save as update_store_directory
 from etl.render.branches import render_branches_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
 from etl.render.product import collect_store_prices, render_product_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, top_deals
+from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
@@ -198,6 +200,35 @@ def main() -> None:
         _safe_collect("Victory", _collect_victory, "victory-"),
     ]
 
+    # A chain with zero live catalog_files today (host unreachable, see
+    # _safe_collect) falls back to the most recent raw snapshot this project
+    # already has on disk, instead of that chain's store(s) just vanishing
+    # for the day. Needs each chain's known store ids independent of live
+    # discovery, since discovery is exactly what failed -- reuses the same
+    # fallback constants already used inside each chain's own _collect_*().
+    KNOWN_STORE_IDS_BY_PREFIX = {
+        "": KFAR_SABA_STORE_IDS,
+        "carrefour-": carrefour.KFAR_SABA_STORE_IDS,
+        "victory-": victory.KFAR_SABA_STORE_IDS,
+    }
+    CHAIN_DISPLAY_NAMES = {"": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory"}
+    fallback_catalogs: dict[str, list] = {}
+    stale_as_of: dict[str, str] = {}
+    for chain in chains:
+        if chain.catalog_files:
+            continue
+        known_ids = KNOWN_STORE_IDS_BY_PREFIX.get(chain.prefix)
+        if not known_ids:
+            continue
+        print(f"\n{CHAIN_DISPLAY_NAMES.get(chain.prefix, chain.prefix)}: no live files today, checking previous raw snapshots...")
+        found, as_of = find_fallback_catalogs(ROOT / "data" / "raw", chain.prefix, known_ids, now.date())
+        if found:
+            print(f"  Falling back to: {as_of}")
+        else:
+            print(f"  No usable snapshot found in the last week either -- store(s) will be missing today.")
+        fallback_catalogs.update(found)
+        stale_as_of.update(as_of)
+
     controlled = current_dairy_controlled_prices()
     print(f"\n{len(controlled)} controlled dairy products fetched.")
 
@@ -225,11 +256,28 @@ def main() -> None:
         print(f"  {key}: {len(catalog)} items, {len(gaps)} matched")
         all_gaps.extend(gaps)
 
+    for key, catalog in fallback_catalogs.items():
+        catalogs_by_store[key] = catalog
+        gaps = compute_gaps(catalog, controlled)
+        print(f"  {key}: {len(catalog)} items ({stale_as_of[key]}, fallback), {len(gaps)} matched")
+        all_gaps.extend(gaps)
+
     store_names: dict[str, str] = {}
     store_addresses: dict[str, str] = {}
     for chain in chains:
         store_names.update(chain.store_names)
         store_addresses.update(chain.store_addresses)
+
+    # Sticky directory: today's live names/addresses feed it, and any store
+    # only present today via the raw-snapshot fallback (no live Stores file
+    # this run) borrows its name/address back from the last time it WAS seen
+    # live, instead of rendering with an empty name.
+    directory = update_store_directory(store_names, store_addresses)
+    for store_id in fallback_catalogs:
+        if store_id not in store_names:
+            store_names[store_id] = directory.get(store_id, {}).get("name", store_id)
+        if store_id not in store_addresses and store_id in directory:
+            store_addresses[store_id] = directory[store_id].get("address", "")
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
@@ -301,6 +349,7 @@ def main() -> None:
                 catalogs_by_store.get(store_id, []),
                 coords=coords.get(store_id),
                 image_urls=image_urls,
+                as_of_date=stale_as_of.get(store_id),
             ),
             encoding="utf-8",
         )

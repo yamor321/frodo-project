@@ -99,6 +99,13 @@ _session.mount("http://", _retry_adapter)
 VICTORY_CHAIN_IDS = ["7290696200003", "7290058103393"]
 MAHSANEI_HASHUK_CHAIN_IDS = ["7290661400001", "7290633800006"]
 
+# Fallback constant (same role as carrefour.KFAR_SABA_STORE_IDS): needed
+# because when laibcatalog.co.il is unreachable at the TCP level (see module
+# docstring), list_files() never returns, so there's no live Stores file to
+# derive this from -- daily_snapshot.py's raw-snapshot fallback needs to
+# know which store id to look for without ever talking to the network.
+KFAR_SABA_STORE_IDS = {"079"}
+
 
 def list_files(chain_ids: list[str]) -> list[PriceFile]:
     """List every file the API has for the given chain_id(s)."""

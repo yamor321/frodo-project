@@ -1,8 +1,10 @@
 """Client for the shared "Cerberus" price-transparency FTP platform at
 url.retail.publishedprices.co.il, used by Rami Levy, Yohananof, Osher Ad,
-Tiv Taam, Dor Alon (AM:PM), and Yellow -- all six confirmed to have a real
-Kfar Saba branch (see docs/sources.md, 28.08.2026 research pass) -- plus
-~25 other chains on the same platform with no known Kfar Saba presence.
+Tiv Taam, Dor Alon (AM:PM), Yellow, Stop Market, Fresh Market/Super Dosh,
+Keshet Teamim, and Salach Dabach (branded "Angus") -- all ten confirmed to
+have a real Kfar Saba branch (see docs/sources.md, 28.08.2026 research
+passes) -- plus ~20 other chains on the same platform with no known Kfar
+Saba presence.
 
 **Confirmed live 2026-08-28, from this project's own session:** the FTP
 server accepts a login with each chain's own username and an EMPTY password
@@ -80,10 +82,11 @@ FTP_TIMEOUT = 30
 
 # ftp_username/ftp_password + chain_id, read verbatim from
 # OpenIsraeliSupermarkets' scrappers/{ramilevy,yohananof,osherad,tivtaam,
-# doralon,yellow}.py (see module docstring). Most of this platform's chains
-# use an empty password; three below don't -- these are the credentials that
-# project publishes for reading this legally-mandated public data, not a
-# secret this project discovered or is bypassing anything to get.
+# doralon,yellow,stop_market,superdosh,keshet,salachdabach}.py (see module
+# docstring). Most of this platform's chains use an empty password; two
+# below don't -- these are the credentials that project publishes for
+# reading this legally-mandated public data, not a secret this project
+# discovered or is bypassing anything to get.
 CHAINS = {
     "rami-levy": {"ftp_username": "RamiLevi", "ftp_password": "", "chain_id": "7290058140886"},
     "yohananof": {"ftp_username": "yohananof", "ftp_password": "", "chain_id": "7290803800003"},
@@ -91,6 +94,10 @@ CHAINS = {
     "tiv-taam": {"ftp_username": "TivTaam", "ftp_password": "", "chain_id": "7290873255550"},
     "dor-alon": {"ftp_username": "doralon", "ftp_password": "", "chain_id": "7290492000005"},
     "yellow": {"ftp_username": "Paz_bo", "ftp_password": "paz468", "chain_id": "7290644700005"},
+    "stop-market": {"ftp_username": "Stop_Market", "ftp_password": "", "chain_id": "72906390"},
+    "fresh-market": {"ftp_username": "freshmarket", "ftp_password": "", "chain_id": "7290876100000"},
+    "keshet": {"ftp_username": "Keshet", "ftp_password": "", "chain_id": "7290785400000"},
+    "salach-dabach": {"ftp_username": "SalachD", "ftp_password": "12345", "chain_id": "7290526500006"},
 }
 
 # Same dash-separated convention confirmed for Shufersal/Carrefour/Victory:

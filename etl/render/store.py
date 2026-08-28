@@ -84,11 +84,20 @@ def render_store_html(
     coords: GeoPoint | None = None,
     image_urls: dict[str, str | None] | None = None,
     top_n: int = 8,
+    as_of_date: str | None = None,
 ) -> str:
     from etl.render.layout import page_shell
 
     image_urls = image_urls or {}
     best_deals, worst_deals = top_deals(spreads, store_id, top_n)
+
+    stale_html = ""
+    if as_of_date:
+        # Set only when today's live collection for this chain failed and
+        # the prices shown are the most recent ones this project actually
+        # has (see etl/raw_snapshot_fallback.py) -- never silently presented
+        # as current, per this project's own honesty-in-labeling principle.
+        stale_html = f'<div style="margin:-10px 0 18px;"><span class="chip warm">המחירים כאן מעודכנים ל-{escape(as_of_date)} — המקור לא היה זמין היום</span></div>'
 
     nav_html = ""
     if coords is not None:
@@ -119,6 +128,7 @@ def render_store_html(
     body = f"""
   <div class="kicker">Frodo Project · דף סניף</div>
   <h1>{escape(store_name)}</h1>{nav_html}
+  {stale_html}
   <div class="storecard">{score_html}</div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
