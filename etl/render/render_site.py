@@ -11,6 +11,7 @@ design system.
 """
 from __future__ import annotations
 
+from collections import defaultdict
 from html import escape
 
 from etl.scoring.benchmark_gap import GapResult
@@ -56,7 +57,7 @@ def _spread_card(s: SpreadResult) -> str:
     coverage = f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{s.num_stores} סניפים</small>' if s.num_stores >= 5 else ""
     return f"""
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a>{coverage}</div>
+      <div class="name"><a href="/frodo-project/product/?code={s.item_code}">{escape(s.item_name)}</a>{coverage}</div>
       <div class="range">
         <span class="range-point cheap"><b class="ltr">₪{s.cheap_price:.2f}</b><small><a href="/frodo-project/store/{s.cheap_store_id}/">{escape(s.cheap_store_name)}</a></small></span>
         <span class="range-arrow">←</span>
@@ -66,18 +67,39 @@ def _spread_card(s: SpreadResult) -> str:
     </div>"""
 
 
-def _gap_card(g: GapResult) -> str:
-    chip_class = "warm" if (g.gap_pct or 0) > 0.01 else "neutral"
-    sign = "+" if (g.gap_pct or 0) > 0 else ""
-    controlled_name = escape(", ".join(g.controlled_product_names))
+def _gap_group_card(item_name: str, controlled_names: list[str], controlled_price: float, group: list[GapResult], store_names: dict[str, str]) -> str:
+    """One card per product, showing the range of actual prices found
+    across every store that carries it against the single controlled
+    reference price -- not a separate near-duplicate card per store (the
+    old _gap_card had no store field at all, so the same handful of
+    controlled products repeated once per carrying store: with 30 stores
+    and ~7 controlled dairy items, that's ~100+ near-identical cards in a
+    row for a visitor to scroll past)."""
+    entries = sorted(
+        ((g.store_id, store_names.get(g.store_id, g.store_id), g.actual_price) for g in group),
+        key=lambda e: e[2],
+    )
+    cheap_id, cheap_name, cheap_price = entries[0]
+    expensive_id, expensive_name, expensive_price = entries[-1]
+    controlled_name = escape(", ".join(controlled_names))
+    coverage = (
+        f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{len(entries)} סניפים</small>'
+        if len(entries) >= 2
+        else ""
+    )
+
+    if cheap_price == expensive_price:
+        range_html = f'<span class="range-point"><b class="ltr">₪{cheap_price:.2f}</b><small><a href="/frodo-project/store/{cheap_id}/">{escape(cheap_name)}</a></small></span>'
+    else:
+        range_html = f"""<span class="range-point cheap"><b class="ltr">₪{cheap_price:.2f}</b><small><a href="/frodo-project/store/{cheap_id}/">{escape(cheap_name)}</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪{expensive_price:.2f}</b><small><a href="/frodo-project/store/{expensive_id}/">{escape(expensive_name)}</a></small></span>"""
+
     return f"""
-    <div class="card">
-      <div class="name">{escape(g.item_name)}<small>מפוקח כ: {controlled_name}</small></div>
-      <div class="prices">
-        <span class="price-actual ltr">₪{g.actual_price:.2f}</span>
-        <span class="price-ref ltr">מקסימום: ₪{g.controlled_consumer_price:.2f}</span>
-        <span class="chip {chip_class}">{sign}{g.gap_pct*100:.1f}%</span>
-      </div>
+    <div class="card spread">
+      <div class="name">{escape(item_name)}<small>מפוקח כ: {controlled_name}</small>{coverage}</div>
+      <div class="range">{range_html}</div>
+      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪{controlled_price:.2f}</span>
     </div>"""
 
 
@@ -85,6 +107,7 @@ def render_index_html(
     spreads: list[SpreadResult],
     gaps: list[GapResult],
     generated_at: str,
+    store_names: dict[str, str],
     top_n_spreads: int = 10,
 ) -> str:
     from etl.render.layout import page_shell
@@ -94,7 +117,14 @@ def render_index_html(
     hero = top_spreads[0] if top_spreads else None
 
     spread_cards = "\n".join(_spread_card(s) for s in top_spreads)
-    gap_cards = "\n".join(_gap_card(g) for g in unambiguous_gaps)
+
+    grouped_gaps: dict[str, list[GapResult]] = defaultdict(list)
+    for g in unambiguous_gaps:
+        grouped_gaps[g.item_code].append(g)
+    gap_cards = "\n".join(
+        _gap_group_card(group[0].item_name, group[0].controlled_product_names, group[0].controlled_consumer_price, group, store_names)
+        for group in grouped_gaps.values()
+    )
 
     hero_html = (
         f"""

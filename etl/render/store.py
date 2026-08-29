@@ -5,7 +5,6 @@ the map), plus a real client-side search over everything this store sells.
 """
 from __future__ import annotations
 
-import json
 from html import escape
 
 from etl.enrich.geocode import GeoPoint
@@ -41,6 +40,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 """
 
 
+def store_search_items(catalog: list[PriceRecord]) -> list[dict]:
+    """The lean {name, price, code} shape used by this store's catalog
+    search -- shared with the build scripts so the exact same filter
+    (item_price > 0) produces both the count shown in render_store_html()
+    and the site/store/{id}/catalog.json file the search box fetches."""
+    return [
+        {"name": r.item_name, "price": r.item_price, "code": r.item_code}
+        for r in catalog
+        if r.item_price > 0
+    ]
+
+
 def top_deals(
     spreads: list[SpreadResult], store_id: str, top_n: int = 8
 ) -> tuple[list[SpreadResult], list[SpreadResult]]:
@@ -57,7 +68,11 @@ def top_deals(
 
 
 def _deal_card(
-    s: SpreadResult, this_store_id: str, this_store_is_cheap: bool, image_urls: dict[str, str | None]
+    s: SpreadResult,
+    this_store_id: str,
+    this_store_is_cheap: bool,
+    image_urls: dict[str, str | None],
+    base_path: str = "/frodo-project",
 ) -> str:
     from etl.render.layout import thumb_html
 
@@ -66,11 +81,14 @@ def _deal_card(
     other_price = s.expensive_price if this_store_is_cheap else s.cheap_price
     chip_class = "good" if this_store_is_cheap else "warm"
     sign = "-" if this_store_is_cheap else "+"
+    # &from= lets the product page highlight the row for the store the
+    # visitor drilled down from (see .prow.highlight in etl/render/product.py).
+    product_url = f"{base_path}/product/?code={s.item_code}&from={this_store_id}"
     return f"""
     <div class="card spread">
       <div class="info">
         {thumb_html(image_urls.get(s.item_code), s.item_name)}
-        <div class="name"><a href="/frodo-project/product/{s.item_code}/">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
+        <div class="name"><a href="{product_url}">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
       </div>
       <div class="prices">₪{this_price:.2f} <span class="chip {chip_class}">{sign}{s.spread_pct*100:.0f}%</span></div>
     </div>"""
@@ -87,8 +105,9 @@ def render_store_html(
     top_n: int = 8,
     as_of_date: str | None = None,
     address: str | None = None,
+    base_path: str = "/frodo-project",
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import ESC_HTML_JS, page_shell
 
     image_urls = image_urls or {}
     best_deals, worst_deals = top_deals(spreads, store_id, top_n)
@@ -115,12 +134,7 @@ def render_store_html(
     <a class="navbtn" href="{gmaps_url}" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>"""
 
-    search_items = [
-        {"name": r.item_name, "price": r.item_price, "code": r.item_code}
-        for r in catalog
-        if r.item_price > 0
-    ]
-    search_json = json.dumps(search_items, ensure_ascii=False)
+    search_items_count = len(store_search_items(catalog))
 
     score_html = (
         f'<span class="score">ציון: {score.avg_percentile*100:.0f} מתוך 100 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
@@ -128,8 +142,8 @@ def render_store_html(
         else ""
     )
 
-    best_html = "\n".join(_deal_card(s, store_id, True, image_urls) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
-    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    best_html = "\n".join(_deal_card(s, store_id, True, image_urls, base_path) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls, base_path) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
 
     address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
 
@@ -149,34 +163,54 @@ def render_store_html(
   <section class="list">{worst_html}</section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
-  <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off">
-  <div id="searchHint">{len(search_items):,} מוצרים בקטלוג הסניף</div>
-  <div id="searchResults"></div>
+  <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
+  <div id="searchHint" aria-live="polite">{search_items_count:,} מוצרים בקטלוג הסניף</div>
+  <div id="searchResults" aria-live="polite"></div>
 """
 
     extra_head = f"<style>{STORE_CSS}</style>"
+    # The full catalog (up to ~9,000 items, ~800KB for the biggest stores)
+    # is fetched from site/store/{id}/catalog.json lazily on first keystroke
+    # instead of being embedded in the page -- every visitor was downloading
+    # the entire catalog up front before, whether or not they ever used the
+    # search box. Same fetch-on-interaction pattern as the global search
+    # (layout.py's GLOBAL_SEARCH_SCRIPT) and /branches/'s search.
     extra_script = f"""<script>
 (function(){{
-  const items = {search_json};
+  const BASE = "{base_path}";
+  let items = [];
+  let itemsLoaded = false;
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
+  const defaultHint = "{search_items_count:,} מוצרים בקטלוג הסניף";
+
+  {ESC_HTML_JS}
+
+  function ensureLoaded(cb){{
+    if (itemsLoaded) {{ cb(); return; }}
+    // itemsLoaded (not items itself) marks success -- on a failed fetch
+    // items stays [] but itemsLoaded stays false, so the next keystroke
+    // retries instead of permanently showing zero results for the rest
+    // of the page's life after one transient network hiccup.
+    fetch(BASE + "/store/{store_id}/catalog.json").then(r=>r.json()).then(data=>{{ items = data; itemsLoaded = true; cb(); }}).catch(()=>{{ cb(); }});
+  }}
 
   function render(query){{
     if (!query || query.length < 2){{
       results.innerHTML = "";
-      hint.textContent = `{len(search_items):,} מוצרים בקטלוג הסניף`;
+      hint.textContent = defaultHint;
       return;
     }}
     const q = query.trim();
     const matches = items.filter(it => it.name.includes(q)).slice(0, 40);
     hint.textContent = `${{matches.length}} תוצאות (מוצג עד 40)`;
     results.innerHTML = matches.map(it =>
-      `<div class="searchrow"><span>${{it.name}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
+      `<div class="searchrow"><span>${{escHtml(it.name)}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
     ).join("");
   }}
 
-  box.addEventListener("input", (e)=> render(e.target.value));
+  box.addEventListener("input", (e)=> ensureLoaded(()=> render(e.target.value)));
 }})();
 </script>"""
 

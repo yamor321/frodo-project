@@ -50,8 +50,8 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
   <h1>כל הפערים — לא רק ה-Top 10</h1>
   <p class="lede">{len(spreads):,} מוצרים שנמצאו ב-4 סניפים בכפר סבא לפחות (מכל הרשתות שנאספו), באותו יום. כל שורה: אותו ברקוד בדיוק, הזול והיקר ביותר בין הסניפים.</p>
 
-  <input id="branchSearch" type="text" placeholder="הקלד שם מוצר לסינון..." autocomplete="off">
-  <div id="branchHint">{len(spreads):,} מוצרים · לחיצה על כותרת עמודה ממיינת</div>
+  <input id="branchSearch" type="text" placeholder="הקלד שם מוצר לסינון..." autocomplete="off" aria-label="סינון לפי שם מוצר">
+  <div id="branchHint" aria-live="polite">{len(spreads):,} מוצרים · לחיצה על כותרת עמודה ממיינת</div>
 
   <div class="table-wrap">
     <table class="branch-table">
@@ -90,7 +90,7 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
     const shown = filtered.slice(0, 500);
     tbody.innerHTML = shown.map(r => `
       <tr>
-        <td><a href="/frodo-project/product/${{r.code}}/">${{r.name}}</a></td>
+        <td><a href="/frodo-project/product/?code=${{r.code}}">${{r.name}}</a></td>
         <td class="num">₪${{r.cheap_price.toFixed(2)}}<div class="store-name">${{r.cheap_store}}</div></td>
         <td class="num">₪${{r.expensive_price.toFixed(2)}}<div class="store-name">${{r.expensive_store}}</div></td>
         <td class="num">${{r.pct.toFixed(1)}}%</td>

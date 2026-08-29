@@ -37,9 +37,14 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid va
 nav.topnav{ display:flex; align-items:center; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
   margin-bottom:28px; font-size:.88rem; }
 nav.topnav a{ color:var(--ink); text-decoration:none; font-weight:600; }
-nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink); }
+nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink);
+  display:inline-flex; align-items:center; gap:6px; }
 nav.topnav .spacer{ flex:1; }
 nav.topnav a.current{ color:var(--navy); }
+nav.topnav .brand-mark{ display:inline-flex; align-items:flex-end; gap:2px; margin-inline-end:2px; }
+button.theme-toggle{ font-size:1rem; line-height:1; background:none; border:1px solid var(--line);
+  border-radius:999px; width:30px; height:30px; cursor:pointer; color:var(--ink); }
+button.theme-toggle:hover{ border-color:var(--navy); }
 
 h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.12;
   margin:0 0 14px; text-wrap:balance; }
@@ -63,6 +68,11 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
+
+@media (max-width:520px){
+  .page{ padding:0 14px 60px; }
+  .card{ flex-direction:column; align-items:flex-start; }
+}
 """
 
 LEAFLET_CSS = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">'
@@ -123,48 +133,118 @@ GLOBAL_SEARCH_CSS = """
 
 GLOBAL_SEARCH_HTML = """
   <div id="gsWrap">
-    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off">
-    <div id="gsResults"></div>
+    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off" aria-label="חיפוש מוצר באתר">
+    <div id="gsResults" aria-live="polite"></div>
   </div>
 """
+
+# A single HTML-escaping helper, embedded (not imported -- there's no JS
+# module system here, same reason LEAFLET_SCORE_COLOR_JS below is
+# duplicated by string concatenation rather than shared at runtime) into
+# every inline script that builds HTML from data-sourced text so there's
+# one correct implementation instead of ad-hoc template-literal
+# concatenation. Escapes quotes too (unlike a textContent/innerHTML trick),
+# so it's safe in both text and attribute-value contexts.
+ESC_HTML_JS = """function escHtml(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }"""
 
 # Fetches site/search-index.json once, lazily (on first focus/keystroke,
 # not on every page load) -- verified via Network tab to fire exactly once
 # per page regardless of how many characters get typed.
-GLOBAL_SEARCH_SCRIPT = """<script>
-(function(){
+GLOBAL_SEARCH_SCRIPT = f"""<script>
+(function(){{
   let items = null;
+  let itemsLoaded = false;
   const box = document.getElementById("gsBox");
   const results = document.getElementById("gsResults");
   if (!box) return;
 
-  function ensureLoaded(cb){
-    if (items) { cb(); return; }
-    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{ items = data; cb(); }).catch(()=>{ items = []; cb(); });
-  }
+  {ESC_HTML_JS}
 
-  function render(query){
+  function ensureLoaded(cb){{
+    if (itemsLoaded) {{ cb(); return; }}
+    // Only itemsLoaded (never items itself) marks success -- on a failed
+    // fetch (flaky connection, ad-blocker) items stays [] but itemsLoaded
+    // stays false, so the NEXT keystroke retries instead of silently and
+    // permanently showing zero results for the rest of the page's life.
+    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{{ items = data; itemsLoaded = true; cb(); }}).catch(()=>{{ items = []; cb(); }});
+  }}
+
+  function render(query){{
     const q = query.trim();
-    if (!q || q.length < 2){ results.style.display = "none"; results.innerHTML = ""; return; }
+    if (!q || q.length < 2){{ results.style.display = "none"; results.innerHTML = ""; return; }}
     const matches = items.filter(it => it.name.includes(q)).slice(0, 20);
-    if (!matches.length){
+    if (!matches.length){{
       results.style.display = "block";
       results.innerHTML = '<div class="gsrow gsempty">אין תוצאות</div>';
       return;
-    }
+    }}
     results.style.display = "block";
     results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/${it.code}/"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+      `<a class="gsrow" href="/frodo-project/product/?code=${{escHtml(it.code)}}"><span>${{escHtml(it.name)}}</span><span class="p">מ-₪${{it.cheap_price.toFixed(2)}}</span></a>`
     ).join("");
-  }
+  }}
 
-  box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
-  box.addEventListener("focus", ()=>{ ensureLoaded(()=>{}); });
-  document.addEventListener("click", (e)=>{
-    if (!e.target.closest("#gsWrap")) { results.style.display = "none"; }
-  });
-})();
+  box.addEventListener("input", (e)=>{{ ensureLoaded(()=> render(e.target.value)); }});
+  box.addEventListener("focus", ()=>{{ ensureLoaded(()=>{{}}); }});
+  document.addEventListener("click", (e)=>{{
+    if (!e.target.closest("#gsWrap")) {{ results.style.display = "none"; }}
+  }});
+}})();
 </script>"""
+
+
+# The site's one visual motif, repeated everywhere a price range is shown
+# (.range-point: a short/cheap bar and a tall/expensive bar) -- reused here
+# as the brand mark instead of a decorative logo, so the icon in the nav
+# and browser tab is literally a miniature of what the site actually shows,
+# not generic branding. Navy-only on purpose: --good/--brick stay reserved
+# for real computed cheap/expensive signals (see docs -- reusing them here
+# would blur "this color means a real number" into "this color is just
+# decoration").
+BRAND_MARK_SVG = (
+    '<svg class="brand-mark" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">'
+    '<rect x="3" y="13" width="7" height="8" rx="1.5" fill="#1F3A5F"/>'
+    '<rect x="14" y="3" width="7" height="18" rx="1.5" fill="#1F3A5F"/>'
+    "</svg>"
+)
+
+FAVICON_HREF = (
+    "data:image/svg+xml,"
+    "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E"
+    "%3Crect x='3' y='13' width='7' height='8' rx='1.5' fill='%231F3A5F'/%3E"
+    "%3Crect x='14' y='3' width='7' height='18' rx='1.5' fill='%231F3A5F'/%3E"
+    "%3C/svg%3E"
+)
+
+# Runs synchronously in <head>, before the stylesheet paints anything, so a
+# visitor who already chose dark mode never sees a flash of the light theme
+# first. The toggle button's own click handler (in THEME_TOGGLE_SCRIPT,
+# loaded later) is what writes to this same key.
+THEME_INIT_SCRIPT = """<script>(function(){
+  try{ var t = localStorage.getItem("frodo-theme"); if (t) document.documentElement.dataset.theme = t; }catch(e){}
+})();</script>"""
+
+THEME_TOGGLE_SCRIPT = """<script>(function(){
+  var btn = document.getElementById("themeToggle");
+  if (!btn) return;
+  function isEffectivelyDark(theme){
+    return theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function updateLabel(theme){
+    btn.textContent = isEffectivelyDark(theme) ? "☀️" : "🌙";
+    btn.setAttribute("aria-label", isEffectivelyDark(theme) ? "עבור למצב בהיר" : "עבור למצב כהה");
+  }
+  updateLabel(document.documentElement.dataset.theme || "");
+  btn.addEventListener("click", function(){
+    var current = document.documentElement.dataset.theme || "";
+    var next = isEffectivelyDark(current) ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try{ localStorage.setItem("frodo-theme", next); }catch(e){}
+    updateLabel(next);
+  });
+})();</script>"""
 
 
 def thumb_html(image_url: str | None, alt: str = "") -> str:
@@ -190,17 +270,33 @@ FONT_LINK = (
 
 def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_script: str = "") -> str:
     """Wrap `body` HTML in the shared shell. `current` selects the bold nav
-    link ('home' | 'map' | 'methodology')."""
+    link ('home' | 'map' | 'leaderboard' | 'methodology')."""
+    from html import escape
 
     def nav_class(key: str) -> str:
         return "current" if key == current else ""
+
+    # STORE_NAMES (scripts/build_site.py) has real store names containing a
+    # literal `"` (e.g. 'שלי כ"ס- ויצמן') that flow into `title` unescaped --
+    # <title> is a text context so that was harmless, but the og:title meta
+    # tag added below reflects the same string into an HTML *attribute*,
+    # where an unescaped `"` truncates the attribute and corrupts the tag.
+    safe_title = escape(title)
 
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>{title}</title>
+<title>{safe_title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי -- נתונים רשמיים בלבד, מתעדכן יומית.">
+<meta name="theme-color" content="#1F3A5F">
+<meta property="og:site_name" content="Frodo Project">
+<meta property="og:title" content="{safe_title}">
+<meta property="og:description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי.">
+<meta property="og:locale" content="he_IL">
+<link rel="icon" href="{FAVICON_HREF}">
+{THEME_INIT_SCRIPT}
 {FONT_LINK}
 <style>{PAGE_CSS}</style>
 <style>{GLOBAL_SEARCH_CSS}</style>
@@ -209,11 +305,13 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
 <body>
 <div class="page">
   <nav class="topnav">
-    <a class="brand" href="/frodo-project/">Frodo Project</a>
+    <a class="brand" href="/frodo-project/">{BRAND_MARK_SVG} Frodo Project</a>
     <a class="{nav_class('home')}" href="/frodo-project/">בית</a>
     <a class="{nav_class('map')}" href="/frodo-project/map/">מפה</a>
+    <a class="{nav_class('leaderboard')}" href="/frodo-project/leaderboard/">דירוג סניפים</a>
     <a class="{nav_class('methodology')}" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
 {GLOBAL_SEARCH_HTML}
@@ -224,6 +322,7 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
   </footer>
 </div>
 {GLOBAL_SEARCH_SCRIPT}
+{THEME_TOGGLE_SCRIPT}
 {extra_script}
 </body>
 </html>
