@@ -1,14 +1,7 @@
 {
-  "yellow": {
+  "tiv-taam": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Paz_bo",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "yohananof": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "yohananof",
+    "username": "TivTaam",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -20,16 +13,9 @@
     "failed_at": null,
     "error": null
   },
-  "tiv-taam": {
+  "yohananof": {
     "host": "https://url.publishedprices.co.il",
-    "username": "TivTaam",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "osher-ad": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "osherad",
+    "username": "yohananof",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -41,16 +27,23 @@
     "failed_at": null,
     "error": null
   },
-  "stop-market": {
+  "osher-ad": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Stop_Market",
+    "username": "osherad",
     "ok": true,
     "failed_at": null,
     "error": null
   },
-  "fresh-market": {
+  "yellow": {
     "host": "https://url.publishedprices.co.il",
-    "username": "freshmarket",
+    "username": "Paz_bo",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "stop-market": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "Stop_Market",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -65,6 +58,13 @@
   "salach-dabach": {
     "host": "https://url.publishedprices.co.il",
     "username": "SalachD",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "fresh-market": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "freshmarket",
     "ok": true,
     "failed_at": null,
     "error": null
