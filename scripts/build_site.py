@@ -154,7 +154,7 @@ def main() -> None:
 
     print("\nRendering pages...")
     (SITE_DIR / "index.html").write_text(
-        render_index_html(spreads, gaps, generated_at="28.08.2026 (build מקומי)"), encoding="utf-8"
+        render_index_html(spreads, gaps, generated_at="28.08.2026 (build מקומי)", store_names=store_names), encoding="utf-8"
     )
     print("  site/index.html")
 

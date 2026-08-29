@@ -477,7 +477,7 @@ def main() -> None:
 
     print("\nRendering pages...")
     (site_dir / "index.html").write_text(
-        render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M")),
+        render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M"), store_names=store_names),
         encoding="utf-8",
     )
 
