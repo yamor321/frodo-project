@@ -24,7 +24,7 @@ REVEAL_BATCH = 5
 INDEX_CSS = """
 .headline-stat{ margin:26px 0 30px; padding:22px 24px; background:var(--navy); color:#fff;
   border-radius:16px; box-shadow:var(--shadow); }
-.headline-stat .num{ font-family:'Fraunces',serif; font-weight:600; font-size:clamp(1.6rem,5vw,2.4rem);
+.headline-stat .num{ font-weight:800; font-size:clamp(1.6rem,5vw,2.4rem);
   font-variant-numeric:tabular-nums; line-height:1.2; }
 .headline-stat p{ margin:10px 0 0; opacity:.92; font-size:.98rem; max-width:52ch; line-height:1.55; }
 .headline-stat a.cta-map{ display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:11px 22px;
@@ -40,13 +40,13 @@ section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px;
 .card .name{ font-size:1.02rem; font-weight:600; }
 .card .name small{ display:block; font-weight:400; color:var(--ink-muted); font-size:.82rem; margin-top:3px; }
 .card .prices{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
-.price-actual{ font-family:'Fraunces',serif; font-weight:600; font-size:1.15rem; font-variant-numeric:tabular-nums; }
+.price-actual{ font-weight:700; font-size:1.15rem; font-variant-numeric:tabular-nums; }
 .price-ref{ font-size:.85rem; color:var(--ink-muted); font-variant-numeric:tabular-nums; }
 .chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 .card.spread{ flex-direction:column; align-items:flex-start; gap:12px; }
 .range{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
 .range-point{ display:flex; flex-direction:column; gap:2px; }
-.range-point b{ font-family:'Fraunces',serif; font-weight:600; font-size:1.25rem; font-variant-numeric:tabular-nums; }
+.range-point b{ font-weight:700; font-size:1.2rem; font-variant-numeric:tabular-nums; }
 .range-point.cheap b{ color:var(--good); }
 .range-point small{ color:var(--ink-muted); font-size:.78rem; }
 .range-arrow{ color:var(--ink-muted); font-size:1.2rem; }
@@ -58,12 +58,12 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
 .lb-list{ display:flex; flex-direction:column; gap:8px; margin:20px 0 10px; }
 .lb-row{ display:flex; align-items:center; gap:14px; padding:10px 16px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:10px; }
-.lb-row .lb-rank{ font-family:'Fraunces',serif; color:var(--ink-muted); width:1.6em; text-align:center; flex-shrink:0; }
+.lb-row .lb-rank{ font-weight:600; color:var(--ink-muted); width:1.6em; text-align:center; flex-shrink:0; }
 .lb-row a{ flex:1; min-width:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .lb-row .lb-score-wrap{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .lb-row .lb-bar{ width:80px; height:7px; border-radius:4px; background:var(--line); overflow:hidden; }
 .lb-row .lb-bar-fill{ display:block; height:100%; border-radius:4px; }
-.lb-row .lb-score-num{ font-family:'Fraunces',serif; font-size:.88rem; width:2.4em; text-align:left; }
+.lb-row .lb-score-num{ font-weight:600; font-size:.88rem; width:2.4em; text-align:left; }
 """
 
 

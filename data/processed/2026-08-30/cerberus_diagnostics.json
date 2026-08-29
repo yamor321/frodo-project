@@ -1,14 +1,7 @@
 {
-  "tiv-taam": {
+  "yellow": {
     "host": "https://url.publishedprices.co.il",
-    "username": "TivTaam",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "dor-alon": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "doralon",
+    "username": "Paz_bo",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -20,9 +13,9 @@
     "failed_at": null,
     "error": null
   },
-  "yellow": {
+  "dor-alon": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Paz_bo",
+    "username": "doralon",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -37,6 +30,13 @@
   "osher-ad": {
     "host": "https://url.publishedprices.co.il",
     "username": "osherad",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "tiv-taam": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "TivTaam",
     "ok": true,
     "failed_at": null,
     "error": null

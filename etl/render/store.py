@@ -29,14 +29,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 .card.spread .info{ display:flex; align-items:center; gap:12px; flex:1; min-width:0; }
 .card.spread .name{ font-weight:600; font-size:.98rem; }
 .card.spread .name small{ display:block; color:var(--ink-muted); font-weight:400; font-size:.78rem; margin-top:2px; }
-.card.spread .prices{ font-family:'Fraunces',serif; font-size:1rem; white-space:nowrap; margin-inline-start:auto; }
+.card.spread .prices{ font-weight:700; font-size:1rem; white-space:nowrap; margin-inline-start:auto; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
 .searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
 .searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.searchrow .p{ font-family:'Fraunces',serif; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.searchrow .p{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 """
 

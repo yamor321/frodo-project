@@ -19,7 +19,7 @@ BRANCHES_CSS = """
   user-select:none; white-space:nowrap; }
 .branch-table th:hover{ color:var(--navy); }
 .branch-table td{ padding:10px; border-bottom:1px solid var(--line); vertical-align:top; }
-.branch-table td.num{ font-family:'Fraunces',serif; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.branch-table td.num{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .branch-table .store-name{ color:var(--ink-muted); font-size:.85rem; }
 .table-wrap{ overflow-x:auto; }
 .flag-badge{ display:inline-block; margin-inline-start:6px; font-size:.78rem; color:var(--brick);

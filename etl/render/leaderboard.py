@@ -17,8 +17,8 @@ LEADERBOARD_CSS = """
 .leaderboard-table th{ text-align:right; font-family:'Assistant',sans-serif; font-weight:700; font-size:.72rem; text-transform:uppercase;
   letter-spacing:.05em; color:var(--ink-muted); padding:8px 10px; border-bottom:1px solid var(--line); white-space:nowrap; }
 .leaderboard-table td{ padding:12px 10px; border-bottom:1px solid var(--line); vertical-align:middle; }
-.leaderboard-table td.rank{ font-family:'Fraunces',serif; color:var(--ink-muted); }
-.leaderboard-table td.num{ font-family:'Fraunces',serif; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.leaderboard-table td.rank{ font-weight:600; color:var(--ink-muted); }
+.leaderboard-table td.num{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .score-bar-wrap{ display:flex; align-items:center; gap:10px; min-width:140px; }
 .score-bar{ flex:1; height:8px; border-radius:4px; background:var(--line); overflow:hidden; }
 .score-bar-fill{ height:100%; border-radius:4px; }
