@@ -62,7 +62,7 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
 .lb-row a{ flex:1; min-width:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .lb-row .lb-score-wrap{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .lb-row .lb-bar{ width:80px; height:7px; border-radius:4px; background:var(--line); overflow:hidden; }
-.lb-row .lb-bar-fill{ height:100%; border-radius:4px; }
+.lb-row .lb-bar-fill{ display:block; height:100%; border-radius:4px; }
 .lb-row .lb-score-num{ font-family:'IBM Plex Mono',monospace; font-size:.88rem; width:2.4em; text-align:left; }
 """
 
