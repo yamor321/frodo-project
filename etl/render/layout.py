@@ -37,9 +37,14 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid va
 nav.topnav{ display:flex; align-items:center; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
   margin-bottom:28px; font-size:.88rem; }
 nav.topnav a{ color:var(--ink); text-decoration:none; font-weight:600; }
-nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink); }
+nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink);
+  display:inline-flex; align-items:center; gap:6px; }
 nav.topnav .spacer{ flex:1; }
 nav.topnav a.current{ color:var(--navy); }
+nav.topnav .brand-mark{ display:inline-flex; align-items:flex-end; gap:2px; margin-inline-end:2px; }
+button.theme-toggle{ font-size:1rem; line-height:1; background:none; border:1px solid var(--line);
+  border-radius:999px; width:30px; height:30px; cursor:pointer; color:var(--ink); }
+button.theme-toggle:hover{ border-color:var(--navy); }
 
 h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.12;
   margin:0 0 14px; text-wrap:balance; }
@@ -167,6 +172,58 @@ GLOBAL_SEARCH_SCRIPT = """<script>
 </script>"""
 
 
+# The site's one visual motif, repeated everywhere a price range is shown
+# (.range-point: a short/cheap bar and a tall/expensive bar) -- reused here
+# as the brand mark instead of a decorative logo, so the icon in the nav
+# and browser tab is literally a miniature of what the site actually shows,
+# not generic branding. Navy-only on purpose: --good/--brick stay reserved
+# for real computed cheap/expensive signals (see docs -- reusing them here
+# would blur "this color means a real number" into "this color is just
+# decoration").
+BRAND_MARK_SVG = (
+    '<svg class="brand-mark" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">'
+    '<rect x="3" y="13" width="7" height="8" rx="1.5" fill="#1F3A5F"/>'
+    '<rect x="14" y="3" width="7" height="18" rx="1.5" fill="#1F3A5F"/>'
+    "</svg>"
+)
+
+FAVICON_HREF = (
+    "data:image/svg+xml,"
+    "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E"
+    "%3Crect x='3' y='13' width='7' height='8' rx='1.5' fill='%231F3A5F'/%3E"
+    "%3Crect x='14' y='3' width='7' height='18' rx='1.5' fill='%231F3A5F'/%3E"
+    "%3C/svg%3E"
+)
+
+# Runs synchronously in <head>, before the stylesheet paints anything, so a
+# visitor who already chose dark mode never sees a flash of the light theme
+# first. The toggle button's own click handler (in THEME_TOGGLE_SCRIPT,
+# loaded later) is what writes to this same key.
+THEME_INIT_SCRIPT = """<script>(function(){
+  try{ var t = localStorage.getItem("frodo-theme"); if (t) document.documentElement.dataset.theme = t; }catch(e){}
+})();</script>"""
+
+THEME_TOGGLE_SCRIPT = """<script>(function(){
+  var btn = document.getElementById("themeToggle");
+  if (!btn) return;
+  function isEffectivelyDark(theme){
+    return theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function updateLabel(theme){
+    btn.textContent = isEffectivelyDark(theme) ? "☀️" : "🌙";
+    btn.setAttribute("aria-label", isEffectivelyDark(theme) ? "עבור למצב בהיר" : "עבור למצב כהה");
+  }
+  updateLabel(document.documentElement.dataset.theme || "");
+  btn.addEventListener("click", function(){
+    var current = document.documentElement.dataset.theme || "";
+    var next = isEffectivelyDark(current) ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try{ localStorage.setItem("frodo-theme", next); }catch(e){}
+    updateLabel(next);
+  });
+})();</script>"""
+
+
 def thumb_html(image_url: str | None, alt: str = "") -> str:
     """A small product thumbnail, or a plain fallback box when there's no
     image -- never a broken `<img>`. `image_url` is `None` for most
@@ -201,6 +258,14 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
 <meta charset="utf-8">
 <title>{title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי -- נתונים רשמיים בלבד, מתעדכן יומית.">
+<meta name="theme-color" content="#1F3A5F">
+<meta property="og:site_name" content="Frodo Project">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי.">
+<meta property="og:locale" content="he_IL">
+<link rel="icon" href="{FAVICON_HREF}">
+{THEME_INIT_SCRIPT}
 {FONT_LINK}
 <style>{PAGE_CSS}</style>
 <style>{GLOBAL_SEARCH_CSS}</style>
@@ -209,12 +274,13 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
 <body>
 <div class="page">
   <nav class="topnav">
-    <a class="brand" href="/frodo-project/">Frodo Project</a>
+    <a class="brand" href="/frodo-project/">{BRAND_MARK_SVG} Frodo Project</a>
     <a class="{nav_class('home')}" href="/frodo-project/">בית</a>
     <a class="{nav_class('map')}" href="/frodo-project/map/">מפה</a>
     <a class="{nav_class('leaderboard')}" href="/frodo-project/leaderboard/">דירוג סניפים</a>
     <a class="{nav_class('methodology')}" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
     <a href="https://github.com/yamor321/frodo-project" target="_blank" rel="noopener">קוד המקור</a>
   </nav>
 {GLOBAL_SEARCH_HTML}
@@ -225,6 +291,7 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
   </footer>
 </div>
 {GLOBAL_SEARCH_SCRIPT}
+{THEME_TOGGLE_SCRIPT}
 {extra_script}
 </body>
 </html>
