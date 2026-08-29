@@ -43,13 +43,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px;
 .price-actual{ font-weight:700; font-size:1.15rem; font-variant-numeric:tabular-nums; }
 .price-ref{ font-size:.85rem; color:var(--ink-muted); font-variant-numeric:tabular-nums; }
 .chip.neutral{ background:var(--paper); color:var(--ink-muted); }
-.card.spread{ flex-direction:column; align-items:flex-start; gap:12px; }
-.range{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
-.range-point{ display:flex; flex-direction:column; gap:2px; }
-.range-point b{ font-weight:700; font-size:1.2rem; font-variant-numeric:tabular-nums; }
+.card.spread{ flex-direction:column; align-items:stretch; gap:8px; padding:14px 18px; }
+.card.spread .top-row{ display:flex; align-items:center; gap:10px; }
+.card.spread .top-row .name{ flex:1; min-width:0; }
+.range{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+.range-point{ display:inline-flex; align-items:baseline; gap:5px; }
+.range-point b{ font-weight:700; font-size:1rem; font-variant-numeric:tabular-nums; }
 .range-point.cheap b{ color:var(--good); }
-.range-point small{ color:var(--ink-muted); font-size:.78rem; }
-.range-arrow{ color:var(--ink-muted); font-size:1.2rem; }
+.range-point small{ color:var(--ink-muted); font-size:.8rem; }
+.range-arrow{ color:var(--ink-muted); font-size:1rem; }
 
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-width:60ch; line-height:1.55; }
@@ -71,13 +73,15 @@ def _spread_card(s: SpreadResult) -> str:
     coverage = f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{s.num_stores} סניפים</small>' if s.num_stores >= 5 else ""
     return f"""
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code={s.item_code}">{escape(s.item_name)}</a>{coverage}</div>
+      <div class="top-row">
+        <div class="name"><a href="/frodo-project/product/?code={s.item_code}">{escape(s.item_name)}</a>{coverage}</div>
+        <span class="chip warm">+{s.spread_pct*100:.1f}%</span>
+      </div>
       <div class="range">
         <span class="range-point cheap"><b class="ltr">₪{s.cheap_price:.2f}</b><small><a href="/frodo-project/store/{s.cheap_store_id}/">{escape(s.cheap_store_name)}</a></small></span>
         <span class="range-arrow">←</span>
         <span class="range-point"><b class="ltr">₪{s.expensive_price:.2f}</b><small><a href="/frodo-project/store/{s.expensive_store_id}/">{escape(s.expensive_store_name)}</a></small></span>
       </div>
-      <span class="chip warm">+{s.spread_pct*100:.1f}%</span>
     </div>"""
 
 

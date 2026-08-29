@@ -14,8 +14,23 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 
 CACHE_PATH = pathlib.Path(__file__).resolve().parents[2] / "data" / "processed" / "store_directory.json"
+
+# Some chains publish a trailing numeric branch code as part of the store
+# name itself (verified live, e.g. Carrefour's own Stores.xml: "קרפור סיטי
+# קניון כפר סבא (1030)", "כפר סבא @ קרפור (5304)") -- meaningless to a
+# shopper, so it's stripped for display. Also collapses the double spaces
+# some chains' own names carry (same Carrefour example: "קרפור סיטי  קניון"),
+# a second, purely cosmetic instance of the same "publish the raw name
+# as-is" pattern. Never touches the underlying store_id, only how the name
+# is shown.
+_TRAILING_CODE_RE = re.compile(r"\s*\(\d+\)\s*$")
+
+
+def clean_store_name(name: str) -> str:
+    return re.sub(r"\s+", " ", _TRAILING_CODE_RE.sub("", name)).strip()
 
 
 def load_directory() -> dict[str, dict[str, str]]:

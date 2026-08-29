@@ -17,6 +17,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.concurrency import fetch_concurrently
 from etl.enrich.product_images import get_image_urls
+from etl.enrich.store_directory import clean_store_name
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
@@ -124,7 +125,7 @@ def main() -> None:
         c_store_ids = kfar_saba_stores(c_stores) or carrefour.KFAR_SABA_STORE_IDS
         for s in c_stores:
             if s.store_id in c_store_ids:
-                store_names[CARREFOUR_PREFIX + s.store_id] = s.store_name
+                store_names[CARREFOUR_PREFIX + s.store_id] = clean_store_name(s.store_name)
         carrefour_catalog_files = list(kfar_saba_full_catalog_files(carrefour_files, c_store_ids))
 
     victory_files = victory.list_files(victory.VICTORY_CHAIN_IDS)
@@ -135,7 +136,7 @@ def main() -> None:
         v_store_ids = kfar_saba_stores(v_stores)
         for s in v_stores:
             if s.store_id in v_store_ids:
-                store_names[VICTORY_PREFIX + s.store_id] = s.store_name
+                store_names[VICTORY_PREFIX + s.store_id] = clean_store_name(s.store_name)
         victory_catalog_files = list(kfar_saba_full_catalog_files(victory_files, v_store_ids))
 
     # Downloaded in one combined concurrent batch, not one chain after the

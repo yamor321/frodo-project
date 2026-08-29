@@ -26,6 +26,7 @@ from etl.concurrency import fetch_concurrently
 from etl.enrich.address_overrides import ADDRESS_OVERRIDES
 from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
+from etl.enrich.store_directory import clean_store_name
 from etl.enrich.store_directory import update_and_save as update_store_directory
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
@@ -459,7 +460,8 @@ def main() -> None:
     for chain in chains:
         label = CHAIN_HEBREW_NAMES.get(chain.prefix, chain.prefix.rstrip("-"))
         for sid, raw_name in chain.store_names.items():
-            store_names[sid] = f"{label} — {raw_name}" if label else raw_name
+            name = f"{label} — {raw_name}" if label else raw_name
+            store_names[sid] = clean_store_name(name)
         store_addresses.update(chain.store_addresses)
 
     # Sticky directory: today's live names/addresses feed it, and any store
@@ -469,7 +471,11 @@ def main() -> None:
     directory = update_store_directory(store_names, store_addresses)
     for store_id in fallback_catalogs:
         if store_id not in store_names:
-            store_names[store_id] = directory.get(store_id, {}).get("name", store_id)
+            # clean_store_name() again here too, not just on the live path
+            # above -- a name cached before this cleanup existed would
+            # otherwise keep showing its raw trailing code until that store
+            # happens to report live again.
+            store_names[store_id] = clean_store_name(directory.get(store_id, {}).get("name", store_id))
         if store_id not in store_addresses and store_id in directory:
             store_addresses[store_id] = directory[store_id].get("address", "")
 
