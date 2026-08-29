@@ -1,7 +1,7 @@
 {
-  "rami-levy": {
+  "osher-ad": {
     "host": "https://url.publishedprices.co.il",
-    "username": "RamiLevi",
+    "username": "osherad",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -9,13 +9,6 @@
   "yellow": {
     "host": "https://url.publishedprices.co.il",
     "username": "Paz_bo",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "osher-ad": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "osherad",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -41,6 +34,13 @@
     "failed_at": null,
     "error": null
   },
+  "rami-levy": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "RamiLevi",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
   "stop-market": {
     "host": "https://url.publishedprices.co.il",
     "username": "Stop_Market",
@@ -48,9 +48,9 @@
     "failed_at": null,
     "error": null
   },
-  "fresh-market": {
+  "keshet": {
     "host": "https://url.publishedprices.co.il",
-    "username": "freshmarket",
+    "username": "Keshet",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -62,9 +62,9 @@
     "failed_at": null,
     "error": null
   },
-  "keshet": {
+  "fresh-market": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Keshet",
+    "username": "freshmarket",
     "ok": true,
     "failed_at": null,
     "error": null
