@@ -138,42 +138,60 @@ GLOBAL_SEARCH_HTML = """
   </div>
 """
 
+# A single HTML-escaping helper, embedded (not imported -- there's no JS
+# module system here, same reason LEAFLET_SCORE_COLOR_JS below is
+# duplicated by string concatenation rather than shared at runtime) into
+# every inline script that builds HTML from data-sourced text so there's
+# one correct implementation instead of ad-hoc template-literal
+# concatenation. Escapes quotes too (unlike a textContent/innerHTML trick),
+# so it's safe in both text and attribute-value contexts.
+ESC_HTML_JS = """function escHtml(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }"""
+
 # Fetches site/search-index.json once, lazily (on first focus/keystroke,
 # not on every page load) -- verified via Network tab to fire exactly once
 # per page regardless of how many characters get typed.
-GLOBAL_SEARCH_SCRIPT = """<script>
-(function(){
+GLOBAL_SEARCH_SCRIPT = f"""<script>
+(function(){{
   let items = null;
+  let itemsLoaded = false;
   const box = document.getElementById("gsBox");
   const results = document.getElementById("gsResults");
   if (!box) return;
 
-  function ensureLoaded(cb){
-    if (items) { cb(); return; }
-    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{ items = data; cb(); }).catch(()=>{ items = []; cb(); });
-  }
+  {ESC_HTML_JS}
 
-  function render(query){
+  function ensureLoaded(cb){{
+    if (itemsLoaded) {{ cb(); return; }}
+    // Only itemsLoaded (never items itself) marks success -- on a failed
+    // fetch (flaky connection, ad-blocker) items stays [] but itemsLoaded
+    // stays false, so the NEXT keystroke retries instead of silently and
+    // permanently showing zero results for the rest of the page's life.
+    fetch("/frodo-project/search-index.json").then(r=>r.json()).then(data=>{{ items = data; itemsLoaded = true; cb(); }}).catch(()=>{{ items = []; cb(); }});
+  }}
+
+  function render(query){{
     const q = query.trim();
-    if (!q || q.length < 2){ results.style.display = "none"; results.innerHTML = ""; return; }
+    if (!q || q.length < 2){{ results.style.display = "none"; results.innerHTML = ""; return; }}
     const matches = items.filter(it => it.name.includes(q)).slice(0, 20);
-    if (!matches.length){
+    if (!matches.length){{
       results.style.display = "block";
       results.innerHTML = '<div class="gsrow gsempty">אין תוצאות</div>';
       return;
-    }
+    }}
     results.style.display = "block";
     results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/?code=${it.code}"><span>${it.name}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
+      `<a class="gsrow" href="/frodo-project/product/?code=${{escHtml(it.code)}}"><span>${{escHtml(it.name)}}</span><span class="p">מ-₪${{it.cheap_price.toFixed(2)}}</span></a>`
     ).join("");
-  }
+  }}
 
-  box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
-  box.addEventListener("focus", ()=>{ ensureLoaded(()=>{}); });
-  document.addEventListener("click", (e)=>{
-    if (!e.target.closest("#gsWrap")) { results.style.display = "none"; }
-  });
-})();
+  box.addEventListener("input", (e)=>{{ ensureLoaded(()=> render(e.target.value)); }});
+  box.addEventListener("focus", ()=>{{ ensureLoaded(()=>{{}}); }});
+  document.addEventListener("click", (e)=>{{
+    if (!e.target.closest("#gsWrap")) {{ results.style.display = "none"; }}
+  }});
+}})();
 </script>"""
 
 
@@ -253,20 +271,28 @@ FONT_LINK = (
 def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_script: str = "") -> str:
     """Wrap `body` HTML in the shared shell. `current` selects the bold nav
     link ('home' | 'map' | 'leaderboard' | 'methodology')."""
+    from html import escape
 
     def nav_class(key: str) -> str:
         return "current" if key == current else ""
+
+    # STORE_NAMES (scripts/build_site.py) has real store names containing a
+    # literal `"` (e.g. 'שלי כ"ס- ויצמן') that flow into `title` unescaped --
+    # <title> is a text context so that was harmless, but the og:title meta
+    # tag added below reflects the same string into an HTML *attribute*,
+    # where an unescaped `"` truncates the attribute and corrupts the tag.
+    safe_title = escape(title)
 
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>{title}</title>
+<title>{safe_title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי -- נתונים רשמיים בלבד, מתעדכן יומית.">
 <meta name="theme-color" content="#1F3A5F">
 <meta property="og:site_name" content="Frodo Project">
-<meta property="og:title" content="{title}">
+<meta property="og:title" content="{safe_title}">
 <meta property="og:description" content="השוואת מחירי מוצרי צריכה בין רשתות שיווק וסניפים בכפר סבא, מול בנצ'מרק רשמי.">
 <meta property="og:locale" content="he_IL">
 <link rel="icon" href="{FAVICON_HREF}">

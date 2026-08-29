@@ -68,7 +68,11 @@ def top_deals(
 
 
 def _deal_card(
-    s: SpreadResult, this_store_id: str, this_store_is_cheap: bool, image_urls: dict[str, str | None]
+    s: SpreadResult,
+    this_store_id: str,
+    this_store_is_cheap: bool,
+    image_urls: dict[str, str | None],
+    base_path: str = "/frodo-project",
 ) -> str:
     from etl.render.layout import thumb_html
 
@@ -79,7 +83,7 @@ def _deal_card(
     sign = "-" if this_store_is_cheap else "+"
     # &from= lets the product page highlight the row for the store the
     # visitor drilled down from (see .prow.highlight in etl/render/product.py).
-    product_url = f"/frodo-project/product/?code={s.item_code}&from={this_store_id}"
+    product_url = f"{base_path}/product/?code={s.item_code}&from={this_store_id}"
     return f"""
     <div class="card spread">
       <div class="info">
@@ -103,7 +107,7 @@ def render_store_html(
     address: str | None = None,
     base_path: str = "/frodo-project",
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import ESC_HTML_JS, page_shell
 
     image_urls = image_urls or {}
     best_deals, worst_deals = top_deals(spreads, store_id, top_n)
@@ -138,8 +142,8 @@ def render_store_html(
         else ""
     )
 
-    best_html = "\n".join(_deal_card(s, store_id, True, image_urls) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
-    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    best_html = "\n".join(_deal_card(s, store_id, True, image_urls, base_path) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls, base_path) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
 
     address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
 
@@ -174,15 +178,22 @@ def render_store_html(
     extra_script = f"""<script>
 (function(){{
   const BASE = "{base_path}";
-  let items = null;
+  let items = [];
+  let itemsLoaded = false;
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
   const defaultHint = "{search_items_count:,} מוצרים בקטלוג הסניף";
 
+  {ESC_HTML_JS}
+
   function ensureLoaded(cb){{
-    if (items) {{ cb(); return; }}
-    fetch(BASE + "/store/{store_id}/catalog.json").then(r=>r.json()).then(data=>{{ items = data; cb(); }}).catch(()=>{{ items = []; cb(); }});
+    if (itemsLoaded) {{ cb(); return; }}
+    // itemsLoaded (not items itself) marks success -- on a failed fetch
+    // items stays [] but itemsLoaded stays false, so the next keystroke
+    // retries instead of permanently showing zero results for the rest
+    // of the page's life after one transient network hiccup.
+    fetch(BASE + "/store/{store_id}/catalog.json").then(r=>r.json()).then(data=>{{ items = data; itemsLoaded = true; cb(); }}).catch(()=>{{ cb(); }});
   }}
 
   function render(query){{
@@ -195,7 +206,7 @@ def render_store_html(
     const matches = items.filter(it => it.name.includes(q)).slice(0, 40);
     hint.textContent = `${{matches.length}} תוצאות (מוצג עד 40)`;
     results.innerHTML = matches.map(it =>
-      `<div class="searchrow"><span>${{it.name}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
+      `<div class="searchrow"><span>${{escHtml(it.name)}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
     ).join("");
   }}
 

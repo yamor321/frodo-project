@@ -31,7 +31,12 @@ from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
-from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
+from etl.render.product import (
+    build_products_payload,
+    collect_all_store_prices,
+    render_product_shell_html,
+    shard_products_payload,
+)
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
@@ -545,9 +550,25 @@ def main() -> None:
 
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
     products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
-    (site_dir / "products.json").write_text(
-        json.dumps(products_payload, ensure_ascii=False), encoding="utf-8"
-    )
+
+    # Sharded (see shard_products_payload's docstring) instead of one
+    # multi-MB products.json -- a single file for all 14,000+ products
+    # serializes to ~12.8MB on the current snapshot, which every visitor to
+    # any product link would download in full before anything renders.
+    shards = shard_products_payload(products_payload)
+    products_dir = site_dir / "products"
+    products_dir.mkdir(parents=True, exist_ok=True)
+    keep_shard_files = {f"{key}.json" for key in shards}
+    for existing in products_dir.glob("*.json"):
+        if existing.name not in keep_shard_files:
+            existing.unlink()
+    for key, shard_data in shards.items():
+        (products_dir / f"{key}.json").write_text(
+            json.dumps(shard_data, ensure_ascii=False), encoding="utf-8"
+        )
+    stale_monolith = site_dir / "products.json"
+    if stale_monolith.exists():
+        stale_monolith.unlink()
 
     # Global search covers the same full product universe as products.json
     # (not just the ~300 referenced-from-a-store-page subset) so a search

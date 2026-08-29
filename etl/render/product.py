@@ -10,6 +10,7 @@ page never needs to be regenerated file-by-file as the catalog grows.
 """
 from __future__ import annotations
 
+from collections import defaultdict
 from dataclasses import dataclass
 
 from etl.enrich.geocode import GeoPoint
@@ -51,8 +52,6 @@ def collect_all_store_prices(
     -- with 13,000+ codes and tens of thousands of catalog rows that's far
     too slow; this does one O(total records) pass instead.
     """
-    from collections import defaultdict
-
     from etl.scoring.item_code_filters import is_reliable_item_code
 
     by_item: dict[str, dict[str, tuple[str, float]]] = defaultdict(dict)
@@ -100,6 +99,31 @@ def build_products_payload(
     return payload
 
 
+# Number of trailing characters of an item_code used as the shard key. Two
+# hex/decimal-ish digits gives up to 100 buckets -- verified against a real
+# snapshot (14,323 products): a single products.json serializes to ~12.8MB,
+# which every visitor to any product link would download in full before
+# anything renders. Sharding by code suffix (not a numeric hash) means the
+# client can compute the identical key with a plain string slice, so there's
+# no hash function to keep in sync between Python and JS.
+SHARD_KEY_LENGTH = 2
+
+
+def shard_key(item_code: str) -> str:
+    return item_code[-SHARD_KEY_LENGTH:]
+
+
+def shard_products_payload(payload: dict) -> dict[str, dict]:
+    """Splits the full products payload into shards keyed by shard_key(),
+    so a visitor to any one product page fetches a small slice (order of
+    ~140 products on the current snapshot) instead of the entire catalog.
+    """
+    shards: dict[str, dict] = defaultdict(dict)
+    for code, entry in payload.items():
+        shards[shard_key(code)][code] = entry
+    return dict(shards)
+
+
 def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     """The single generic product page. Reads ?code= and optional &from=
     from the URL, fetches `{base_path}/products.json` once, and renders the
@@ -107,7 +131,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     same markup/classes, same mini-map behavior (etl/render/layout.py's
     LEAFLET_* helpers), just built client-side instead of at snapshot time.
     """
-    from etl.render.layout import LEAFLET_CSS, LEAFLET_JS, LEAFLET_MAP_CSS, LEAFLET_SCORE_COLOR_JS, page_shell
+    from etl.render.layout import ESC_HTML_JS, LEAFLET_CSS, LEAFLET_JS, LEAFLET_MAP_CSS, LEAFLET_SCORE_COLOR_JS, page_shell
 
     body = """
   <div class="kicker">Frodo Project · דף מוצר</div>
@@ -121,6 +145,8 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     # single .replace() below instead.
     script_body = (
         LEAFLET_SCORE_COLOR_JS
+        + "\n"
+        + ESC_HTML_JS
         + """
 (function(){
   const params = new URLSearchParams(location.search);
@@ -128,15 +154,13 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
   const fromStore = params.get("from");
   const root = document.getElementById("productRoot");
 
-  function thumbHtml(url, alt){
-    if (url) return '<div class="thumb"><img src="' + url + '" alt="' + alt + '" loading="lazy"></div>';
+  // Both url and name are escaped here (attribute context: src=""/alt="")
+  // -- image_url comes from the public, user-editable Open Food Facts API
+  // and product names come from chains' own catalog files, neither fully
+  // trusted, and this result is assigned via innerHTML below.
+  function thumbHtml(url, name){
+    if (url) return '<div class="thumb"><img src="' + escHtml(url) + '" alt="' + escHtml(name) + '" loading="lazy"></div>';
     return '<div class="thumb empty">—</div>';
-  }
-
-  function esc(s){
-    const d = document.createElement("div");
-    d.textContent = s;
-    return d.innerHTML;
   }
 
   function initMap(points){
@@ -152,7 +176,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       const marker = L.marker([p.lat, p.lon], {icon: icon});
       marker.bindTooltip(p.name);
       marker.bindPopup(
-        '<div class="store-popup"><b>' + esc(p.name) + '</b>' +
+        '<div class="store-popup"><b>' + escHtml(p.name) + '</b>' +
         '<div class="meta">₪' + p.price.toFixed(2) + '</div>' +
         '<a class="openbtn" href="' + BASE_PATH + '/store/' + p.id + '/">פתח דף סניף ←</a></div>'
       );
@@ -181,7 +205,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       if (nearest){
         const km = (bestD/1000).toFixed(1);
         box.style.display = "block";
-        box.innerHTML = 'הסניף הקרוב ביותר: <b><a href="' + BASE_PATH + '/store/' + nearest.id + '/">' + esc(nearest.name) + '</a></b> — כ-' + km + ' ק"מ, ₪' + nearest.price.toFixed(2) + '.';
+        box.innerHTML = 'הסניף הקרוב ביותר: <b><a href="' + BASE_PATH + '/store/' + nearest.id + '/">' + escHtml(nearest.name) + '</a></b> — כ-' + km + ' ק"מ, ₪' + nearest.price.toFixed(2) + '.';
       }
     }
     map.on('click', function(e){ placeMe(e.latlng.lat, e.latlng.lng); });
@@ -207,7 +231,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       const cls = sp.store_id === fromStore ? "prow highlight" : "prow";
       return (
         '<div class="' + cls + '">' +
-        '<span class="store">' + esc(sp.store_name) + tag + '<small><a href="' + BASE_PATH + '/store/' + sp.store_id + '/">לדף הסניף</a></small></span>' +
+        '<span class="store">' + escHtml(sp.store_name) + tag + '<small><a href="' + BASE_PATH + '/store/' + sp.store_id + '/">לדף הסניף</a></small></span>' +
         '<span class="price ltr">₪' + sp.price.toFixed(2) + '</span></div>'
       );
     }).join("");
@@ -243,7 +267,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     );
 
     root.innerHTML =
-      '<div class="product-head">' + thumbHtml(product.image_url, esc(product.name)) + '<h1>' + esc(product.name) + '</h1></div>' +
+      '<div class="product-head">' + thumbHtml(product.image_url, product.name) + '<h1>' + escHtml(product.name) + '</h1></div>' +
       spreadLine +
       '<div class="pricelist">' + rows + '</div>' +
       mapSection;
@@ -262,8 +286,17 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
   if (!code) {
     root.innerHTML = '<p class="lede">לא צוין קוד מוצר. <a href="' + BASE_PATH + '/branches/">חפשו מוצר ברשימת הפערים ←</a></p>';
   } else {
-    fetch(BASE_PATH + "/products.json").then(function(r){ return r.json(); }).then(function(all){
-      const product = all[code];
+    // Products are sharded by the last two characters of their code (see
+    // shard_key() in this module) so a product page only downloads a small
+    // slice of the catalog instead of the entire multi-MB file. A shard
+    // that genuinely doesn't exist (no product ends in that suffix) is a
+    // real 404, handled the same as "code not in this shard" below --
+    // both mean "not a comparable product," not a network error.
+    const shard = code.slice(-2);
+    fetch(BASE_PATH + "/products/" + shard + ".json").then(function(r){
+      return r.ok ? r.json() : null;
+    }).then(function(shardData){
+      const product = shardData ? shardData[code] : null;
       if (!product) {
         root.innerHTML = '<p class="lede">המוצר הזה לא נמצא (אולי אין מספיק סניפים שמוכרים אותו היום כדי להשוות). <a href="' + BASE_PATH + '/branches/">חפשו מוצר אחר ←</a></p>';
         return;

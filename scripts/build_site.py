@@ -21,7 +21,12 @@ from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
-from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
+from etl.render.product import (
+    build_products_payload,
+    collect_all_store_prices,
+    render_product_shell_html,
+    shard_products_payload,
+)
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
@@ -217,13 +222,25 @@ def main() -> None:
 
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
     products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
-    (SITE_DIR / "products.json").write_text(json.dumps(products_payload, ensure_ascii=False), encoding="utf-8")
+
+    shards = shard_products_payload(products_payload)
+    products_dir = SITE_DIR / "products"
+    products_dir.mkdir(parents=True, exist_ok=True)
+    keep_shard_files = {f"{key}.json" for key in shards}
+    for existing in products_dir.glob("*.json"):
+        if existing.name not in keep_shard_files:
+            existing.unlink()
+    for key, shard_data in shards.items():
+        (products_dir / f"{key}.json").write_text(json.dumps(shard_data, ensure_ascii=False), encoding="utf-8")
+    stale_monolith = SITE_DIR / "products.json"
+    if stale_monolith.exists():
+        stale_monolith.unlink()
 
     search_index = [
         {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price} for s in spreads
     ]
     (SITE_DIR / "search-index.json").write_text(json.dumps(search_index, ensure_ascii=False), encoding="utf-8")
-    print(f"  site/product/index.html + site/products.json ({len(products_payload):,} products, every /branches/ link resolves)")
+    print(f"  site/product/index.html + site/products/*.json ({len(shards)} shards, {len(products_payload):,} products, every /branches/ link resolves)")
 
 
 if __name__ == "__main__":
