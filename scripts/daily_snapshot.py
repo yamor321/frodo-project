@@ -28,6 +28,7 @@ from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
 from etl.enrich.store_directory import update_and_save as update_store_directory
 from etl.render.branches import render_branches_html
+from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
 from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
@@ -492,6 +493,10 @@ def main() -> None:
     map_dir = site_dir / "map"
     map_dir.mkdir(exist_ok=True)
     (map_dir / "index.html").write_text(render_map_html(scores, coords, formats), encoding="utf-8")
+
+    leaderboard_dir = site_dir / "leaderboard"
+    leaderboard_dir.mkdir(exist_ok=True)
+    (leaderboard_dir / "index.html").write_text(render_leaderboard_html(scores), encoding="utf-8")
 
     scores_by_id = {s.store_id: s for s in scores}
     referenced_item_codes = set()
