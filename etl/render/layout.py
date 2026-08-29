@@ -8,26 +8,49 @@ PAGE_CSS = """
 :root{
   --paper:#F3F1E9; --paper-raised:#FFFFFF; --ink:#191914; --ink-muted:#625F53;
   --line:#D8D4C5; --navy:#1F3A5F; --navy-soft:#DCE4EC; --brick:#A63A2E; --brick-soft:#F2E2DC;
-  --good:#1E7A46; --good-soft:#DCEDE2;
+  --good:#1E7A46; --good-soft:#DCEDE2; --accent:#B8823A; --accent-soft:#F2E4CA;
   --shadow:0 2px 4px rgba(25,25,20,.06), 0 16px 36px rgba(25,25,20,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
     --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-    --good:#5FBF87; --good-soft:#1C3527;
+    --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
     --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
   }
 }
 :root[data-theme="dark"]{
   --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
   --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-  --good:#5FBF87; --good-soft:#1C3527;
+  --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
   --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  /* A barely-there paper-fleck texture instead of a flat fill -- part of
+     the "editorial/warm" design direction (2026-08-30): cheap (pure CSS
+     gradients, no image asset) and subtle enough to stay invisible in
+     dark mode (same rgba values read as near-nothing on a dark base). */
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(25,25,20,.025) 0, transparent 38%),
+    radial-gradient(circle at 82% 12%, rgba(25,25,20,.02) 0, transparent 42%),
+    radial-gradient(circle at 64% 82%, rgba(25,25,20,.025) 0, transparent 40%),
+    radial-gradient(circle at 8% 88%, rgba(25,25,20,.018) 0, transparent 35%);
+  background-attachment:fixed;
+}
+/* Hand-drawn-feeling divider: a gently wavy rule instead of a straight
+   border-bottom, used where a section break wants some warmth. */
+.sketchy-divider{ height:10px; margin:0; border:none; background-repeat:repeat-x; background-size:40px 10px;
+  background-position:center; opacity:.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23B8823A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+:root[data-theme="dark"] .sketchy-divider{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .sketchy-divider{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+}
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -50,7 +73,7 @@ h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8re
   margin:0 0 14px; text-wrap:balance; }
 h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; margin:0 0 10px; }
 .kicker{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--navy); margin-bottom:10px; }
+  color:var(--accent); margin-bottom:10px; }
 .lede{ color:var(--ink-muted); font-size:1.05rem; line-height:1.6; max-width:60ch; margin:0 0 8px; }
 
 .card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
@@ -292,6 +315,20 @@ FAVICON_HREF = (
     "%3C/svg%3E"
 )
 
+# A small hand-drawn-feeling accent icon (a map pin sketched with a
+# slightly uneven stroke, not a crisp geometric one) -- part of the
+# "editorial/warm" design pass (2026-08-30), used sparingly next to a CTA
+# or section heading, never as a functional map marker (etl/render/map.py
+# keeps its own precise divIcon pins for that).
+PIN_ICON_SVG = (
+    '<svg class="pin-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none">'
+    '<path d="M12 3 C7 3 4.5 6.3 4.6 10 C4.7 14.2 9.3 18.5 11.7 20.8 '
+    'C11.9 21 12.1 21 12.3 20.8 C14.8 18.4 19.3 14 19.4 9.8 C19.5 6.1 17 3 12 3 Z" '
+    'stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>'
+    '<circle cx="12" cy="10.5" r="2.6" stroke="currentColor" stroke-width="1.5"/>'
+    "</svg>"
+)
+
 # Runs synchronously in <head>, before the stylesheet paints anything, so a
 # visitor who already chose dark mode never sees a flash of the light theme
 # first. The toggle button's own click handler (in THEME_TOGGLE_SCRIPT,
@@ -344,7 +381,7 @@ FONT_LINK = (
 
 def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_script: str = "") -> str:
     """Wrap `body` HTML in the shared shell. `current` selects the bold nav
-    link ('home' | 'map' | 'leaderboard' | 'regulated' | 'methodology')."""
+    link ('home' | 'map' | 'leaderboard' | 'methodology')."""
     from html import escape
 
     def nav_class(key: str) -> str:
@@ -383,7 +420,6 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
     <a class="{nav_class('home')}" href="/frodo-project/">בית</a>
     <a class="{nav_class('map')}" href="/frodo-project/map/">מפה</a>
     <a class="{nav_class('leaderboard')}" href="/frodo-project/leaderboard/">דירוג סניפים</a>
-    <a class="{nav_class('regulated')}" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="{nav_class('methodology')}" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>

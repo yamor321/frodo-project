@@ -19,26 +19,49 @@
 :root{
   --paper:#F3F1E9; --paper-raised:#FFFFFF; --ink:#191914; --ink-muted:#625F53;
   --line:#D8D4C5; --navy:#1F3A5F; --navy-soft:#DCE4EC; --brick:#A63A2E; --brick-soft:#F2E2DC;
-  --good:#1E7A46; --good-soft:#DCEDE2;
+  --good:#1E7A46; --good-soft:#DCEDE2; --accent:#B8823A; --accent-soft:#F2E4CA;
   --shadow:0 2px 4px rgba(25,25,20,.06), 0 16px 36px rgba(25,25,20,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
     --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-    --good:#5FBF87; --good-soft:#1C3527;
+    --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
     --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
   }
 }
 :root[data-theme="dark"]{
   --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
   --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-  --good:#5FBF87; --good-soft:#1C3527;
+  --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
   --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  /* A barely-there paper-fleck texture instead of a flat fill -- part of
+     the "editorial/warm" design direction (2026-08-30): cheap (pure CSS
+     gradients, no image asset) and subtle enough to stay invisible in
+     dark mode (same rgba values read as near-nothing on a dark base). */
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(25,25,20,.025) 0, transparent 38%),
+    radial-gradient(circle at 82% 12%, rgba(25,25,20,.02) 0, transparent 42%),
+    radial-gradient(circle at 64% 82%, rgba(25,25,20,.025) 0, transparent 40%),
+    radial-gradient(circle at 8% 88%, rgba(25,25,20,.018) 0, transparent 35%);
+  background-attachment:fixed;
+}
+/* Hand-drawn-feeling divider: a gently wavy rule instead of a straight
+   border-bottom, used where a section break wants some warmth. */
+.sketchy-divider{ height:10px; margin:0; border:none; background-repeat:repeat-x; background-size:40px 10px;
+  background-position:center; opacity:.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23B8823A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+:root[data-theme="dark"] .sketchy-divider{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .sketchy-divider{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+}
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -61,7 +84,7 @@ h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8re
   margin:0 0 14px; text-wrap:balance; }
 h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; margin:0 0 10px; }
 .kicker{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--navy); margin-bottom:10px; }
+  color:var(--accent); margin-bottom:10px; }
 .lede{ color:var(--ink-muted); font-size:1.05rem; line-height:1.6; max-width:60ch; margin:0 0 8px; }
 
 .card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
@@ -180,7 +203,6 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
     <a class="" href="/frodo-project/">בית</a>
     <a class="" href="/frodo-project/map/">מפה</a>
     <a class="" href="/frodo-project/leaderboard/">דירוג סניפים</a>
-    <a class="" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
@@ -353,11 +375,11 @@ function escHtml(s){
 
   function loadHistoryCharts(code, shard){
     var priceEl = document.getElementById("priceHistoryChart");
-    var cpiEl = document.getElementById("cpiChart");
-    if (!priceEl || !cpiEl) return;
+    var indexEl = document.getElementById("siteIndexChart");
+    if (!priceEl || !indexEl) return;
     Promise.all([
       fetch(BASE_PATH + "/price-history/" + shard + ".json").then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
-      fetch(BASE_PATH + "/food-cpi.json").then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; }),
+      fetch(BASE_PATH + "/price-index.json").then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; }),
     ]).then(function(results){
       var history = (results[0] && results[0][code]) || [];
       var points = history.map(function(h){ return {y: h.avg, label: h.date + ": ₪" + h.avg.toFixed(2)}; });
@@ -366,17 +388,14 @@ function escHtml(s){
         colorizePct: true,
       });
 
-      var cpi = results[1] || [];
-      var cpiPoints = cpi.map(function(p){
-        var mm = String(p.m).padStart(2, "0");
-        return {y: p.v, label: p.y + "-" + mm};
-      });
-      cpiEl.innerHTML = sparklineSvg(cpiPoints, "var(--ink-muted)", {
+      var indexSeries = results[1] || [];
+      var indexPoints = indexSeries.map(function(p){ return {y: p.value, label: p.date + ": " + p.value.toFixed(1)}; });
+      indexEl.innerHTML = sparklineSvg(indexPoints, "var(--ink-muted)", {
         formatValue: function(v){ return v.toFixed(1); },
       });
     }).catch(function(){
       priceEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
-      cpiEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
+      indexEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
     });
   }
 
@@ -475,6 +494,25 @@ function escHtml(s){
       ? '<div class="flag-banner">⚠ <span>פער המחירים על המוצר הזה חריג מאוד בין הסניפים — ייתכן מבצע אצל אחד הסניפים או טעות נתונים של הרשת, לא ניתן לאמת מהמקור.</span></div>'
       : "";
 
+    // Products that share a declared "manufacturer" value with this one
+    // (etl/scoring/manufacturer_match.py) -- e.g. a store-brand product and
+    // a name-brand one turning out to list the same actual manufacturer.
+    // This is the one section on the site that is NOT a verified fact from
+    // official data -- the manufacturer field itself is inconsistently
+    // entered by different chains -- so it always carries its own warning,
+    // never presented as a confirmed match.
+    let relatedSection = "";
+    if (product.related_manufacturer && product.related_manufacturer.length) {
+      const items = product.related_manufacturer.map(function(r){
+        return '<div class="prow"><span class="store"><a href="' + BASE_PATH + '/product/?code=' + escHtml(r.code) + '">' + escHtml(r.name) + '</a></span>' +
+          '<span class="price ltr">מ-₪' + r.cheap_price.toFixed(2) + '</span></div>';
+      }).join("");
+      relatedSection =
+        '<h2 class="section-title">מוצרים נוספים מאותו יצרן</h2>' +
+        '<div class="flag-banner">⚠ <span>מבוסס על שדה "יצרן" כפי שהרשתות מדווחות אותו בעצמן — לא תמיד עקבי בין רשת לרשת, ולא מאומת שזה אותו מוצר פיזי בפועל. שווה לבדוק בעצמכם לפני שמסתמכים על זה.</span></div>' +
+        '<div class="pricelist">' + items + '</div>';
+    }
+
     document.title = product.name + " — Frodo Project";
 
     const mapPoints = [];
@@ -501,10 +539,10 @@ function escHtml(s){
 
     var historySection =
       '<h2 class="section-title">מגמת מחיר לאורך זמן</h2>' +
-      '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון).</p>' +
+      '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון, ראינו את זה ישירות).</p>' +
       '<div class="chart-box" id="priceHistoryChart"><p class="chart-empty">טוען...</p></div>' +
-      '<p class="section-sub">להקשר: מדד המזון הכללי בישראל (הלמ"ס), לאורך שנים -- לא המחיר של המוצר הזה, אלא מגמת מחירי המזון הכלל-ארצית כערך ייחוס.</p>' +
-      '<div class="chart-box" id="cpiChart"><p class="chart-empty">טוען...</p></div>' +
+      '<p class="section-sub">להקשר: מדד המחירים העצמי של Frodo Project -- ממוצע (חציון) השינוי היחסי במחיר על פני כל המוצרים שאנחנו עוקבים אחריהם, לא המחיר הספציפי של המוצר הזה. מחושב אך ורק מהנתונים הרשמיים שאנחנו עצמנו אוספים, לא ממקור חיצוני -- וגם הוא מתחיל ב-26.08.2026 ונגדל יחד.</p>' +
+      '<div class="chart-box" id="siteIndexChart"><p class="chart-empty">טוען...</p></div>' +
       '<p class="chart-note">שימו לב: הרשתות לא מפרסמות באופן פומבי אילו מחירים הם מבצע זמני לעומת מחיר קבוע, אז האתר לא יכול לדעת את זה על מחיר ספציפי -- מלבד סימון פערים חריגים מאוד (למעלה, כשרלוונטי).</p>';
 
     root.innerHTML =
@@ -512,6 +550,7 @@ function escHtml(s){
       spreadLine +
       flagBanner +
       '<div class="pricelist">' + rows + '</div>' +
+      relatedSection +
       historySection +
       mapSection;
 

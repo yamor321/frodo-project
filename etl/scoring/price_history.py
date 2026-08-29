@@ -5,14 +5,24 @@ of data/processed) AND servable to the client (like products.json's shards),
 and site/ already gets both from the daily workflow's own commit step.
 
 This is the only way to build a genuine multi-year price trend: none of the
-source chain portals expose historical files (verified live, 29.08.2026 --
-the Shufersal transparency portal's listing shows only the current file per
-store/category, no date filter, no archive to browse). So there is no way
-to backfill real per-product history from before this project started
-(26.08.2026) -- the series here starts near-empty and grows by one point
-per daily run, forever. See etl/enrich/cbs_cpi.py for the complementary
-multi-year *context* line (official food CPI) that's real from day one,
-just not per-product.
+source chain portals expose historical files. Verified repeatedly and from
+multiple independent angles (29.08.2026-30.08.2026): the Shufersal portal's
+listing table shows only the current file per store/category; direct,
+unsigned requests to the Azure Blob Storage container behind it return
+ResourceNotFound (the download links are single-use SAS-signed by the
+portal, always pointing at the current file); the Wayback Machine has
+archived the portal's *listing page* since 2015 (2,943 captures), but never
+the actual price files themselves -- their storage domain has zero Wayback
+captures, confirmed via the CDX API, because a generic web crawler never
+followed the signed download links. There is no legal/free path to
+backfill real per-product history from before this project started
+(26.08.2026) -- the
+series here starts near-empty and grows by one point per daily run,
+forever. See compute_sitewide_index_point() below for the project's own
+aggregate index, built from nothing but this same accumulated data --
+replaced the earlier CBS food-CPI benchmark (etl/enrich/cbs_cpi.py, removed)
+per explicit user preference for a number the project computes itself over
+one borrowed from an external, non-reproducible source.
 
 Sharded the same way as products.json (etl/render/product.py's
 shard_key()) so a product page's history fetch is one small file.
@@ -80,3 +90,52 @@ def append_daily_rollup(rollup: dict[str, dict], history_dir: pathlib.Path) -> N
                 series.append(entry)
                 series.sort(key=lambda e: e["date"])
         path.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")
+
+
+def compute_sitewide_index_point(history_dir: pathlib.Path, date: str) -> float | None:
+    """The project's own price index for `date`: for every product with a
+    recorded entry on `date` and at least one earlier entry, the ratio of
+    `date`'s avg price to that product's first-ever recorded avg price
+    (its baseline); the index is 100 * the median of those ratios. Same
+    underlying idea as a consumer price index (relative movement across a
+    basket of goods), but reproducible end to end from nothing but this
+    project's own accumulated daily rollups -- no external, non-verifiable
+    statistic. On the very first day a product is recorded, its own ratio
+    is exactly 1.0 (today's entry IS the baseline), so the index reads
+    100.0 while every product is brand new -- expected, not a bug.
+
+    Call this AFTER append_daily_rollup() has already written `date`'s
+    entry into every shard, so today's entry is actually there to find.
+    Returns None if history_dir has no data at all yet.
+    """
+    ratios: list[float] = []
+    for path in sorted(history_dir.glob("*.json")):
+        shard = json.loads(path.read_text(encoding="utf-8"))
+        for series in shard.values():
+            if not series:
+                continue
+            baseline = series[0]["avg"]
+            today_entry = next((e for e in series if e["date"] == date), None)
+            if today_entry is None or baseline <= 0:
+                continue
+            ratios.append(today_entry["avg"] / baseline)
+
+    if not ratios:
+        return None
+    ratios.sort()
+    mid = len(ratios) // 2
+    median = ratios[mid] if len(ratios) % 2 else (ratios[mid - 1] + ratios[mid]) / 2
+    return round(median * 100, 2)
+
+
+def append_sitewide_index_point(index_path: pathlib.Path, date: str, value: float) -> None:
+    """Appends today's sitewide index value to a single flat series (not
+    sharded -- one number a day, stays tiny). Self-heals duplicate dates
+    the same way append_daily_rollup does for per-product series."""
+    points: list[dict] = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else []
+    deduped = {p["date"]: p for p in points}
+    deduped[date] = {"date": date, "value": value}
+    index_path.write_text(
+        json.dumps(sorted(deduped.values(), key=lambda p: p["date"]), ensure_ascii=False),
+        encoding="utf-8",
+    )

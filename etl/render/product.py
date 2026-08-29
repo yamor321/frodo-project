@@ -94,12 +94,21 @@ def build_products_payload(
     all_store_prices: dict[str, list[StorePrice]],
     image_urls: dict[str, str | None],
     coords: dict[str, GeoPoint],
+    related_by_code: dict[str, list[str]] | None = None,
 ) -> dict:
     """JSON-serializable payload for site/products.json. One entry per
     product in `spreads` (the same universe /branches/ already lists), each
     carrying every store's price for it -- this is what the generic product
     page fetches once and renders client-side.
+
+    `related_by_code` (item_code -> list of other item_codes sharing a
+    declared manufacturer value, see etl/scoring/manufacturer_match.py) is
+    denormalized into each entry as {code, name, cheap_price} snapshots --
+    already capped to a handful of codes by manufacturer_match's own
+    max_group_size, so this stays small, and it means the product page
+    never needs a second fetch to show them.
     """
+    by_code = {s.item_code: s for s in spreads}
     payload = {}
     for s in spreads:
         prices = []
@@ -110,11 +119,17 @@ def build_products_payload(
                 entry["lat"] = pt.lat
                 entry["lon"] = pt.lon
             prices.append(entry)
+        related = [
+            {"code": rc, "name": by_code[rc].item_name, "cheap_price": by_code[rc].cheap_price}
+            for rc in (related_by_code or {}).get(s.item_code, [])
+            if rc in by_code
+        ]
         payload[s.item_code] = {
             "name": s.item_name,
             "image_url": image_urls.get(s.item_code),
             "prices": prices,
             "flagged": s.flagged,
+            "related_manufacturer": related,
         }
     return payload
 
@@ -224,11 +239,11 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
 
   function loadHistoryCharts(code, shard){
     var priceEl = document.getElementById("priceHistoryChart");
-    var cpiEl = document.getElementById("cpiChart");
-    if (!priceEl || !cpiEl) return;
+    var indexEl = document.getElementById("siteIndexChart");
+    if (!priceEl || !indexEl) return;
     Promise.all([
       fetch(BASE_PATH + "/price-history/" + shard + ".json").then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
-      fetch(BASE_PATH + "/food-cpi.json").then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; }),
+      fetch(BASE_PATH + "/price-index.json").then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; }),
     ]).then(function(results){
       var history = (results[0] && results[0][code]) || [];
       var points = history.map(function(h){ return {y: h.avg, label: h.date + ": ₪" + h.avg.toFixed(2)}; });
@@ -237,17 +252,14 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
         colorizePct: true,
       });
 
-      var cpi = results[1] || [];
-      var cpiPoints = cpi.map(function(p){
-        var mm = String(p.m).padStart(2, "0");
-        return {y: p.v, label: p.y + "-" + mm};
-      });
-      cpiEl.innerHTML = sparklineSvg(cpiPoints, "var(--ink-muted)", {
+      var indexSeries = results[1] || [];
+      var indexPoints = indexSeries.map(function(p){ return {y: p.value, label: p.date + ": " + p.value.toFixed(1)}; });
+      indexEl.innerHTML = sparklineSvg(indexPoints, "var(--ink-muted)", {
         formatValue: function(v){ return v.toFixed(1); },
       });
     }).catch(function(){
       priceEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
-      cpiEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
+      indexEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
     });
   }
 
@@ -346,6 +358,25 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       ? '<div class="flag-banner">⚠ <span>פער המחירים על המוצר הזה חריג מאוד בין הסניפים — ייתכן מבצע אצל אחד הסניפים או טעות נתונים של הרשת, לא ניתן לאמת מהמקור.</span></div>'
       : "";
 
+    // Products that share a declared "manufacturer" value with this one
+    // (etl/scoring/manufacturer_match.py) -- e.g. a store-brand product and
+    // a name-brand one turning out to list the same actual manufacturer.
+    // This is the one section on the site that is NOT a verified fact from
+    // official data -- the manufacturer field itself is inconsistently
+    // entered by different chains -- so it always carries its own warning,
+    // never presented as a confirmed match.
+    let relatedSection = "";
+    if (product.related_manufacturer && product.related_manufacturer.length) {
+      const items = product.related_manufacturer.map(function(r){
+        return '<div class="prow"><span class="store"><a href="' + BASE_PATH + '/product/?code=' + escHtml(r.code) + '">' + escHtml(r.name) + '</a></span>' +
+          '<span class="price ltr">מ-₪' + r.cheap_price.toFixed(2) + '</span></div>';
+      }).join("");
+      relatedSection =
+        '<h2 class="section-title">מוצרים נוספים מאותו יצרן</h2>' +
+        '<div class="flag-banner">⚠ <span>מבוסס על שדה "יצרן" כפי שהרשתות מדווחות אותו בעצמן — לא תמיד עקבי בין רשת לרשת, ולא מאומת שזה אותו מוצר פיזי בפועל. שווה לבדוק בעצמכם לפני שמסתמכים על זה.</span></div>' +
+        '<div class="pricelist">' + items + '</div>';
+    }
+
     document.title = product.name + " — Frodo Project";
 
     const mapPoints = [];
@@ -372,10 +403,10 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
 
     var historySection =
       '<h2 class="section-title">מגמת מחיר לאורך זמן</h2>' +
-      '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון).</p>' +
+      '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון, ראינו את זה ישירות).</p>' +
       '<div class="chart-box" id="priceHistoryChart"><p class="chart-empty">טוען...</p></div>' +
-      '<p class="section-sub">להקשר: מדד המזון הכללי בישראל (הלמ"ס), לאורך שנים -- לא המחיר של המוצר הזה, אלא מגמת מחירי המזון הכלל-ארצית כערך ייחוס.</p>' +
-      '<div class="chart-box" id="cpiChart"><p class="chart-empty">טוען...</p></div>' +
+      '<p class="section-sub">להקשר: מדד המחירים העצמי של Frodo Project -- ממוצע (חציון) השינוי היחסי במחיר על פני כל המוצרים שאנחנו עוקבים אחריהם, לא המחיר הספציפי של המוצר הזה. מחושב אך ורק מהנתונים הרשמיים שאנחנו עצמנו אוספים, לא ממקור חיצוני -- וגם הוא מתחיל ב-26.08.2026 ונגדל יחד.</p>' +
+      '<div class="chart-box" id="siteIndexChart"><p class="chart-empty">טוען...</p></div>' +
       '<p class="chart-note">שימו לב: הרשתות לא מפרסמות באופן פומבי אילו מחירים הם מבצע זמני לעומת מחיר קבוע, אז האתר לא יכול לדעת את זה על מחיר ספציפי -- מלבד סימון פערים חריגים מאוד (למעלה, כשרלוונטי).</p>';
 
     root.innerHTML =
@@ -383,6 +414,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       spreadLine +
       flagBanner +
       '<div class="pricelist">' + rows + '</div>' +
+      relatedSection +
       historySection +
       mapSection;
 

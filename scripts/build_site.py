@@ -16,7 +16,6 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.concurrency import fetch_concurrently
-from etl.enrich.cbs_cpi import load_cached_food_cpi
 from etl.enrich.product_images import get_image_urls
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
@@ -28,12 +27,20 @@ from etl.render.product import (
     render_product_shell_html,
     shard_products_payload,
 )
-from etl.render.regulated_prices import render_regulated_prices_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
-from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
-from etl.scoring.price_history import append_daily_rollup, compute_daily_rollup
+from etl.scoring.manufacturer_match import (
+    group_by_manufacturer_value,
+    manufacturer_values_by_code,
+    related_products,
+)
+from etl.scoring.price_history import (
+    append_daily_rollup,
+    append_sitewide_index_point,
+    compute_daily_rollup,
+    compute_sitewide_index_point,
+)
 from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers import carrefour, victory
 from etl.scrapers.shufersal import kfar_saba_full_catalog_files, kfar_saba_stores, list_stores_file, parse_price_xml, parse_stores_xml
@@ -161,21 +168,11 @@ def main() -> None:
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
     print(f"  {len(spreads)} comparable items, {len(scores)} scored stores")
 
-    dairy_gaps_raw = json.loads((ROOT / "data" / "processed" / "2026-08-28" / "dairy_gap.json").read_text(encoding="utf-8"))
-    from etl.scoring.benchmark_gap import GapResult
-
-    gaps = [GapResult(**g) for g in dairy_gaps_raw if g["store_id"] == "144"]
-
     print("\nRendering pages...")
     (SITE_DIR / "index.html").write_text(
         render_index_html(spreads, scores, generated_at="28.08.2026 (build מקומי)"), encoding="utf-8"
     )
     print("  site/index.html")
-
-    regulated_dir = SITE_DIR / "regulated-prices"
-    regulated_dir.mkdir(exist_ok=True)
-    (regulated_dir / "index.html").write_text(render_regulated_prices_html(gaps, store_names), encoding="utf-8")
-    print("  site/regulated-prices/index.html")
 
     methodology_dir = SITE_DIR / "methodology"
     methodology_dir.mkdir(exist_ok=True)
@@ -234,20 +231,25 @@ def main() -> None:
     (product_dir / "index.html").write_text(render_product_shell_html(), encoding="utf-8")
 
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
-    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
+
+    manufacturer_values = manufacturer_values_by_code(catalogs_by_store)
+    manufacturer_groups = group_by_manufacturer_value({s.item_code for s in spreads}, manufacturer_values)
+    related_by_code = {
+        s.item_code: related_products(s.item_code, manufacturer_values, manufacturer_groups) for s in spreads
+    }
+
+    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords, related_by_code)
 
     # Local dev build date is a fixed placeholder (RAW_DIR's date, not
     # today) so reruns on the same cached snapshot don't add fake extra
     # history points -- daily_snapshot.py uses the real run date instead.
-    daily_rollup = compute_daily_rollup(all_store_prices, "2026-08-28")
+    DEV_DATE = "2026-08-28"
+    daily_rollup = compute_daily_rollup(all_store_prices, DEV_DATE)
     append_daily_rollup(daily_rollup, SITE_DIR / "price-history")
 
-    cbs_cache = ROOT / "data" / "processed" / "cbs_food_cpi.json"
-    food_cpi = load_cached_food_cpi(cbs_cache)
-    (SITE_DIR / "food-cpi.json").write_text(
-        json.dumps([{"y": p.year, "m": p.month, "v": p.value} for p in food_cpi], ensure_ascii=False),
-        encoding="utf-8",
-    )
+    index_point = compute_sitewide_index_point(SITE_DIR / "price-history", DEV_DATE)
+    if index_point is not None:
+        append_sitewide_index_point(SITE_DIR / "price-index.json", DEV_DATE, index_point)
 
     shards = shard_products_payload(products_payload)
     products_dir = SITE_DIR / "products"

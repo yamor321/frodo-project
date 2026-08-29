@@ -19,26 +19,49 @@
 :root{
   --paper:#F3F1E9; --paper-raised:#FFFFFF; --ink:#191914; --ink-muted:#625F53;
   --line:#D8D4C5; --navy:#1F3A5F; --navy-soft:#DCE4EC; --brick:#A63A2E; --brick-soft:#F2E2DC;
-  --good:#1E7A46; --good-soft:#DCEDE2;
+  --good:#1E7A46; --good-soft:#DCEDE2; --accent:#B8823A; --accent-soft:#F2E4CA;
   --shadow:0 2px 4px rgba(25,25,20,.06), 0 16px 36px rgba(25,25,20,.10);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
     --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-    --good:#5FBF87; --good-soft:#1C3527;
+    --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
     --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
   }
 }
 :root[data-theme="dark"]{
   --paper:#15140F; --paper-raised:#1D1C15; --ink:#EFEDE3; --ink-muted:#A6A28E;
   --line:#332F22; --navy:#7FA6D6; --navy-soft:#1E2B3B; --brick:#E08069; --brick-soft:#3A2620;
-  --good:#5FBF87; --good-soft:#1C3527;
+  --good:#5FBF87; --good-soft:#1C3527; --accent:#D9A857; --accent-soft:#3B2F17;
   --shadow:0 2px 4px rgba(0,0,0,.4), 0 16px 36px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  /* A barely-there paper-fleck texture instead of a flat fill -- part of
+     the "editorial/warm" design direction (2026-08-30): cheap (pure CSS
+     gradients, no image asset) and subtle enough to stay invisible in
+     dark mode (same rgba values read as near-nothing on a dark base). */
+  background-image:
+    radial-gradient(circle at 18% 24%, rgba(25,25,20,.025) 0, transparent 38%),
+    radial-gradient(circle at 82% 12%, rgba(25,25,20,.02) 0, transparent 42%),
+    radial-gradient(circle at 64% 82%, rgba(25,25,20,.025) 0, transparent 40%),
+    radial-gradient(circle at 8% 88%, rgba(25,25,20,.018) 0, transparent 35%);
+  background-attachment:fixed;
+}
+/* Hand-drawn-feeling divider: a gently wavy rule instead of a straight
+   border-bottom, used where a section break wants some warmth. */
+.sketchy-divider{ height:10px; margin:0; border:none; background-repeat:repeat-x; background-size:40px 10px;
+  background-position:center; opacity:.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23B8823A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+:root[data-theme="dark"] .sketchy-divider{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .sketchy-divider{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0,5 Q5,1 10,5 T20,5 T30,5 T40,5' fill='none' stroke='%23D9A857' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+}
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -61,7 +84,7 @@ h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8re
   margin:0 0 14px; text-wrap:balance; }
 h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; margin:0 0 10px; }
 .kicker{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--navy); margin-bottom:10px; }
+  color:var(--accent); margin-bottom:10px; }
 .lede{ color:var(--ink-muted); font-size:1.05rem; line-height:1.6; max-width:60ch; margin:0 0 8px; }
 
 .card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
@@ -152,7 +175,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="" href="/frodo-project/">בית</a>
     <a class="current" href="/frodo-project/map/">מפה</a>
     <a class="" href="/frodo-project/leaderboard/">דירוג סניפים</a>
-    <a class="" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
@@ -174,7 +196,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1739066,34.9078919" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,273 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 61 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,252 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -249,33 +271,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000116921&from=rami-levy-719">רוטב צילי מתוק קנור</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=9771565038319&from=rami-levy-719">ידיעות אחרונות יום א</a><small>לעומת קרפור — קרפור היפר   כפר סבא: ₪0.90</small></div>
       </div>
-      <div class="prices">₪16.90 <span class="chip warm">+245%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/011/6884/front_en.4.400.jpg" alt="רוטב ברביקיו קנור 35" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000116884&from=rami-levy-719">רוטב ברביקיו קנור 35</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
+      <div class="prices">₪4.00 <span class="chip warm">+344%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116534244&from=rami-levy-719">רוטב סויה סגנון סיני</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=9771565038326&from=rami-levy-719">ידיעות אחרונות יום ב</a><small>לעומת קרפור — קרפור היפר   כפר סבא: ₪0.90</small></div>
       </div>
-      <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290108508192&from=rami-levy-719">פסטה פוסילי ללא גלוט</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪12.90 <span class="chip warm">+87%</span></div>
+      <div class="prices">₪4.00 <span class="chip warm">+344%</span></div>
     </div>
 
     <div class="card spread">
@@ -288,31 +294,47 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/296/2904/front_iw.4.400.jpg" alt="אסם שקדי מרק כשלפ 15" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290112962904&from=rami-levy-719">אסם שקדי מרק כשלפ 15</a><small>לעומת רמי לוי — כפר סבא: ₪6.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290004225377&from=rami-levy-719">סרדינים בשמן צמחי פו</a><small>לעומת רמי לוי — כפר סבא: ₪4.90</small></div>
       </div>
-      <div class="prices">₪11.90 <span class="chip warm">+72%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/923/2582/front_he.3.400.jpg" alt="*מבצע* חליטה קרה בטע" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019232582&from=rami-levy-719">*מבצע* חליטה קרה בטע</a><small>לעומת יוחננוף — כפר סבא: ₪15.90</small></div>
-      </div>
-      <div class="prices">₪26.90 <span class="chip warm">+69%</span></div>
+      <div class="prices">₪7.30 <span class="chip warm">+49%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016144017&from=rami-levy-719">קמח חיטה מלאה 100% נ</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290104961441&from=rami-levy-719">ספריי שמן גזר 200 מ&quot;</a><small>לעומת יוחננוף — כפר סבא: ₪34.90</small></div>
       </div>
-      <div class="prices">₪11.40 <span class="chip warm">+65%</span></div>
+      <div class="prices">₪49.90 <span class="chip warm">+43%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/011/6884/front_en.4.400.jpg" alt="בקבוק רוטב ברביקיו 3" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000116884&from=rami-levy-719">בקבוק רוטב ברביקיו 3</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
+      </div>
+      <div class="prices">₪16.90 <span class="chip warm">+42%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116534244&from=rami-levy-719">בקבוק רוטב סויה סיני</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
+      </div>
+      <div class="prices">₪16.90 <span class="chip warm">+42%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000116921&from=rami-levy-719">בקבוק רוטב צ&#x27;ילי מתו</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
+      </div>
+      <div class="prices">₪16.90 <span class="chip warm">+42%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,306 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,283 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -410,7 +432,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,306 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,283 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -1,6 +1,6 @@
 """Renders site/index.html (brief section 3, layer 4) from already-computed
 data. This module does no fetching and no computation of its own -- it only
-turns SpreadResult/GapResult records into the final HTML file that gets
+turns SpreadResult records into the final HTML file that gets
 committed and served by GitHub Pages. Keeping rendering separate from
 computation is what lets layer 4 stay "read from ready tables only" (brief
 section 3): no live queries, nothing here can fail against a live source.
@@ -108,7 +108,7 @@ def render_index_html(
     generated_at: str,
     top_n_spreads: int = 20,
 ) -> str:
-    from etl.render.layout import REVEAL_MORE_CSS, REVEAL_MORE_SCRIPT, page_shell
+    from etl.render.layout import PIN_ICON_SVG, REVEAL_MORE_CSS, REVEAL_MORE_SCRIPT, page_shell
 
     # Headline/top-spread selection skips flagged (implausibly extreme,
     # likely promo-or-data-quality) entries -- see FLAG_SPREAD_PCT in
@@ -144,7 +144,7 @@ def render_index_html(
     <p><b>{escape(hero.item_name)}</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪{hero.cheap_price:.2f}
     ב{escape(hero.cheap_store_name)}, ₪{hero.expensive_price:.2f} ב{escape(hero.expensive_store_name)}.
     פער של {hero.spread_pct*100:.1f}% על אותו מוצר בדיוק.</p>
-    <a class="cta-map" href="/frodo-project/map/">כנסו למפה — ראו את הסניפים לידכם ←</a>
+    <a class="cta-map" href="/frodo-project/map/">{PIN_ICON_SVG}כנסו למפה — ראו את הסניפים לידכם ←</a>
   </div>"""
         if hero
         else ""
@@ -159,6 +159,7 @@ def render_index_html(
     <span class="meta ltr">עודכן {escape(generated_at)}</span>
   </div>
 {hero_html}
+  <hr class="sketchy-divider">
   <h2 class="section-title">איזה סניף הכי משתלם?</h2>
   <p class="section-sub">מדד חיסכון ממוצע על פני מוצרים משותפים -- ככל שגבוה יותר, זול יותר. הדירוג הוא לפי איזור (כפר סבא) -- אנשים לא נוסעים רחוק בשביל סופר; איזורים נוספים בהמשך. <a href="/frodo-project/leaderboard/">כל הדירוג המלא ←</a></p>
 
@@ -166,6 +167,7 @@ def render_index_html(
   </div>
   {lb_more_btn}
 
+  <hr class="sketchy-divider">
   <h2 class="section-title">המוצרים עם הפער הגדול ביותר בין סניפים</h2>
   <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום. <a href="/frodo-project/branches/">כל {len(spreads):,} הפערים ←</a></p>
 

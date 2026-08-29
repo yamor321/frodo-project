@@ -24,7 +24,6 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from etl.benchmarks.moag_controlled_prices import current_dairy_controlled_prices
 from etl.concurrency import fetch_concurrently
 from etl.enrich.address_overrides import ADDRESS_OVERRIDES
-from etl.enrich.cbs_cpi import load_or_fetch_food_cpi
 from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
 from etl.enrich.store_directory import update_and_save as update_store_directory
@@ -38,13 +37,22 @@ from etl.render.product import (
     render_product_shell_html,
     shard_products_payload,
 )
-from etl.render.regulated_prices import render_regulated_prices_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
-from etl.scoring.price_history import append_daily_rollup, compute_daily_rollup
+from etl.scoring.manufacturer_match import (
+    group_by_manufacturer_value,
+    manufacturer_values_by_code,
+    related_products,
+)
+from etl.scoring.price_history import (
+    append_daily_rollup,
+    append_sitewide_index_point,
+    compute_daily_rollup,
+    compute_sitewide_index_point,
+)
 from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers import bina, carrefour, publishedprices, victory
 from etl.scrapers.shufersal import (
@@ -495,10 +503,6 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    regulated_dir = site_dir / "regulated-prices"
-    regulated_dir.mkdir(exist_ok=True)
-    (regulated_dir / "index.html").write_text(render_regulated_prices_html(all_gaps, store_names), encoding="utf-8")
-
     methodology_dir = site_dir / "methodology"
     methodology_dir.mkdir(exist_ok=True)
     (methodology_dir / "index.html").write_text(render_methodology_html(), encoding="utf-8")
@@ -561,23 +565,29 @@ def main() -> None:
     (product_dir / "index.html").write_text(render_product_shell_html(), encoding="utf-8")
 
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
-    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
+
+    manufacturer_values = manufacturer_values_by_code(catalogs_by_store)
+    manufacturer_groups = group_by_manufacturer_value({s.item_code for s in spreads}, manufacturer_values)
+    related_by_code = {
+        s.item_code: related_products(s.item_code, manufacturer_values, manufacturer_groups) for s in spreads
+    }
+
+    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords, related_by_code)
 
     # Per-product price-history trend (site/price-history/) and the
-    # official food-CPI benchmark line (site/food-cpi.json) for the
-    # product-page chart -- see etl/scoring/price_history.py and
-    # etl/enrich/cbs_cpi.py for why these are two separate mechanisms
-    # (our own history only starts today; the CBS series is real for
-    # decades back but isn't per-product).
+    # project's own sitewide price index (site/price-index.json) -- see
+    # etl/scoring/price_history.py for why this replaced the earlier
+    # CBS food-CPI benchmark: no source exposes real historical prices
+    # (verified from multiple independent angles), so there's no way to
+    # give either line real depth before 26.08.2026 -- may as well be a
+    # number this project computes and can fully explain, not a borrowed
+    # external one.
     daily_rollup = compute_daily_rollup(all_store_prices, today)
     append_daily_rollup(daily_rollup, site_dir / "price-history")
 
-    cbs_cache = ROOT / "data" / "processed" / "cbs_food_cpi.json"
-    food_cpi = load_or_fetch_food_cpi(cbs_cache, today[:7])
-    (site_dir / "food-cpi.json").write_text(
-        json.dumps([{"y": p.year, "m": p.month, "v": p.value} for p in food_cpi], ensure_ascii=False),
-        encoding="utf-8",
-    )
+    index_point = compute_sitewide_index_point(site_dir / "price-history", today)
+    if index_point is not None:
+        append_sitewide_index_point(site_dir / "price-index.json", today, index_point)
 
     # Sharded (see shard_products_payload's docstring) instead of one
     # multi-MB products.json -- a single file for all 14,000+ products
