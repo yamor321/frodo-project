@@ -30,9 +30,23 @@ PRODUCT_CSS = """
 #productMap{ width:100%; height:340px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
 .chart-box{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:16px 18px 10px; margin:14px 0 26px; }
 .sparkline{ display:block; }
-.sparkline-labels{ display:flex; justify-content:space-between; font-size:.76rem; color:var(--ink-muted);
+/* direction:ltr is load-bearing, not cosmetic: the SVG above always plots
+   oldest-to-newest left-to-right (SVG coordinates ignore CSS direction), so
+   without this the RTL page flips these two flex children and the label on
+   each visual side no longer matches the dot it's meant to describe. */
+.sparkline-labels{ display:flex; direction:ltr; justify-content:space-between; font-size:.76rem; color:var(--ink-muted);
   font-family:'IBM Plex Mono',monospace; margin-top:4px; }
+/* direction:ltr for the same reason as .sparkline-labels: "first <- last"
+   is plain inline text (not flex), so without this the page's RTL bidi
+   reordering flips the visual order of the two numbers around the arrow. */
+.chart-headline{ margin:0 0 6px; direction:ltr; font-family:'IBM Plex Mono',monospace; font-size:1.05rem; font-weight:600; }
+.chart-pct{ font-weight:400; }
+.chart-pct-good{ color:var(--good); }
+.chart-pct-warm{ color:var(--brick); }
 .chart-empty{ color:var(--ink-muted); font-size:.9rem; }
+.chart-note{ color:var(--ink-muted); font-size:.82rem; margin:8px 0 0; }
+.flag-banner{ display:flex; gap:10px; align-items:flex-start; padding:12px 16px; margin:0 0 14px;
+  background:var(--brick-soft); color:var(--brick); border-radius:10px; font-size:.92rem; line-height:1.5; }
 """
 
 
@@ -100,6 +114,7 @@ def build_products_payload(
             "name": s.item_name,
             "image_url": image_urls.get(s.item_code),
             "prices": prices,
+            "flagged": s.flagged,
         }
     return payload
 
@@ -166,22 +181,45 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
   // Small inline-SVG line chart, no external chart library (the site
   // loads nothing but Leaflet, from CDN, and this shouldn't add a second
   // dependency for one chart type). `points` is chronological [{y, label}].
-  function sparklineSvg(points, color){
+  // `opts.formatValue` formats a number for the headline/axis text (default
+  // 2-decimal); `opts.colorizePct` colors the headline change green/red by
+  // sign (price -- down is good) instead of leaving it neutral (CPI -- a
+  // rise isn't "bad" the same way one product's price is).
+  function sparklineSvg(points, color, opts){
+    opts = opts || {};
+    var fmt = opts.formatValue || function(v){ return v.toFixed(2); };
     if (points.length < 2) return '<p class="chart-empty">אין עדיין מספיק נקודות לגרף (נדרשות לפחות 2).</p>';
-    var w = 600, h = 140, pad = 10;
+    var w = 600, h = 140, padX = 10, padY = 18;
     var ys = points.map(function(p){ return p.y; });
     var minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
     if (minY === maxY) { minY -= 1; maxY += 1; }
-    var stepX = points.length > 1 ? (w - pad*2) / (points.length - 1) : 0;
-    function xAt(i){ return pad + i*stepX; }
-    function yAt(v){ return h - pad - (v - minY) / (maxY - minY) * (h - pad*2); }
+    var stepX = (w - padX*2) / (points.length - 1);
+    function xAt(i){ return padX + i*stepX; }
+    function yAt(v){ return h - padY - (v - minY) / (maxY - minY) * (h - padY*2); }
     var path = points.map(function(p,i){ return (i===0?"M":"L") + xAt(i).toFixed(1) + "," + yAt(p.y).toFixed(1); }).join(" ");
     var dots = points.map(function(p,i){
       return '<circle cx="' + xAt(i).toFixed(1) + '" cy="' + yAt(p.y).toFixed(1) + '" r="3" fill="' + color + '"><title>' + escHtml(p.label) + '</title></circle>';
     }).join("");
-    return '<svg viewBox="0 0 ' + w + ' ' + h + '" class="sparkline" preserveAspectRatio="none" style="width:100%;height:140px">' +
+    var first = points[0].y, last = points[points.length - 1].y;
+    var pct = first !== 0 ? (last - first) / first * 100 : 0;
+    var sign = pct > 0 ? "+" : "";
+    var pctClass = "ltr chart-pct";
+    if (opts.colorizePct) pctClass += pct < 0 ? " chart-pct-good" : (pct > 0 ? " chart-pct-warm" : "");
+    var headline = '<p class="chart-headline">' + escHtml(fmt(first)) + ' ← ' + escHtml(fmt(last)) +
+      ' <span class="' + pctClass + '">(' + sign + pct.toFixed(1) + '%)</span></p>';
+
+    // Axis range as plain HTML text, not SVG <text> -- the SVG uses
+    // preserveAspectRatio="none" so it can stretch to fill the container
+    // width (fine for a line/dots), but that non-uniformly squishes glyphs
+    // in SVG text until they're unreadable on a narrow phone; HTML text
+    // outside the SVG isn't subject to that transform at all.
+    var axisRange = '<p class="chart-note ltr" style="text-align:left">טווח בגרף: ' + escHtml(fmt(minY)) + ' – ' + escHtml(fmt(maxY)) + '</p>';
+
+    return headline +
+      '<svg viewBox="0 0 ' + w + ' ' + h + '" class="sparkline" preserveAspectRatio="none" style="width:100%;height:140px">' +
       '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2"/>' + dots + '</svg>' +
-      '<div class="sparkline-labels"><span>' + escHtml(points[0].label) + '</span><span>' + escHtml(points[points.length-1].label) + '</span></div>';
+      '<div class="sparkline-labels"><span>' + escHtml(points[0].label) + '</span><span>' + escHtml(points[points.length-1].label) + '</span></div>' +
+      axisRange;
   }
 
   function loadHistoryCharts(code, shard){
@@ -194,14 +232,19 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     ]).then(function(results){
       var history = (results[0] && results[0][code]) || [];
       var points = history.map(function(h){ return {y: h.avg, label: h.date + ": ₪" + h.avg.toFixed(2)}; });
-      priceEl.innerHTML = sparklineSvg(points, "var(--navy)");
+      priceEl.innerHTML = sparklineSvg(points, "var(--navy)", {
+        formatValue: function(v){ return "₪" + v.toFixed(2); },
+        colorizePct: true,
+      });
 
       var cpi = results[1] || [];
       var cpiPoints = cpi.map(function(p){
         var mm = String(p.m).padStart(2, "0");
         return {y: p.v, label: p.y + "-" + mm};
       });
-      cpiEl.innerHTML = sparklineSvg(cpiPoints, "var(--ink-muted)");
+      cpiEl.innerHTML = sparklineSvg(cpiPoints, "var(--ink-muted)", {
+        formatValue: function(v){ return v.toFixed(1); },
+      });
     }).catch(function(){
       priceEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
       cpiEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
@@ -295,6 +338,14 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       spreadLine = '<p class="lede">פער של <b>' + pct.toFixed(0) + '%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-' + ordered.length + ' סניפים.</p>';
     }
 
+    // Reuses the same flagged bit /branches/ shows as a badge (see
+    // FLAG_SPREAD_PCT in cross_branch_spread.py) -- not a real promo
+    // detection (the source data has none, see the note below the chart),
+    // just the one extreme-spread signal this project actually computes.
+    const flagBanner = product.flagged
+      ? '<div class="flag-banner">⚠ <span>פער המחירים על המוצר הזה חריג מאוד בין הסניפים — ייתכן מבצע אצל אחד הסניפים או טעות נתונים של הרשת, לא ניתן לאמת מהמקור.</span></div>'
+      : "";
+
     document.title = product.name + " — Frodo Project";
 
     const mapPoints = [];
@@ -324,11 +375,13 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון).</p>' +
       '<div class="chart-box" id="priceHistoryChart"><p class="chart-empty">טוען...</p></div>' +
       '<p class="section-sub">להקשר: מדד המזון הכללי בישראל (הלמ"ס), לאורך שנים -- לא המחיר של המוצר הזה, אלא מגמת מחירי המזון הכלל-ארצית כערך ייחוס.</p>' +
-      '<div class="chart-box" id="cpiChart"><p class="chart-empty">טוען...</p></div>';
+      '<div class="chart-box" id="cpiChart"><p class="chart-empty">טוען...</p></div>' +
+      '<p class="chart-note">שימו לב: הרשתות לא מפרסמות באופן פומבי אילו מחירים הם מבצע זמני לעומת מחיר קבוע, אז האתר לא יכול לדעת את זה על מחיר ספציפי -- מלבד סימון פערים חריגים מאוד (למעלה, כשרלוונטי).</p>';
 
     root.innerHTML =
       '<div class="product-head">' + thumbHtml(product.image_url, product.name) + '<h1>' + escHtml(product.name) + '</h1></div>' +
       spreadLine +
+      flagBanner +
       '<div class="pricelist">' + rows + '</div>' +
       historySection +
       mapSection;

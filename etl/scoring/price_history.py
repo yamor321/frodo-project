@@ -58,10 +58,25 @@ def append_daily_rollup(rollup: dict[str, dict], history_dir: pathlib.Path) -> N
     for shard, entries in by_shard.items():
         path = history_dir / f"{shard}.json"
         existing: dict[str, list[dict]] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+        # Self-healing: collapses any duplicate dates already on disk (e.g.
+        # from an interleaved local dev run using a fixed placeholder date)
+        # down to one entry per date before appending today's, instead of
+        # only ever guarding the entry this call is about to add.
+        for code in existing:
+            deduped: dict[str, dict] = {}
+            for e in existing[code]:
+                deduped[e["date"]] = e
+            existing[code] = sorted(deduped.values(), key=lambda e: e["date"])
+
         for code, entry in entries.items():
             series = existing.setdefault(code, [])
-            if series and series[-1]["date"] == entry["date"]:
-                series[-1] = entry
-            else:
+            replaced = False
+            for i, existing_entry in enumerate(series):
+                if existing_entry["date"] == entry["date"]:
+                    series[i] = entry
+                    replaced = True
+                    break
+            if not replaced:
                 series.append(entry)
+                series.sort(key=lambda e: e["date"])
         path.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")

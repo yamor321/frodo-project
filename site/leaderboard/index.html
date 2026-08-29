@@ -38,7 +38,7 @@
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -83,6 +83,18 @@ footer.sitefoot a{ color:var(--navy); }
 @media (max-width:520px){
   .page{ padding:0 14px 60px; }
   .card{ flex-direction:column; align-items:flex-start; }
+}
+
+/* 6 links + brand + theme toggle + external link no longer fit one row on a
+   narrow phone -- scrolls as a single row (like tabs) instead of wrapping to
+   2-3 rows (which would push all page content down) or overflowing the whole
+   page horizontally (the bug this fixes: overflow-x:hidden on body alone
+   would've just clipped the nav with no way to reach the hidden links). */
+@media (max-width:640px){
+  nav.topnav{ overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; }
+  nav.topnav::-webkit-scrollbar{ display:none; }
+  nav.topnav a, nav.topnav button, nav.topnav .spacer{ flex-shrink:0; }
 }
 </style>
 <style>
@@ -159,8 +171,8 @@ footer.sitefoot a{ color:var(--navy); }
           <td><a href="/frodo-project/store/rami-levy-033/">רמי לוי — כפר סבא</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">94</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:94%;background:rgb(53,132,82)"></div></div>
+              <span class="ltr">93</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:93%;background:rgb(56,133,84)"></div></div>
             </div>
           </td>
           <td class="num ltr">7,732</td>
@@ -172,7 +184,7 @@ footer.sitefoot a{ color:var(--navy); }
           <td class="num">
             <div class="score-bar-wrap">
               <span class="ltr">84</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:84%;background:rgb(85,146,100)"></div></div>
+              <div class="score-bar"><div class="score-bar-fill" style="width:84%;background:rgb(87,147,102)"></div></div>
             </div>
           </td>
           <td class="num ltr">3,401</td>
@@ -183,8 +195,8 @@ footer.sitefoot a{ color:var(--navy); }
           <td><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">81</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:81%;background:rgb(96,151,107)"></div></div>
+              <span class="ltr">79</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:79%;background:rgb(101,153,110)"></div></div>
             </div>
           </td>
           <td class="num ltr">7,698</td>
@@ -228,26 +240,26 @@ footer.sitefoot a{ color:var(--navy); }
 
         <tr>
           <td class="rank ltr">7</td>
-          <td><a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a></td>
+          <td><a href="/frodo-project/store/victory-079/">ויקטורי — כפר סבא הירוקה</a></td>
           <td class="num">
             <div class="score-bar-wrap">
               <span class="ltr">54</span>
               <div class="score-bar"><div class="score-bar-fill" style="width:54%;background:rgb(189,191,161)"></div></div>
             </div>
           </td>
-          <td class="num ltr">3,273</td>
+          <td class="num ltr">6,578</td>
         </tr>
 
         <tr>
           <td class="rank ltr">8</td>
-          <td><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></td>
+          <td><a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">52</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:52%;background:rgb(193,193,163)"></div></div>
+              <span class="ltr">53</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:53%;background:rgb(192,192,163)"></div></div>
             </div>
           </td>
-          <td class="num ltr">4,687</td>
+          <td class="num ltr">3,273</td>
         </tr>
 
         <tr>
@@ -264,6 +276,18 @@ footer.sitefoot a{ color:var(--navy); }
 
         <tr>
           <td class="rank ltr">10</td>
+          <td><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></td>
+          <td class="num">
+            <div class="score-bar-wrap">
+              <span class="ltr">51</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:51%;background:rgb(199,195,167)"></div></div>
+            </div>
+          </td>
+          <td class="num ltr">4,687</td>
+        </tr>
+
+        <tr>
+          <td class="rank ltr">11</td>
           <td><a href="/frodo-project/store/carrefour-471/">קרפור — קרפור אונליין   כפר סבא @ קרפור (5304)</a></td>
           <td class="num">
             <div class="score-bar-wrap">
@@ -275,7 +299,7 @@ footer.sitefoot a{ color:var(--navy); }
         </tr>
 
         <tr>
-          <td class="rank ltr">11</td>
+          <td class="rank ltr">12</td>
           <td><a href="/frodo-project/store/230/">שופרסל — שלי כ&quot;ס- ויצמן</a></td>
           <td class="num">
             <div class="score-bar-wrap">
@@ -287,7 +311,7 @@ footer.sitefoot a{ color:var(--navy); }
         </tr>
 
         <tr>
-          <td class="rank ltr">12</td>
+          <td class="rank ltr">13</td>
           <td><a href="/frodo-project/store/140/">שופרסל — אקספרס תל חי</a></td>
           <td class="num">
             <div class="score-bar-wrap">
@@ -296,18 +320,6 @@ footer.sitefoot a{ color:var(--navy); }
             </div>
           </td>
           <td class="num ltr">3,176</td>
-        </tr>
-
-        <tr>
-          <td class="rank ltr">13</td>
-          <td><a href="/frodo-project/store/victory-079/">ויקטורי — כפר סבא הירוקה</a></td>
-          <td class="num">
-            <div class="score-bar-wrap">
-              <span class="ltr">47</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:47%;background:rgb(199,189,161)"></div></div>
-            </div>
-          </td>
-          <td class="num ltr">6,578</td>
         </tr>
 
         <tr>
@@ -363,8 +375,8 @@ footer.sitefoot a{ color:var(--navy); }
           <td><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">34</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:34%;background:rgb(190,151,128)"></div></div>
+              <span class="ltr">32</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:32%;background:rgb(189,148,125)"></div></div>
             </div>
           </td>
           <td class="num ltr">4,653</td>
@@ -423,8 +435,8 @@ footer.sitefoot a{ color:var(--navy); }
           <td><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">16</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:16%;background:rgb(177,103,85)"></div></div>
+              <span class="ltr">15</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:15%;background:rgb(177,101,83)"></div></div>
             </div>
           </td>
           <td class="num ltr">3,648</td>

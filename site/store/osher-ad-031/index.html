@@ -38,7 +38,7 @@
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -83,6 +83,18 @@ footer.sitefoot a{ color:var(--navy); }
 @media (max-width:520px){
   .page{ padding:0 14px 60px; }
   .card{ flex-direction:column; align-items:flex-start; }
+}
+
+/* 6 links + brand + theme toggle + external link no longer fit one row on a
+   narrow phone -- scrolls as a single row (like tabs) instead of wrapping to
+   2-3 rows (which would push all page content down) or overflowing the whole
+   page horizontally (the bug this fixes: overflow-x:hidden on body alone
+   would've just clipped the nav with no way to reach the hidden links). */
+@media (max-width:640px){
+  nav.topnav{ overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; }
+  nav.topnav::-webkit-scrollbar{ display:none; }
+  nav.topnav a, nav.topnav button, nav.topnav .spacer{ flex-shrink:0; }
 }
 </style>
 <style>
@@ -277,6 +289,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290020030184&from=osher-ad-031">עוגיות מזרחיות עם זע</a><small>לעומת יוחננוף — כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪12.90 <span class="chip warm">+45%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290003996117&from=osher-ad-031">כרוב לבן חסלט-מהדרין (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪20.90 <span class="chip warm">+40%</span></div>
@@ -288,14 +308,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290003996124&from=osher-ad-031">כרוב אדום שלם חסלט</a><small>לעומת רמי לוי — כפר סבא: ₪15.50</small></div>
       </div>
       <div class="prices">₪20.90 <span class="chip warm">+35%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015356688&from=osher-ad-031">ארק שליט קלאסי 700 מ</a><small>לעומת קרפור — קרפור היפר   כפר סבא: ₪41.90</small></div>
-      </div>
-      <div class="prices">₪54.90 <span class="chip warm">+31%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>

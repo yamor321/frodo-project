@@ -38,7 +38,7 @@
 }
 *{box-sizing:border-box;}
 body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistant',sans-serif;
-  direction:rtl; -webkit-font-smoothing:antialiased; }
+  direction:rtl; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
 .ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
@@ -83,6 +83,18 @@ footer.sitefoot a{ color:var(--navy); }
 @media (max-width:520px){
   .page{ padding:0 14px 60px; }
   .card{ flex-direction:column; align-items:flex-start; }
+}
+
+/* 6 links + brand + theme toggle + external link no longer fit one row on a
+   narrow phone -- scrolls as a single row (like tabs) instead of wrapping to
+   2-3 rows (which would push all page content down) or overflowing the whole
+   page horizontally (the bug this fixes: overflow-x:hidden on body alone
+   would've just clipped the nav with no way to reach the hidden links). */
+@media (max-width:640px){
+  nav.topnav{ overflow-x:auto; flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; }
+  nav.topnav::-webkit-scrollbar{ display:none; }
+  nav.topnav a, nav.topnav button, nav.topnav .spacer{ flex-shrink:0; }
 }
 </style>
 <style>
@@ -162,7 +174,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1739066,34.9078919" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,273 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,273 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
