@@ -14,12 +14,12 @@ BRANCHES_CSS = """
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #branchHint{ font-size:.85rem; color:var(--ink-muted); margin-bottom:14px; }
 .branch-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
-.branch-table th{ text-align:right; font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase;
+.branch-table th{ text-align:right; font-family:'Assistant',sans-serif; font-weight:700; font-size:.72rem; text-transform:uppercase;
   letter-spacing:.05em; color:var(--ink-muted); padding:8px 10px; border-bottom:1px solid var(--line); cursor:pointer;
   user-select:none; white-space:nowrap; }
 .branch-table th:hover{ color:var(--navy); }
 .branch-table td{ padding:10px; border-bottom:1px solid var(--line); vertical-align:top; }
-.branch-table td.num{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.branch-table td.num{ font-family:'Fraunces',serif; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .branch-table .store-name{ color:var(--ink-muted); font-size:.85rem; }
 .table-wrap{ overflow-x:auto; }
 .flag-badge{ display:inline-block; margin-inline-start:6px; font-size:.78rem; color:var(--brick);

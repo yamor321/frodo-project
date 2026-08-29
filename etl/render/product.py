@@ -26,7 +26,7 @@ PRODUCT_CSS = """
 .prow.highlight{ border-color:var(--navy); box-shadow:0 0 0 2px var(--navy-soft); }
 .prow .store{ font-weight:600; }
 .prow .store small{ display:block; font-weight:400; color:var(--ink-muted); font-size:.78rem; margin-top:2px; }
-.prow .price{ font-family:'IBM Plex Mono',monospace; font-size:1.1rem; font-variant-numeric:tabular-nums; }
+.prow .price{ font-family:'Fraunces',serif; font-size:1.15rem; font-variant-numeric:tabular-nums; }
 #productMap{ width:100%; height:340px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
 .chart-box{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:16px 18px 10px; margin:14px 0 26px; }
 .sparkline{ display:block; }
@@ -35,11 +35,11 @@ PRODUCT_CSS = """
    without this the RTL page flips these two flex children and the label on
    each visual side no longer matches the dot it's meant to describe. */
 .sparkline-labels{ display:flex; direction:ltr; justify-content:space-between; font-size:.76rem; color:var(--ink-muted);
-  font-family:'IBM Plex Mono',monospace; margin-top:4px; }
+  font-family:'Fraunces',serif; margin-top:4px; }
 /* direction:ltr for the same reason as .sparkline-labels: "first <- last"
    is plain inline text (not flex), so without this the page's RTL bidi
    reordering flips the visual order of the two numbers around the arrow. */
-.chart-headline{ margin:0 0 6px; direction:ltr; font-family:'IBM Plex Mono',monospace; font-size:1.05rem; font-weight:600; }
+.chart-headline{ margin:0 0 6px; direction:ltr; font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; }
 .chart-pct{ font-weight:400; }
 .chart-pct-good{ color:var(--good); }
 .chart-pct-warm{ color:var(--brick); }

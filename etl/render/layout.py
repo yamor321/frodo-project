@@ -52,7 +52,7 @@ body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Assistan
   }
 }
 .page{ max-width:820px; margin:0 auto; padding:0 20px 80px; }
-.ltr{ direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono',monospace; }
+.ltr{ direction:ltr; unicode-bidi:isolate; font-family:'Fraunces',serif; font-variant-numeric:tabular-nums; }
 a{ color:var(--navy); text-decoration-color:var(--navy); text-underline-offset:3px; }
 a:hover{ text-decoration-thickness:2px; }
 a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid var(--navy); outline-offset:2px; }
@@ -60,7 +60,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid va
 nav.topnav{ display:flex; align-items:center; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
   margin-bottom:28px; font-size:.88rem; }
 nav.topnav a{ color:var(--ink); text-decoration:none; font-weight:600; }
-nav.topnav a.brand{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.05rem; color:var(--ink);
+nav.topnav a.brand{ font-family:'Suez One',serif; font-weight:400; font-size:1.1rem; color:var(--ink);
   display:inline-flex; align-items:center; gap:6px; }
 nav.topnav .spacer{ flex:1; }
 nav.topnav a.current{ color:var(--navy); }
@@ -69,16 +69,16 @@ button.theme-toggle{ font-size:1rem; line-height:1; background:none; border:1px 
   border-radius:999px; width:30px; height:30px; cursor:pointer; color:var(--ink); }
 button.theme-toggle:hover{ border-color:var(--navy); }
 
-h1{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.12;
+h1{ font-family:'Suez One',serif; font-weight:400; font-size:clamp(1.8rem,5vw,2.7rem); line-height:1.14;
   margin:0 0 14px; text-wrap:balance; }
-h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; margin:0 0 10px; }
-.kicker{ font-family:'IBM Plex Mono',monospace; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
+h2{ font-family:'Suez One',serif; font-weight:400; font-size:1.35rem; margin:0 0 10px; }
+.kicker{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.76rem; letter-spacing:.08em; text-transform:uppercase;
   color:var(--accent); margin-bottom:10px; }
 .lede{ color:var(--ink-muted); font-size:1.05rem; line-height:1.6; max-width:60ch; margin:0 0 8px; }
 
 .card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:18px 20px;
   box-shadow:var(--shadow); }
-.chip{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:500; padding:4px 10px;
+.chip{ font-family:'Assistant',sans-serif; font-size:.78rem; font-weight:600; padding:4px 10px;
   border-radius:999px; white-space:nowrap; display:inline-block; }
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
@@ -202,7 +202,7 @@ GLOBAL_SEARCH_CSS = """
 .gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
 .gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
   background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
-.gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
+.gsrow .p{ font-family:'Fraunces',serif; color:var(--ink-muted); white-space:nowrap; }
 .gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
 #gsTip{ font-size:.78rem; color:var(--ink-muted); margin:0 2px 22px; }
 """
@@ -248,7 +248,7 @@ GLOBAL_SEARCH_SCRIPT = f"""<script>
   // and explained by the fixed #gsTip note instead, since it's not
   // reliably a promo marker.
   function formatProductName(name){{
-    const m = /^\*\s*מבצע\s*\*\s*/.exec(name);
+    const m = /^\\*\\s*מבצע\\s*\\*\\s*/.exec(name);
     return m ? {{badge: "מבצע", clean: name.slice(m[0].length)}} : {{badge: null, clean: name}};
   }}
 
@@ -370,11 +370,20 @@ def thumb_html(image_url: str | None, alt: str = "") -> str:
     return '<div class="thumb empty">—</div>'
 
 
+# Font choices, part of the "editorial/warm" design pass (2026-08-30,
+# revised same day after "the font needs to be prettier, and the numbers
+# don't look like they match the font"): Suez One is a warm, characterful
+# Hebrew display serif (headings/kicker/brand) instead of the flatter
+# Frank Ruhl Libre; Fraunces (Latin-only, so used only inside the .ltr
+# numeral contexts -- prices, percentages, scores) replaces the
+# monospace/code-like IBM Plex Mono with a serif built for exactly this
+# "warm editorial" numeral look, instead of clashing with it.
 FONT_LINK = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-    '<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900'
-    "&family=Assistant:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap\" "
+    '<link href="https://fonts.googleapis.com/css2?family=Suez+One'
+    "&family=Assistant:wght@400;500;600;700"
+    "&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap\" "
     'rel="stylesheet">'
 )
 
