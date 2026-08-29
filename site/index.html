@@ -86,18 +86,24 @@ footer.sitefoot a{ color:var(--navy); }
 }
 </style>
 <style>
-#gsWrap{ position:relative; margin:0 0 22px; }
+#gsWrap{ position:relative; margin:0 0 6px; }
 #gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
 #gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
   max-height:360px; overflow-y:auto; }
-.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+.gsrow{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 16px; font-size:.92rem;
   color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
+.gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
+.gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
+  background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
 .gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
 .gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+#gsTip{ font-size:.78rem; color:var(--ink-muted); margin:0 2px 22px; }
 </style>
 <style>
 .headline-stat{ margin:26px 0 30px; padding:22px 24px; background:var(--navy); color:#fff;
@@ -132,6 +138,22 @@ section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px;
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-width:60ch; line-height:1.55; }
 @media (max-width:520px){ .card{ flex-direction:column; align-items:flex-start; } }
+
+.lb-list{ display:flex; flex-direction:column; gap:8px; margin:20px 0 10px; }
+.lb-row{ display:flex; align-items:center; gap:14px; padding:10px 16px; background:var(--paper-raised);
+  border:1px solid var(--line); border-radius:10px; }
+.lb-row .lb-rank{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); width:1.6em; text-align:center; flex-shrink:0; }
+.lb-row a{ flex:1; min-width:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lb-row .lb-score-wrap{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.lb-row .lb-bar{ width:80px; height:7px; border-radius:4px; background:var(--line); overflow:hidden; }
+.lb-row .lb-bar-fill{ height:100%; border-radius:4px; }
+.lb-row .lb-score-num{ font-family:'IBM Plex Mono',monospace; font-size:.88rem; width:2.4em; text-align:left; }
+
+.reveal-more-btn{ display:block; margin:16px auto 0; padding:9px 26px; border-radius:999px;
+  border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); font-weight:700;
+  font-size:.88rem; cursor:pointer; font-family:'Assistant',sans-serif; }
+.reveal-more-btn:hover{ background:var(--navy); color:#fff; }
+.reveal-hidden{ display:none; }
 </style>
 </head>
 <body>
@@ -141,6 +163,7 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
     <a class="current" href="/frodo-project/">בית</a>
     <a class="" href="/frodo-project/map/">מפה</a>
     <a class="" href="/frodo-project/leaderboard/">דירוג סניפים</a>
+    <a class="" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
@@ -151,6 +174,7 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
     <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off" aria-label="חיפוש מוצר באתר">
     <div id="gsResults" aria-live="polite"></div>
   </div>
+  <p id="gsTip">שמות המוצרים כפי שהרשתות עצמן מפרסמות אותם -- לפעמים מקוצרים או עם * (מסמן לרוב מבצע או כמות באריזה); ריחוף/מגע על שם מציג אותו במלואו.</p>
 
 
   <div class="kicker">Frodo Project · פיילוט כפר סבא</div>
@@ -158,351 +182,357 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
   <p class="lede">כמה רשתות שיווק מפעילות סניפים בכפר סבא, בפורמטים שונים. השוואה בין המחירים שכל רשת מפרסמת בעצמה — אותו ברקוד, אותו יום — מראה פערים אמיתיים בין הסניפים על אותו מוצר בדיוק.</p>
   <div class="storecard">
     <b>כפר סבא · השוואת מחירים בין סניפים</b>
-    <span class="meta ltr">עודכן 29.08.2026, 09:44</span>
+    <span class="meta ltr">עודכן 29.08.2026, 17:29</span>
   </div>
 
   <div class="headline-stat">
-    <div class="num ltr">₪1.90 ← ₪16.90</div>
-    <p><b>משקה שיבולת שועל בטע</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪1.90
-    באושר עד — כפר סבא, ₪16.90 בקרפור — כפר סבא @ קוויק.
-    פער של 789.5% על אותו מוצר בדיוק.</p>
+    <div class="num ltr">₪3.90 ← ₪14.90</div>
+    <p><b>בירה קסטיל רוז 330 מ</b> — אותו ברקוד, אותה רשת, אותה עיר. ₪3.90
+    באושר עד — כפר סבא, ₪14.90 בשופרסל — אקספרס כ&quot;ס- הגליל.
+    פער של 282.1% על אותו מוצר בדיוק.</p>
     <a class="cta-map" href="/frodo-project/map/">כנסו למפה — ראו את הסניפים לידכם ←</a>
   </div>
+  <h2 class="section-title">איזה סניף הכי משתלם?</h2>
+  <p class="section-sub">מדד חיסכון ממוצע על פני מוצרים משותפים -- ככל שגבוה יותר, זול יותר. הדירוג הוא לפי איזור (כפר סבא) -- אנשים לא נוסעים רחוק בשביל סופר; איזורים נוספים בהמשך. <a href="/frodo-project/leaderboard/">כל הדירוג המלא ←</a></p>
+
+  <div class="lb-list">
+    <div class="lb-row"><span class="lb-rank ltr">1</span>
+      <a href="/frodo-project/store/rami-levy-033/">רמי לוי — כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:93%;background:rgb(56,133,84)"></span></span><span class="lb-score-num ltr">93</span></span>
+    </div>
+
+    <div class="lb-row"><span class="lb-rank ltr">2</span>
+      <a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:84%;background:rgb(87,147,102)"></span></span><span class="lb-score-num ltr">84</span></span>
+    </div>
+
+    <div class="lb-row"><span class="lb-rank ltr">3</span>
+      <a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:79%;background:rgb(101,153,110)"></span></span><span class="lb-score-num ltr">79</span></span>
+    </div>
+
+    <div class="lb-row"><span class="lb-rank ltr">4</span>
+      <a href="/frodo-project/store/144/">שופרסל — דיל שבירו כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:79%;background:rgb(102,153,111)"></span></span><span class="lb-score-num ltr">79</span></span>
+    </div>
+
+    <div class="lb-row"><span class="lb-rank ltr">5</span>
+      <a href="/frodo-project/store/carrefour-010/">קרפור — קרפור היפר   כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:75%;background:rgb(117,160,119)"></span></span><span class="lb-score-num ltr">75</span></span>
+    </div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">6</span>
+      <a href="/frodo-project/store/259/">שופרסל — יוניברס גזית כ&quot;ס- ויצמן</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:69%;background:rgb(136,168,130)"></span></span><span class="lb-score-num ltr">69</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">7</span>
+      <a href="/frodo-project/store/victory-079/">ויקטורי — כפר סבא הירוקה</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:54%;background:rgb(189,191,161)"></span></span><span class="lb-score-num ltr">54</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">8</span>
+      <a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:53%;background:rgb(192,192,163)"></span></span><span class="lb-score-num ltr">53</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">9</span>
+      <a href="/frodo-project/store/615/">שופרסל — BE כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:52%;background:rgb(195,193,164)"></span></span><span class="lb-score-num ltr">52</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">10</span>
+      <a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:51%;background:rgb(199,195,167)"></span></span><span class="lb-score-num ltr">51</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">11</span>
+      <a href="/frodo-project/store/carrefour-471/">קרפור — קרפור אונליין   כפר סבא @ קרפור (5304)</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:49%;background:rgb(201,193,165)"></span></span><span class="lb-score-num ltr">49</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">12</span>
+      <a href="/frodo-project/store/230/">שופרסל — שלי כ&quot;ס- ויצמן</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:49%;background:rgb(201,193,165)"></span></span><span class="lb-score-num ltr">49</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">13</span>
+      <a href="/frodo-project/store/140/">שופרסל — אקספרס תל חי</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:48%;background:rgb(200,192,165)"></span></span><span class="lb-score-num ltr">48</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">14</span>
+      <a href="/frodo-project/store/171/">שופרסל — אקספרס אוסטשינסקי</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:41%;background:rgb(195,171,146)"></span></span><span class="lb-score-num ltr">41</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">15</span>
+      <a href="/frodo-project/store/648/">שופרסל — BE מאיר-כפרסבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:40%;background:rgb(194,168,143)"></span></span><span class="lb-score-num ltr">40</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">16</span>
+      <a href="/frodo-project/store/36/">שופרסל — שלי כ&quot;ס- רוטשילד</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:35%;background:rgb(191,156,132)"></span></span><span class="lb-score-num ltr">35</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">17</span>
+      <a href="/frodo-project/store/335/">שופרסל — אקספרס כ&quot;ס- בן גוריון</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:34%;background:rgb(190,153,129)"></span></span><span class="lb-score-num ltr">34</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">18</span>
+      <a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:32%;background:rgb(189,148,125)"></span></span><span class="lb-score-num ltr">32</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">19</span>
+      <a href="/frodo-project/store/682/">שופרסל — BE כפר סבא צפון</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:28%;background:rgb(186,135,114)"></span></span><span class="lb-score-num ltr">28</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">20</span>
+      <a href="/frodo-project/store/375/">שופרסל — אקספרס כ&quot;ס- הגליל</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:24%;background:rgb(183,124,104)"></span></span><span class="lb-score-num ltr">24</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">21</span>
+      <a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:23%;background:rgb(182,122,102)"></span></span><span class="lb-score-num ltr">23</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">22</span>
+      <a href="/frodo-project/store/394/">שופרסל — אקספרס הכרמל כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:17%;background:rgb(178,105,87)"></span></span><span class="lb-score-num ltr">17</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">23</span>
+      <a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:15%;background:rgb(177,101,83)"></span></span><span class="lb-score-num ltr">15</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">24</span>
+      <a href="/frodo-project/store/carrefour-473/">קרפור — כפר סבא @ קוויק</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:14%;background:rgb(175,96,79)"></span></span><span class="lb-score-num ltr">14</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">25</span>
+      <a href="/frodo-project/store/752/">שופרסל — אקספרס כפר סבא דוכיפת</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:12%;background:rgb(175,92,76)"></span></span><span class="lb-score-num ltr">12</span></span>
+    </div></div>
+<div data-reveal-group="lb" class="reveal-hidden">
+    <div class="lb-row"><span class="lb-rank ltr">26</span>
+      <a href="/frodo-project/store/845/">שופרסל — אקספרס נחשון כפר סבא</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:8%;background:rgb(171,80,65)"></span></span><span class="lb-score-num ltr">8</span></span>
+    </div></div>
+  </div>
+  <button class="reveal-more-btn" data-reveal-group="lb" data-reveal-step="5">עוד 5 ←</button>
+
   <h2 class="section-title">המוצרים עם הפער הגדול ביותר בין סניפים</h2>
-  <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום. <a href="/frodo-project/branches/">כל 13,308 הפערים ←</a></p>
+  <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום. <a href="/frodo-project/branches/">כל 13,304 הפערים ←</a></p>
 
   <section class="list">
     <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290110327514">משקה שיבולת שועל בטע</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-23 סניפים</small></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/carrefour-473/">קרפור — כפר סבא @ קוויק</a></small></span>
-      </div>
-      <span class="chip warm">+789.5%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290122781663">פתיתים ללא גלוטן  אס</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-12 סניפים</small></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪15.90</b><small><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></small></span>
-      </div>
-      <span class="chip warm">+736.8%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290019644095">מיקס כוכבים שוקולד ח</a></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></small></span>
-      </div>
-      <span class="chip warm">+555.6%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290019644743">מיקס כדורים שוקולד ח</a></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></small></span>
-      </div>
-      <span class="chip warm">+555.6%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290019644798">מיקס קורנפלקס שוקולד</a></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></small></span>
-      </div>
-      <span class="chip warm">+555.6%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290019644927">מיקס בייגלה שוקולד ל</a></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪0.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/shukhair-011/">שוק העיר — כפר סבא מזרח</a></small></span>
-      </div>
-      <span class="chip warm">+555.6%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290014760141">משקה שקדים אלטרנטיב</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-21 סניפים</small></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪2.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/carrefour-473/">קרפור — כפר סבא @ קוויק</a></small></span>
-      </div>
-      <span class="chip warm">+482.8%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290119387076">מילקשייק קצפת ותותים</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-21 סניפים</small></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪9.90</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
-      </div>
-      <span class="chip warm">+421.1%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290120344556">קוביות שום 80 גרם</a></div>
-      <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪9.90</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
-      </div>
-      <span class="chip warm">+421.1%</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name"><a href="/frodo-project/product/?code=7290015858861">חזרת עללחם 250 גרם</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-6 סניפים</small></div>
+      <div class="name"><a href="/frodo-project/product/?code=5411081003654">בירה קסטיל רוז 330 מ</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-8 סניפים</small></div>
       <div class="range">
         <span class="range-point cheap"><b class="ltr">₪3.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪18.90</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
+        <span class="range-point"><b class="ltr">₪14.90</b><small><a href="/frodo-project/store/375/">שופרסל — אקספרס כ&quot;ס- הגליל</a></small></span>
       </div>
-      <span class="chip warm">+384.6%</span>
+      <span class="chip warm">+282.1%</span>
     </div>
+
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290000116921">רוטב צילי מתוק קנור</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-19 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/rami-levy-719/">רמי לוי — רוטשילד כפר סבא</a></small></span>
+      </div>
+      <span class="chip warm">+244.9%</span>
+    </div>
+
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290016197488">מטליות מיקרופייבר למ</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-13 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+244.9%</span>
+    </div>
+
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290000204215">כריות יפניות ניקול 6</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-13 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪15.90</b><small><a href="/frodo-project/store/394/">שופרסל — אקספרס הכרמל כפר סבא</a></small></span>
+      </div>
+      <span class="chip warm">+224.5%</span>
+    </div>
+
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290111342042">כריות יפניות אנטיבקט</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪15.90</b><small><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></small></span>
+      </div>
+      <span class="chip warm">+224.5%</span>
+    </div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=769904001703">שקדי מרק משובח כל&quot;פ</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-5 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪15.90</b><small><a href="/frodo-project/store/carrefour-010/">קרפור — קרפור היפר   כפר סבא</a></small></span>
+      </div>
+      <span class="chip warm">+224.5%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290019870593">סוכריות טופי לוקיטוס</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-10 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪6.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪21.90</b><small><a href="/frodo-project/store/845/">שופרסל — אקספרס נחשון כפר סבא</a></small></span>
+      </div>
+      <span class="chip warm">+217.4%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290000313290">נודלס אטריות מסולסלו</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-15 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪14.90</b><small><a href="/frodo-project/store/375/">שופרסל — אקספרס כ&quot;ס- הגליל</a></small></span>
+      </div>
+      <span class="chip warm">+204.1%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290000204086">כריות קרצוף ניקול 3</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-10 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪14.90</b><small><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></small></span>
+      </div>
+      <span class="chip warm">+204.1%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290000286549">מטליות לניקוי כללי ס</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-12 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪14.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+204.1%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290111568251">נודלס אטריות להקפצה</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-12 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪14.50</b><small><a href="/frodo-project/store/tiv-taam-093/">טיב טעם — כפר סבא הירוקה</a></small></span>
+      </div>
+      <span class="chip warm">+195.9%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290108358988">מטליות רצפה מיקרופיי</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-8 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪7.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪22.90</b><small><a href="/frodo-project/store/carrefour-473/">קרפור — כפר סבא @ קוויק</a></small></span>
+      </div>
+      <span class="chip warm">+189.9%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290019997191">גרעיני תירס מתוק במי מלח</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-6 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪3.50</b><small><a href="/frodo-project/store/victory-079/">ויקטורי — כפר סבא הירוקה</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪10.10</b><small><a href="/frodo-project/store/carrefour-404/">קרפור — קרפור סיטי  רון כפר סבא (1139)</a></small></span>
+      </div>
+      <span class="chip warm">+188.6%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290014581036">פחם דליק 2 ק&quot;ג</a></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪6.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪19.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+188.4%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290122783377">ביסלי מאנציז מיקס 1</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.50</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪12.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+186.7%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290118427629">מנה חמה מרק בסגנון ר</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+186.4%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290118427582">מנה חמה מרק בסגנון ר</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-11 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪16.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+186.4%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290019981978">תחתיות ארטישוק שדה ב</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-6 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/yohananof-024/">יוחננוף — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪13.90</b><small><a href="/frodo-project/store/carrefour-473/">קרפור — כפר סבא @ קוויק</a></small></span>
+      </div>
+      <span class="chip warm">+183.7%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290010883356">כפפות אלוורה L סנו ס</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-9 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪13.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+183.7%</span>
+    </div></div>
+<div data-reveal-group="spreads" class="reveal-hidden">
+    <div class="card spread">
+      <div class="name"><a href="/frodo-project/product/?code=7290010883370">כפפות אלוורה M סנו ס</a> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-10 סניפים</small></div>
+      <div class="range">
+        <span class="range-point cheap"><b class="ltr">₪4.90</b><small><a href="/frodo-project/store/osher-ad-031/">אושר עד — כפר סבא</a></small></span>
+        <span class="range-arrow">←</span>
+        <span class="range-point"><b class="ltr">₪13.90</b><small><a href="/frodo-project/store/dor-alon-582/">דור אלון — טשרניחובסקי כ&quot;ס</a></small></span>
+      </div>
+      <span class="chip warm">+183.7%</span>
+    </div></div>
   </section>
-
-  <h2 class="section-title">מול המחיר המפוקח בחוק</h2>
-  <p class="section-sub">מוצרי חלב שאפשר להתאים בביטחון למחיר המקסימלי הרשמי, לפי הנתונים הרשמיים של משרד הכלכלה/החקלאות.</p>
-
-  <section class="list">
-    <div class="card spread">
-      <div class="name">חלב מפוסטר 1% בקרטון 1ל<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-17 סניפים</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪6.92</b><small><a href="/frodo-project/store/140/">שופרסל — אקספרס תל חי</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪6.92</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה 5% 250ג תנובה<small>מפוקח כ: גבינה לבנה 5%</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-8 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪5.80</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.87</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה 5% שומן 250 ג<small>מפוקח כ: גבינה לבנה 5%</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-20 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪5.80</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.87</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה 5% שומן 250 ג<small>מפוקח כ: גבינה לבנה 5%</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-20 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪5.87</b><small><a href="/frodo-project/store/140/">שופרסל — אקספרס תל חי</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.90</b><small><a href="/frodo-project/store/719/">719</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">אשל מהדרין 4.5% 200 מ&quot;ל<small>מפוקח כ: אשל 4.5% שומן</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-18 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪1.99</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪1.99</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גיל 3% מהדרין 200מ&quot;ל<small>מפוקח כ: גיל 3% שומן</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-20 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪1.75</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪1.79</b><small><a href="/frodo-project/store/520/">520</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪1.78</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">שמנת חמוצה15% 200מ תנובה<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-15 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪2.80</b><small><a href="/frodo-project/store/031/">031</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪2.84</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">שמנת חמוצה15% חצי מנה100<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-15 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪1.90</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪2.30</b><small><a href="/frodo-project/store/845/">שופרסל — אקספרס נחשון כפר סבא</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב בקרטון 3% שומן 1 ל<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-14 סניפים</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪7.35</b><small><a href="/frodo-project/store/140/">שופרסל — אקספרס תל חי</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪7.35</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב 3% מהדרין שקית 1 ל<small>מפוקח כ: חלב טרי בשקית 3% שומן (רגיל)</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-6 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪6.30</b><small><a href="/frodo-project/store/031/">031</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪6.41</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪6.41</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה 5% 250 גרם<small>מפוקח כ: גבינה לבנה 5%</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪5.87</b><small><a href="/frodo-project/store/230/">שופרסל — שלי כ&quot;ס- ויצמן</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה גלבוע 22% משקל<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪50.24</b><small><a href="/frodo-project/store/259/">שופרסל — יוניברס גזית כ&quot;ס- ויצמן</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪50.24</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-7 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪9.90</b><small><a href="/frodo-project/store/010/">010</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪11.50</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">שמנת חמוצה טבעית 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-4 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪12.90</b><small><a href="/frodo-project/store/010/">010</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪14.50</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה 28% במשק<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-2 סניפים</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪32.00</b><small><a href="/frodo-project/store/010/">010</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">יטבתה שמנת חמוצה 15%<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-9 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪2.70</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪3.50</b><small><a href="/frodo-project/store/520/">520</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גיל 3% בד&quot;צ תנובה 20<small>מפוקח כ: גיל 3% שומן</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-7 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪1.75</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪1.79</b><small><a href="/frodo-project/store/520/">520</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪1.78</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה 28% הר ח<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪29.00</b><small><a href="/frodo-project/store/010/">010</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה בסגנון דנאבלו 28% נטו-דנמרק<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪90.00</b><small><a href="/frodo-project/store/011/">011</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">שמנת חמוצה 15% 200 מ&quot;ל תנובה<small>מפוקח כ: שמנת חמוצה 15% שומן רגילה</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-3 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪2.80</b><small><a href="/frodo-project/store/719/">719</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪2.84</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪2.84</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה 28% נעם<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪52.85</b><small><a href="/frodo-project/store/011/">011</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה 22% נעם<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪50.24</b><small><a href="/frodo-project/store/011/">011</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪50.24</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה סקי 5% שו<small>מפוקח כ: גבינה לבנה 5%</small> <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-3 סניפים</small></div>
-      <div class="range"><span class="range-point cheap"><b class="ltr">₪5.80</b><small><a href="/frodo-project/store/033/">033</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪5.87</b><small><a href="/frodo-project/store/079/">079</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה מגורדת עמק 28%<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪52.85</b><small><a href="/frodo-project/store/024/">024</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה חצי קשה 22% נע<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪50.20</b><small><a href="/frodo-project/store/024/">024</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪50.24</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה חצי קשה 22% גל<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪50.24</b><small><a href="/frodo-project/store/024/">024</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪50.24</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה גלבוע 22% במשקל תנובה<small>מפוקח כ: גבינה חצי קשה גלבוע 22% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪50.24</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪50.24</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה לבנה  5%  250 גר בדצ<small>מפוקח כ: גבינה לבנה 5%</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪7.20</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪5.87</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">גבינה צהובה חריץ עמק 28% במשקל<small>מפוקח כ: גבינה חצי קשה עמק (רגילה) 28% שומן</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪52.85</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪52.85</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב טרי מהגולן 3% בקרטון 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪7.35</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪7.35</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב טרי מחלבות רמת הגולן 1% בקרטון 1 ליטר<small>מפוקח כ: חלב טרי בקרטון 1% שומן (רגיל)</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪6.92</b><small><a href="/frodo-project/store/093/">093</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪6.92</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב 3% קרטון מהדרין<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪7.35</b><small><a href="/frodo-project/store/582/">582</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪7.35</span>
-    </div>
-
-    <div class="card spread">
-      <div class="name">חלב 3% קרטון פיקוח 1<small>מפוקח כ: חלב טרי בקרטון 3% שומן (רגיל)</small></div>
-      <div class="range"><span class="range-point"><b class="ltr">₪7.35</b><small><a href="/frodo-project/store/582/">582</a></small></span></div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪7.35</span>
-    </div>
-  </section>
+  <button class="reveal-more-btn" data-reveal-group="spreads" data-reveal-step="5">עוד 5 ←</button>
 
   <footer class="sitefoot">
     נבנה אוטומטית מנתונים רשמיים, מתעדכן יומית ·
@@ -519,6 +549,19 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  // Some chains wrap a promo marker literally around the item name in
+  // their own published data (e.g. "*מבצע* משחת שיניים ה") -- there's no
+  // separate promo/discount field in the source (see docs/sources.md), so
+  // this is the only signal we have. Strip the wrapper and show it as a
+  // small badge instead of raw asterisks; a bare "*" elsewhere in a name
+  // (chains also use it as a pack-count multiplication sign) is left as-is
+  // and explained by the fixed #gsTip note instead, since it's not
+  // reliably a promo marker.
+  function formatProductName(name){
+    const m = /^\*\s*מבצע\s*\*\s*/.exec(name);
+    return m ? {badge: "מבצע", clean: name.slice(m[0].length)} : {badge: null, clean: name};
   }
 
   function ensureLoaded(cb){
@@ -540,9 +583,16 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
       return;
     }
     results.style.display = "block";
-    results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/?code=${escHtml(it.code)}"><span>${escHtml(it.name)}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
-    ).join("");
+    results.innerHTML = matches.map(it => {
+      const f = formatProductName(it.name);
+      const badge = f.badge ? `<span class="gsbadge">${escHtml(f.badge)}</span>` : "";
+      const coverage = it.n ? `<small class="gscoverage">נמצא ב-${it.n} סניפים</small>` : "";
+      return `<a class="gsrow" href="/frodo-project/product/?code=${escHtml(it.code)}">` +
+        `<span class="gsname">` +
+        `<span class="name" title="${escHtml(it.name)}">${badge}${escHtml(f.clean)}</span>` +
+        `${coverage}</span>` +
+        `<span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`;
+    }).join("");
   }
 
   box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
@@ -571,6 +621,18 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
     updateLabel(next);
   });
 })();</script>
-
+<script>
+(function(){
+  document.querySelectorAll(".reveal-more-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var group = btn.dataset.revealGroup;
+      var step = parseInt(btn.dataset.revealStep || "5", 10);
+      var hidden = document.querySelectorAll('[data-reveal-group="' + group + '"].reveal-hidden');
+      for (var i = 0; i < hidden.length && i < step; i++) hidden[i].classList.remove("reveal-hidden");
+      if (hidden.length <= step) btn.style.display = "none";
+    });
+  });
+})();
+</script>
 </body>
 </html>

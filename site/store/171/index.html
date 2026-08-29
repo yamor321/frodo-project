@@ -86,18 +86,24 @@ footer.sitefoot a{ color:var(--navy); }
 }
 </style>
 <style>
-#gsWrap{ position:relative; margin:0 0 22px; }
+#gsWrap{ position:relative; margin:0 0 6px; }
 #gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
 #gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
   max-height:360px; overflow-y:auto; }
-.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+.gsrow{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 16px; font-size:.92rem;
   color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
+.gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
+.gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
+  background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
 .gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
 .gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+#gsTip{ font-size:.78rem; color:var(--ink-muted); margin:0 2px 22px; }
 </style>
 <style>
 .store-address{ color:var(--ink-muted); font-size:.95rem; margin:-8px 0 14px; }
@@ -120,9 +126,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
-.searchrow{ display:flex; justify-content:space-between; padding:9px 14px; background:var(--paper-raised);
+.searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
-.searchrow .p{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; }
+.searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchrow .p{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 </style>
 </head>
@@ -133,6 +140,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="" href="/frodo-project/">בית</a>
     <a class="current" href="/frodo-project/map/">מפה</a>
     <a class="" href="/frodo-project/leaderboard/">דירוג סניפים</a>
+    <a class="" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>
@@ -143,6 +151,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off" aria-label="חיפוש מוצר באתר">
     <div id="gsResults" aria-live="polite"></div>
   </div>
+  <p id="gsTip">שמות המוצרים כפי שהרשתות עצמן מפרסמות אותם -- לפעמים מקוצרים או עם * (מסמן לרוב מבצע או כמות באריזה); ריחוף/מגע על שם מציג אותו במלואו.</p>
 
 
   <div class="kicker">Frodo Project · דף סניף</div>
@@ -153,7 +162,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1720565,34.9043899" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>
   
-  <div class="storecard"><span class="score">ציון: 59 מתוך 100 (0=זול ביותר) · 3,513 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 41 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,513 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -161,7 +170,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290013677563&from=171">קינואה אדומה 500ג מיה</a><small>לעומת כפר סבא הירוקה: ₪19.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290013677563&from=171">קינואה אדומה 500ג מיה</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪19.90</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip good">-34%</span></div>
     </div>
@@ -217,7 +226,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/871/100/036/2679/front_en.3.400.jpg" alt="קפסולות לור 8 קולומביה52" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8711000362679&from=171">קפסולות לור 8 קולומביה52</a><small>לעומת כפר סבא הירוקה: ₪21.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=8711000362679&from=171">קפסולות לור 8 קולומביה52</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪21.90</small></div>
       </div>
       <div class="prices">₪20.90 <span class="chip good">-5%</span></div>
     </div></section>
@@ -311,6 +320,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
   }
 
+  // Some chains wrap a promo marker literally around the item name in
+  // their own published data (e.g. "*מבצע* משחת שיניים ה") -- there's no
+  // separate promo/discount field in the source (see docs/sources.md), so
+  // this is the only signal we have. Strip the wrapper and show it as a
+  // small badge instead of raw asterisks; a bare "*" elsewhere in a name
+  // (chains also use it as a pack-count multiplication sign) is left as-is
+  // and explained by the fixed #gsTip note instead, since it's not
+  // reliably a promo marker.
+  function formatProductName(name){
+    const m = /^\*\s*מבצע\s*\*\s*/.exec(name);
+    return m ? {badge: "מבצע", clean: name.slice(m[0].length)} : {badge: null, clean: name};
+  }
+
   function ensureLoaded(cb){
     if (itemsLoaded) { cb(); return; }
     // Only itemsLoaded (never items itself) marks success -- on a failed
@@ -330,9 +352,16 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       return;
     }
     results.style.display = "block";
-    results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/?code=${escHtml(it.code)}"><span>${escHtml(it.name)}</span><span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`
-    ).join("");
+    results.innerHTML = matches.map(it => {
+      const f = formatProductName(it.name);
+      const badge = f.badge ? `<span class="gsbadge">${escHtml(f.badge)}</span>` : "";
+      const coverage = it.n ? `<small class="gscoverage">נמצא ב-${it.n} סניפים</small>` : "";
+      return `<a class="gsrow" href="/frodo-project/product/?code=${escHtml(it.code)}">` +
+        `<span class="gsname">` +
+        `<span class="name" title="${escHtml(it.name)}">${badge}${escHtml(f.clean)}</span>` +
+        `${coverage}</span>` +
+        `<span class="p">מ-₪${it.cheap_price.toFixed(2)}</span></a>`;
+    }).join("");
   }
 
   box.addEventListener("input", (e)=>{ ensureLoaded(()=> render(e.target.value)); });
@@ -394,7 +423,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     const matches = items.filter(it => it.name.includes(q)).slice(0, 40);
     hint.textContent = `${matches.length} תוצאות (מוצג עד 40)`;
     results.innerHTML = matches.map(it =>
-      `<div class="searchrow"><span>${escHtml(it.name)}</span><span class="p">₪${it.price.toFixed(2)}</span></div>`
+      `<div class="searchrow"><span class="name" title="${escHtml(it.name)}">${escHtml(it.name)}</span><span class="p">₪${it.price.toFixed(2)}</span></div>`
     ).join("");
   }
 

@@ -28,6 +28,11 @@ PRODUCT_CSS = """
 .prow .store small{ display:block; font-weight:400; color:var(--ink-muted); font-size:.78rem; margin-top:2px; }
 .prow .price{ font-family:'IBM Plex Mono',monospace; font-size:1.1rem; font-variant-numeric:tabular-nums; }
 #productMap{ width:100%; height:340px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.chart-box{ background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:16px 18px 10px; margin:14px 0 26px; }
+.sparkline{ display:block; }
+.sparkline-labels{ display:flex; justify-content:space-between; font-size:.76rem; color:var(--ink-muted);
+  font-family:'IBM Plex Mono',monospace; margin-top:4px; }
+.chart-empty{ color:var(--ink-muted); font-size:.9rem; }
 """
 
 
@@ -158,6 +163,51 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
   // -- image_url comes from the public, user-editable Open Food Facts API
   // and product names come from chains' own catalog files, neither fully
   // trusted, and this result is assigned via innerHTML below.
+  // Small inline-SVG line chart, no external chart library (the site
+  // loads nothing but Leaflet, from CDN, and this shouldn't add a second
+  // dependency for one chart type). `points` is chronological [{y, label}].
+  function sparklineSvg(points, color){
+    if (points.length < 2) return '<p class="chart-empty">אין עדיין מספיק נקודות לגרף (נדרשות לפחות 2).</p>';
+    var w = 600, h = 140, pad = 10;
+    var ys = points.map(function(p){ return p.y; });
+    var minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
+    if (minY === maxY) { minY -= 1; maxY += 1; }
+    var stepX = points.length > 1 ? (w - pad*2) / (points.length - 1) : 0;
+    function xAt(i){ return pad + i*stepX; }
+    function yAt(v){ return h - pad - (v - minY) / (maxY - minY) * (h - pad*2); }
+    var path = points.map(function(p,i){ return (i===0?"M":"L") + xAt(i).toFixed(1) + "," + yAt(p.y).toFixed(1); }).join(" ");
+    var dots = points.map(function(p,i){
+      return '<circle cx="' + xAt(i).toFixed(1) + '" cy="' + yAt(p.y).toFixed(1) + '" r="3" fill="' + color + '"><title>' + escHtml(p.label) + '</title></circle>';
+    }).join("");
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" class="sparkline" preserveAspectRatio="none" style="width:100%;height:140px">' +
+      '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2"/>' + dots + '</svg>' +
+      '<div class="sparkline-labels"><span>' + escHtml(points[0].label) + '</span><span>' + escHtml(points[points.length-1].label) + '</span></div>';
+  }
+
+  function loadHistoryCharts(code, shard){
+    var priceEl = document.getElementById("priceHistoryChart");
+    var cpiEl = document.getElementById("cpiChart");
+    if (!priceEl || !cpiEl) return;
+    Promise.all([
+      fetch(BASE_PATH + "/price-history/" + shard + ".json").then(function(r){ return r.ok ? r.json() : {}; }).catch(function(){ return {}; }),
+      fetch(BASE_PATH + "/food-cpi.json").then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; }),
+    ]).then(function(results){
+      var history = (results[0] && results[0][code]) || [];
+      var points = history.map(function(h){ return {y: h.avg, label: h.date + ": ₪" + h.avg.toFixed(2)}; });
+      priceEl.innerHTML = sparklineSvg(points, "var(--navy)");
+
+      var cpi = results[1] || [];
+      var cpiPoints = cpi.map(function(p){
+        var mm = String(p.m).padStart(2, "0");
+        return {y: p.v, label: p.y + "-" + mm};
+      });
+      cpiEl.innerHTML = sparklineSvg(cpiPoints, "var(--ink-muted)");
+    }).catch(function(){
+      priceEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
+      cpiEl.innerHTML = '<p class="chart-empty">שגיאה בטעינת נתוני מגמה.</p>';
+    });
+  }
+
   function thumbHtml(url, name){
     if (url) return '<div class="thumb"><img src="' + escHtml(url) + '" alt="' + escHtml(name) + '" loading="lazy"></div>';
     return '<div class="thumb empty">—</div>';
@@ -174,7 +224,10 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       const color = scoreColor(p.t);
       const icon = L.divIcon({html: '<div class="store-pin" style="width:18px;height:18px;border-radius:50%;background:' + color + '"></div>', className: "", iconSize: [18,18], iconAnchor: [9,9]});
       const marker = L.marker([p.lat, p.lon], {icon: icon});
-      marker.bindTooltip(p.name);
+      // direction:"top" avoids Leaflet's default direction:"auto", which
+      // picks left/right assuming LTR -- this page is dir="rtl", so auto
+      // placement lands the tooltip far from the cursor.
+      marker.bindTooltip(p.name, {direction: "top", offset: [0, -9]});
       marker.bindPopup(
         '<div class="store-popup"><b>' + escHtml(p.name) + '</b>' +
         '<div class="meta">₪' + p.price.toFixed(2) + '</div>' +
@@ -266,11 +319,21 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       '<p class="section-sub">אין עדיין מספיק נתוני מיקום לסניפים שמוכרים את המוצר הזה.</p>'
     );
 
+    var historySection =
+      '<h2 class="section-title">מגמת מחיר לאורך זמן</h2>' +
+      '<p class="section-sub">המעקב שלנו על המוצר הזה התחיל ב-26.08.2026 וגדל יום אחרי יום -- אין דרך להשיג היסטוריה אמיתית מלפני כן (מקורות הרשתות עצמן לא חושפים ארכיון).</p>' +
+      '<div class="chart-box" id="priceHistoryChart"><p class="chart-empty">טוען...</p></div>' +
+      '<p class="section-sub">להקשר: מדד המזון הכללי בישראל (הלמ"ס), לאורך שנים -- לא המחיר של המוצר הזה, אלא מגמת מחירי המזון הכלל-ארצית כערך ייחוס.</p>' +
+      '<div class="chart-box" id="cpiChart"><p class="chart-empty">טוען...</p></div>';
+
     root.innerHTML =
       '<div class="product-head">' + thumbHtml(product.image_url, product.name) + '<h1>' + escHtml(product.name) + '</h1></div>' +
       spreadLine +
       '<div class="pricelist">' + rows + '</div>' +
+      historySection +
       mapSection;
+
+    loadHistoryCharts(code, code.slice(-2));
 
     if (mapPoints.length) {
       // A map-init failure (e.g. the Leaflet CDN blocked or unreachable)

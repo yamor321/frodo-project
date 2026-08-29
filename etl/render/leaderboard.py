@@ -42,7 +42,13 @@ def score_color(score: float) -> str:
 
 
 def _row(rank: int, s: StoreScore) -> str:
-    pct = round(s.avg_percentile * 100)
+    # Displayed number is inverted from the internal avg_percentile
+    # (0=cheapest..1=priciest, unchanged -- see store_ranking.py) so a
+    # HIGHER visible number reads as better, matching every other "score
+    # out of 100" on the web. The color mapping (score_color, fed the raw
+    # avg_percentile) was already correct -- cheap=green, expensive=red --
+    # this only fixes the number and bar length, not the color.
+    savings = 100 - round(s.avg_percentile * 100)
     color = score_color(s.avg_percentile)
     return f"""
         <tr>
@@ -50,8 +56,8 @@ def _row(rank: int, s: StoreScore) -> str:
           <td><a href="/frodo-project/store/{s.store_id}/">{escape(s.store_name)}</a></td>
           <td class="num">
             <div class="score-bar-wrap">
-              <span class="ltr">{pct}</span>
-              <div class="score-bar"><div class="score-bar-fill" style="width:{pct}%;background:{color}"></div></div>
+              <span class="ltr">{savings}</span>
+              <div class="score-bar"><div class="score-bar-fill" style="width:{savings}%;background:{color}"></div></div>
             </div>
           </td>
           <td class="num ltr">{s.items_compared:,}</td>
@@ -67,7 +73,7 @@ def render_leaderboard_html(scores: list[StoreScore]) -> str:
     body = f"""
   <div class="kicker">Frodo Project · דירוג סניפים</div>
   <h1>איזה סניף הכי משתלם?</h1>
-  <p class="lede">כל {len(ordered)} הסניפים שנאספו, מדורגים לפי הציון הממוצע שלהם — 0 = עקבית הכי זול ביחס לשאר, 100 = עקבית הכי יקר, ממוצע על כל המוצרים המשותפים לכל סניף. <a href="/frodo-project/methodology/">איך זה מחושב ←</a></p>
+  <p class="lede">כל {len(ordered)} הסניפים שנאספו, מדורגים לפי מדד חיסכון ממוצע — 100 = עקבית הכי זול ביחס לשאר, 0 = עקבית הכי יקר, ממוצע על כל המוצרים המשותפים לכל סניף. הדירוג הוא לפי איזור (כפר סבא) — אנשים לא נוסעים רחוק בשביל סופר; איזורים נוספים בהמשך. <a href="/frodo-project/methodology/">איך זה מחושב ←</a></p>
 
   <div class="table-wrap">
     <table class="leaderboard-table">
@@ -75,7 +81,7 @@ def render_leaderboard_html(scores: list[StoreScore]) -> str:
         <tr>
           <th>#</th>
           <th>סניף</th>
-          <th>ציון (0=זול, 100=יקר)</th>
+          <th>מדד חיסכון (100=זול, 0=יקר)</th>
           <th>מוצרים משותפים</th>
         </tr>
       </thead>

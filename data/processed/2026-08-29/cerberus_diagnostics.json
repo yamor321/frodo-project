@@ -1,7 +1,7 @@
 {
-  "osher-ad": {
+  "tiv-taam": {
     "host": "https://url.publishedprices.co.il",
-    "username": "osherad",
+    "username": "TivTaam",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -13,23 +13,23 @@
     "failed_at": null,
     "error": null
   },
-  "dor-alon": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "doralon",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "tiv-taam": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "TivTaam",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
   "yohananof": {
     "host": "https://url.publishedprices.co.il",
     "username": "yohananof",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "osher-ad": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "osherad",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "dor-alon": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "doralon",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -48,9 +48,9 @@
     "failed_at": null,
     "error": null
   },
-  "keshet": {
+  "fresh-market": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Keshet",
+    "username": "freshmarket",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -62,9 +62,9 @@
     "failed_at": null,
     "error": null
   },
-  "fresh-market": {
+  "keshet": {
     "host": "https://url.publishedprices.co.il",
-    "username": "freshmarket",
+    "username": "Keshet",
     "ok": true,
     "failed_at": null,
     "error": null

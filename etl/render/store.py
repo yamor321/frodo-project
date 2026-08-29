@@ -33,9 +33,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 #searchBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); margin-bottom:14px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
-.searchrow{ display:flex; justify-content:space-between; padding:9px 14px; background:var(--paper-raised);
+.searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
-.searchrow .p{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; }
+.searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchrow .p{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 """
 
@@ -137,7 +138,7 @@ def render_store_html(
     search_items_count = len(store_search_items(catalog))
 
     score_html = (
-        f'<span class="score">ציון: {score.avg_percentile*100:.0f} מתוך 100 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
+        f'<span class="score">מדד חיסכון: {100 - round(score.avg_percentile*100)} מתוך 100 (ככל שגבוה יותר -- זול יותר) · {score.items_compared:,} מוצרים משותפים</span>'
         if score
         else ""
     )
@@ -206,7 +207,7 @@ def render_store_html(
     const matches = items.filter(it => it.name.includes(q)).slice(0, 40);
     hint.textContent = `${{matches.length}} תוצאות (מוצג עד 40)`;
     results.innerHTML = matches.map(it =>
-      `<div class="searchrow"><span>${{escHtml(it.name)}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
+      `<div class="searchrow"><span class="name" title="${{escHtml(it.name)}}">${{escHtml(it.name)}}</span><span class="p">₪${{it.price.toFixed(2)}}</span></div>`
     ).join("");
   }}
 

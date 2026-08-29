@@ -16,6 +16,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from etl.concurrency import fetch_concurrently
+from etl.enrich.cbs_cpi import load_cached_food_cpi
 from etl.enrich.product_images import get_image_urls
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
@@ -27,10 +28,12 @@ from etl.render.product import (
     render_product_shell_html,
     shard_products_payload,
 )
+from etl.render.regulated_prices import render_regulated_prices_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
+from etl.scoring.price_history import append_daily_rollup, compute_daily_rollup
 from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers import carrefour, victory
 from etl.scrapers.shufersal import kfar_saba_full_catalog_files, kfar_saba_stores, list_stores_file, parse_price_xml, parse_stores_xml
@@ -77,8 +80,13 @@ def store_format(name: str) -> str:
     """Read off the chain's own format branding in the name -- see
     docs/sources.md for why this drives the map icon instead of the
     official StoreType field (which only distinguishes physical/online).
-    "היפר" catches Carrefour's own hyper-format branches."""
-    return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
+    "היפר" catches Carrefour's own hyper-format branches. Rami Levy/Osher
+    Ad/Yohananof are matched by chain name directly -- all three are large
+    discount/hypermarket chains, not neighborhood stores (see
+    docs/sources.md for sourcing)."""
+    return "hyper" if any(
+        kw in name for kw in ("דיל", "יוניברס", "היפר", "רמי לוי", "אושר עד", "יוחננוף")
+    ) else "neighborhood"
 
 
 def main() -> None:
@@ -160,9 +168,14 @@ def main() -> None:
 
     print("\nRendering pages...")
     (SITE_DIR / "index.html").write_text(
-        render_index_html(spreads, gaps, generated_at="28.08.2026 (build מקומי)", store_names=store_names), encoding="utf-8"
+        render_index_html(spreads, scores, generated_at="28.08.2026 (build מקומי)"), encoding="utf-8"
     )
     print("  site/index.html")
+
+    regulated_dir = SITE_DIR / "regulated-prices"
+    regulated_dir.mkdir(exist_ok=True)
+    (regulated_dir / "index.html").write_text(render_regulated_prices_html(gaps, store_names), encoding="utf-8")
+    print("  site/regulated-prices/index.html")
 
     methodology_dir = SITE_DIR / "methodology"
     methodology_dir.mkdir(exist_ok=True)
@@ -223,6 +236,19 @@ def main() -> None:
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
     products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
 
+    # Local dev build date is a fixed placeholder (RAW_DIR's date, not
+    # today) so reruns on the same cached snapshot don't add fake extra
+    # history points -- daily_snapshot.py uses the real run date instead.
+    daily_rollup = compute_daily_rollup(all_store_prices, "2026-08-28")
+    append_daily_rollup(daily_rollup, SITE_DIR / "price-history")
+
+    cbs_cache = ROOT / "data" / "processed" / "cbs_food_cpi.json"
+    food_cpi = load_cached_food_cpi(cbs_cache)
+    (SITE_DIR / "food-cpi.json").write_text(
+        json.dumps([{"y": p.year, "m": p.month, "v": p.value} for p in food_cpi], ensure_ascii=False),
+        encoding="utf-8",
+    )
+
     shards = shard_products_payload(products_payload)
     products_dir = SITE_DIR / "products"
     products_dir.mkdir(parents=True, exist_ok=True)
@@ -237,7 +263,7 @@ def main() -> None:
         stale_monolith.unlink()
 
     search_index = [
-        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price} for s in spreads
+        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price, "n": s.num_stores} for s in spreads
     ]
     (SITE_DIR / "search-index.json").write_text(json.dumps(search_index, ensure_ascii=False), encoding="utf-8")
     print(f"  site/product/index.html + site/products/*.json ({len(shards)} shards, {len(products_payload):,} products, every /branches/ link resolves)")

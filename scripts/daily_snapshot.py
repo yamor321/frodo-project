@@ -24,6 +24,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from etl.benchmarks.moag_controlled_prices import current_dairy_controlled_prices
 from etl.concurrency import fetch_concurrently
 from etl.enrich.address_overrides import ADDRESS_OVERRIDES
+from etl.enrich.cbs_cpi import load_or_fetch_food_cpi
 from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
 from etl.enrich.store_directory import update_and_save as update_store_directory
@@ -37,11 +38,13 @@ from etl.render.product import (
     render_product_shell_html,
     shard_products_payload,
 )
+from etl.render.regulated_prices import render_regulated_prices_html
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
+from etl.scoring.price_history import append_daily_rollup, compute_daily_rollup
 from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers import bina, carrefour, publishedprices, victory
 from etl.scrapers.shufersal import (
@@ -134,8 +137,13 @@ def store_format(name: str) -> str:
     the only real size signal -- the official StoreType field only
     distinguishes physical/online, not store size. "היפר" catches
     Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
-    catches Shufersal's."""
-    return "hyper" if any(kw in name for kw in ("דיל", "יוניברס", "היפר")) else "neighborhood"
+    catches Shufersal's. Rami Levy/Osher Ad/Yohananof are matched by chain
+    name directly (not a Shufersal/Carrefour-style in-name sub-brand) --
+    all three are large discount/hypermarket chains, not neighborhood
+    stores (see docs/sources.md for sourcing)."""
+    return "hyper" if any(
+        kw in name for kw in ("דיל", "יוניברס", "היפר", "רמי לוי", "אושר עד", "יוחננוף")
+    ) else "neighborhood"
 
 
 def _safe_collect(chain_name: str, collect_fn: Callable[[], "ChainCollection"], prefix: str) -> "ChainCollection":
@@ -483,9 +491,13 @@ def main() -> None:
 
     print("\nRendering pages...")
     (site_dir / "index.html").write_text(
-        render_index_html(spreads, all_gaps, generated_at=now.strftime("%d.%m.%Y, %H:%M"), store_names=store_names),
+        render_index_html(spreads, scores, generated_at=now.strftime("%d.%m.%Y, %H:%M")),
         encoding="utf-8",
     )
+
+    regulated_dir = site_dir / "regulated-prices"
+    regulated_dir.mkdir(exist_ok=True)
+    (regulated_dir / "index.html").write_text(render_regulated_prices_html(all_gaps, store_names), encoding="utf-8")
 
     methodology_dir = site_dir / "methodology"
     methodology_dir.mkdir(exist_ok=True)
@@ -551,6 +563,22 @@ def main() -> None:
     all_store_prices = collect_all_store_prices(catalogs_by_store, store_names, min_stores=4)
     products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords)
 
+    # Per-product price-history trend (site/price-history/) and the
+    # official food-CPI benchmark line (site/food-cpi.json) for the
+    # product-page chart -- see etl/scoring/price_history.py and
+    # etl/enrich/cbs_cpi.py for why these are two separate mechanisms
+    # (our own history only starts today; the CBS series is real for
+    # decades back but isn't per-product).
+    daily_rollup = compute_daily_rollup(all_store_prices, today)
+    append_daily_rollup(daily_rollup, site_dir / "price-history")
+
+    cbs_cache = ROOT / "data" / "processed" / "cbs_food_cpi.json"
+    food_cpi = load_or_fetch_food_cpi(cbs_cache, today[:7])
+    (site_dir / "food-cpi.json").write_text(
+        json.dumps([{"y": p.year, "m": p.month, "v": p.value} for p in food_cpi], ensure_ascii=False),
+        encoding="utf-8",
+    )
+
     # Sharded (see shard_products_payload's docstring) instead of one
     # multi-MB products.json -- a single file for all 14,000+ products
     # serializes to ~12.8MB on the current snapshot, which every visitor to
@@ -574,7 +602,7 @@ def main() -> None:
     # (not just the ~300 referenced-from-a-store-page subset) so a search
     # result is never a link to a page that then reports "not found".
     search_index = [
-        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price} for s in spreads
+        {"code": s.item_code, "name": s.item_name, "cheap_price": s.cheap_price, "n": s.num_stores} for s in spreads
     ]
     (site_dir / "search-index.json").write_text(
         json.dumps(search_index, ensure_ascii=False), encoding="utf-8"

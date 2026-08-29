@@ -11,11 +11,15 @@ design system.
 """
 from __future__ import annotations
 
-from collections import defaultdict
 from html import escape
 
-from etl.scoring.benchmark_gap import GapResult
 from etl.scoring.cross_branch_spread import SpreadResult
+from etl.scoring.store_ranking import StoreScore
+
+# Number of leaderboard/spread rows visible before a "show 5 more" click --
+# the rest are rendered up-front (not fetched) but start hidden, per
+# REVEAL_MORE_SCRIPT in layout.py.
+REVEAL_BATCH = 5
 
 INDEX_CSS = """
 .headline-stat{ margin:26px 0 30px; padding:22px 24px; background:var(--navy); color:#fff;
@@ -50,6 +54,16 @@ section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px;
 h2.section-title{ font-size:1.15rem; margin:40px 0 6px; }
 p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-width:60ch; line-height:1.55; }
 @media (max-width:520px){ .card{ flex-direction:column; align-items:flex-start; } }
+
+.lb-list{ display:flex; flex-direction:column; gap:8px; margin:20px 0 10px; }
+.lb-row{ display:flex; align-items:center; gap:14px; padding:10px 16px; background:var(--paper-raised);
+  border:1px solid var(--line); border-radius:10px; }
+.lb-row .lb-rank{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); width:1.6em; text-align:center; flex-shrink:0; }
+.lb-row a{ flex:1; min-width:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lb-row .lb-score-wrap{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.lb-row .lb-bar{ width:80px; height:7px; border-radius:4px; background:var(--line); overflow:hidden; }
+.lb-row .lb-bar-fill{ height:100%; border-radius:4px; }
+.lb-row .lb-score-num{ font-family:'IBM Plex Mono',monospace; font-size:.88rem; width:2.4em; text-align:left; }
 """
 
 
@@ -67,63 +81,60 @@ def _spread_card(s: SpreadResult) -> str:
     </div>"""
 
 
-def _gap_group_card(item_name: str, controlled_names: list[str], controlled_price: float, group: list[GapResult], store_names: dict[str, str]) -> str:
-    """One card per product, showing the range of actual prices found
-    across every store that carries it against the single controlled
-    reference price -- not a separate near-duplicate card per store (the
-    old _gap_card had no store field at all, so the same handful of
-    controlled products repeated once per carrying store: with 30 stores
-    and ~7 controlled dairy items, that's ~100+ near-identical cards in a
-    row for a visitor to scroll past)."""
-    entries = sorted(
-        ((g.store_id, store_names.get(g.store_id, g.store_id), g.actual_price) for g in group),
-        key=lambda e: e[2],
-    )
-    cheap_id, cheap_name, cheap_price = entries[0]
-    expensive_id, expensive_name, expensive_price = entries[-1]
-    controlled_name = escape(", ".join(controlled_names))
-    coverage = (
-        f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{len(entries)} סניפים</small>'
-        if len(entries) >= 2
-        else ""
-    )
+def _lb_row(rank: int, s: StoreScore) -> str:
+    from etl.render.leaderboard import score_color
 
-    if cheap_price == expensive_price:
-        range_html = f'<span class="range-point"><b class="ltr">₪{cheap_price:.2f}</b><small><a href="/frodo-project/store/{cheap_id}/">{escape(cheap_name)}</a></small></span>'
-    else:
-        range_html = f"""<span class="range-point cheap"><b class="ltr">₪{cheap_price:.2f}</b><small><a href="/frodo-project/store/{cheap_id}/">{escape(cheap_name)}</a></small></span>
-        <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪{expensive_price:.2f}</b><small><a href="/frodo-project/store/{expensive_id}/">{escape(expensive_name)}</a></small></span>"""
-
+    savings = 100 - round(s.avg_percentile * 100)
+    color = score_color(s.avg_percentile)
     return f"""
-    <div class="card spread">
-      <div class="name">{escape(item_name)}<small>מפוקח כ: {controlled_name}</small>{coverage}</div>
-      <div class="range">{range_html}</div>
-      <span class="price-ref ltr">מחיר מפוקח (מקסימום): ₪{controlled_price:.2f}</span>
+    <div class="lb-row"><span class="lb-rank ltr">{rank}</span>
+      <a href="/frodo-project/store/{s.store_id}/">{escape(s.store_name)}</a>
+      <span class="lb-score-wrap"><span class="lb-bar"><span class="lb-bar-fill" style="width:{savings}%;background:{color}"></span></span><span class="lb-score-num ltr">{savings}</span></span>
     </div>"""
+
+
+def _reveal_wrap(html: str, group: str, visible: bool) -> str:
+    """Wraps one already-rendered row/card so items past REVEAL_BATCH start
+    hidden -- see REVEAL_MORE_CSS/SCRIPT in layout.py. Rows are rendered
+    server-side up front (not fetched on click); this just toggles a class."""
+    if visible:
+        return html
+    return f'<div data-reveal-group="{group}" class="reveal-hidden">{html}</div>'
 
 
 def render_index_html(
     spreads: list[SpreadResult],
-    gaps: list[GapResult],
+    scores: list[StoreScore],
     generated_at: str,
-    store_names: dict[str, str],
-    top_n_spreads: int = 10,
+    top_n_spreads: int = 20,
 ) -> str:
-    from etl.render.layout import page_shell
+    from etl.render.layout import REVEAL_MORE_CSS, REVEAL_MORE_SCRIPT, page_shell
 
-    unambiguous_gaps = [g for g in gaps if not g.ambiguous]
-    top_spreads = spreads[:top_n_spreads]
+    # Headline/top-spread selection skips flagged (implausibly extreme,
+    # likely promo-or-data-quality) entries -- see FLAG_SPREAD_PCT in
+    # cross_branch_spread.py. They stay visible (with a warning badge) on
+    # /branches/, just not as the homepage's own headline.
+    unflagged = [s for s in spreads if not s.flagged]
+    top_spreads = unflagged[:top_n_spreads]
     hero = top_spreads[0] if top_spreads else None
 
-    spread_cards = "\n".join(_spread_card(s) for s in top_spreads)
+    spread_cards = "\n".join(
+        _reveal_wrap(_spread_card(s), "spreads", i < REVEAL_BATCH) for i, s in enumerate(top_spreads)
+    )
+    spreads_more_btn = (
+        f'<button class="reveal-more-btn" data-reveal-group="spreads" data-reveal-step="{REVEAL_BATCH}">עוד {REVEAL_BATCH} ←</button>'
+        if len(top_spreads) > REVEAL_BATCH
+        else ""
+    )
 
-    grouped_gaps: dict[str, list[GapResult]] = defaultdict(list)
-    for g in unambiguous_gaps:
-        grouped_gaps[g.item_code].append(g)
-    gap_cards = "\n".join(
-        _gap_group_card(group[0].item_name, group[0].controlled_product_names, group[0].controlled_consumer_price, group, store_names)
-        for group in grouped_gaps.values()
+    ordered_scores = sorted(scores, key=lambda s: s.avg_percentile)
+    lb_rows = "\n".join(
+        _reveal_wrap(_lb_row(i + 1, s), "lb", i < REVEAL_BATCH) for i, s in enumerate(ordered_scores)
+    )
+    lb_more_btn = (
+        f'<button class="reveal-more-btn" data-reveal-group="lb" data-reveal-step="{REVEAL_BATCH}">עוד {REVEAL_BATCH} ←</button>'
+        if len(ordered_scores) > REVEAL_BATCH
+        else ""
     )
 
     hero_html = (
@@ -148,17 +159,25 @@ def render_index_html(
     <span class="meta ltr">עודכן {escape(generated_at)}</span>
   </div>
 {hero_html}
+  <h2 class="section-title">איזה סניף הכי משתלם?</h2>
+  <p class="section-sub">מדד חיסכון ממוצע על פני מוצרים משותפים -- ככל שגבוה יותר, זול יותר. הדירוג הוא לפי איזור (כפר סבא) -- אנשים לא נוסעים רחוק בשביל סופר; איזורים נוספים בהמשך. <a href="/frodo-project/leaderboard/">כל הדירוג המלא ←</a></p>
+
+  <div class="lb-list">{lb_rows}
+  </div>
+  {lb_more_btn}
+
   <h2 class="section-title">המוצרים עם הפער הגדול ביותר בין סניפים</h2>
   <p class="section-sub">כל שורה: אותו ברקוד (אותו מוצר פיזי), שנמצא ב-4 סניפים לפחות, באותו יום. <a href="/frodo-project/branches/">כל {len(spreads):,} הפערים ←</a></p>
 
   <section class="list">{spread_cards}
   </section>
-
-  <h2 class="section-title">מול המחיר המפוקח בחוק</h2>
-  <p class="section-sub">מוצרי חלב שאפשר להתאים בביטחון למחיר המקסימלי הרשמי, לפי הנתונים הרשמיים של משרד הכלכלה/החקלאות.</p>
-
-  <section class="list">{gap_cards}
-  </section>
+  {spreads_more_btn}
 """
 
-    return page_shell("מחירי סופרמרקטים כפר סבא — Frodo Project", "home", body, f"<style>{INDEX_CSS}</style>")
+    return page_shell(
+        "מחירי סופרמרקטים כפר סבא — Frodo Project",
+        "home",
+        body,
+        f"<style>{INDEX_CSS}{REVEAL_MORE_CSS}</style>",
+        REVEAL_MORE_SCRIPT,
+    )

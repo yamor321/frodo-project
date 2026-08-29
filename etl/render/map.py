@@ -115,11 +115,15 @@ def render_map_html(
     // on every device: without this, a mobile tap had no hover step at all,
     // so the very first touch fired the click handler and jumped straight
     // into the store page with no chance to see which store it even was.
-    marker.bindTooltip(s.name);
+    // direction:"top" is deliberate, not cosmetic -- Leaflet's default
+    // direction:"auto" picks left/right based on LTR assumptions and the
+    // whole page is dir="rtl" (layout.py), so without this the tooltip
+    // landed far from the cursor instead of right above the pin.
+    marker.bindTooltip(s.name, {{direction: "top", offset: [0, -(size/2)]}});
     marker.bindPopup(`
       <div class="store-popup">
         <b>${{s.name}}</b>
-        <div class="meta">ציון ${{Math.round(s.score*100)}} מתוך 100 (0=זול ביותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים</div>
+        <div class="meta">מדד חיסכון ${{100 - Math.round(s.score*100)}} מתוך 100 (ככל שגבוה יותר -- זול יותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים</div>
         <a class="openbtn" href="${{BASE}}/store/${{s.id}}/">פתח דף סניף ←</a>
       </div>
     `);
@@ -153,7 +157,7 @@ def render_map_html(
     if (nearest){{
       const km = (bestD/1000).toFixed(1);
       box.style.display = "block";
-      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, ציון ${{Math.round(nearest.score*100)}} מתוך 100.`;
+      box.innerHTML = `הסניף הקרוב ביותר: <b><a href="${{BASE}}/store/${{nearest.id}}/">${{nearest.name}}</a></b> — כ-${{km}} ק"מ, מדד חיסכון ${{100 - Math.round(nearest.score*100)}} מתוך 100 (ככל שגבוה יותר -- זול יותר).`;
     }}
   }}
 

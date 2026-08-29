@@ -87,11 +87,16 @@ button.locbtn{ font-family:'Assistant',sans-serif; font-weight:700; font-size:.8
   border-radius:999px; border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); cursor:pointer; }
 button.locbtn:hover{ background:var(--navy); color:#fff; }
 #leafletMap{ width:100%; height:480px; border-radius:14px; border:1px solid var(--line); box-shadow:var(--shadow); }
+/* Leaflet isn't RTL-aware -- without this, tooltip/popup auto-placement
+   (which assumes LTR) miscalculates on this dir="rtl" page. */
+.leaflet-container{ direction:ltr; }
 .legend-scale{ display:flex; align-items:center; gap:10px; margin-top:12px; font-size:.8rem; color:var(--ink-muted); }
 .legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
 #nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
 #nearest b{ color:var(--ink); }
-.leaflet-marker-icon.store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+/* Targets the inner div passed as divIcon html -- Leaflet puts
+   leaflet-marker-icon on the outer wrapper it creates, not this element. */
+.leaflet-marker-icon .store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
 .leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
 .store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
 .store-popup b{ font-size:.98rem; }
@@ -99,6 +104,36 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 .store-popup a.openbtn{ display:inline-block; margin-top:8px; font-weight:700; color:var(--navy); text-decoration:none; }
 .store-popup a.openbtn:hover{ text-decoration:underline; }
 """
+
+# Shared "show N more" progressive-reveal widget, used wherever a list is
+# rendered fully server-side (small enough -- leaderboard rows, homepage
+# spread cards) but only the first few should show by default. Rows past
+# the first batch carry data-reveal-group="X" and start with the
+# reveal-hidden class; a button with class="reveal-more-btn"
+# data-reveal-group="X" un-hides the next batch on each click. Plain
+# server-rendered rows revealed by class toggle, not a fetch -- there's
+# nothing to fetch, everything's already in the page.
+REVEAL_MORE_CSS = """
+.reveal-more-btn{ display:block; margin:16px auto 0; padding:9px 26px; border-radius:999px;
+  border:1.5px solid var(--navy); background:var(--navy-soft); color:var(--navy); font-weight:700;
+  font-size:.88rem; cursor:pointer; font-family:'Assistant',sans-serif; }
+.reveal-more-btn:hover{ background:var(--navy); color:#fff; }
+.reveal-hidden{ display:none; }
+"""
+
+REVEAL_MORE_SCRIPT = """<script>
+(function(){
+  document.querySelectorAll(".reveal-more-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var group = btn.dataset.revealGroup;
+      var step = parseInt(btn.dataset.revealStep || "5", 10);
+      var hidden = document.querySelectorAll('[data-reveal-group="' + group + '"].reveal-hidden');
+      for (var i = 0; i < hidden.length && i < step; i++) hidden[i].classList.remove("reveal-hidden");
+      if (hidden.length <= step) btn.style.display = "none";
+    });
+  });
+})();
+</script>"""
 
 # Same 3-stop green/beige/red gradient everywhere a store or price gets
 # color-coded -- interpolated (not re-typed) into each page's script so the
@@ -117,18 +152,24 @@ LEAFLET_SCORE_COLOR_JS = """function scoreColor(score){
 # own). Distinct #gs* ids/classes so the two searches never collide on a
 # store page, which has both at once.
 GLOBAL_SEARCH_CSS = """
-#gsWrap{ position:relative; margin:0 0 22px; }
+#gsWrap{ position:relative; margin:0 0 6px; }
 #gsBox{ width:100%; font-family:'Assistant',sans-serif; font-size:1rem; padding:12px 16px;
   border:1.5px solid var(--line); border-radius:10px; background:var(--paper-raised); color:var(--ink); }
 #gsResults{ display:none; position:absolute; top:calc(100% + 4px); right:0; left:0; z-index:20;
   background:var(--paper-raised); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
   max-height:360px; overflow-y:auto; }
-.gsrow{ display:flex; justify-content:space-between; gap:12px; padding:10px 16px; font-size:.92rem;
+.gsrow{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 16px; font-size:.92rem;
   color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); }
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
+.gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
+.gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
+  background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
 .gsrow .p{ font-family:'IBM Plex Mono',monospace; color:var(--ink-muted); white-space:nowrap; }
 .gsrow.gsempty{ color:var(--ink-muted); justify-content:center; }
+#gsTip{ font-size:.78rem; color:var(--ink-muted); margin:0 2px 22px; }
 """
 
 GLOBAL_SEARCH_HTML = """
@@ -136,6 +177,7 @@ GLOBAL_SEARCH_HTML = """
     <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off" aria-label="חיפוש מוצר באתר">
     <div id="gsResults" aria-live="polite"></div>
   </div>
+  <p id="gsTip">שמות המוצרים כפי שהרשתות עצמן מפרסמות אותם -- לפעמים מקוצרים או עם * (מסמן לרוב מבצע או כמות באריזה); ריחוף/מגע על שם מציג אותו במלואו.</p>
 """
 
 # A single HTML-escaping helper, embedded (not imported -- there's no JS
@@ -162,6 +204,19 @@ GLOBAL_SEARCH_SCRIPT = f"""<script>
 
   {ESC_HTML_JS}
 
+  // Some chains wrap a promo marker literally around the item name in
+  // their own published data (e.g. "*מבצע* משחת שיניים ה") -- there's no
+  // separate promo/discount field in the source (see docs/sources.md), so
+  // this is the only signal we have. Strip the wrapper and show it as a
+  // small badge instead of raw asterisks; a bare "*" elsewhere in a name
+  // (chains also use it as a pack-count multiplication sign) is left as-is
+  // and explained by the fixed #gsTip note instead, since it's not
+  // reliably a promo marker.
+  function formatProductName(name){{
+    const m = /^\*\s*מבצע\s*\*\s*/.exec(name);
+    return m ? {{badge: "מבצע", clean: name.slice(m[0].length)}} : {{badge: null, clean: name}};
+  }}
+
   function ensureLoaded(cb){{
     if (itemsLoaded) {{ cb(); return; }}
     // Only itemsLoaded (never items itself) marks success -- on a failed
@@ -181,9 +236,16 @@ GLOBAL_SEARCH_SCRIPT = f"""<script>
       return;
     }}
     results.style.display = "block";
-    results.innerHTML = matches.map(it =>
-      `<a class="gsrow" href="/frodo-project/product/?code=${{escHtml(it.code)}}"><span>${{escHtml(it.name)}}</span><span class="p">מ-₪${{it.cheap_price.toFixed(2)}}</span></a>`
-    ).join("");
+    results.innerHTML = matches.map(it => {{
+      const f = formatProductName(it.name);
+      const badge = f.badge ? `<span class="gsbadge">${{escHtml(f.badge)}}</span>` : "";
+      const coverage = it.n ? `<small class="gscoverage">נמצא ב-${{it.n}} סניפים</small>` : "";
+      return `<a class="gsrow" href="/frodo-project/product/?code=${{escHtml(it.code)}}">` +
+        `<span class="gsname">` +
+        `<span class="name" title="${{escHtml(it.name)}}">${{badge}}${{escHtml(f.clean)}}</span>` +
+        `${{coverage}}</span>` +
+        `<span class="p">מ-₪${{it.cheap_price.toFixed(2)}}</span></a>`;
+    }}).join("");
   }}
 
   box.addEventListener("input", (e)=>{{ ensureLoaded(()=> render(e.target.value)); }});
@@ -270,7 +332,7 @@ FONT_LINK = (
 
 def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_script: str = "") -> str:
     """Wrap `body` HTML in the shared shell. `current` selects the bold nav
-    link ('home' | 'map' | 'leaderboard' | 'methodology')."""
+    link ('home' | 'map' | 'leaderboard' | 'regulated' | 'methodology')."""
     from html import escape
 
     def nav_class(key: str) -> str:
@@ -309,6 +371,7 @@ def page_shell(title: str, current: str, body: str, extra_head: str = "", extra_
     <a class="{nav_class('home')}" href="/frodo-project/">בית</a>
     <a class="{nav_class('map')}" href="/frodo-project/map/">מפה</a>
     <a class="{nav_class('leaderboard')}" href="/frodo-project/leaderboard/">דירוג סניפים</a>
+    <a class="{nav_class('regulated')}" href="/frodo-project/regulated-prices/">מחירים מפוקחים</a>
     <a class="{nav_class('methodology')}" href="/frodo-project/methodology/">מתודולוגיה ומקורות</a>
     <span class="spacer"></span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="החלף בין מצב בהיר וכהה"></button>

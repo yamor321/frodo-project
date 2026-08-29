@@ -22,6 +22,8 @@ BRANCHES_CSS = """
 .branch-table td.num{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .branch-table .store-name{ color:var(--ink-muted); font-size:.85rem; }
 .table-wrap{ overflow-x:auto; }
+.flag-badge{ display:inline-block; margin-inline-start:6px; font-size:.78rem; color:var(--brick);
+  cursor:help; }
 """
 
 
@@ -39,6 +41,7 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
                 "expensive_price": s.expensive_price,
                 "expensive_store": s.expensive_store_name,
                 "pct": round(s.spread_pct * 100, 1),
+                "flagged": s.flagged,
             }
             for s in spreads
         ],
@@ -90,7 +93,7 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
     const shown = filtered.slice(0, 500);
     tbody.innerHTML = shown.map(r => `
       <tr>
-        <td><a href="/frodo-project/product/?code=${{r.code}}">${{r.name}}</a></td>
+        <td><a href="/frodo-project/product/?code=${{r.code}}">${{r.name}}</a>${{r.flagged ? '<span class="flag-badge" title="פער חריג מאוד -- ייתכן מבצע או טעות נתונים אצל הרשת, לא באג בצד שלנו">⚠ פער חריג</span>' : ''}}</td>
         <td class="num">₪${{r.cheap_price.toFixed(2)}}<div class="store-name">${{r.cheap_store}}</div></td>
         <td class="num">₪${{r.expensive_price.toFixed(2)}}<div class="store-name">${{r.expensive_store}}</div></td>
         <td class="num">${{r.pct.toFixed(1)}}%</td>

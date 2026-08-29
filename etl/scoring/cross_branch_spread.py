@@ -18,6 +18,16 @@ from etl.scoring.item_code_filters import is_reliable_item_code
 from etl.scrapers.shufersal import PriceRecord
 
 
+# Above this spread, the cheap price is under a quarter of the expensive
+# one -- past the point normal chain-format pricing explains (see
+# docs/sources.md: a real case, "משקה שיבולת שועל בטע", had cheap_price
+# under 1/8th of expensive_price with no promo/discount field anywhere in
+# the source data to confirm it's a sale rather than a data-quality issue).
+# Flagging instead of dropping: nothing here proves it's wrong, so it stays
+# in the full data, just excluded from the homepage headline/top spreads.
+FLAG_SPREAD_PCT = 3.0
+
+
 @dataclass
 class SpreadResult:
     item_code: str
@@ -30,6 +40,7 @@ class SpreadResult:
     expensive_store_name: str
     expensive_price: float
     spread_pct: float
+    flagged: bool
 
 
 def compute_spreads(
@@ -55,6 +66,7 @@ def compute_spreads(
         expensive_store, (_name2, expensive_price) = ordered[-1]
         if cheap_price <= 0:
             continue
+        spread_pct = (expensive_price - cheap_price) / cheap_price
         results.append(
             SpreadResult(
                 item_code=code,
@@ -66,7 +78,8 @@ def compute_spreads(
                 expensive_store_id=expensive_store,
                 expensive_store_name=store_names.get(expensive_store, expensive_store),
                 expensive_price=expensive_price,
-                spread_pct=(expensive_price - cheap_price) / cheap_price,
+                spread_pct=spread_pct,
+                flagged=spread_pct > FLAG_SPREAD_PCT,
             )
         )
 
