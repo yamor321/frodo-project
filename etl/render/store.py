@@ -5,7 +5,6 @@ the map), plus a real client-side search over everything this store sells.
 """
 from __future__ import annotations
 
-import json
 from html import escape
 
 from etl.enrich.geocode import GeoPoint
@@ -39,6 +38,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 .searchrow .p{ font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 """
+
+
+def store_search_items(catalog: list[PriceRecord]) -> list[dict]:
+    """The lean {name, price, code} shape used by this store's catalog
+    search -- shared with the build scripts so the exact same filter
+    (item_price > 0) produces both the count shown in render_store_html()
+    and the site/store/{id}/catalog.json file the search box fetches."""
+    return [
+        {"name": r.item_name, "price": r.item_price, "code": r.item_code}
+        for r in catalog
+        if r.item_price > 0
+    ]
 
 
 def top_deals(
@@ -90,6 +101,7 @@ def render_store_html(
     top_n: int = 8,
     as_of_date: str | None = None,
     address: str | None = None,
+    base_path: str = "/frodo-project",
 ) -> str:
     from etl.render.layout import page_shell
 
@@ -118,12 +130,7 @@ def render_store_html(
     <a class="navbtn" href="{gmaps_url}" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>"""
 
-    search_items = [
-        {"name": r.item_name, "price": r.item_price, "code": r.item_code}
-        for r in catalog
-        if r.item_price > 0
-    ]
-    search_json = json.dumps(search_items, ensure_ascii=False)
+    search_items_count = len(store_search_items(catalog))
 
     score_html = (
         f'<span class="score">ציון: {score.avg_percentile*100:.0f} מתוך 100 (0=זול ביותר) · {score.items_compared:,} מוצרים משותפים</span>'
@@ -152,23 +159,36 @@ def render_store_html(
   <section class="list">{worst_html}</section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
-  <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off">
-  <div id="searchHint">{len(search_items):,} מוצרים בקטלוג הסניף</div>
-  <div id="searchResults"></div>
+  <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
+  <div id="searchHint" aria-live="polite">{search_items_count:,} מוצרים בקטלוג הסניף</div>
+  <div id="searchResults" aria-live="polite"></div>
 """
 
     extra_head = f"<style>{STORE_CSS}</style>"
+    # The full catalog (up to ~9,000 items, ~800KB for the biggest stores)
+    # is fetched from site/store/{id}/catalog.json lazily on first keystroke
+    # instead of being embedded in the page -- every visitor was downloading
+    # the entire catalog up front before, whether or not they ever used the
+    # search box. Same fetch-on-interaction pattern as the global search
+    # (layout.py's GLOBAL_SEARCH_SCRIPT) and /branches/'s search.
     extra_script = f"""<script>
 (function(){{
-  const items = {search_json};
+  const BASE = "{base_path}";
+  let items = null;
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
+  const defaultHint = "{search_items_count:,} מוצרים בקטלוג הסניף";
+
+  function ensureLoaded(cb){{
+    if (items) {{ cb(); return; }}
+    fetch(BASE + "/store/{store_id}/catalog.json").then(r=>r.json()).then(data=>{{ items = data; cb(); }}).catch(()=>{{ items = []; cb(); }});
+  }}
 
   function render(query){{
     if (!query || query.length < 2){{
       results.innerHTML = "";
-      hint.textContent = `{len(search_items):,} מוצרים בקטלוג הסניף`;
+      hint.textContent = defaultHint;
       return;
     }}
     const q = query.trim();
@@ -179,7 +199,7 @@ def render_store_html(
     ).join("");
   }}
 
-  box.addEventListener("input", (e)=> render(e.target.value));
+  box.addEventListener("input", (e)=> ensureLoaded(()=> render(e.target.value)));
 }})();
 </script>"""
 

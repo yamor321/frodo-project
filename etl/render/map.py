@@ -61,7 +61,7 @@ def render_map_html(
   <div class="type-filters">
     <label><input type="checkbox" id="fmtHyper" checked> ריבוע · פורמט גדול (דיל/יוניברס)</label>
     <label><input type="checkbox" id="fmtNeighborhood" checked> עיגול · שכונתי/נוחות</label>
-    <label class="disabled" title="עוד לא נאסף מידע"><input type="checkbox" disabled> פארמות · בקרוב</label>
+    <label class="disabled" title="עוד לא נאסף מידע"><input type="checkbox" disabled aria-label="פארמות, בקרוב, עדיין לא נאסף מידע"> פארמות · בקרוב</label>
   </div>
 
   <div id="leafletMap"></div>

@@ -23,7 +23,7 @@ from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
 from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
 from etl.render.render_site import render_index_html
-from etl.render.store import render_store_html, top_deals
+from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.store_ranking import compute_store_scores
@@ -204,6 +204,10 @@ def main() -> None:
             image_urls=image_urls,
         )
         (store_dir / "index.html").write_text(html, encoding="utf-8")
+        (store_dir / "catalog.json").write_text(
+            json.dumps(store_search_items(catalogs_by_store.get(store_id, [])), ensure_ascii=False),
+            encoding="utf-8",
+        )
     print(f"  site/store/*/index.html ({len(store_names)} stores)")
 
     _prune_stale_dirs(SITE_DIR / "product", set())

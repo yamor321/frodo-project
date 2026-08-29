@@ -50,8 +50,8 @@ def render_branches_html(spreads: list[SpreadResult]) -> str:
   <h1>כל הפערים — לא רק ה-Top 10</h1>
   <p class="lede">{len(spreads):,} מוצרים שנמצאו ב-4 סניפים בכפר סבא לפחות (מכל הרשתות שנאספו), באותו יום. כל שורה: אותו ברקוד בדיוק, הזול והיקר ביותר בין הסניפים.</p>
 
-  <input id="branchSearch" type="text" placeholder="הקלד שם מוצר לסינון..." autocomplete="off">
-  <div id="branchHint">{len(spreads):,} מוצרים · לחיצה על כותרת עמודה ממיינת</div>
+  <input id="branchSearch" type="text" placeholder="הקלד שם מוצר לסינון..." autocomplete="off" aria-label="סינון לפי שם מוצר">
+  <div id="branchHint" aria-live="polite">{len(spreads):,} מוצרים · לחיצה על כותרת עמודה ממיינת</div>
 
   <div class="table-wrap">
     <table class="branch-table">

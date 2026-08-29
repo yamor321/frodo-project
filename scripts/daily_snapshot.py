@@ -33,7 +33,7 @@ from etl.render.map import render_map_html
 from etl.render.methodology import render_methodology_html
 from etl.render.product import build_products_payload, collect_all_store_prices, render_product_shell_html
 from etl.render.render_site import render_index_html
-from etl.render.store import render_store_html, top_deals
+from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
@@ -525,6 +525,10 @@ def main() -> None:
                 as_of_date=stale_as_of.get(store_id),
                 address=streets_by_store.get(store_id),
             ),
+            encoding="utf-8",
+        )
+        (store_dir / "catalog.json").write_text(
+            json.dumps(store_search_items(catalogs_by_store.get(store_id, [])), ensure_ascii=False),
             encoding="utf-8",
         )
 

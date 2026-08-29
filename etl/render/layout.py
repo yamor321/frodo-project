@@ -68,6 +68,11 @@ h2{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:1.3rem; mar
 footer.sitefoot{ margin-top:50px; padding-top:20px; border-top:1px solid var(--line); font-size:.84rem;
   color:var(--ink-muted); line-height:1.7; }
 footer.sitefoot a{ color:var(--navy); }
+
+@media (max-width:520px){
+  .page{ padding:0 14px 60px; }
+  .card{ flex-direction:column; align-items:flex-start; }
+}
 """
 
 LEAFLET_CSS = '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">'
@@ -128,8 +133,8 @@ GLOBAL_SEARCH_CSS = """
 
 GLOBAL_SEARCH_HTML = """
   <div id="gsWrap">
-    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off">
-    <div id="gsResults"></div>
+    <input id="gsBox" type="text" placeholder="חיפוש מוצר באתר..." autocomplete="off" aria-label="חיפוש מוצר באתר">
+    <div id="gsResults" aria-live="polite"></div>
   </div>
 """
 
