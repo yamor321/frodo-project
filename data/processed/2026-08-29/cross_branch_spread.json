@@ -15002,14 +15002,14 @@
     "flagged": false
   },
   {
-    "item_code": "8700216179430",
-    "item_name": "תחבושות אולוויז דיסק",
-    "num_stores": 4,
+    "item_code": "7290012227172",
+    "item_name": "פסטרמה ברביקיו+דבש ז",
+    "num_stores": 5,
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 24.9,
-    "expensive_store_id": "tiv-taam-093",
-    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
     "expensive_price": 39.9,
     "spread_pct": 0.6024096385542169,
     "flagged": false
@@ -15028,14 +15028,14 @@
     "flagged": false
   },
   {
-    "item_code": "7290012227172",
-    "item_name": "פסטרמה ברביקיו+דבש ז",
-    "num_stores": 5,
+    "item_code": "8700216179430",
+    "item_name": "תחבושות אולוויז דיסק",
+    "num_stores": 4,
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 24.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_store_id": "tiv-taam-093",
+    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
     "expensive_price": 39.9,
     "spread_pct": 0.6024096385542169,
     "flagged": false
@@ -21957,8 +21957,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290019462002",
-    "item_name": "בזיליקום יחידה ארוז",
+    "item_code": "7290010051267",
+    "item_name": "לוף בשקית א.אדמה",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -21970,8 +21970,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290010051267",
-    "item_name": "לוף בשקית א.אדמה",
+    "item_code": "7290019462002",
+    "item_name": "בזיליקום יחידה ארוז",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -24947,9 +24947,9 @@
     "flagged": false
   },
   {
-    "item_code": "7290016621648",
+    "item_code": "7290016621617",
     "item_name": "אולטרסול ספריי שקוף",
-    "num_stores": 5,
+    "num_stores": 4,
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 44.9,
@@ -24960,9 +24960,9 @@
     "flagged": false
   },
   {
-    "item_code": "7290016621617",
+    "item_code": "7290016621648",
     "item_name": "אולטרסול ספריי שקוף",
-    "num_stores": 4,
+    "num_stores": 5,
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 44.9,
@@ -30433,19 +30433,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290108352153",
-    "item_name": "סנובון נוזלי סנסוריי",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 8.9,
-    "expensive_store_id": "tiv-taam-093",
-    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
-    "expensive_price": 12.9,
-    "spread_pct": 0.449438202247191,
-    "flagged": false
-  },
-  {
     "item_code": "7290106578241",
     "item_name": "דובונים 100 גרם אסם",
     "num_stores": 4,
@@ -30454,6 +30441,19 @@
     "cheap_price": 8.9,
     "expensive_store_id": "victory-079",
     "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
+    "expensive_price": 12.9,
+    "spread_pct": 0.449438202247191,
+    "flagged": false
+  },
+  {
+    "item_code": "7290108352153",
+    "item_name": "סנובון נוזלי סנסוריי",
+    "num_stores": 5,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 8.9,
+    "expensive_store_id": "tiv-taam-093",
+    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
     "expensive_price": 12.9,
     "spread_pct": 0.449438202247191,
     "flagged": false
@@ -34554,8 +34554,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290012894855",
-    "item_name": "דורות מגשית תיבול סג",
+    "item_code": "89041081056",
+    "item_name": "שמן צ'ילי 185 מ'ל (כ",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -34567,8 +34567,8 @@
     "flagged": false
   },
   {
-    "item_code": "89041081056",
-    "item_name": "שמן צ'ילי 185 מ'ל (כ",
+    "item_code": "7290012894855",
+    "item_name": "דורות מגשית תיבול סג",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -35204,6 +35204,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290000498256",
+    "item_name": "לחמניות 10 בשקית",
+    "num_stores": 6,
+    "cheap_store_id": "yohananof-024",
+    "cheap_store_name": "יוחננוף — כפר סבא",
+    "cheap_price": 11.9,
+    "expensive_store_id": "tiv-taam-093",
+    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
+    "expensive_price": 16.9,
+    "spread_pct": 0.4201680672268906,
+    "flagged": false
+  },
+  {
     "item_code": "5410228169604",
     "item_name": "פחית בירה הוגארדן 50",
     "num_stores": 5,
@@ -35225,19 +35238,6 @@
     "cheap_price": 11.9,
     "expensive_store_id": "dor-alon-582",
     "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
-    "expensive_price": 16.9,
-    "spread_pct": 0.4201680672268906,
-    "flagged": false
-  },
-  {
-    "item_code": "7290000498256",
-    "item_name": "לחמניות 10 בשקית",
-    "num_stores": 6,
-    "cheap_store_id": "yohananof-024",
-    "cheap_store_name": "יוחננוף — כפר סבא",
-    "cheap_price": 11.9,
-    "expensive_store_id": "tiv-taam-093",
-    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
     "expensive_price": 16.9,
     "spread_pct": 0.4201680672268906,
     "flagged": false
@@ -57668,19 +57668,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290111093685",
-    "item_name": "שלישיית מגבונים לניק",
-    "num_stores": 4,
-    "cheap_store_id": "yohananof-024",
-    "cheap_store_name": "יוחננוף — כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "victory-079",
-    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
-    "expensive_price": 19.9,
-    "spread_pct": 0.33557046979865757,
-    "flagged": false
-  },
-  {
     "item_code": "7290018333969",
     "item_name": "חטיף גרנולה שקדים וט",
     "num_stores": 5,
@@ -57689,6 +57676,19 @@
     "cheap_price": 14.9,
     "expensive_store_id": "dor-alon-582",
     "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 19.9,
+    "spread_pct": 0.33557046979865757,
+    "flagged": false
+  },
+  {
+    "item_code": "7290111093685",
+    "item_name": "שלישיית מגבונים לניק",
+    "num_stores": 4,
+    "cheap_store_id": "yohananof-024",
+    "cheap_store_name": "יוחננוף — כפר סבא",
+    "cheap_price": 14.9,
+    "expensive_store_id": "victory-079",
+    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
     "expensive_price": 19.9,
     "spread_pct": 0.33557046979865757,
     "flagged": false
@@ -87178,9 +87178,9 @@
     "flagged": false
   },
   {
-    "item_code": "7290116935454",
-    "item_name": "פרוסות צ'דר פיראוס 1",
-    "num_stores": 6,
+    "item_code": "7290000288420",
+    "item_name": "תרסיס דוחה יתושים די",
+    "num_stores": 5,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 19.9,
@@ -87191,9 +87191,9 @@
     "flagged": false
   },
   {
-    "item_code": "7290000288420",
-    "item_name": "תרסיס דוחה יתושים די",
-    "num_stores": 5,
+    "item_code": "7290116935454",
+    "item_name": "פרוסות צ'דר פיראוס 1",
+    "num_stores": 6,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 19.9,
@@ -92326,8 +92326,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290017947419",
-    "item_name": "מארז 4 לחמניות מזונו",
+    "item_code": "7290018795385",
+    "item_name": "חסה לאליק מהדרין מרי",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -92339,8 +92339,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290018795385",
-    "item_name": "חסה לאליק מהדרין מרי",
+    "item_code": "7290017947419",
+    "item_name": "מארז 4 לחמניות מזונו",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -103441,19 +103441,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290117261538",
-    "item_name": "סלמון אטלנטי בשמן קנ",
-    "num_stores": 4,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 9.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 11.9,
-    "spread_pct": 0.20202020202020202,
-    "flagged": false
-  },
-  {
     "item_code": "7290004731670",
     "item_name": "מטהר אויר בניחוח לבנ",
     "num_stores": 4,
@@ -103467,14 +103454,27 @@
     "flagged": false
   },
   {
+    "item_code": "7290017871370",
+    "item_name": "סבון ידיים מועשר 500",
+    "num_stores": 5,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 9.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 11.9,
+    "spread_pct": 0.20202020202020202,
+    "flagged": false
+  },
+  {
     "item_code": "7290117261538",
     "item_name": "סלמון אטלנטי בשמן קנ",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 9.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_store_id": "rami-levy-719",
+    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
     "expensive_price": 11.9,
     "spread_pct": 0.20202020202020202,
     "flagged": false
@@ -109629,19 +109629,6 @@
     "flagged": false
   },
   {
-    "item_code": "3228022910023",
-    "item_name": "חמאה פרזידנט 200 גר'",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
-    "expensive_price": 18.9,
-    "spread_pct": 0.18867924528301874,
-    "flagged": false
-  },
-  {
     "item_code": "7290011570132",
     "item_name": "קמח ללא גלוטן גלעם 1",
     "num_stores": 4,
@@ -109650,6 +109637,19 @@
     "cheap_price": 15.9,
     "expensive_store_id": "tiv-taam-093",
     "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
+    "expensive_price": 18.9,
+    "spread_pct": 0.18867924528301874,
+    "flagged": false
+  },
+  {
+    "item_code": "3228022910023",
+    "item_name": "חמאה פרזידנט 200 גר'",
+    "num_stores": 5,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 15.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
     "expensive_price": 18.9,
     "spread_pct": 0.18867924528301874,
     "flagged": false
@@ -138762,8 +138762,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290108352146",
-    "item_name": "סנובון נוזלי סנסוריי",
+    "item_code": "7290107931465",
+    "item_name": "אנרג'י פריכיות תחתית",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -138775,8 +138775,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290107931465",
-    "item_name": "אנרג'י פריכיות תחתית",
+    "item_code": "7290108352146",
+    "item_name": "סנובון נוזלי סנסוריי",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -138827,6 +138827,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290000287485",
+    "item_name": "סנובון סבון אסלה ברי",
+    "num_stores": 4,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 10.7,
+    "expensive_store_id": "victory-079",
+    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
+    "expensive_price": 11.9,
+    "spread_pct": 0.11214953271028048,
+    "flagged": false
+  },
+  {
     "item_code": "7290111358272",
     "item_name": "יוגטה גומי מיני בננה",
     "num_stores": 4,
@@ -138848,19 +138861,6 @@
     "cheap_price": 10.7,
     "expensive_store_id": "tiv-taam-093",
     "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
-    "expensive_price": 11.9,
-    "spread_pct": 0.11214953271028048,
-    "flagged": false
-  },
-  {
-    "item_code": "7290000287485",
-    "item_name": "סנובון סבון אסלה ברי",
-    "num_stores": 4,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 10.7,
-    "expensive_store_id": "victory-079",
-    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
     "expensive_price": 11.9,
     "spread_pct": 0.11214953271028048,
     "flagged": false
@@ -154336,8 +154336,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290119382231",
-    "item_name": "סו מאצ' שוקולד חלב ק",
+    "item_code": "7290105369147",
+    "item_name": "ספלנדיד מריר 70% בטע",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -154349,8 +154349,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290105369147",
-    "item_name": "ספלנדיד מריר 70% בטע",
+    "item_code": "7290119382231",
+    "item_name": "סו מאצ' שוקולד חלב ק",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
