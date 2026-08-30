@@ -179,10 +179,10 @@ footer.sitefoot a{ color:var(--navy); }
 
   <div class="kicker">Frodo Project · פערי מחיר בין סניפים</div>
   <h1>כל הפערים — לא רק ה-Top 10</h1>
-  <p class="lede">15,118 מוצרים שנמצאו ב-4 סניפים בכפר סבא לפחות (מכל הרשתות שנאספו), באותו יום. כל שורה: אותו ברקוד בדיוק, הזול והיקר ביותר בין הסניפים.</p>
+  <p class="lede">14,671 מוצרים שנמצאו ב-4 סניפים בכפר סבא לפחות (מכל הרשתות שנאספו), באותו יום. כל שורה: אותו ברקוד בדיוק, הזול והיקר ביותר בין הסניפים.</p>
 
   <input id="branchSearch" type="text" placeholder="הקלד שם מוצר לסינון..." autocomplete="off" aria-label="סינון לפי שם מוצר">
-  <div id="branchHint" aria-live="polite">15,118 מוצרים · לחיצה על כותרת עמודה ממיינת</div>
+  <div id="branchHint" aria-live="polite">14,671 מוצרים · לחיצה על כותרת עמודה ממיינת</div>
 
   <div class="table-wrap">
     <table class="branch-table">
@@ -302,7 +302,7 @@ footer.sitefoot a{ color:var(--navy); }
       if (typeof av === "string") return sortDir * av.localeCompare(bv, "he");
       return sortDir * (av - bv);
     });
-    hint.textContent = `${filtered.length.toLocaleString()} מוצרים` + (q ? ` (מסונן מתוך 15,118)` : " · לחיצה על כותרת עמודה ממיינת");
+    hint.textContent = `${filtered.length.toLocaleString()} מוצרים` + (q ? ` (מסונן מתוך 14,671)` : " · לחיצה על כותרת עמודה ממיינת");
     const shown = filtered.slice(0, 500);
     tbody.innerHTML = shown.map(r => `
       <tr>

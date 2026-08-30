@@ -1,7 +1,7 @@
 {
-  "dor-alon": {
+  "osher-ad": {
     "host": "https://url.publishedprices.co.il",
-    "username": "doralon",
+    "username": "osherad",
     "ok": true,
     "failed_at": null,
     "error": null
