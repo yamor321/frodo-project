@@ -130,9 +130,14 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 .legend-scale .bar{ width:140px; height:10px; border-radius:6px; background:linear-gradient(to left, var(--good), #C9C4A8, var(--brick)); }
 #nearest{ margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--navy-soft); color:var(--navy); font-size:.92rem; display:none; }
 #nearest b{ color:var(--ink); }
-/* Targets the inner div passed as divIcon html -- Leaflet puts
-   leaflet-marker-icon on the outer wrapper it creates, not this element. */
+/* Targets the inner element passed as divIcon html -- Leaflet puts
+   leaflet-marker-icon on the outer wrapper it creates, not this element.
+   .store-pin (a flat div, still used by the "online" triangle -- see
+   map.py's pinIcon()) gets a plain border+shadow; every other format is an
+   inline SVG pin with its own gradient fill and white stroke already baked
+   in, so it only needs the drop-shadow here, not a border. */
 .leaflet-marker-icon .store-pin{ border:1.5px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25); }
+.leaflet-marker-icon svg{ filter:drop-shadow(0 2px 3px rgba(0,0,0,.3)); overflow:visible; }
 .leaflet-tile-pane{ filter:grayscale(45%) saturate(65%) brightness(1.08) contrast(.92); }
 .store-popup{ font-family:'Assistant',sans-serif; min-width:170px; }
 .store-popup b{ font-size:.98rem; }

@@ -18,6 +18,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from etl.concurrency import fetch_concurrently
 from etl.enrich.product_images import get_image_urls
 from etl.enrich.store_directory import clean_store_name
+from etl.enrich.store_format import store_format
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
@@ -82,19 +83,6 @@ def _prune_stale_dirs(parent_dir: pathlib.Path, keep_names: set[str]) -> None:
     for child in parent_dir.iterdir():
         if child.is_dir() and child.name not in keep_names:
             shutil.rmtree(child)
-
-
-def store_format(name: str) -> str:
-    """Read off the chain's own format branding in the name -- see
-    docs/sources.md for why this drives the map icon instead of the
-    official StoreType field (which only distinguishes physical/online).
-    "היפר" catches Carrefour's own hyper-format branches. Rami Levy/Osher
-    Ad/Yohananof are matched by chain name directly -- all three are large
-    discount/hypermarket chains, not neighborhood stores (see
-    docs/sources.md for sourcing)."""
-    return "hyper" if any(
-        kw in name for kw in ("דיל", "יוניברס", "היפר", "רמי לוי", "אושר עד", "יוחננוף")
-    ) else "neighborhood"
 
 
 def main() -> None:
@@ -162,7 +150,7 @@ def main() -> None:
     from etl.enrich.geocode import GeoPoint
 
     coords = {sid: GeoPoint(v["lat"], v["lon"]) for sid, v in coords_raw.items() if v.get("lat")}
-    formats = {sid: store_format(name) for sid, name in store_names.items()}
+    formats = {sid: store_format(name, store_id=sid) for sid, name in store_names.items()}
 
     print("\nComputing spreads and scores...")
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)

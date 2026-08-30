@@ -28,6 +28,7 @@ from etl.enrich.geocode import geocode_many
 from etl.enrich.product_images import get_image_urls
 from etl.enrich.store_directory import clean_store_name
 from etl.enrich.store_directory import update_and_save as update_store_directory
+from etl.enrich.store_format import store_format
 from etl.render.branches import render_branches_html
 from etl.render.leaderboard import render_leaderboard_html
 from etl.render.map import render_map_html
@@ -144,6 +145,11 @@ class ChainCollection:
     store_names: dict[str, str]
     store_addresses: dict[str, str]
     online_store_ids: set[str] = dataclasses.field(default_factory=set)
+    # Set at the chain level, never inferred from a store name -- every
+    # branch of a pharmacy chain is a pharmacy (see etl/enrich/
+    # store_format.py). Distinct from online_store_ids: a chain can be a
+    # pharmacy AND have specific online-only branches at the same time.
+    is_pharm_chain: bool = False
     # Promo/sale-price feature (see docs/sources.md's "PromoFull" section):
     # Shufersal-only in v1, though the live cross-chain check found every
     # other chain here also publishes a promo/promofull category -- left
@@ -152,24 +158,6 @@ class ChainCollection:
     # verified the promo *shape* against (which fraction of real promos
     # are simple vs. coupon/club/bundle-gated).
     promo_files: list[PriceFile] = dataclasses.field(default_factory=list)
-
-
-def store_format(name: str, is_online: bool = False) -> str:
-    """See docs/sources.md: the chain's own format branding in the name is
-    the only real size signal for a physical branch -- but StoreType (now
-    parsed, see shufersal.StoreRecord) DOES distinguish physical/online
-    itself, checked first here so an online store is never miscategorized
-    by whatever happens to be in its name. "היפר" catches Carrefour's own
-    hyper-format branches the same way "דיל"/"יוניברס" catches Shufersal's.
-    Rami Levy/Osher Ad/Yohananof are matched by chain name directly (not a
-    Shufersal/Carrefour-style in-name sub-brand) -- all three are large
-    discount/hypermarket chains, not neighborhood stores (see
-    docs/sources.md for sourcing)."""
-    if is_online:
-        return "online"
-    return "hyper" if any(
-        kw in name for kw in ("דיל", "יוניברס", "היפר", "רמי לוי", "אושר עד", "יוחננוף")
-    ) else "neighborhood"
 
 
 def _safe_collect(chain_name: str, collect_fn: Callable[[], "ChainCollection"], prefix: str) -> "ChainCollection":
@@ -549,6 +537,7 @@ def main() -> None:
     store_names: dict[str, str] = {}
     store_addresses: dict[str, str] = {}
     online_store_ids: set[str] = set()
+    pharm_store_ids: set[str] = set()
     for chain in chains:
         label = CHAIN_HEBREW_NAMES.get(chain.prefix, chain.prefix.rstrip("-"))
         for sid, raw_name in chain.store_names.items():
@@ -556,6 +545,8 @@ def main() -> None:
             store_names[sid] = clean_store_name(name)
         store_addresses.update(chain.store_addresses)
         online_store_ids |= chain.online_store_ids
+        if chain.is_pharm_chain:
+            pharm_store_ids |= set(chain.store_names)
 
     # Sticky directory: today's live names/addresses feed it, and any store
     # only present today via the raw-snapshot fallback (no live Stores file
@@ -614,7 +605,10 @@ def main() -> None:
     coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
 
-    formats = {sid: store_format(name, is_online=sid in online_store_ids) for sid, name in store_names.items()}
+    formats = {
+        sid: store_format(name, is_online=sid in online_store_ids, is_pharm=sid in pharm_store_ids, store_id=sid)
+        for sid, name in store_names.items()
+    }
 
     print("\nRendering pages...")
     (site_dir / "index.html").write_text(

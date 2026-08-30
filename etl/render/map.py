@@ -43,7 +43,7 @@ def render_map_html(
                 "items": s.items_compared,
                 "lat": pt.lat,
                 "lon": pt.lon,
-                "format": formats.get(s.store_id, "neighborhood"),
+                "format": formats.get(s.store_id, "supermarket"),
             }
         )
     data_json = json.dumps(points, ensure_ascii=False)
@@ -59,10 +59,11 @@ def render_map_html(
   </div>
 
   <div class="type-filters">
-    <label><input type="checkbox" id="fmtHyper" checked> ריבוע · פורמט גדול (דיל/יוניברס)</label>
-    <label><input type="checkbox" id="fmtNeighborhood" checked> עיגול · שכונתי/נוחות</label>
-    <label><input type="checkbox" id="fmtOnline" checked> משולש · אונליין/משלוחים בלבד</label>
-    <label class="disabled" title="עוד לא נאסף מידע"><input type="checkbox" disabled aria-label="פארמות, בקרוב, עדיין לא נאסף מידע"> פארמות · בקרוב</label>
+    <label><input type="checkbox" id="fmtHyper" checked> סופרמרקט ענק</label>
+    <label><input type="checkbox" id="fmtSupermarket" checked> סופרמרקט</label>
+    <label><input type="checkbox" id="fmtExpress" checked> מכולת / חנות נוחות</label>
+    <label><input type="checkbox" id="fmtPharm" checked> פארם</label>
+    <label><input type="checkbox" id="fmtOnline" checked> אונליין / משלוחים בלבד</label>
   </div>
 
   <div id="leafletMap"></div>
@@ -99,22 +100,84 @@ def render_map_html(
     maxZoom: 16,
   }}).addTo(map);
 
-  const hyperLayer = L.layerGroup().addTo(map);
-  const neighborhoodLayer = L.layerGroup().addTo(map);
-  const onlineLayer = L.layerGroup().addTo(map);
+  const layersByFormat = {{
+    hyper: L.layerGroup().addTo(map),
+    supermarket: L.layerGroup().addTo(map),
+    express: L.layerGroup().addTo(map),
+    pharm: L.layerGroup().addTo(map),
+    online: L.layerGroup().addTo(map),
+  }};
 
-  stores.forEach(s=>{{
+  // Lightens an "rgb(r,g,b)" string (scoreColor's own output format) toward
+  // white by `amt` (0..1) -- used for the pin's gradient top-stop, so the
+  // fill reads as a rounded, lit shape instead of a flat color block.
+  function lighten(rgbStr, amt){{
+    const m = /rgb\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)/.exec(rgbStr);
+    if (!m) return rgbStr;
+    const mix = v => Math.round(Number(v) + (255 - Number(v)) * amt);
+    return `rgb(${{mix(m[1])}},${{mix(m[2])}},${{mix(m[3])}})`;
+  }}
+
+  // One small inline SVG per format -- distinguished by SHAPE, not just
+  // color, same reasoning as the square/circle/triangle split this
+  // replaces (identifiable in grayscale/colorblind viewing, not just as an
+  // extra hue). A gradient fill + white outline instead of a flat CSS block
+  // reads as a designed pin rather than a colored primitive, with no
+  // external icon asset (consistent with this page's own "no external
+  // asset" approach -- see the CARTO-tiles rejection note above).
+  // Returns {{html, w, h, anchor}}; anchor is the point (in pixels from the
+  // icon's top-left) that lands on the store's actual lat/lon.
+  function pinIcon(format, color, gradId){{
+    const light = lighten(color, 0.4);
+    const grad = `<defs><linearGradient id="${{gradId}}" x1="0" y1="0" x2="0" y2="1">` +
+      `<stop offset="0" stop-color="${{light}}"/><stop offset="1" stop-color="${{color}}"/></linearGradient></defs>`;
+    const PIN_PATH = "M12 0C6.5 0 2 4.5 2 10c0 7.5 10 19 10 19s10-11.5 10-19c0-5.5-4.5-10-10-10z";
+    if (format === "hyper"){{
+      // Same map-pin teardrop as "supermarket", scaled up with an added
+      // outer ring -- reads as "bigger format" at a glance, a distinct
+      // silhouette from the plain pin even with color removed.
+      const w = 30, h = 40;
+      const html = `<svg width="${{w}}" height="${{h}}" viewBox="0 0 24 32">${{grad}}` +
+        `<path d="${{PIN_PATH}}" fill="none" stroke="${{color}}" stroke-width="1.4" opacity=".45" transform="translate(12 10) scale(1.18) translate(-12 -10)"/>` +
+        `<path d="${{PIN_PATH}}" fill="url(#${{gradId}})" stroke="#fff" stroke-width="1.6"/></svg>`;
+      return {{html, w, h, anchor: [w/2, h]}};
+    }}
+    if (format === "express"){{
+      // A small rounded square -- a genuinely different silhouette from the
+      // pin shapes, reads as "small/quick" without needing color.
+      const w = 16;
+      const html = `<svg width="${{w}}" height="${{w}}" viewBox="0 0 24 24">${{grad}}` +
+        `<rect x="2" y="2" width="20" height="20" rx="6" fill="url(#${{gradId}})" stroke="#fff" stroke-width="1.5"/></svg>`;
+      return {{html, w, h: w, anchor: [w/2, w/2]}};
+    }}
+    if (format === "pharm"){{
+      // A circle with a white cross cut out -- the universally recognized
+      // pharmacy symbol, distinct from every other tier's silhouette.
+      const w = 22;
+      const html = `<svg width="${{w}}" height="${{w}}" viewBox="0 0 24 24">${{grad}}` +
+        `<circle cx="12" cy="12" r="11" fill="url(#${{gradId}})" stroke="#fff" stroke-width="1.5"/>` +
+        `<rect x="10.3" y="5" width="3.4" height="14" rx="1" fill="#fff"/>` +
+        `<rect x="5" y="10.3" width="14" height="3.4" rx="1" fill="#fff"/></svg>`;
+      return {{html, w, h: w, anchor: [w/2, w/2]}};
+    }}
+    if (format === "online"){{
+      // Kept as the existing flat triangle -- already colorblind-tested by
+      // the reasoning above, no reason to change a shape that already works.
+      const w = 16;
+      const html = `<div class="store-pin" style="width:${{w}}px;height:${{w}}px;background:${{color}};clip-path:polygon(50% 0%, 0% 100%, 100% 100%)"></div>`;
+      return {{html, w, h: w, anchor: [w/2, w/2]}};
+    }}
+    // "supermarket" -- the new default format, and the plain/classic pin.
+    const w = 22, h = 29;
+    const html = `<svg width="${{w}}" height="${{h}}" viewBox="0 0 24 32">${{grad}}` +
+      `<path d="${{PIN_PATH}}" fill="url(#${{gradId}})" stroke="#fff" stroke-width="1.5"/></svg>`;
+    return {{html, w, h, anchor: [w/2, h]}};
+  }}
+
+  stores.forEach((s, i)=>{{
     const color = scoreColor(s.score);
-    const size = s.format === "hyper" ? 22 : 16;
-    // Distinguished by SHAPE, not just color, same as the existing
-    // square/circle split -- a triangle keeps it identifiable in
-    // grayscale/colorblind viewing, not just as an extra hue.
-    const shape = s.format === "online"
-      ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;background:${{color}};clip-path:polygon(50% 0%, 0% 100%, 100% 100%)"></div>`
-      : s.format === "hyper"
-      ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:7px;background:${{color}}"></div>`
-      : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
-    const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
+    const {{html, w, h, anchor}} = pinIcon(s.format, color, `pinGrad${{i}}`);
+    const icon = L.divIcon({{html, className: "", iconSize: [w, h], iconAnchor: anchor}});
     const marker = L.marker([s.lat, s.lon], {{icon}});
     // Tooltip is hover-only, so it's a no-op on touch devices -- that's fine,
     // it's just a desktop quick-glance label. The actual identification +
@@ -125,8 +188,11 @@ def render_map_html(
     // direction:"top" is deliberate, not cosmetic -- Leaflet's default
     // direction:"auto" picks left/right based on LTR assumptions and the
     // whole page is dir="rtl" (layout.py), so without this the tooltip
-    // landed far from the cursor instead of right above the pin.
-    marker.bindTooltip(s.name, {{direction: "top", offset: [0, -(size/2)]}});
+    // landed far from the cursor instead of right above the pin. Offset is
+    // -anchor[1] (not a fixed half-size) so it clears the icon correctly
+    // regardless of shape -- anchor[1] is exactly the icon's own height
+    // above the point that sits on the map.
+    marker.bindTooltip(s.name, {{direction: "top", offset: [0, -anchor[1]]}});
     const onlineNote = s.format === "online"
       ? '<div class="meta" style="margin-top:4px;">🚚 משלוחים/איסוף בלבד — אין כניסה פיזית לקונים</div>'
       : "";
@@ -138,17 +204,23 @@ def render_map_html(
         <a class="openbtn" href="${{BASE}}/store/${{s.id}}/">פתח דף סניף ←</a>
       </div>
     `);
-    (s.format === "hyper" ? hyperLayer : s.format === "online" ? onlineLayer : neighborhoodLayer).addLayer(marker);
+    (layersByFormat[s.format] || layersByFormat.supermarket).addLayer(marker);
   }});
 
   document.getElementById("fmtHyper").addEventListener("change", (e)=>{{
-    if (e.target.checked) map.addLayer(hyperLayer); else map.removeLayer(hyperLayer);
+    if (e.target.checked) map.addLayer(layersByFormat.hyper); else map.removeLayer(layersByFormat.hyper);
   }});
-  document.getElementById("fmtNeighborhood").addEventListener("change", (e)=>{{
-    if (e.target.checked) map.addLayer(neighborhoodLayer); else map.removeLayer(neighborhoodLayer);
+  document.getElementById("fmtSupermarket").addEventListener("change", (e)=>{{
+    if (e.target.checked) map.addLayer(layersByFormat.supermarket); else map.removeLayer(layersByFormat.supermarket);
+  }});
+  document.getElementById("fmtExpress").addEventListener("change", (e)=>{{
+    if (e.target.checked) map.addLayer(layersByFormat.express); else map.removeLayer(layersByFormat.express);
+  }});
+  document.getElementById("fmtPharm").addEventListener("change", (e)=>{{
+    if (e.target.checked) map.addLayer(layersByFormat.pharm); else map.removeLayer(layersByFormat.pharm);
   }});
   document.getElementById("fmtOnline").addEventListener("change", (e)=>{{
-    if (e.target.checked) map.addLayer(onlineLayer); else map.removeLayer(onlineLayer);
+    if (e.target.checked) map.addLayer(layersByFormat.online); else map.removeLayer(layersByFormat.online);
   }});
 
   let meMarker = null;
