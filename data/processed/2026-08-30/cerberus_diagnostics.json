@@ -1,11 +1,4 @@
 {
-  "yohananof": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "yohananof",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
   "dor-alon": {
     "host": "https://url.publishedprices.co.il",
     "username": "doralon",
@@ -16,13 +9,6 @@
   "tiv-taam": {
     "host": "https://url.publishedprices.co.il",
     "username": "TivTaam",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "rami-levy": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "RamiLevi",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -41,6 +27,20 @@
     "failed_at": null,
     "error": null
   },
+  "yohananof": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "yohananof",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "rami-levy": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "RamiLevi",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
   "stop-market": {
     "host": "https://url.publishedprices.co.il",
     "username": "Stop_Market",
@@ -55,16 +55,16 @@
     "failed_at": null,
     "error": null
   },
-  "salach-dabach": {
+  "keshet": {
     "host": "https://url.publishedprices.co.il",
-    "username": "SalachD",
+    "username": "Keshet",
     "ok": true,
     "failed_at": null,
     "error": null
   },
-  "keshet": {
+  "salach-dabach": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Keshet",
+    "username": "SalachD",
     "ok": true,
     "failed_at": null,
     "error": null

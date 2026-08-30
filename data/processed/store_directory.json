@@ -1,119 +1,168 @@
 {
   "140": {
     "address": "",
+    "is_online": false,
     "name": "שופרסל — אקספרס תל חי"
   },
   "144": {
     "address": "רפפורט 6",
+    "is_online": false,
     "name": "שופרסל — דיל שבירו כפר סבא"
   },
   "171": {
     "address": "אוסטשינסקי 15",
+    "is_online": false,
     "name": "שופרסל — אקספרס אוסטשינסקי"
   },
   "230": {
     "address": "ויצמן 29",
+    "is_online": false,
     "name": "שופרסל — שלי כ\"ס- ויצמן"
   },
   "259": {
     "address": "ויצמן 300 מתחם G",
+    "is_online": false,
     "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן"
   },
   "335": {
     "address": "בן גוריון 35",
+    "is_online": false,
     "name": "שופרסל — אקספרס כ\"ס- בן גוריון"
   },
   "36": {
     "address": "רוטשילד 65",
+    "is_online": false,
     "name": "שופרסל — שלי כ\"ס- רוטשילד"
   },
   "375": {
     "address": "הגליל 58",
+    "is_online": false,
     "name": "שופרסל — אקספרס כ\"ס- הגליל"
   },
   "394": {
     "address": "הגליל 31",
+    "is_online": false,
     "name": "שופרסל — אקספרס הכרמל כפר סבא"
+  },
+  "413": {
+    "address": "WWW.SHUFERSAL.CO.IL",
+    "is_online": true,
+    "name": "שופרסל — שופרסל ONLINE"
   },
   "615": {
     "address": "כפר סבא",
+    "is_online": false,
     "name": "שופרסל — BE כפר סבא"
   },
   "648": {
     "address": "מאיר-כפר סבא",
+    "is_online": false,
     "name": "שופרסל — BE מאיר-כפרסבא"
   },
   "682": {
     "address": "כפר סבא צפון",
+    "is_online": false,
     "name": "שופרסל — BE כפר סבא צפון"
   },
   "752": {
     "address": "5 דוכיפת",
+    "is_online": false,
     "name": "שופרסל — אקספרס כפר סבא דוכיפת"
   },
   "845": {
     "address": "נחשון 10",
+    "is_online": false,
     "name": "שופרסל — אקספרס נחשון כפר סבא"
   },
   "carrefour-010": {
     "address": "השקמה 21",
+    "is_online": false,
     "name": "קרפור — קרפור היפר כפר סבא"
   },
   "carrefour-400": {
     "address": "20 כצנלסון",
+    "is_online": false,
     "name": "קרפור — קרפור סיטי קניון כפר סבא"
   },
   "carrefour-404": {
     "address": "2 יעקב כהן",
+    "is_online": false,
     "name": "קרפור — קרפור סיטי רון כפר סבא"
   },
   "carrefour-471": {
     "address": "https://www.carrefour.co.il",
+    "is_online": true,
     "name": "קרפור — קרפור אונליין כפר סבא @ קרפור"
   },
   "carrefour-473": {
     "address": "https://www.quik.co.il",
+    "is_online": true,
     "name": "קרפור — כפר סבא @ קוויק"
   },
   "dor-alon-408": {
     "address": "התעש 1 כפר סבא",
+    "is_online": false,
     "name": "דור אלון — AM-PM אלוני כ\"ס"
   },
   "dor-alon-582": {
     "address": "טשרניחובסקי 24",
+    "is_online": false,
     "name": "דור אלון — טשרניחובסקי כ\"ס"
   },
   "dor-alon-958": {
     "address": "תעש 1, כפר סבא",
+    "is_online": false,
     "name": "דור אלון — כפר סבא"
   },
   "keshet-019": {
     "address": "מרכז מסחרי \"שרונה\", דרך השרון 12",
+    "is_online": false,
     "name": "קשת טעמים — כפר סבא"
   },
   "osher-ad-031": {
     "address": "דרך הים 9",
+    "is_online": false,
     "name": "אושר עד — כפר סבא"
   },
   "rami-levy-033": {
     "address": "גלגלי פלדה 2",
+    "is_online": false,
     "name": "רמי לוי — כפר סבא"
+  },
+  "rami-levy-039": {
+    "address": "https://www.rami-levy.co.il/he",
+    "is_online": true,
+    "name": "רמי לוי — מרלוג אינטרנט"
   },
   "rami-levy-719": {
     "address": "רוטשילד 39",
+    "is_online": false,
     "name": "רמי לוי — רוטשילד כפר סבא"
   },
   "shukhair-011": {
     "address": "אלי הורוביץ 26",
+    "is_online": false,
     "name": "שוק העיר — כפר סבא מזרח"
   },
   "tiv-taam-093": {
     "address": "נעמי שמר 15",
+    "is_online": false,
     "name": "טיב טעם — כפר סבא הירוקה"
   },
   "victory-079": {
     "address": "אנגל 78",
+    "is_online": false,
     "name": "ויקטורי — כפר סבא הירוקה"
+  },
+  "victory-097": {
+    "address": "victoryonline.co.",
+    "is_online": true,
+    "name": "ויקטורי — אינטרנט"
+  },
+  "wolt-005": {
+    "address": "הסדנא 17, כפר סבא",
+    "is_online": true,
+    "name": "וולט מרקט — וולט מרקט | כפר סבא"
   },
   "yellow-234": {
     "address": "בן יהודה מול חטיבת ביניים בר-לב",
@@ -129,6 +178,12 @@
   },
   "yohananof-024": {
     "address": "unknown",
+    "is_online": false,
     "name": "יוחננוף — כפר סבא"
+  },
+  "yohananof-150": {
+    "address": "",
+    "is_online": true,
+    "name": "יוחננוף — הדרים פיקאפ"
   }
 }

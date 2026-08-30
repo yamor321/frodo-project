@@ -107,6 +107,7 @@ def render_store_html(
     as_of_date: str | None = None,
     address: str | None = None,
     base_path: str = "/frodo-project",
+    is_online: bool = False,
 ) -> str:
     from etl.render.layout import ESC_HTML_JS, page_shell
 
@@ -148,10 +149,23 @@ def render_store_html(
 
     address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
 
+    # Informational, not a warning (unlike stale_html above) -- shown
+    # whenever the chain's own Stores.xml marks this store StoreType=="2"
+    # (see shufersal.online_stores()), regardless of whether it happens to
+    # have geocodable coordinates. A real address (Wolt Market's Kfar Saba
+    # branch) still gets nav buttons above -- this chip is what makes clear
+    # that's a delivery/pickup point, not a walk-in storefront.
+    online_html = (
+        '<div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>'
+        if is_online
+        else ""
+    )
+
     body = f"""
   <div class="kicker">Frodo Project · דף סניף</div>
   <h1>{escape(store_name)}</h1>
   {address_html}{nav_html}
+  {online_html}
   {stale_html}
   <div class="storecard">{score_html}</div>
 

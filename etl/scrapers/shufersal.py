@@ -140,6 +140,12 @@ class StoreRecord:
     address: str
     city_code: str
     zip_code: str
+    # "1" = physical branch, "2" = non-physical (online/pickup/fulfillment) --
+    # verified live 2026-08-30 across 826 stores, 7 chains, 4 independent
+    # platforms, zero exceptions. Documented in this schema comment since
+    # 2026-08-27 but never actually parsed until now -- see
+    # kfar_saba_stores_with_online() below for how it's used.
+    store_type: str = ""
 
 
 def list_stores_file(files: Iterable[PriceFile]) -> PriceFile | None:
@@ -179,6 +185,7 @@ def parse_stores_xml(xml_bytes: bytes) -> list[StoreRecord]:
                     address=_text(store, "Address"),
                     city_code=_text(store, "City"),
                     zip_code=_text(store, "ZIPCode"),
+                    store_type=_text(store, "StoreType"),
                 )
             )
     return records
@@ -228,6 +235,50 @@ def kfar_saba_stores(stores: Iterable[StoreRecord]) -> set[str]:
     return matches
 
 
+def online_stores(stores: Iterable[StoreRecord]) -> set[str]:
+    """Store IDs marked non-physical (StoreType=="2") -- see StoreRecord's
+    docstring for the live verification behind this. Chain-agnostic, no city
+    logic; a chain publishing this store nationally, unrelated to Kfar Saba,
+    is exactly as findable here as one that happens to be local."""
+    return {s.store_id for s in stores if s.store_type == "2"}
+
+
+def kfar_saba_stores_with_online(stores: Iterable[StoreRecord]) -> set[str]:
+    """kfar_saba_stores(), extended with a chain's online branch when it has
+    exactly one nationally.
+
+    Carrefour's online stores (471/473) already show up on the site today --
+    but only by accident: their <City> happens to equal Kfar Saba's own code,
+    the same filter used for physical branches, not because anything
+    recognizes "online" as a category. Verified live 2026-08-30: most chains
+    that publish a StoreType=="2" row publish exactly ONE nationally
+    (Shufersal, Rami Levy, Yohananof) -- for those, this union is what makes
+    that store findable at all, since a national online store has no reason
+    to carry Kfar Saba's own city code (Shufersal's online store 413 carries
+    City=="7900", nowhere close). Gated on already having a real physical
+    presence (`physical`) so this never pulls in a chain with no Kfar Saba
+    branch at all.
+
+    Deliberately NOT unioned when a chain publishes more than one
+    StoreType=="2" row (`len(online) == 1` check): Tiv Taam publishes SEVEN
+    ("ליקוט <city>", one per regional hub, none tagged Kfar Saba) -- with no
+    single objective winner among seven, including all of them would flood
+    Kfar Saba's own leaderboard/branches list with rows labeled by other
+    cities. Left out of v1 on purpose, not forgotten (see docs/sources.md) --
+    if a chain ever consolidates to one national online store, it starts
+    showing up here with no code change.
+
+    Carrefour itself is unaffected by this function: it has THREE
+    StoreType=="2" rows nationally (471, 473, and 472 elsewhere), so the
+    len==1 gate never fires for it -- it keeps showing 471/473 exactly as
+    before, through the existing city-code match alone."""
+    physical = kfar_saba_stores(stores)
+    if not physical:
+        return physical
+    online = online_stores(stores)
+    return physical | online if len(online) == 1 else physical
+
+
 def download(price_file: PriceFile) -> bytes:
     """Download and gunzip one listed file; return raw XML bytes."""
     resp = requests.get(price_file.url, timeout=REQUEST_TIMEOUT)
@@ -261,7 +312,7 @@ def parse_price_xml(xml_bytes: bytes) -> list[PriceRecord]:
                 unit_qty=_text(item, "UnitQty"),
                 quantity=_text(item, "Quantity"),
                 unit_of_measure=_text(item, "UnitOfMeasure"),
-                is_weighted=_text(item, "bIsWeighted") == "1",
+                is_weighted=_text(item, "bIsWeighted", "blsWeighted") == "1",
                 qty_in_package=_text(item, "QtyInPackage"),
                 item_price=float(_text(item, "ItemPrice") or 0),
                 unit_of_measure_price=float(_text(item, "UnitOfMeasurePrice") or 0),
@@ -271,9 +322,20 @@ def parse_price_xml(xml_bytes: bytes) -> list[PriceRecord]:
     return records
 
 
-def _text(el: ET.Element, tag: str) -> str:
-    child = el.find(tag)
-    return child.text.strip() if child is not None and child.text else ""
+def _text(el: ET.Element, *tags: str) -> str:
+    """Read the first present tag's text, trying each in order.
+
+    Multi-tag support exists for one confirmed real-world quirk: Wolt
+    Market's own PriceFull files (verified live 2026-08-30) spell the
+    weighted-item flag <blsWeighted> (lowercase L) where every other chain's
+    schema spells it <bIsWeighted> (capital I). Every other field name
+    matches Shufersal's schema exactly, so this stays the one shared parser
+    instead of forking a Wolt-specific copy."""
+    for tag in tags:
+        child = el.find(tag)
+        if child is not None and child.text:
+            return child.text.strip()
+    return ""
 
 
 # Official settlement code (סמל יישוב) for Kfar Saba, per the live Stores file.

@@ -44,16 +44,27 @@ def save_directory(directory: dict[str, dict[str, str]]) -> None:
     CACHE_PATH.write_text(json.dumps(directory, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def update_and_save(store_names: dict[str, str], store_addresses: dict[str, str]) -> dict[str, dict[str, str]]:
+def update_and_save(
+    store_names: dict[str, str],
+    store_addresses: dict[str, str],
+    online_store_ids: set[str] = frozenset(),
+) -> dict[str, dict[str, str]]:
     """Merge today's live results into the persistent directory and save.
     Never removes an entry -- a store missing from today's live results
     (the exact case this exists for) should keep its last-known name/address,
-    not lose it."""
+    not lose it.
+
+    is_online follows the same stickiness -- a store's physical/online
+    nature basically never changes day to day, same as its name/address --
+    but it's only ever set here for a store_id present in store_names this
+    run (i.e. seen live today), never guessed for one whose chain didn't
+    run at all."""
     directory = load_directory()
     for store_id, name in store_names.items():
         entry = directory.setdefault(store_id, {})
         entry["name"] = name
         if store_id in store_addresses:
             entry["address"] = store_addresses[store_id]
+        entry["is_online"] = store_id in online_store_ids
     save_directory(directory)
     return directory

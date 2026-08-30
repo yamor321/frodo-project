@@ -61,6 +61,7 @@ def render_map_html(
   <div class="type-filters">
     <label><input type="checkbox" id="fmtHyper" checked> ריבוע · פורמט גדול (דיל/יוניברס)</label>
     <label><input type="checkbox" id="fmtNeighborhood" checked> עיגול · שכונתי/נוחות</label>
+    <label><input type="checkbox" id="fmtOnline" checked> משולש · אונליין/משלוחים בלבד</label>
     <label class="disabled" title="עוד לא נאסף מידע"><input type="checkbox" disabled aria-label="פארמות, בקרוב, עדיין לא נאסף מידע"> פארמות · בקרוב</label>
   </div>
 
@@ -100,11 +101,17 @@ def render_map_html(
 
   const hyperLayer = L.layerGroup().addTo(map);
   const neighborhoodLayer = L.layerGroup().addTo(map);
+  const onlineLayer = L.layerGroup().addTo(map);
 
   stores.forEach(s=>{{
     const color = scoreColor(s.score);
     const size = s.format === "hyper" ? 22 : 16;
-    const shape = s.format === "hyper"
+    // Distinguished by SHAPE, not just color, same as the existing
+    // square/circle split -- a triangle keeps it identifiable in
+    // grayscale/colorblind viewing, not just as an extra hue.
+    const shape = s.format === "online"
+      ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;background:${{color}};clip-path:polygon(50% 0%, 0% 100%, 100% 100%)"></div>`
+      : s.format === "hyper"
       ? `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:7px;background:${{color}}"></div>`
       : `<div class="store-pin" style="width:${{size}}px;height:${{size}}px;border-radius:50%;background:${{color}}"></div>`;
     const icon = L.divIcon({{html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]}});
@@ -120,14 +127,18 @@ def render_map_html(
     // whole page is dir="rtl" (layout.py), so without this the tooltip
     // landed far from the cursor instead of right above the pin.
     marker.bindTooltip(s.name, {{direction: "top", offset: [0, -(size/2)]}});
+    const onlineNote = s.format === "online"
+      ? '<div class="meta" style="margin-top:4px;">🚚 משלוחים/איסוף בלבד — אין כניסה פיזית לקונים</div>'
+      : "";
     marker.bindPopup(`
       <div class="store-popup">
         <b>${{s.name}}</b>
         <div class="meta">מדד חיסכון ${{100 - Math.round(s.score*100)}} מתוך 100 (ככל שגבוה יותר -- זול יותר)<br>${{s.items.toLocaleString()}} מוצרים משותפים</div>
+        ${{onlineNote}}
         <a class="openbtn" href="${{BASE}}/store/${{s.id}}/">פתח דף סניף ←</a>
       </div>
     `);
-    (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
+    (s.format === "hyper" ? hyperLayer : s.format === "online" ? onlineLayer : neighborhoodLayer).addLayer(marker);
   }});
 
   document.getElementById("fmtHyper").addEventListener("change", (e)=>{{
@@ -135,6 +146,9 @@ def render_map_html(
   }});
   document.getElementById("fmtNeighborhood").addEventListener("change", (e)=>{{
     if (e.target.checked) map.addLayer(neighborhoodLayer); else map.removeLayer(neighborhoodLayer);
+  }});
+  document.getElementById("fmtOnline").addEventListener("change", (e)=>{{
+    if (e.target.checked) map.addLayer(onlineLayer); else map.removeLayer(onlineLayer);
   }});
 
   let meMarker = null;

@@ -93,6 +93,7 @@ h2{ font-weight:800; font-size:1.3rem; letter-spacing:-.005em; margin:0 0 10px; 
   border-radius:999px; white-space:nowrap; display:inline-block; }
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
+.chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 
 .thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
@@ -202,6 +203,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
   <div class="type-filters">
     <label><input type="checkbox" id="fmtHyper" checked> ריבוע · פורמט גדול (דיל/יוניברס)</label>
     <label><input type="checkbox" id="fmtNeighborhood" checked> עיגול · שכונתי/נוחות</label>
+    <label><input type="checkbox" id="fmtOnline" checked> משולש · אונליין/משלוחים בלבד</label>
     <label class="disabled" title="עוד לא נאסף מידע"><input type="checkbox" disabled aria-label="פארמות, בקרוב, עדיין לא נאסף מידע"> פארמות · בקרוב</label>
   </div>
 
@@ -299,7 +301,7 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 (function(){
-  const stores = [{"id": "rami-levy-033", "name": "רמי לוי — כפר סבא", "score": 0.0403, "items": 7685, "lat": 32.172961, "lon": 34.9263439, "format": "hyper"}, {"id": "yohananof-024", "name": "יוחננוף — כפר סבא", "score": 0.1362, "items": 7655, "lat": 32.1652687, "lon": 34.9288571, "format": "hyper"}, {"id": "144", "name": "שופרסל — דיל שבירו כפר סבא", "score": 0.1898, "items": 7325, "lat": 32.192092, "lon": 34.8933954, "format": "hyper"}, {"id": "259", "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן", "score": 0.2859, "items": 7380, "lat": 32.1710877, "lon": 34.9272511, "format": "hyper"}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר כפר סבא", "score": 0.3034, "items": 9375, "lat": 32.1797285, "lon": 34.9399082, "format": "hyper"}, {"id": "rami-levy-719", "name": "רמי לוי — רוטשילד כפר סבא", "score": 0.3864, "items": 3252, "lat": 32.1739066, "lon": 34.9078919, "format": "hyper"}, {"id": "shukhair-011", "name": "שוק העיר — כפר סבא מזרח", "score": 0.3918, "items": 4666, "lat": 32.1760243, "lon": 34.9346463, "format": "neighborhood"}, {"id": "615", "name": "שופרסל — BE כפר סבא", "score": 0.4637, "items": 1941, "lat": 32.1787356, "lon": 34.903319, "format": "neighborhood"}, {"id": "victory-079", "name": "ויקטורי — כפר סבא הירוקה", "score": 0.4839, "items": 6589, "lat": 32.1981936, "lon": 34.8908019, "format": "neighborhood"}, {"id": "230", "name": "שופרסל — שלי כ\"ס- ויצמן", "score": 0.4952, "items": 4443, "lat": 32.1755487, "lon": 34.9071512, "format": "neighborhood"}, {"id": "140", "name": "שופרסל — אקספרס תל חי", "score": 0.5043, "items": 3174, "lat": 32.1696571, "lon": 34.912684, "format": "neighborhood"}, {"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "score": 0.5807, "items": 3512, "lat": 32.1720565, "lon": 34.9043899, "format": "neighborhood"}, {"id": "648", "name": "שופרסל — BE מאיר-כפרסבא", "score": 0.5868, "items": 1781, "lat": 32.1809853, "lon": 34.8953621, "format": "neighborhood"}, {"id": "tiv-taam-093", "name": "טיב טעם — כפר סבא הירוקה", "score": 0.6012, "items": 4675, "lat": 32.1908086, "lon": 34.8922787, "format": "neighborhood"}, {"id": "36", "name": "שופרסל — שלי כ\"ס- רוטשילד", "score": 0.6274, "items": 5446, "lat": 32.1752104, "lon": 34.908524, "format": "neighborhood"}, {"id": "335", "name": "שופרסל — אקספרס כ\"ס- בן גוריון", "score": 0.6471, "items": 2709, "lat": 32.1718868, "lon": 34.9103858, "format": "neighborhood"}, {"id": "682", "name": "שופרסל — BE כפר סבא צפון", "score": 0.7052, "items": 1643, "lat": 32.1924423, "lon": 34.8889114, "format": "neighborhood"}, {"id": "dor-alon-582", "name": "דור אלון — טשרניחובסקי כ\"ס", "score": 0.749, "items": 3660, "lat": 32.1762122, "lon": 34.8922325, "format": "neighborhood"}, {"id": "375", "name": "שופרסל — אקספרס כ\"ס- הגליל", "score": 0.7504, "items": 4122, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "394", "name": "שופרסל — אקספרס הכרמל כפר סבא", "score": 0.817, "items": 4303, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "752", "name": "שופרסל — אקספרס כפר סבא דוכיפת", "score": 0.8647, "items": 2718, "lat": 32.1846318, "lon": 34.9294381, "format": "neighborhood"}, {"id": "carrefour-400", "name": "קרפור — קרפור סיטי קניון כפר סבא", "score": 0.9015, "items": 7481, "lat": 32.1774414, "lon": 34.9028504, "format": "neighborhood"}, {"id": "845", "name": "שופרסל — אקספרס נחשון כפר סבא", "score": 0.9092, "items": 2795, "lat": 32.1745694, "lon": 34.9059981, "format": "neighborhood"}];
+  const stores = [{"id": "rami-levy-033", "name": "רמי לוי — כפר סבא", "score": 0.0817, "items": 8085, "lat": 32.172961, "lon": 34.9263439, "format": "hyper"}, {"id": "osher-ad-031", "name": "אושר עד — כפר סבא", "score": 0.1586, "items": 3501, "lat": 32.1838769, "lon": 34.9540791, "format": "hyper"}, {"id": "144", "name": "שופרסל — דיל שבירו כפר סבא", "score": 0.185, "items": 7821, "lat": 32.192092, "lon": 34.8933954, "format": "hyper"}, {"id": "yohananof-024", "name": "יוחננוף — כפר סבא", "score": 0.2047, "items": 7996, "lat": 32.1652687, "lon": 34.9288571, "format": "hyper"}, {"id": "carrefour-010", "name": "קרפור — קרפור היפר כפר סבא", "score": 0.2435, "items": 9018, "lat": 32.1797285, "lon": 34.9399082, "format": "hyper"}, {"id": "259", "name": "שופרסל — יוניברס גזית כ\"ס- ויצמן", "score": 0.2744, "items": 7874, "lat": 32.1710877, "lon": 34.9272511, "format": "hyper"}, {"id": "rami-levy-719", "name": "רמי לוי — רוטשילד כפר סבא", "score": 0.471, "items": 3305, "lat": 32.1739066, "lon": 34.9078919, "format": "hyper"}, {"id": "615", "name": "שופרסל — BE כפר סבא", "score": 0.4776, "items": 2607, "lat": 32.1787356, "lon": 34.903319, "format": "neighborhood"}, {"id": "victory-079", "name": "ויקטורי — כפר סבא הירוקה", "score": 0.4867, "items": 6959, "lat": 32.1981936, "lon": 34.8908019, "format": "neighborhood"}, {"id": "shukhair-011", "name": "שוק העיר — כפר סבא מזרח", "score": 0.4912, "items": 4667, "lat": 32.1760243, "lon": 34.9346463, "format": "neighborhood"}, {"id": "230", "name": "שופרסל — שלי כ\"ס- ויצמן", "score": 0.5403, "items": 4494, "lat": 32.1755487, "lon": 34.9071512, "format": "neighborhood"}, {"id": "140", "name": "שופרסל — אקספרס תל חי", "score": 0.5465, "items": 3184, "lat": 32.1696571, "lon": 34.912684, "format": "neighborhood"}, {"id": "171", "name": "שופרסל — אקספרס אוסטשינסקי", "score": 0.6186, "items": 3534, "lat": 32.1720565, "lon": 34.9043899, "format": "neighborhood"}, {"id": "648", "name": "שופרסל — BE מאיר-כפרסבא", "score": 0.6348, "items": 2427, "lat": 32.1809853, "lon": 34.8953621, "format": "neighborhood"}, {"id": "36", "name": "שופרסל — שלי כ\"ס- רוטשילד", "score": 0.661, "items": 5577, "lat": 32.1752104, "lon": 34.908524, "format": "neighborhood"}, {"id": "335", "name": "שופרסל — אקספרס כ\"ס- בן גוריון", "score": 0.6729, "items": 2709, "lat": 32.1718868, "lon": 34.9103858, "format": "neighborhood"}, {"id": "tiv-taam-093", "name": "טיב טעם — כפר סבא הירוקה", "score": 0.6786, "items": 4793, "lat": 32.1908086, "lon": 34.8922787, "format": "neighborhood"}, {"id": "wolt-005", "name": "וולט מרקט — וולט מרקט | כפר סבא", "score": 0.7444, "items": 3276, "lat": 32.1718024, "lon": 34.9257395, "format": "online"}, {"id": "375", "name": "שופרסל — אקספרס כ\"ס- הגליל", "score": 0.7672, "items": 4155, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "682", "name": "שופרסל — BE כפר סבא צפון", "score": 0.7982, "items": 2276, "lat": 32.1924423, "lon": 34.8889114, "format": "neighborhood"}, {"id": "394", "name": "שופרסל — אקספרס הכרמל כפר סבא", "score": 0.8269, "items": 4336, "lat": 32.1734106, "lon": 34.9167947, "format": "neighborhood"}, {"id": "dor-alon-582", "name": "דור אלון — טשרניחובסקי כ\"ס", "score": 0.8308, "items": 3784, "lat": 32.1762122, "lon": 34.8922325, "format": "neighborhood"}, {"id": "752", "name": "שופרסל — אקספרס כפר סבא דוכיפת", "score": 0.8717, "items": 2710, "lat": 32.1846318, "lon": 34.9294381, "format": "neighborhood"}, {"id": "845", "name": "שופרסל — אקספרס נחשון כפר סבא", "score": 0.9124, "items": 2797, "lat": 32.1745694, "lon": 34.9059981, "format": "neighborhood"}, {"id": "dor-alon-958", "name": "דור אלון — כפר סבא", "score": 0.9355, "items": 973, "lat": 32.1762785, "lon": 34.9139381, "format": "neighborhood"}];
   const BASE = "/frodo-project";
 
   function scoreColor(score){
@@ -331,11 +333,17 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
 
   const hyperLayer = L.layerGroup().addTo(map);
   const neighborhoodLayer = L.layerGroup().addTo(map);
+  const onlineLayer = L.layerGroup().addTo(map);
 
   stores.forEach(s=>{
     const color = scoreColor(s.score);
     const size = s.format === "hyper" ? 22 : 16;
-    const shape = s.format === "hyper"
+    // Distinguished by SHAPE, not just color, same as the existing
+    // square/circle split -- a triangle keeps it identifiable in
+    // grayscale/colorblind viewing, not just as an extra hue.
+    const shape = s.format === "online"
+      ? `<div class="store-pin" style="width:${size}px;height:${size}px;background:${color};clip-path:polygon(50% 0%, 0% 100%, 100% 100%)"></div>`
+      : s.format === "hyper"
       ? `<div class="store-pin" style="width:${size}px;height:${size}px;border-radius:7px;background:${color}"></div>`
       : `<div class="store-pin" style="width:${size}px;height:${size}px;border-radius:50%;background:${color}"></div>`;
     const icon = L.divIcon({html: shape, className: "", iconSize: [size,size], iconAnchor: [size/2, size/2]});
@@ -351,14 +359,18 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
     // whole page is dir="rtl" (layout.py), so without this the tooltip
     // landed far from the cursor instead of right above the pin.
     marker.bindTooltip(s.name, {direction: "top", offset: [0, -(size/2)]});
+    const onlineNote = s.format === "online"
+      ? '<div class="meta" style="margin-top:4px;">🚚 משלוחים/איסוף בלבד — אין כניסה פיזית לקונים</div>'
+      : "";
     marker.bindPopup(`
       <div class="store-popup">
         <b>${s.name}</b>
         <div class="meta">מדד חיסכון ${100 - Math.round(s.score*100)} מתוך 100 (ככל שגבוה יותר -- זול יותר)<br>${s.items.toLocaleString()} מוצרים משותפים</div>
+        ${onlineNote}
         <a class="openbtn" href="${BASE}/store/${s.id}/">פתח דף סניף ←</a>
       </div>
     `);
-    (s.format === "hyper" ? hyperLayer : neighborhoodLayer).addLayer(marker);
+    (s.format === "hyper" ? hyperLayer : s.format === "online" ? onlineLayer : neighborhoodLayer).addLayer(marker);
   });
 
   document.getElementById("fmtHyper").addEventListener("change", (e)=>{
@@ -366,6 +378,9 @@ button.locbtn:hover{ background:var(--navy); color:#fff; }
   });
   document.getElementById("fmtNeighborhood").addEventListener("change", (e)=>{
     if (e.target.checked) map.addLayer(neighborhoodLayer); else map.removeLayer(neighborhoodLayer);
+  });
+  document.getElementById("fmtOnline").addEventListener("change", (e)=>{
+    if (e.target.checked) map.addLayer(onlineLayer); else map.removeLayer(onlineLayer);
   });
 
   let meMarker = null;

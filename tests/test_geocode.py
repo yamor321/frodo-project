@@ -37,6 +37,15 @@ class SpecificStreetTests(unittest.TestCase):
         self.assertFalse(_is_specific_street("https://www.quik.co.il"))
         self.assertFalse(_is_specific_street("https://www.carrefour.co.il"))
 
+    def test_rejects_an_uppercase_url_without_a_protocol(self):
+        """Real case, found live 2026-08-30: Shufersal's own online store
+        (413) publishes its Address as "WWW.SHUFERSAL.CO.IL" -- uppercase,
+        no http(s):// prefix. The original check was case-sensitive and
+        would have sent this straight to Nominatim as if it were a real
+        street; latent until StoreType-based inclusion made store 413
+        reachable at all."""
+        self.assertFalse(_is_specific_street("WWW.SHUFERSAL.CO.IL"))
+
 
 class BoundsCheckTests(unittest.TestCase):
     def test_accepts_a_known_real_kfar_saba_point(self):

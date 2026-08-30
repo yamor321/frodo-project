@@ -69,4 +69,17 @@ ADDRESS_OVERRIDES: dict[str, str] = {
     # https://easy.co.il/en/page/26388450
     # https://www.t.co.il/Business/Card-780835.html
     "yohananof-024": "עתיר ידע 1",
+    # Stores.xml Address == "הסדנא 17, כפר סבא" -- a real street, but OSM only
+    # holds it under its Latin transliteration ("HaSadna"), not the Hebrew
+    # spelling; Nominatim returns zero results for "הסדנא 17" (confirmed live
+    # 2026-08-30) and one clean result for "HaSadna 17", inside
+    # KFAR_SABA_BOUNDS, in the same industrial zone as osher-ad-031's override
+    # above. Independently confirmed as a real Kfar Saba industrial-zone
+    # street (not guessed from the geocode result alone) via b144.co.il's own
+    # listings for numbers 1 and 7 on this street, and menivim-reit.co.il's
+    # description of a building "at the corner of HaSadna and Binyamin
+    # Yehalom, in the Kfar Saba industrial zone":
+    # https://www.b144.co.il/maps/%D7%9B%D7%A4%D7%A8-%D7%A1%D7%91%D7%90/%D7%94%D7%A1%D7%93%D7%A0%D7%90/
+    # https://www.menivim-reit.co.il/%D7%A0%D7%9B%D7%A1%D7%99-%D7%94%D7%A7%D7%A8%D7%9F/%D7%9B%D7%A4%D7%A8-%D7%A1%D7%91%D7%90/
+    "wolt-005": "HaSadna 17",
 }

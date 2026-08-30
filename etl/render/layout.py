@@ -82,6 +82,7 @@ h2{ font-weight:800; font-size:1.3rem; letter-spacing:-.005em; margin:0 0 10px; 
   border-radius:999px; white-space:nowrap; display:inline-block; }
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
+.chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 
 .thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }

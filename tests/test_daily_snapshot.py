@@ -8,7 +8,7 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "scripts"))
 
-from daily_snapshot import usable_street_addresses
+from daily_snapshot import store_format, usable_street_addresses
 
 
 class UsableStreetAddressesTests(unittest.TestCase):
@@ -35,6 +35,20 @@ class UsableStreetAddressesTests(unittest.TestCase):
     def test_a_real_address_passes_through_unchanged(self):
         addrs = {"1": "הרצל 10"}
         self.assertEqual(usable_street_addresses(addrs, {}), {"1": "הרצל 10"})
+
+
+class StoreFormatTests(unittest.TestCase):
+    def test_is_online_wins_over_name_heuristics(self):
+        """StoreType (is_online) is a sourced, verified signal -- it must
+        take priority over the name-keyword heuristic, not the other way
+        around, even for a name that would otherwise say "hyper" (e.g. a
+        chain's own "online"/"quick" branding still containing a hyper-
+        format keyword by coincidence)."""
+        self.assertEqual(store_format("שופרסל דיל אונליין", is_online=True), "online")
+
+    def test_falls_back_to_name_heuristics_when_not_online(self):
+        self.assertEqual(store_format("שופרסל דיל שבירו", is_online=False), "hyper")
+        self.assertEqual(store_format("שופרסל אקספרס תל חי", is_online=False), "neighborhood")
 
 
 if __name__ == "__main__":

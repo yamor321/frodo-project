@@ -47,5 +47,41 @@ class ParsePriceXmlTests(unittest.TestCase):
         self.assertGreater(len(naive_matches), len(actually_dairy))
 
 
+_WOLT_SHAPED_XML = """<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+  <ChainID>7290058249350</ChainID>
+  <SubChainID>000</SubChainID>
+  <StoreID>005</StoreID>
+  <Items>
+    <Item>
+      <ItemCode>1234567890123</ItemCode>
+      <ItemName>מוצר לדוגמה</ItemName>
+      <ManufactureName></ManufactureName>
+      <ManufactureCountry></ManufactureCountry>
+      <UnitQty></UnitQty>
+      <Quantity>1</Quantity>
+      <UnitOfMeasure></UnitOfMeasure>
+      <blsWeighted>1</blsWeighted>
+      <QtyInPackage></QtyInPackage>
+      <ItemPrice>9.90</ItemPrice>
+      <UnitOfMeasurePrice>9.90</UnitOfMeasurePrice>
+      <PriceUpdateTime></PriceUpdateTime>
+    </Item>
+  </Items>
+</Root>"""
+
+
+class WeightedFlagTagVariantTests(unittest.TestCase):
+    """Regression for a real bug found live 2026-08-30: Wolt Market's own
+    PriceFull files spell this flag <blsWeighted> (lowercase L), not
+    <bIsWeighted> (capital I) like every other chain's schema. Synthetic,
+    offline -- not dependent on live catalog content."""
+
+    def test_reads_is_weighted_from_the_lowercase_l_tag_variant(self):
+        records = parse_price_xml(_WOLT_SHAPED_XML.encode("utf-8"))
+        self.assertEqual(len(records), 1)
+        self.assertTrue(records[0].is_weighted)
+
+
 if __name__ == "__main__":
     unittest.main()

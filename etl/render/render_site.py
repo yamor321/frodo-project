@@ -42,7 +42,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; margin:20px 0 30px;
 .card .prices{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
 .price-actual{ font-weight:700; font-size:1.15rem; font-variant-numeric:tabular-nums; }
 .price-ref{ font-size:.85rem; color:var(--ink-muted); font-variant-numeric:tabular-nums; }
-.chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 .card.spread{ flex-direction:column; align-items:stretch; gap:8px; padding:14px 18px; }
 .card.spread .top-row{ display:flex; align-items:center; gap:10px; }
 .card.spread .top-row .name{ flex:1; min-width:0; }

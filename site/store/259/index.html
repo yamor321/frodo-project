@@ -93,6 +93,7 @@ h2{ font-weight:800; font-size:1.3rem; letter-spacing:-.005em; margin:0 0 10px; 
   border-radius:999px; white-space:nowrap; display:inline-block; }
 .chip.warm{ background:var(--brick-soft); color:var(--brick); }
 .chip.good{ background:var(--good-soft); color:var(--good); }
+.chip.neutral{ background:var(--paper); color:var(--ink-muted); }
 
 .thumb{ width:56px; height:56px; flex:none; border-radius:8px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
@@ -196,7 +197,8 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1710877,34.9272511" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 71 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,380 מוצרים משותפים</span></div>
+  
+  <div class="storecard"><span class="score">מדד חיסכון: 73 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,874 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -204,9 +206,33 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018825020&from=259">תפוח אדמה לבן גורמה</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪32.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip good">-316%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290005678332&from=259">ענבים שחורים סייבל</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪44.90</small></div>
+      </div>
+      <div class="prices">₪16.90 <span class="chip good">-166%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000965055&from=259">מלון מובחר</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪3.90 <span class="chip good">-103%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018619308&from=259">תפוח אדמה אגו שף</a><small>לעומת אושר עד — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip good">-89%</span></div>
     </div>
 
     <div class="card spread">
@@ -239,30 +265,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290013128324&from=259">ענבים אדומים פלם</a><small>לעומת שופרסל — אקספרס תל חי: ₪29.90</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip good">-77%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019635871&from=259">פרוסות קשקבל24% 150גר גד</a><small>לעומת שופרסל — אקספרס אוסטשינסקי: ₪29.20</small></div>
-      </div>
-      <div class="prices">₪16.80 <span class="chip good">-74%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014692817&from=259">מוצרלה מגורדת 200ג אירו</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪18.50</small></div>
-      </div>
-      <div class="prices">₪10.90 <span class="chip good">-70%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290005610509&from=259">צנונית מארז (ק)</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪5.90 <span class="chip good">-68%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -271,70 +273,70 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116532424&from=259">דאב ספריי אגס ואלוור</a><small>לעומת יוחננוף — כפר סבא: ₪11.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290017593111&from=259">מארז תירס לבן - שקיל</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪8.90</small></div>
       </div>
-      <div class="prices">₪19.90 <span class="chip warm">+67%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/727/099/9012/front_it.3.400.jpg" alt="שמן גרעיני ענבים נטורפוד 1 ליטר" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8007270999012&from=259">שמן גרעיני ענבים נטורפוד 1 ליטר</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪32.90</small></div>
-      </div>
-      <div class="prices">₪54.90 <span class="chip warm">+67%</span></div>
+      <div class="prices">₪11.90 <span class="chip warm">+34%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015968508&from=259">כוסות לשתיה קרה חד פ</a><small>לעומת קרפור — קרפור אונליין כפר סבא @ קרפור: ₪5.00</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003268245&from=259">חלה מתוקה ארוזה דגני</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪12.10</small></div>
       </div>
-      <div class="prices">₪7.90 <span class="chip warm">+58%</span></div>
+      <div class="prices">₪15.90 <span class="chip warm">+31%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290120870574&from=259">*מבצע* רוטב טרו ציל</a><small>לעומת יוחננוף — כפר סבא: ₪12.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290123440033&from=259">פצפוצי אורז לבן 350</a><small>לעומת רמי לוי — כפר סבא: ₪18.90</small></div>
       </div>
-      <div class="prices">₪19.90 <span class="chip warm">+54%</span></div>
+      <div class="prices">₪23.90 <span class="chip warm">+26%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4015576235493&from=259">בירה בהירה הל BERLIN</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290123440019&from=259">פצפוצי אורז מלא לל&quot;ס</a><small>לעומת רמי לוי — כפר סבא: ₪18.90</small></div>
       </div>
-      <div class="prices">₪11.90 <span class="chip warm">+51%</span></div>
+      <div class="prices">₪23.90 <span class="chip warm">+26%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4015576236780&from=259">בירה בהירה לא מסוננת</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=3600524244842&from=259">מסכה קולור פרוטקט 30</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
       </div>
-      <div class="prices">₪11.90 <span class="chip warm">+51%</span></div>
+      <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4820000190985&from=259">בירה אובולון לאגר בפ</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪8.00</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=3600524245733&from=259">מסכה דרים לונג 300 מ</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
       </div>
-      <div class="prices">₪11.90 <span class="chip warm">+49%</span></div>
+      <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290011498177&from=259">שקד לבן 700 גרם.</a><small>לעומת יוחננוף — כפר סבא: ₪44.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=3600524245771&from=259">מסכה פול רזיסט 300 מ</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
       </div>
-      <div class="prices">₪65.90 <span class="chip warm">+47%</span></div>
+      <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=3600524246716&from=259">מסכה שמנים 300 מל</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
+      </div>
+      <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,815 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,809 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -432,7 +434,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,815 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,809 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

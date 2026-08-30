@@ -55,13 +55,14 @@ from etl.scoring.price_history import (
     compute_sitewide_index_point,
 )
 from etl.scoring.store_ranking import compute_store_scores
-from etl.scrapers import bina, carrefour, publishedprices, victory
+from etl.scrapers import bina, carrefour, publishedprices, victory, wolt
 from etl.scrapers.shufersal import (
     KFAR_SABA_STORE_IDS,
     PriceFile,
     download,
     kfar_saba_full_catalog_files,
     kfar_saba_stores,
+    kfar_saba_stores_with_online,
     list_files,
     list_stores_file,
     parse_price_xml,
@@ -96,6 +97,7 @@ CHAIN_HEBREW_NAMES = {
     "fresh-market-": "Fresh Market",
     "keshet-": "קשת טעמים",
     "salach-dabach-": "סאלח דבאח",
+    "wolt-": "וולט מרקט",
 }
 
 # Some chains' own Stores.xml publishes a literal placeholder instead of a
@@ -139,17 +141,22 @@ class ChainCollection:
     catalog_files: list[PriceFile]
     store_names: dict[str, str]
     store_addresses: dict[str, str]
+    online_store_ids: set[str] = dataclasses.field(default_factory=set)
 
 
-def store_format(name: str) -> str:
+def store_format(name: str, is_online: bool = False) -> str:
     """See docs/sources.md: the chain's own format branding in the name is
-    the only real size signal -- the official StoreType field only
-    distinguishes physical/online, not store size. "היפר" catches
-    Carrefour's own hyper-format branches the same way "דיל"/"יוניברס"
-    catches Shufersal's. Rami Levy/Osher Ad/Yohananof are matched by chain
-    name directly (not a Shufersal/Carrefour-style in-name sub-brand) --
-    all three are large discount/hypermarket chains, not neighborhood
-    stores (see docs/sources.md for sourcing)."""
+    the only real size signal for a physical branch -- but StoreType (now
+    parsed, see shufersal.StoreRecord) DOES distinguish physical/online
+    itself, checked first here so an online store is never miscategorized
+    by whatever happens to be in its name. "היפר" catches Carrefour's own
+    hyper-format branches the same way "דיל"/"יוניברס" catches Shufersal's.
+    Rami Levy/Osher Ad/Yohananof are matched by chain name directly (not a
+    Shufersal/Carrefour-style in-name sub-brand) -- all three are large
+    discount/hypermarket chains, not neighborhood stores (see
+    docs/sources.md for sourcing)."""
+    if is_online:
+        return "online"
     return "hyper" if any(
         kw in name for kw in ("דיל", "יוניברס", "היפר", "רמי לוי", "אושר עד", "יוחננוף")
     ) else "neighborhood"
@@ -199,7 +206,7 @@ def _collect_shufersal() -> ChainCollection:
         return ChainCollection("", download, [], {}, {})
 
     stores = parse_stores_xml(download(stores_file))
-    store_ids = kfar_saba_stores(stores) or KFAR_SABA_STORE_IDS
+    store_ids = kfar_saba_stores_with_online(stores) or KFAR_SABA_STORE_IDS
     print(f"Shufersal Kfar Saba stores (from official City filter): {sorted(store_ids)}")
     return ChainCollection(
         prefix="",
@@ -207,6 +214,7 @@ def _collect_shufersal() -> ChainCollection:
         catalog_files=list(kfar_saba_full_catalog_files(all_files, store_ids)),
         store_names={s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
     )
 
 
@@ -219,7 +227,7 @@ def _collect_carrefour() -> ChainCollection:
         return ChainCollection("carrefour-", carrefour.download, [], {}, {})
 
     stores = parse_stores_xml(carrefour.download(stores_file))
-    store_ids = kfar_saba_stores(stores) or carrefour.KFAR_SABA_STORE_IDS
+    store_ids = kfar_saba_stores_with_online(stores) or carrefour.KFAR_SABA_STORE_IDS
     print(f"Carrefour Kfar Saba stores (from official City filter): {sorted(store_ids)}")
     prefix = "carrefour-"
     return ChainCollection(
@@ -228,6 +236,7 @@ def _collect_carrefour() -> ChainCollection:
         catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
         store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={prefix + s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
     )
 
 
@@ -240,7 +249,7 @@ def _collect_victory() -> ChainCollection:
         return ChainCollection("victory-", victory.download, [], {}, {})
 
     stores = parse_stores_xml(victory.download(stores_file))
-    store_ids = kfar_saba_stores(stores)
+    store_ids = kfar_saba_stores_with_online(stores)
     print(f"Victory Kfar Saba stores (from official City filter): {sorted(store_ids)}")
     prefix = "victory-"
     return ChainCollection(
@@ -249,6 +258,7 @@ def _collect_victory() -> ChainCollection:
         catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
         store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={prefix + s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
     )
 
 
@@ -262,7 +272,7 @@ def _collect_shuk_hair() -> ChainCollection:
         return ChainCollection("shukhair-", bina.download, [], {}, {})
 
     stores = parse_stores_xml(bina.download(stores_file))
-    store_ids = kfar_saba_stores(stores) or bina.SHUK_HAIR_KFAR_SABA_STORE_IDS
+    store_ids = kfar_saba_stores_with_online(stores) or bina.SHUK_HAIR_KFAR_SABA_STORE_IDS
     print(f"Shuk HaIr Kfar Saba stores (from official City filter): {sorted(store_ids)}")
     prefix = "shukhair-"
     return ChainCollection(
@@ -271,6 +281,7 @@ def _collect_shuk_hair() -> ChainCollection:
         catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
         store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={prefix + s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
     )
 
 
@@ -325,7 +336,7 @@ def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock)
         return ChainCollection(prefix, download_fn, [], {}, {})
 
     stores = parse_stores_xml(download_fn(stores_file))
-    store_ids = kfar_saba_stores(stores)
+    store_ids = kfar_saba_stores_with_online(stores)
     print(f"  {chain_key} Kfar Saba stores (from official City filter): {sorted(store_ids)}")
     return ChainCollection(
         prefix=prefix,
@@ -333,6 +344,36 @@ def _collect_cerberus_chain(chain_key: str, diagnostics: dict, diagnostics_lock)
         catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
         store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={prefix + s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
+    )
+
+
+def _collect_wolt() -> ChainCollection:
+    """Wolt Market -- a fully online/dark-store chain (see etl/scrapers/
+    wolt.py's module docstring), not an online branch of an otherwise
+    physical chain. Uses plain kfar_saba_stores(), not the
+    _with_online() union: its one Kfar Saba branch already matches through
+    its own City=="כפר סבא" field, and the union helper would incorrectly
+    pull in stores from other cities (Wolt publishes 43 StoreType=="2"
+    stores nationally, not one)."""
+    print("Listing Wolt Market portal...")
+    files = wolt.list_files()
+    stores_file = list_stores_file(files)
+    if stores_file is None:
+        print("No Wolt Market Stores file found this run -- skipping Wolt Market for today.")
+        return ChainCollection("wolt-", wolt.download, [], {}, {})
+
+    stores = parse_stores_xml(wolt.download(stores_file))
+    store_ids = kfar_saba_stores(stores) or wolt.KFAR_SABA_STORE_IDS
+    print(f"Wolt Market Kfar Saba stores (from official City filter): {sorted(store_ids)}")
+    prefix = "wolt-"
+    return ChainCollection(
+        prefix=prefix,
+        download_fn=wolt.download,
+        catalog_files=list(kfar_saba_full_catalog_files(files, store_ids)),
+        store_names={prefix + s.store_id: s.store_name for s in stores if s.store_id in store_ids},
+        store_addresses={prefix + s.store_id: s.address for s in stores if s.store_id in store_ids},
+        online_store_ids={prefix + s.store_id for s in stores if s.store_id in store_ids},
     )
 
 
@@ -366,6 +407,7 @@ def main() -> None:
         _safe_collect("Carrefour", _collect_carrefour, "carrefour-"),
         _safe_collect("Victory", _collect_victory, "victory-"),
         _safe_collect("Shuk HaIr", _collect_shuk_hair, "shukhair-"),
+        _safe_collect("Wolt Market", _collect_wolt, "wolt-"),
     ]
 
     # Ten chains sharing one FTP platform (see etl/scrapers/publishedprices.py)
@@ -403,8 +445,12 @@ def main() -> None:
         "carrefour-": carrefour.KFAR_SABA_STORE_IDS,
         "victory-": victory.KFAR_SABA_STORE_IDS,
         "shukhair-": bina.SHUK_HAIR_KFAR_SABA_STORE_IDS,
+        "wolt-": wolt.KFAR_SABA_STORE_IDS,
     }
-    CHAIN_DISPLAY_NAMES = {"": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory", "shukhair-": "Shuk HaIr"}
+    CHAIN_DISPLAY_NAMES = {
+        "": "Shufersal", "carrefour-": "Carrefour", "victory-": "Victory",
+        "shukhair-": "Shuk HaIr", "wolt-": "Wolt Market",
+    }
     fallback_catalogs: dict[str, list] = {}
     stale_as_of: dict[str, str] = {}
     for chain in chains:
@@ -457,18 +503,22 @@ def main() -> None:
 
     store_names: dict[str, str] = {}
     store_addresses: dict[str, str] = {}
+    online_store_ids: set[str] = set()
     for chain in chains:
         label = CHAIN_HEBREW_NAMES.get(chain.prefix, chain.prefix.rstrip("-"))
         for sid, raw_name in chain.store_names.items():
             name = f"{label} — {raw_name}" if label else raw_name
             store_names[sid] = clean_store_name(name)
         store_addresses.update(chain.store_addresses)
+        online_store_ids |= chain.online_store_ids
 
     # Sticky directory: today's live names/addresses feed it, and any store
     # only present today via the raw-snapshot fallback (no live Stores file
     # this run) borrows its name/address back from the last time it WAS seen
-    # live, instead of rendering with an empty name.
-    directory = update_store_directory(store_names, store_addresses)
+    # live, instead of rendering with an empty name. is_online is just as
+    # sticky as name/address (StoreType basically never changes day to day)
+    # -- see etl/enrich/store_directory.py.
+    directory = update_store_directory(store_names, store_addresses, online_store_ids)
     for store_id in fallback_catalogs:
         if store_id not in store_names:
             # clean_store_name() again here too, not just on the live path
@@ -478,6 +528,8 @@ def main() -> None:
             store_names[store_id] = clean_store_name(directory.get(store_id, {}).get("name", store_id))
         if store_id not in store_addresses and store_id in directory:
             store_addresses[store_id] = directory[store_id].get("address", "")
+        if store_id not in online_store_ids and directory.get(store_id, {}).get("is_online"):
+            online_store_ids.add(store_id)
 
     spreads = compute_spreads(catalogs_by_store, store_names, min_stores=4)
     scores = compute_store_scores(catalogs_by_store, store_names, min_stores=4)
@@ -501,7 +553,7 @@ def main() -> None:
     coords = {sid: geo_results.get(street) for sid, street in streets_by_store.items()}
     coords = {sid: pt for sid, pt in coords.items() if pt is not None}
 
-    formats = {sid: store_format(name) for sid, name in store_names.items()}
+    formats = {sid: store_format(name, is_online=sid in online_store_ids) for sid, name in store_names.items()}
 
     print("\nRendering pages...")
     (site_dir / "index.html").write_text(
@@ -551,6 +603,7 @@ def main() -> None:
                 image_urls=image_urls,
                 as_of_date=stale_as_of.get(store_id),
                 address=streets_by_store.get(store_id),
+                is_online=store_id in online_store_ids,
             ),
             encoding="utf-8",
         )

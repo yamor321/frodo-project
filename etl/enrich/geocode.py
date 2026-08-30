@@ -56,7 +56,13 @@ def _is_specific_street(street: str) -> bool:
     normalized = street.strip()
     if not normalized or normalized in {"כפר סבא", "כפר-סבא"}:
         return False
-    if "http://" in normalized or "https://" in normalized or "www." in normalized:
+    # Case-insensitive: Shufersal's own online store (413) publishes
+    # "WWW.SHUFERSAL.CO.IL" -- uppercase, no protocol -- which the
+    # case-sensitive check below used to miss entirely (verified live
+    # 2026-08-30). Latent until now since store 413 was never included;
+    # becomes live the moment StoreType-based inclusion ships.
+    lowered = normalized.lower()
+    if "http://" in lowered or "https://" in lowered or "www." in lowered:
         return False
     return True
 

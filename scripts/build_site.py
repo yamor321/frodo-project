@@ -44,7 +44,7 @@ from etl.scoring.price_history import (
 )
 from etl.scoring.store_ranking import compute_store_scores
 from etl.scrapers import carrefour, victory
-from etl.scrapers.shufersal import kfar_saba_full_catalog_files, kfar_saba_stores, list_stores_file, parse_price_xml, parse_stores_xml
+from etl.scrapers.shufersal import kfar_saba_full_catalog_files, kfar_saba_stores_with_online, list_stores_file, parse_price_xml, parse_stores_xml
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "raw" / "2026-08-28"
@@ -122,7 +122,7 @@ def main() -> None:
     carrefour_catalog_files = []
     if carrefour_stores_file is not None:
         c_stores = parse_stores_xml(carrefour.download(carrefour_stores_file))
-        c_store_ids = kfar_saba_stores(c_stores) or carrefour.KFAR_SABA_STORE_IDS
+        c_store_ids = kfar_saba_stores_with_online(c_stores) or carrefour.KFAR_SABA_STORE_IDS
         for s in c_stores:
             if s.store_id in c_store_ids:
                 store_names[CARREFOUR_PREFIX + s.store_id] = clean_store_name(s.store_name)
@@ -133,7 +133,7 @@ def main() -> None:
     victory_catalog_files = []
     if victory_stores_file is not None:
         v_stores = parse_stores_xml(victory.download(victory_stores_file))
-        v_store_ids = kfar_saba_stores(v_stores)
+        v_store_ids = kfar_saba_stores_with_online(v_stores)
         for s in v_stores:
             if s.store_id in v_store_ids:
                 store_names[VICTORY_PREFIX + s.store_id] = clean_store_name(s.store_name)
