@@ -41,7 +41,12 @@ from etl.render.product import (
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
-from etl.scoring.active_promos import compute_active_promos
+from etl.scoring.active_promos import (
+    build_promo_highlights,
+    compute_active_promos,
+    find_fallback_active_promos,
+    rebuild_active_promos_from_flat,
+)
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.manufacturer_match import (
@@ -599,6 +604,20 @@ def main() -> None:
     # item's own regular PriceFull price (see compute_active_promos()'s
     # docstring -- ~30% of "simple" promos fail this check in practice).
     active_promos = compute_active_promos(promos_by_store, catalogs_by_store, today=now.date())
+    if not promos_by_store:
+        # Shufersal's live promo collection failed entirely this run (no
+        # promo files even downloaded, not "zero simple promos found") --
+        # confirmed live 2026-08-31: prices.shufersal.co.il timed out on
+        # every pagination request, twice in a row, would otherwise make
+        # the whole promo feature silently vanish for the day even though
+        # the underlying promos almost certainly didn't actually change.
+        # See find_fallback_active_promos()/rebuild_active_promos_from_flat()
+        # in etl/scoring/active_promos.py.
+        fallback_rows, fallback_date = find_fallback_active_promos(ROOT / "data" / "processed", now.date())
+        if fallback_rows:
+            active_promos = rebuild_active_promos_from_flat(fallback_rows, catalogs_by_store, today=now.date())
+            kept = sum(len(v) for v in active_promos.values())
+            print(f"Shufersal promo collection failed live -- fell back to {fallback_date}'s data, {kept}/{len(fallback_rows)} promos still valid after re-checking today's prices/expiry")
     active_promos_flat = [
         dataclasses.asdict(p) for store_promos in active_promos.values() for p in store_promos.values()
     ]
@@ -607,6 +626,11 @@ def main() -> None:
         json.dumps(active_promos_flat, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     print(f"Wrote {active_promos_path} ({len(active_promos_flat)} confirmed active promos)")
+
+    # Enriched with real item/store names for the homepage's dedicated
+    # "active promos now" section (etl/render/render_site.py) -- ActivePromo
+    # alone only carries item_code/store_id.
+    promo_highlights = build_promo_highlights(active_promos, catalogs_by_store, store_names)
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
     streets_by_store = usable_street_addresses(store_addresses, ADDRESS_OVERRIDES)
@@ -618,7 +642,10 @@ def main() -> None:
 
     print("\nRendering pages...")
     (site_dir / "index.html").write_text(
-        render_index_html(spreads, scores, generated_at=now.strftime("%d.%m.%Y, %H:%M")),
+        render_index_html(
+            spreads, scores, generated_at=now.strftime("%d.%m.%Y, %H:%M"),
+            active_promos=active_promos, promo_highlights=promo_highlights,
+        ),
         encoding="utf-8",
     )
 
@@ -628,7 +655,7 @@ def main() -> None:
 
     branches_dir = site_dir / "branches"
     branches_dir.mkdir(exist_ok=True)
-    (branches_dir / "index.html").write_text(render_branches_html(spreads), encoding="utf-8")
+    (branches_dir / "index.html").write_text(render_branches_html(spreads, active_promos), encoding="utf-8")
 
     map_dir = site_dir / "map"
     map_dir.mkdir(exist_ok=True)

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from html import escape
 
+from etl.scoring.active_promos import ActivePromo, PromoHighlight, format_promo_end_date
 from etl.scoring.cross_branch_spread import SpreadResult
 from etl.scoring.store_ranking import StoreScore
 
@@ -68,8 +69,31 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
 """
 
 
-def _spread_card(s: SpreadResult) -> str:
+def _range_price_html(price: float, promo: ActivePromo | None) -> str:
+    """The regular price, or -- when this exact (item, store) has a real
+    confirmed active promo (see etl/scoring/active_promos.py) -- the
+    regular price struck through next to the promo price and a "מבצע"
+    badge, same visual language as the store/product pages. Added here
+    (homepage spread cards) after a user report: the badge existed on
+    product/store pages but never on the homepage, the first page anyone
+    actually lands on -- so the feature was real but effectively
+    invisible to a casual visitor who never clicks through."""
+    if promo is None:
+        return f'<b class="ltr">₪{price:.2f}</b>'
+    end_label = format_promo_end_date(promo.end_datetime)
+    end_html = f" עד {end_label}" if end_label else ""
+    return (
+        f'<b class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;font-size:.85rem;">₪{price:.2f}</b> '
+        f'<b class="ltr">₪{promo.discounted_price:.2f}</b>'
+        f'<span class="chip good" style="margin-inline-start:4px;">מבצע{end_html}</span>'
+    )
+
+
+def _spread_card(s: SpreadResult, active_promos: dict[str, dict[str, ActivePromo]] | None = None) -> str:
+    active_promos = active_promos or {}
     coverage = f' <small class="ltr" style="font-weight:400;color:var(--ink-muted)">· נמצא ב-{s.num_stores} סניפים</small>' if s.num_stores >= 5 else ""
+    cheap_promo = active_promos.get(s.cheap_store_id, {}).get(s.item_code)
+    expensive_promo = active_promos.get(s.expensive_store_id, {}).get(s.item_code)
     return f"""
     <div class="card spread">
       <div class="top-row">
@@ -77,9 +101,29 @@ def _spread_card(s: SpreadResult) -> str:
         <span class="chip warm">+{s.spread_pct*100:.1f}%</span>
       </div>
       <div class="range">
-        <span class="range-point cheap"><b class="ltr">₪{s.cheap_price:.2f}</b><small><a href="/frodo-project/store/{s.cheap_store_id}/">{escape(s.cheap_store_name)}</a></small></span>
+        <span class="range-point cheap">{_range_price_html(s.cheap_price, cheap_promo)}<small><a href="/frodo-project/store/{s.cheap_store_id}/">{escape(s.cheap_store_name)}</a></small></span>
         <span class="range-arrow">←</span>
-        <span class="range-point"><b class="ltr">₪{s.expensive_price:.2f}</b><small><a href="/frodo-project/store/{s.expensive_store_id}/">{escape(s.expensive_store_name)}</a></small></span>
+        <span class="range-point">{_range_price_html(s.expensive_price, expensive_promo)}<small><a href="/frodo-project/store/{s.expensive_store_id}/">{escape(s.expensive_store_name)}</a></small></span>
+      </div>
+    </div>"""
+
+
+def _promo_highlight_card(h: PromoHighlight) -> str:
+    end_label = format_promo_end_date(h.end_datetime)
+    end_html = f" עד {end_label}" if end_label else ""
+    discount_pct = round((h.regular_price - h.discounted_price) / h.regular_price * 100)
+    return f"""
+    <div class="card spread">
+      <div class="top-row">
+        <div class="name"><a href="/frodo-project/product/?code={h.item_code}">{escape(h.item_name)}</a></div>
+        <span class="chip good">-{discount_pct}%</span>
+      </div>
+      <div class="range">
+        <span class="range-point cheap">
+          <b class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;font-size:.85rem;">₪{h.regular_price:.2f}</b>
+          <b class="ltr">₪{h.discounted_price:.2f}</b>
+          <small><a href="/frodo-project/store/{h.store_id}/">{escape(h.store_name)}</a> · מבצע{end_html}</small>
+        </span>
       </div>
     </div>"""
 
@@ -110,8 +154,39 @@ def render_index_html(
     scores: list[StoreScore],
     generated_at: str,
     top_n_spreads: int = 20,
+    active_promos: dict[str, dict[str, ActivePromo]] | None = None,
+    promo_highlights: list[PromoHighlight] | None = None,
 ) -> str:
     from etl.render.layout import PIN_ICON_SVG, REVEAL_MORE_CSS, REVEAL_MORE_SCRIPT, page_shell
+
+    # A real, dedicated "active promos" section -- distinct from the
+    # "biggest gap between stores" section below, which selects for an
+    # extreme cross-store difference (200%+ spreads are common there) and
+    # essentially never coincides with a real Shufersal promo (typically
+    # 5-10% off). Without this section the promo feature was technically
+    # working but invisible on the page anyone actually lands on first.
+    top_promos = (promo_highlights or [])[:top_n_spreads]
+    promo_cards = "\n".join(
+        _reveal_wrap(_promo_highlight_card(h), "promos", i < REVEAL_BATCH) for i, h in enumerate(top_promos)
+    )
+    promos_more_btn = (
+        f'<button class="reveal-more-btn" data-reveal-group="promos" data-reveal-step="{REVEAL_BATCH}">עוד {REVEAL_BATCH} ←</button>'
+        if len(top_promos) > REVEAL_BATCH
+        else ""
+    )
+    promos_section = (
+        f"""
+  <hr class="sketchy-divider">
+  <h2 class="section-title">מבצעים פעילים עכשיו</h2>
+  <p class="section-sub">מחירי מבצע אמיתיים, מאומתים מול המחיר הרגיל בפועל -- כרגע משופרסל בלבד (רשתות נוספות בהמשך). ראו איך זה מחושב במתודולוגיה.</p>
+
+  <section class="list">{promo_cards}
+  </section>
+  {promos_more_btn}
+"""
+        if top_promos
+        else ""
+    )
 
     # Headline/top-spread selection skips flagged (implausibly extreme,
     # likely promo-or-data-quality) entries -- see FLAG_SPREAD_PCT in
@@ -122,7 +197,7 @@ def render_index_html(
     hero = top_spreads[0] if top_spreads else None
 
     spread_cards = "\n".join(
-        _reveal_wrap(_spread_card(s), "spreads", i < REVEAL_BATCH) for i, s in enumerate(top_spreads)
+        _reveal_wrap(_spread_card(s, active_promos), "spreads", i < REVEAL_BATCH) for i, s in enumerate(top_spreads)
     )
     spreads_more_btn = (
         f'<button class="reveal-more-btn" data-reveal-group="spreads" data-reveal-step="{REVEAL_BATCH}">עוד {REVEAL_BATCH} ←</button>'
@@ -162,6 +237,7 @@ def render_index_html(
     <span class="meta ltr">עודכן {escape(generated_at)}</span>
   </div>
 {hero_html}
+{promos_section}
   <hr class="sketchy-divider">
   <h2 class="section-title">איזה סניף הכי משתלם?</h2>
   <p class="section-sub">מדד חיסכון ממוצע על פני מוצרים משותפים -- ככל שגבוה יותר, זול יותר. הדירוג הוא לפי איזור (כפר סבא) -- אנשים לא נוסעים רחוק בשביל סופר; איזורים נוספים בהמשך. <a href="/frodo-project/leaderboard/">כל הדירוג המלא ←</a></p>
