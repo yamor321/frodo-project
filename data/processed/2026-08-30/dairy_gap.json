@@ -3119,6 +3119,54 @@
     "ambiguous": false
   },
   {
+    "item_code": "4823065727868",
+    "item_name": "שמנת חמוצה טבעית 15% 180 גר` PRESIDENT",
+    "store_id": "097",
+    "actual_price": 9.9,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 2.485915492957747,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000041858",
+    "item_name": "שמנת חמוצה יטבתה 15%",
+    "store_id": "097",
+    "actual_price": 3.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.1267605633802818,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה אורגינל 15% 200 מל פיקוח תנ",
+    "store_id": "097",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה אורגינל 15% שומן חצי מנה פי",
+    "store_id": "097",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
     "item_code": "72961223",
     "item_name": "גיל, לבן 3% שומן",
     "store_id": "079",
@@ -3300,53 +3348,5 @@
     "controlled_consumer_price": null,
     "gap_pct": null,
     "ambiguous": true
-  },
-  {
-    "item_code": "4823065727868",
-    "item_name": "שמנת חמוצה טבעית 15% 180 גר` PRESIDENT",
-    "store_id": "097",
-    "actual_price": 9.9,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 2.485915492957747,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290000041858",
-    "item_name": "שמנת חמוצה יטבתה 15%",
-    "store_id": "097",
-    "actual_price": 3.2,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.1267605633802818,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004125455",
-    "item_name": "שמנת חמוצה אורגינל 15% 200 מל פיקוח תנ",
-    "store_id": "097",
-    "actual_price": 2.84,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004125509",
-    "item_name": "שמנת חמוצה אורגינל 15% שומן חצי מנה פי",
-    "store_id": "097",
-    "actual_price": 2.2,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": -0.22535211267605623,
-    "ambiguous": false
   }
 ]
