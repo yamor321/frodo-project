@@ -193,11 +193,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.quik.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,974 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 13 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,038 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
-  <section class="list"><p>אין עדיין מספיק נתונים.</p></section>
+  <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290118521679&from=carrefour-473">אבוקדו בשל מארז קרפו</a><small>לעומת קרפור — קרפור אונליין כפר סבא @ קרפור: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪11.90 <span class="chip good">-25%</span></div>
+    </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -206,6 +213,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/476/0141/front_en.8.400.jpg" alt="משקה שקדים אלטרנטיב" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290014760141&from=carrefour-473">משקה שקדים אלטרנטיב</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
+      </div>
+      <div class="prices">₪16.90 <span class="chip warm">+483%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290108358988&from=carrefour-473">מטליות רצפה מיקרופיי</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪22.90 <span class="chip warm">+190%</span></div>
     </div>
@@ -256,19 +271,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290110116125&from=carrefour-473">סירופ פריגת בטעם פטל</a><small>לעומת אושר עד — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪24.90 <span class="chip warm">+180%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/666/3091/front_he.3.400.jpg" alt="לאבנה 9% 500 גרם" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290106663091&from=carrefour-473">לאבנה 9% 500 גרם</a><small>לעומת יוחננוף — כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪24.20 <span class="chip warm">+144%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,274 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,288 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -366,7 +373,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,274 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,288 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

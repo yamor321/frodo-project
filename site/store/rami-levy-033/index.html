@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 93 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,882 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 94 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,960 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -252,16 +252,16 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7531/front_he.3.400.jpg" alt="פפסי משקה קולה מוגז" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290010237531&from=rami-levy-033">פפסי משקה קולה מוגז</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=9771565025005&from=rami-levy-033">מעריב שישי</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪15.90</small></div>
       </div>
-      <div class="prices">₪3.80 <span class="chip good">-161%</span></div>
+      <div class="prices">₪6.00 <span class="chip good">-165%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7579/front_he.3.400.jpg" alt="גזוז בטעם לימון ליים" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290010237579&from=rami-levy-033">גזוז בטעם לימון ליים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7531/front_he.3.400.jpg" alt="פפסי משקה קולה מוגז" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290010237531&from=rami-levy-033">פפסי משקה קולה מוגז</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪3.80 <span class="chip good">-161%</span></div>
     </div></section>
@@ -288,17 +288,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290112492678&from=rami-levy-033">פינוק שמפו לשיער רגי</a><small>לעומת דור אלון — כפר סבא: ₪7.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019932277&from=rami-levy-033">שמן זרעי ענבים 750 מ</a><small>לעומת יוחננוף — כפר סבא: ₪22.90</small></div>
       </div>
-      <div class="prices">₪9.90 <span class="chip warm">+25%</span></div>
+      <div class="prices">₪29.90 <span class="chip warm">+31%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4005900513045&from=rami-levy-033">ניוואה דאו ספריי דיפ</a><small>לעומת יוחננוף — כפר סבא: ₪15.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290112492678&from=rami-levy-033">פינוק שמפו לשיער רגי</a><small>לעומת דור אלון — כפר סבא: ₪7.90</small></div>
       </div>
-      <div class="prices">₪19.90 <span class="chip warm">+25%</span></div>
+      <div class="prices">₪9.90 <span class="chip warm">+25%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">14,558 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">14,561 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "14,558 מוצרים בקטלוג הסניף";
+  const defaultHint = "14,561 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
