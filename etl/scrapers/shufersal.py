@@ -345,7 +345,15 @@ KFAR_SABA_CITY_CODE = "6900"
 # manually by reading Hebrew branch names on 2026-08-26, later confirmed
 # (2026-08-27) to all carry City==6900 in the official Stores file. Prefer
 # kfar_saba_stores(parse_stores_xml(...)) over this constant.
-KFAR_SABA_STORE_IDS = {"144", "394", "615", "682", "752", "845"}
+#
+# "413" ("שופרסל ONLINE", the chain's national online store) added
+# 2026-08-30 for the same reason Carrefour's own online stores are already
+# in its equivalent constant -- a real bug caught with Victory's own online
+# store (etl/scrapers/victory.py) showed that a fallback constant missing a
+# newly-added online id silently drops that store's page the next time
+# fallback is the only thing that finds it, even though Shufersal itself
+# (unlike Victory) is reliably reachable and rarely needs this path at all.
+KFAR_SABA_STORE_IDS = {"144", "394", "413", "615", "682", "752", "845"}
 
 
 def kfar_saba_full_catalog_files(

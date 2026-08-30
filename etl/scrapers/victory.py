@@ -115,7 +115,21 @@ MAHSANEI_HASHUK_CHAIN_IDS = ["7290661400001", "7290633800006"]
 # docstring), list_files() never returns, so there's no live Stores file to
 # derive this from -- daily_snapshot.py's raw-snapshot fallback needs to
 # know which store id to look for without ever talking to the network.
-KFAR_SABA_STORE_IDS = {"079"}
+#
+# "097" ("אינטרנט", Victory's own national online store, StoreType=="2")
+# found live 2026-08-30 via kfar_saba_stores_with_online() -- but Victory is
+# ALWAYS unreachable from GitHub Actions specifically (see module docstring
+# above), meaning every automated run depends entirely on this constant to
+# even look for it via fallback; live discovery never gets the chance to
+# find it there. Real bug caught live: left out of this set at first, so
+# CI's very first run after the online-store feature shipped correctly
+# found nothing live (as always), fell back using only "079", and pruned
+# the online store's page as if it no longer existed -- even though a raw
+# snapshot for it already existed on disk from a run that DID have real
+# network access. Same failure shape as the victory-079 fallback-range bug
+# documented earlier in docs/sources.md, one level up: the store was known
+# to exist, but this constant didn't know to look for it.
+KFAR_SABA_STORE_IDS = {"079", "097"}
 
 
 def list_files(chain_ids: list[str]) -> list[PriceFile]:

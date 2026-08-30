@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,502 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,526 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,6 +272,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018619308&from=osher-ad-031">תפוח אדמה אגו שף</a><small>לעומת שופרסל — יוניברס גזית כ&quot;ס- ויצמן: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪19.90 <span class="chip warm">+152%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=710497311007&from=osher-ad-031">אוכמניות טרי ארוז 125 גר`</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪10.00</small></div>
       </div>
       <div class="prices">₪24.90 <span class="chip warm">+149%</span></div>
@@ -283,14 +291,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290900010367&from=osher-ad-031">טורטייה אבאל 360 גרם</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip warm">+101%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018619308&from=osher-ad-031">תפוח אדמה אגו שף</a><small>לעומת שופרסל — יוניברס גזית כ&quot;ס- ויצמן: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪14.90 <span class="chip warm">+89%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,809 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,811 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,809 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,811 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
