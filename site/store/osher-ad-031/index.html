@@ -133,7 +133,6 @@ footer.sitefoot a{ color:var(--navy); }
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
 .gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
 .gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
   background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
@@ -164,7 +163,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
 .searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
-.searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchrow .name{ min-width:0; }
 .searchrow .p{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 </style>
@@ -198,19 +197,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,501 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,502 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/032/7514/front_he.23.400.jpg" alt="משקה שיבולת שועל בטע" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110327514&from=osher-ad-031">משקה שיבולת שועל בטע</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪1.90 <span class="chip good">-789%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -265,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014760141&from=osher-ad-031">משקה שקדים אלטרנטיב</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-483%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=osher-ad-031">מילקשייק קצפת ותותים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪1.90 <span class="chip good">-421%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -336,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,806 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,809 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -434,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,806 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,809 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

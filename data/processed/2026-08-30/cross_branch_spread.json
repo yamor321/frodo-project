@@ -1,18 +1,5 @@
 [
   {
-    "item_code": "7290110327514",
-    "item_name": "משקה שיבולת שועל בטע",
-    "num_stores": 27,
-    "cheap_store_id": "osher-ad-031",
-    "cheap_store_name": "אושר עד — כפר סבא",
-    "cheap_price": 1.9,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 16.9,
-    "spread_pct": 7.894736842105263,
-    "flagged": true
-  },
-  {
     "item_code": "7290122781663",
     "item_name": "פתיתים ללא גלוטן  אס",
     "num_stores": 13,
@@ -49374,6 +49361,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290110327514",
+    "item_name": "משקה שיבולת שועל טעם",
+    "num_stores": 27,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 12.2,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 16.9,
+    "spread_pct": 0.38524590163934425,
+    "flagged": false
+  },
+  {
     "item_code": "7290116932842",
     "item_name": "משקה שיבולת שועל וני",
     "num_stores": 23,
@@ -53640,7 +53640,7 @@
   {
     "item_code": "7290020174949",
     "item_name": "פטריות פורטבלו 300 גרם",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "שופרסל — דיל שבירו כפר סבא",
     "cheap_price": 10.9,

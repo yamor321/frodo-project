@@ -199,7 +199,6 @@ GLOBAL_SEARCH_CSS = """
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
 .gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
 .gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
   background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }

@@ -35,7 +35,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
 .searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
-.searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchrow .name{ min-width:0; }
 .searchrow .p{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 """

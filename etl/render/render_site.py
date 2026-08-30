@@ -60,7 +60,7 @@ p.section-sub{ color:var(--ink-muted); font-size:.92rem; margin:0 0 16px; max-wi
 .lb-row{ display:flex; align-items:center; gap:14px; padding:10px 16px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:10px; }
 .lb-row .lb-rank{ font-weight:600; color:var(--ink-muted); width:1.6em; text-align:center; flex-shrink:0; }
-.lb-row a{ flex:1; min-width:0; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.lb-row a{ flex:1; min-width:0; font-weight:600; font-size:.94rem; line-height:1.3; }
 .lb-row .lb-score-wrap{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
 .lb-row .lb-bar{ width:80px; height:7px; border-radius:4px; background:var(--line); overflow:hidden; }
 .lb-row .lb-bar-fill{ display:block; height:100%; border-radius:4px; }

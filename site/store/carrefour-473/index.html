@@ -133,7 +133,6 @@ footer.sitefoot a{ color:var(--navy); }
 .gsrow:last-child{ border-bottom:none; }
 .gsrow:hover{ background:var(--paper); }
 .gsrow .gsname{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-.gsrow .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .gsrow .gscoverage{ font-size:.76rem; color:var(--ink-muted); }
 .gsrow .gsbadge{ display:inline-block; margin-inline-end:6px; padding:1px 7px; border-radius:999px;
   background:var(--brick-soft); color:var(--brick); font-size:.74rem; font-weight:700; }
@@ -164,7 +163,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 #searchResults{ display:flex; flex-direction:column; gap:8px; max-height:420px; overflow-y:auto; }
 .searchrow{ display:flex; justify-content:space-between; gap:12px; padding:9px 14px; background:var(--paper-raised);
   border:1px solid var(--line); border-radius:8px; font-size:.92rem; }
-.searchrow .name{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchrow .name{ min-width:0; }
 .searchrow .p{ font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 #searchHint{ font-size:.85rem; color:var(--ink-muted); }
 </style>
@@ -203,14 +202,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <h2 class="section-title">הכי יקר כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/032/7514/front_he.23.400.jpg" alt="משקה שיבולת שועל בטע" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110327514&from=carrefour-473">משקה שיבולת שועל בטע</a><small>לעומת אושר עד — כפר סבא: ₪1.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip warm">+789%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/476/0141/front_en.8.400.jpg" alt="משקה שקדים אלטרנטיב" loading="lazy"></div>
@@ -265,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290110116125&from=carrefour-473">סירופ פריגת בטעם פטל</a><small>לעומת אושר עד — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪24.90 <span class="chip warm">+180%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/666/3091/front_he.3.400.jpg" alt="לאבנה 9% 500 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290106663091&from=carrefour-473">לאבנה 9% 500 גרם</a><small>לעומת יוחננוף — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪24.20 <span class="chip warm">+144%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>

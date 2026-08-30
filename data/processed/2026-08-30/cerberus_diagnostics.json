@@ -6,9 +6,23 @@
     "failed_at": null,
     "error": null
   },
+  "yohananof": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "yohananof",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
   "tiv-taam": {
     "host": "https://url.publishedprices.co.il",
     "username": "TivTaam",
+    "ok": true,
+    "failed_at": null,
+    "error": null
+  },
+  "rami-levy": {
+    "host": "https://url.publishedprices.co.il",
+    "username": "RamiLevi",
     "ok": true,
     "failed_at": null,
     "error": null
@@ -23,20 +37,6 @@
   "osher-ad": {
     "host": "https://url.publishedprices.co.il",
     "username": "osherad",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "yohananof": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "yohananof",
-    "ok": true,
-    "failed_at": null,
-    "error": null
-  },
-  "rami-levy": {
-    "host": "https://url.publishedprices.co.il",
-    "username": "RamiLevi",
     "ok": true,
     "failed_at": null,
     "error": null
