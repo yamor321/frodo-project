@@ -351,15 +351,26 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     return m ? (m[3] + "." + m[2] + "." + m[1]) : "";
   }
 
+  // What a shopper actually pays at this store right now -- the promo
+  // price when one is confirmed active, otherwise the regular price. Bug
+  // found live (user screenshot): sorting/"cheapest" by sp.price alone put
+  // a store with a real ₪28.90 promo price BELOW a store charging a plain
+  // ₪30.20, since 28.90 < 30.20 was never compared -- only the two
+  // regular prices (31.90 vs 30.20) were. Every ranking/comparison below
+  // must go through this, not sp.price directly.
+  function effectivePrice(sp){
+    return sp.promo_price != null ? sp.promo_price : sp.price;
+  }
+
   function render(product){
-    const ordered = product.prices.slice().sort(function(a,b){ return a.price-b.price; });
+    const ordered = product.prices.slice().sort(function(a,b){ return effectivePrice(a)-effectivePrice(b); });
     const cheapest = ordered[0], priciest = ordered[ordered.length-1];
-    const samePriceEverywhere = cheapest && priciest && cheapest.price === priciest.price;
+    const samePriceEverywhere = cheapest && priciest && effectivePrice(cheapest) === effectivePrice(priciest);
 
     const rows = ordered.map(function(sp){
       let tag = "";
-      if (!samePriceEverywhere && sp.price === cheapest.price) tag = ' <span class="chip good">הכי זול</span>';
-      else if (!samePriceEverywhere && sp.price === priciest.price) tag = ' <span class="chip warm">הכי יקר</span>';
+      if (!samePriceEverywhere && effectivePrice(sp) === effectivePrice(cheapest)) tag = ' <span class="chip good">הכי זול</span>';
+      else if (!samePriceEverywhere && effectivePrice(sp) === effectivePrice(priciest)) tag = ' <span class="chip warm">הכי יקר</span>';
       const cls = sp.store_id === fromStore ? "prow highlight" : "prow";
       // Real confirmed sale price (see etl/scoring/active_promos.py) --
       // Shufersal only, v1. Regular price struck through, promo price
@@ -382,8 +393,8 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     }).join("");
 
     let spreadLine = "";
-    if (cheapest && priciest && cheapest.price > 0 && cheapest.store_id !== priciest.store_id) {
-      const pct = (priciest.price - cheapest.price) / cheapest.price * 100;
+    if (cheapest && priciest && effectivePrice(cheapest) > 0 && cheapest.store_id !== priciest.store_id) {
+      const pct = (effectivePrice(priciest) - effectivePrice(cheapest)) / effectivePrice(cheapest) * 100;
       spreadLine = '<p class="lede">פער של <b>' + pct.toFixed(0) + '%</b> בין הזול ליקר ביותר, על אותו ברקוד בדיוק, ב-' + ordered.length + ' סניפים.</p>';
     }
 
@@ -417,13 +428,13 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     document.title = product.name + " — Frodo Project";
 
     const mapPoints = [];
-    const prices = ordered.map(function(sp){ return sp.price; });
+    const prices = ordered.map(effectivePrice);
     const minP = Math.min.apply(null, prices), maxP = Math.max.apply(null, prices);
     const span = maxP - minP;
     ordered.forEach(function(sp){
       if (sp.lat == null || sp.lon == null) return;
-      const t = span > 0 ? (sp.price - minP) / span : 0.0;
-      mapPoints.push({id: sp.store_id, name: sp.store_name, price: sp.price, t: t, lat: sp.lat, lon: sp.lon});
+      const t = span > 0 ? (effectivePrice(sp) - minP) / span : 0.0;
+      mapPoints.push({id: sp.store_id, name: sp.store_name, price: effectivePrice(sp), t: t, lat: sp.lat, lon: sp.lon});
     });
 
     const mapSection = mapPoints.length ? (
