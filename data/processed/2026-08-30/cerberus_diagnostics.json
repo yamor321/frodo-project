@@ -41,9 +41,9 @@
     "failed_at": null,
     "error": null
   },
-  "stop-market": {
+  "keshet": {
     "host": "https://url.publishedprices.co.il",
-    "username": "Stop_Market",
+    "username": "Keshet",
     "ok": true,
     "failed_at": null,
     "error": null
