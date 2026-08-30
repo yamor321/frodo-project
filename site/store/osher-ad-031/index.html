@@ -198,19 +198,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,501 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,441 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/032/7514/front_he.23.400.jpg" alt="משקה שיבולת שועל בטע" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110327514&from=osher-ad-031">משקה שיבולת שועל בטע</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪1.90 <span class="chip good">-789%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -265,6 +257,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014760141&from=osher-ad-031">משקה שקדים אלטרנטיב</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-483%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=osher-ad-031">מילקשייק קצפת ותותים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪1.90 <span class="chip good">-421%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -305,14 +305,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290020030184&from=osher-ad-031">עוגיות מזרחיות עם זע</a><small>לעומת יוחננוף — כפר סבא: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪12.90 <span class="chip warm">+45%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290003996117&from=osher-ad-031">כרוב לבן חסלט-מהדרין (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪20.90 <span class="chip warm">+40%</span></div>
@@ -332,11 +324,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290015356688&from=osher-ad-031">ארק שליט קלאסי 700 מ</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪41.90</small></div>
       </div>
       <div class="prices">₪54.90 <span class="chip warm">+31%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019568346&from=osher-ad-031">סלמון אטלנטי במים 12</a><small>לעומת רמי לוי — כפר סבא: ₪13.90</small></div>
+      </div>
+      <div class="prices">₪17.90 <span class="chip warm">+29%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,806 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,809 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -434,7 +434,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,806 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,809 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
