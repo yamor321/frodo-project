@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,325 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,327 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -295,24 +295,8 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/011/6884/front_en.4.400.jpg" alt="רוטב ברביקיו קנור 35" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000116884&from=rami-levy-719">רוטב ברביקיו קנור 35</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290116534244&from=rami-levy-719">רוטב סויה סגנון סיני</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000116921&from=rami-levy-719">רוטב צילי מתוק קנור</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
     </div>
@@ -331,11 +315,27 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290108508192&from=rami-levy-719">פסטה פוסילי ללא גלוט</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
       </div>
       <div class="prices">₪12.90 <span class="chip warm">+87%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/296/2904/front_iw.4.400.jpg" alt="אסם שקדי מרק כשלפ 15" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290112962904&from=rami-levy-719">אסם שקדי מרק כשלפ 15</a><small>לעומת רמי לוי — כפר סבא: ₪6.90</small></div>
+      </div>
+      <div class="prices">₪11.90 <span class="chip warm">+72%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/923/2582/front_he.3.400.jpg" alt="*מבצע* חליטה קרה בטע" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019232582&from=rami-levy-719">*מבצע* חליטה קרה בטע</a><small>לעומת יוחננוף — כפר סבא: ₪15.90</small></div>
+      </div>
+      <div class="prices">₪26.90 <span class="chip warm">+69%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,295 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,298 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,295 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,298 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

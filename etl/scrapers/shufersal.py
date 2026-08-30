@@ -8,10 +8,11 @@ Portal: https://prices.shufersal.co.il/ -- confirmed to require no login.
 """
 from __future__ import annotations
 
+import datetime as dt
 import gzip
 import io
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Iterable, Iterator
 
 import requests
@@ -357,12 +358,17 @@ KFAR_SABA_STORE_IDS = {"144", "394", "413", "615", "682", "752", "845"}
 
 
 def kfar_saba_full_catalog_files(
-    files: Iterable[PriceFile], store_ids: Iterable[str] = KFAR_SABA_STORE_IDS
+    files: Iterable[PriceFile], store_ids: Iterable[str] = KFAR_SABA_STORE_IDS, category: str = "pricefull"
 ) -> Iterator[PriceFile]:
     """Filter a file listing down to the latest full-catalog file per store.
 
     Pass the dynamic result of kfar_saba_stores(parse_stores_xml(...)) as
     store_ids; defaults to the manually-identified fallback set.
+
+    `category` defaults to "pricefull" (every existing caller relies on
+    this default, unchanged) -- pass "promofull" to select promo files
+    instead, reusing the exact same "latest file per store, by filename
+    timestamp" logic rather than duplicating it.
 
     Some chains (verified live for Carrefour, 2026-08-28: stores 471/473
     each published two full PriceFull snapshots on the same day) publish
@@ -373,8 +379,150 @@ def kfar_saba_full_catalog_files(
     store_ids = set(store_ids)
     latest: dict[str, PriceFile] = {}
     for f in files:
-        if f.store_id not in store_ids or f.category.lower() != "pricefull":
+        if f.store_id not in store_ids or f.category.lower() != category:
             continue
         if f.store_id not in latest or f.filename > latest[f.store_id].filename:
             latest[f.store_id] = f
     yield from latest.values()
+
+
+@dataclass
+class PromoItem:
+    """One <PromotionItem> inside a <Promotion>'s <Groups>."""
+
+    item_code: str
+    min_qty: float
+    discount_rate: float
+    discounted_price: float
+
+
+@dataclass
+class PromoRecord:
+    """One <Promotion>, normalized. A single promotion can cover several
+    item_codes (via items) -- unlike PriceRecord, which is already
+    one-row-per-item_code, a promotion is one-row-per-deal.
+
+    Real schema (verified live 2026-08-30, store 144): Root > Promotions >
+    Promotion > Groups > Group > PromotionItems > PromotionItem -- nested,
+    unlike PriceFull's flat Items > Item. A promotion's items are
+    flattened across all its Groups into this record's `items` list;
+    Groups exist in the source (each with its own DiscountType) but
+    nothing here has per-group semantics to preserve yet.
+    """
+
+    chain_id: str
+    subchain_id: str
+    store_id: str
+    promotion_id: str
+    description: str
+    start_datetime: str
+    end_datetime: str
+    club_id: str
+    is_coupon: bool
+    is_gift_item: bool
+    items: list[PromoItem] = field(default_factory=list)
+
+
+def parse_promo_xml(xml_bytes: bytes) -> list[PromoRecord]:
+    """Parse a Promo/PromoFull XML payload into normalized records."""
+    root = ET.fromstring(xml_bytes)
+    chain_id = _text(root, "ChainID")
+    subchain_id = _text(root, "SubChainID")
+    store_id = _text(root, "StoreID")
+
+    promotions_el = root.find("Promotions")
+    if promotions_el is None:
+        return []
+
+    records = []
+    for promo in promotions_el.findall("Promotion"):
+        items = []
+        for group in promo.findall("./Groups/Group"):
+            for pi in group.findall("./PromotionItems/PromotionItem"):
+                items.append(
+                    PromoItem(
+                        item_code=_text(pi, "ItemCode"),
+                        min_qty=float(_text(pi, "MinQty") or 0),
+                        discount_rate=float(_text(pi, "DiscountRate") or 0),
+                        discounted_price=float(_text(pi, "DiscountedPrice") or 0),
+                    )
+                )
+        records.append(
+            PromoRecord(
+                chain_id=chain_id,
+                subchain_id=subchain_id,
+                store_id=store_id,
+                promotion_id=_text(promo, "PromotionID"),
+                description=_text(promo, "PromotionDescription"),
+                start_datetime=_text(promo, "PromotionStartDateTime"),
+                end_datetime=_text(promo, "PromotionEndDateTime"),
+                club_id=_text(promo, "ClubID"),
+                is_coupon=_text(promo, "AdditionalIsCoupon") == "1",
+                is_gift_item=_text(promo, "IsGiftItem") not in ("", "0"),
+                items=items,
+            )
+        )
+    return records
+
+
+_PROMO_DT_FORMATS = ("%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%d %H:%M:%S")
+
+
+def _parse_promo_dt(value: str) -> dt.datetime | None:
+    for fmt in _PROMO_DT_FORMATS:
+        try:
+            return dt.datetime.strptime(value, fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def is_simple_active_promo(promo: PromoRecord, today: dt.date) -> bool:
+    """True only for a promotion any shopper can get today -- no coupon,
+    no club-card restriction, no minimum-quantity/bundle requirement.
+
+    Verified live 2026-08-30 across 5,284 real promotions (5 Kfar Saba
+    Shufersal stores): 52.8% pass this exact check ("simple_active_
+    universal"), 39.6% are gift/bundle deals, 7.0% require a coupon, 0.6%
+    are club-restricted -- not a negligible slice, worth building on. The
+    club_id.startswith("0") check specifically was verified against the
+    real sentinel values seen: "0 - כלל הלקוחות" (all customers) covered
+    5,250 of 5,284 promotions; every other value seen was a specific named
+    club, never another all-customers spelling. is_gift_item lives at the
+    Promotion level in the real schema (not per-item) -- confirmed live,
+    not assumed.
+
+    Deliberately excludes coupon-gated, club-gated, and bundle/gift-only
+    promos from v1 -- not because they're not real promotions, but because
+    showing "cheaper!" to a shopper who then can't actually get that price
+    at checkout (no coupon, no club card, wrong quantity) would be worse
+    than not showing anything. Not built, deliberately, not forgotten --
+    see docs/sources.md.
+
+    This function alone is NOT sufficient to decide a promo is really
+    worth showing -- see compute_active_promos() in etl/scoring/
+    active_promos.py, which additionally requires the discounted price to
+    actually be lower than that item's real PriceFull price. The same
+    live survey found ~30% of "simple" promos (by this function's
+    criteria alone) do NOT show a real discount once cross-checked against
+    the regular shelf price -- likely stale promo metadata vs. an
+    already-updated shelf price. The cross-check is a required filter,
+    not an optional validation step.
+    """
+    start = _parse_promo_dt(promo.start_datetime)
+    end = _parse_promo_dt(promo.end_datetime)
+    if start is None or end is None or not (start.date() <= today <= end.date()):
+        return False
+    if not promo.club_id.strip().startswith("0"):
+        return False
+    if promo.is_coupon or promo.is_gift_item:
+        return False
+    return True
+
+
+def simple_promo_item_prices(promo: PromoRecord) -> dict[str, float]:
+    """item_code -> discounted_price, restricted to line items that are
+    themselves simple (min_qty<=1, a real positive discounted price) --
+    a promo can pass is_simple_active_promo() at the header level but
+    still bundle one weird line item alongside simple ones."""
+    return {i.item_code: i.discounted_price for i in promo.items if i.min_qty <= 1 and i.discounted_price > 0}

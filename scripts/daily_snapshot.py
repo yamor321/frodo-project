@@ -41,6 +41,7 @@ from etl.render.product import (
 from etl.render.render_site import render_index_html
 from etl.render.store import render_store_html, store_search_items, top_deals
 from etl.raw_snapshot_fallback import find_fallback_catalogs
+from etl.scoring.active_promos import compute_active_promos
 from etl.scoring.benchmark_gap import compute_gaps
 from etl.scoring.cross_branch_spread import compute_spreads
 from etl.scoring.manufacturer_match import (
@@ -66,6 +67,7 @@ from etl.scrapers.shufersal import (
     list_files,
     list_stores_file,
     parse_price_xml,
+    parse_promo_xml,
     parse_stores_xml,
 )
 
@@ -142,6 +144,14 @@ class ChainCollection:
     store_names: dict[str, str]
     store_addresses: dict[str, str]
     online_store_ids: set[str] = dataclasses.field(default_factory=set)
+    # Promo/sale-price feature (see docs/sources.md's "PromoFull" section):
+    # Shufersal-only in v1, though the live cross-chain check found every
+    # other chain here also publishes a promo/promofull category -- left
+    # empty for every other chain, not because it doesn't exist for them,
+    # but to keep v1's scope to the one chain this project actually
+    # verified the promo *shape* against (which fraction of real promos
+    # are simple vs. coupon/club/bundle-gated).
+    promo_files: list[PriceFile] = dataclasses.field(default_factory=list)
 
 
 def store_format(name: str, is_online: bool = False) -> str:
@@ -215,6 +225,7 @@ def _collect_shufersal() -> ChainCollection:
         store_names={s.store_id: s.store_name for s in stores if s.store_id in store_ids},
         store_addresses={s.store_id: s.address for s in stores if s.store_id in store_ids},
         online_store_ids={s.store_id for s in stores if s.store_id in store_ids and s.store_type == "2"},
+        promo_files=list(kfar_saba_full_catalog_files(all_files, store_ids, category="promofull")),
     )
 
 
@@ -501,6 +512,40 @@ def main() -> None:
         print(f"  {key}: {len(catalog)} items ({stale_as_of[key]}, fallback), {len(gaps)} matched")
         all_gaps.extend(gaps)
 
+    # Promo/sale-price feature, Shufersal only in v1 (see docs/sources.md's
+    # "PromoFull" section -- every other chain here also publishes a promo
+    # category, live-verified, but this project only verified the promo
+    # *shape* against Shufersal's real data before shipping). A separate
+    # download batch, not merged into the one above: PromoFull files are
+    # ~100x larger than PriceFull per store, and mixing them into the same
+    # task list would make one slow chain's promo downloads block the fast
+    # catalog downloads that render most of the site.
+    promo_tasks = []
+    promo_task_owners: list[tuple[str, PriceFile]] = []
+    for chain in chains:
+        for f in chain.promo_files:
+            promo_tasks.append(lambda f=f, dl=chain.download_fn: dl(f))
+            promo_task_owners.append((chain.prefix, f))
+
+    promos_by_store: dict[str, list] = {}
+    if promo_tasks:
+        print(f"\nDownloading {len(promo_tasks)} promo catalogs concurrently...")
+        promo_blobs = fetch_concurrently(promo_tasks)
+        for (prefix, f), xml_bytes in zip(promo_task_owners, promo_blobs):
+            key = prefix + f.store_id
+            if xml_bytes is None:
+                print(f"  {key}: promo download failed, skipped")
+                continue
+            # Deliberately NOT written to raw_dir the way catalog XML is
+            # above -- PromoFull is ~100x larger per store (14MB+
+            # decompressed, see docs/sources.md) and every raw file this
+            # project downloads gets committed unconditionally; doing that
+            # for promo data too would explode repo size. Parsed in-memory
+            # only -- the small, already-filtered active_promos.json
+            # written below is what gets committed instead.
+            promos_by_store[key] = parse_promo_xml(xml_bytes)
+            print(f"  {key}: {len(promos_by_store[key])} promotions")
+
     store_names: dict[str, str] = {}
     store_addresses: dict[str, str] = {}
     online_store_ids: set[str] = set()
@@ -546,6 +591,22 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Wrote {gap_path} and {spread_path}")
+
+    # active_promos.json IS committed (small, already-filtered) -- unlike
+    # the raw PromoFull XML above, which never touches disk. Requires both
+    # promos_by_store AND catalogs_by_store, since a "simple" promo alone
+    # isn't trusted as a real discount until cross-checked against that
+    # item's own regular PriceFull price (see compute_active_promos()'s
+    # docstring -- ~30% of "simple" promos fail this check in practice).
+    active_promos = compute_active_promos(promos_by_store, catalogs_by_store, today=now.date())
+    active_promos_flat = [
+        dataclasses.asdict(p) for store_promos in active_promos.values() for p in store_promos.values()
+    ]
+    active_promos_path = processed_dir / "active_promos.json"
+    active_promos_path.write_text(
+        json.dumps(active_promos_flat, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(f"Wrote {active_promos_path} ({len(active_promos_flat)} confirmed active promos)")
 
     print("\nGeocoding store addresses (cached -- only new addresses hit the network)...")
     streets_by_store = usable_street_addresses(store_addresses, ADDRESS_OVERRIDES)
@@ -604,6 +665,7 @@ def main() -> None:
                 as_of_date=stale_as_of.get(store_id),
                 address=streets_by_store.get(store_id),
                 is_online=store_id in online_store_ids,
+                active_promos=active_promos.get(store_id),
             ),
             encoding="utf-8",
         )
@@ -631,7 +693,9 @@ def main() -> None:
         s.item_code: related_products(s.item_code, manufacturer_values, manufacturer_groups) for s in spreads
     }
 
-    products_payload = build_products_payload(spreads, all_store_prices, image_urls, coords, related_by_code)
+    products_payload = build_products_payload(
+        spreads, all_store_prices, image_urls, coords, related_by_code, active_promos
+    )
 
     # Per-product price-history trend (site/price-history/) and the
     # project's own sitewide price index (site/price-index.json) -- see

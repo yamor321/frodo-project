@@ -2610,30 +2610,6 @@
     "ambiguous": true
   },
   {
-    "item_code": "7290000041858",
-    "item_name": "שמנת חמוצה 15% 200 מ",
-    "store_id": "033",
-    "actual_price": 2.7,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": -0.04929577464788722,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290002824640",
-    "item_name": "גבינה לבנה סקי 5% שו",
-    "store_id": "033",
-    "actual_price": 5.8,
-    "controlled_product_names": [
-      "גבינה לבנה 5%"
-    ],
-    "controlled_consumer_price": 5.87,
-    "gap_pct": -0.011925042589437867,
-    "ambiguous": false
-  },
-  {
     "item_code": "7290000474502",
     "item_name": "גבינה לבנה 5% טרה 25",
     "store_id": "033",
@@ -2715,6 +2691,30 @@
     ],
     "controlled_consumer_price": 2.84,
     "gap_pct": -0.33098591549295775,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000041858",
+    "item_name": "שמנת חמוצה 15% 200 מ",
+    "store_id": "033",
+    "actual_price": 2.7,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.04929577464788722,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290002824640",
+    "item_name": "גבינה לבנה סקי 5% שו",
+    "store_id": "033",
+    "actual_price": 5.8,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": -0.011925042589437867,
     "ambiguous": false
   },
   {

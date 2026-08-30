@@ -14,6 +14,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 
 from etl.enrich.geocode import GeoPoint
+from etl.scoring.active_promos import ActivePromo
 from etl.scoring.cross_branch_spread import SpreadResult
 from etl.scrapers.shufersal import PriceRecord
 
@@ -95,6 +96,7 @@ def build_products_payload(
     image_urls: dict[str, str | None],
     coords: dict[str, GeoPoint],
     related_by_code: dict[str, list[str]] | None = None,
+    active_promos: dict[str, dict[str, ActivePromo]] | None = None,
 ) -> dict:
     """JSON-serializable payload for site/products.json. One entry per
     product in `spreads` (the same universe /branches/ already lists), each
@@ -107,7 +109,17 @@ def build_products_payload(
     already capped to a handful of codes by manufacturer_match's own
     max_group_size, so this stays small, and it means the product page
     never needs a second fetch to show them.
+
+    `active_promos` (store_id -> item_code -> ActivePromo, see
+    etl/scoring/active_promos.py -- Shufersal only in v1) adds
+    "promo_price"/"promo_end" to a store's price entry only when that
+    exact (item_code, store_id) pair has a real, confirmed-cheaper,
+    no-coupon/no-club active promotion. Most entries won't have one --
+    that's expected, not a bug, since only ~53% of real promotions are
+    even "simple" and only ~70% of those are confirmed cheaper once
+    cross-checked (see docs/sources.md).
     """
+    active_promos = active_promos or {}
     by_code = {s.item_code: s for s in spreads}
     payload = {}
     for s in spreads:
@@ -118,6 +130,10 @@ def build_products_payload(
             if pt is not None:
                 entry["lat"] = pt.lat
                 entry["lon"] = pt.lon
+            promo = active_promos.get(sp.store_id, {}).get(s.item_code)
+            if promo is not None:
+                entry["promo_price"] = promo.discounted_price
+                entry["promo_end"] = promo.end_datetime
             prices.append(entry)
         related = [
             {"code": rc, "name": by_code[rc].item_name, "cheap_price": by_code[rc].cheap_price}
@@ -327,6 +343,14 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
     });
   }
 
+  // "2028-05-01T00:00:00.000" -> "01.05.2028" -- same formatting as
+  // etl/scoring/active_promos.py's format_promo_end_date(), kept in sync
+  // by hand since this is the client-side render path, not the server one.
+  function formatPromoEnd(iso){
+    const m = /^(\\d{4})-(\\d{2})-(\\d{2})/.exec(iso || "");
+    return m ? (m[3] + "." + m[2] + "." + m[1]) : "";
+  }
+
   function render(product){
     const ordered = product.prices.slice().sort(function(a,b){ return a.price-b.price; });
     const cheapest = ordered[0], priciest = ordered[ordered.length-1];
@@ -337,10 +361,23 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       if (!samePriceEverywhere && sp.price === cheapest.price) tag = ' <span class="chip good">הכי זול</span>';
       else if (!samePriceEverywhere && sp.price === priciest.price) tag = ' <span class="chip warm">הכי יקר</span>';
       const cls = sp.store_id === fromStore ? "prow highlight" : "prow";
+      // Real confirmed sale price (see etl/scoring/active_promos.py) --
+      // Shufersal only, v1. Regular price struck through, promo price
+      // highlighted, end date shown per explicit user request.
+      let priceHtml = '<span class="price ltr">₪' + sp.price.toFixed(2) + '</span>';
+      if (sp.promo_price != null) {
+        const endLabel = formatPromoEnd(sp.promo_end);
+        const endHtml = endLabel ? (' עד ' + endLabel) : "";
+        priceHtml =
+          '<span class="price ltr">' +
+          '<span style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;font-size:.9rem;">₪' + sp.price.toFixed(2) + '</span> ' +
+          '₪' + sp.promo_price.toFixed(2) +
+          '</span> <span class="chip good">מבצע' + endHtml + '</span>';
+      }
       return (
         '<div class="' + cls + '">' +
         '<span class="store">' + escHtml(sp.store_name) + tag + '<small><a href="' + BASE_PATH + '/store/' + sp.store_id + '/">לדף הסניף</a></small></span>' +
-        '<span class="price ltr">₪' + sp.price.toFixed(2) + '</span></div>'
+        priceHtml + '</div>'
       );
     }).join("");
 
@@ -407,7 +444,7 @@ def render_product_shell_html(base_path: str = "/frodo-project") -> str:
       '<div class="chart-box" id="priceHistoryChart"><p class="chart-empty">טוען...</p></div>' +
       '<p class="section-sub">להקשר: מדד המחירים העצמי של Frodo Project -- ממוצע (חציון) השינוי היחסי במחיר על פני כל המוצרים שאנחנו עוקבים אחריהם, לא המחיר הספציפי של המוצר הזה. מחושב אך ורק מהנתונים הרשמיים שאנחנו עצמנו אוספים, לא ממקור חיצוני -- וגם הוא מתחיל ב-26.08.2026 ונגדל יחד.</p>' +
       '<div class="chart-box" id="siteIndexChart"><p class="chart-empty">טוען...</p></div>' +
-      '<p class="chart-note">שימו לב: הרשתות לא מפרסמות באופן פומבי אילו מחירים הם מבצע זמני לעומת מחיר קבוע, אז האתר לא יכול לדעת את זה על מחיר ספציפי -- מלבד סימון פערים חריגים מאוד (למעלה, כשרלוונטי).</p>';
+      '<p class="chart-note">שימו לב: תג "מבצע" למעלה מבוסס על נתוני מבצעים אמיתיים ששופרסל מפרסם -- כרגע רק לרשת הזו, לא לכל הרשתות, ולא לכל מוצר. איפה שאין תג "מבצע" יכול עדיין להיות מבצע שהמקור לא חושף בצורה שאפשר לאמת -- ראו סימון פערים חריגים מאוד למעלה, כשרלוונטי.</p>';
 
     root.innerHTML =
       '<div class="product-head">' + thumbHtml(product.image_url, product.name) + '<h1>' + escHtml(product.name) + '</h1></div>' +

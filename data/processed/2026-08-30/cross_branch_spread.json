@@ -2658,8 +2658,8 @@
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 7.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "שופרסל — אקספרס נחשון כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 1.1392405063291136,
     "flagged": false
@@ -2684,8 +2684,8 @@
     "cheap_store_id": "osher-ad-031",
     "cheap_store_name": "אושר עד — כפר סבא",
     "cheap_price": 7.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
+    "expensive_store_id": "845",
+    "expensive_store_name": "שופרסל — אקספרס נחשון כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 1.1392405063291136,
     "flagged": false
@@ -7125,10 +7125,10 @@
   },
   {
     "item_code": "7290112005502",
-    "item_name": "מבשם אוויר+מכשיר איר",
+    "item_name": "אקטיב פרש קומפליט כו",
     "num_stores": 6,
-    "cheap_store_id": "osher-ad-031",
-    "cheap_store_name": "אושר עד — כפר סבא",
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 29.9,
     "expensive_store_id": "413",
     "expensive_store_name": "שופרסל — שופרסל ONLINE",
@@ -18603,19 +18603,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290106571709",
-    "item_name": "רוטב צ'ילי מתוק כשל\"",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 9.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 15.9,
-    "spread_pct": 0.6060606060606061,
-    "flagged": false
-  },
-  {
     "item_code": "7290111564277",
     "item_name": "פיטנס פריכיות דקות 3",
     "num_stores": 15,
@@ -19098,10 +19085,10 @@
   },
   {
     "item_code": "7290011765613",
-    "item_name": "תרסיס סנו מסיר עובש",
-    "num_stores": 8,
-    "cheap_store_id": "osher-ad-031",
-    "cheap_store_name": "אושר עד — כפר סבא",
+    "item_name": "סנו מסיר עובש בניחוח",
+    "num_stores": 9,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 14.9,
     "expensive_store_id": "carrefour-473",
     "expensive_store_name": "קרפור — כפר סבא @ קוויק",
@@ -36585,24 +36572,11 @@
     "item_code": "7290106578241",
     "item_name": "דובונים 100 גרם",
     "num_stores": 4,
-    "cheap_store_id": "carrefour-471",
-    "cheap_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
+    "cheap_store_id": "yohananof-024",
+    "cheap_store_name": "יוחננוף — כפר סבא",
     "cheap_price": 8.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 12.9,
-    "spread_pct": 0.449438202247191,
-    "flagged": false
-  },
-  {
-    "item_code": "7290018440070",
-    "item_name": "תרכיז עגבניות בשפופר",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 8.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_store_id": "victory-079",
+    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
     "expensive_price": 12.9,
     "spread_pct": 0.449438202247191,
     "flagged": false
@@ -40898,8 +40872,8 @@
     "flagged": false
   },
   {
-    "item_code": "89041081056",
-    "item_name": "שמן צ'ילי 185 מ'ל (כ",
+    "item_code": "7290012894855",
+    "item_name": "דורות מגשית תיבול סג",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -40911,8 +40885,8 @@
     "flagged": false
   },
   {
-    "item_code": "7290012894855",
-    "item_name": "דורות מגשית תיבול סג",
+    "item_code": "89041081056",
+    "item_name": "שמן צ'ילי 185 מ'ל (כ",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -41413,19 +41387,6 @@
     "cheap_price": 11.9,
     "expensive_store_id": "carrefour-404",
     "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.4201680672268906,
-    "flagged": false
-  },
-  {
-    "item_code": "7290112490896",
-    "item_name": "בקבוק רוטב צ'ילי חרי",
-    "num_stores": 10,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 11.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 0.4201680672268906,
     "flagged": false
@@ -48243,6 +48204,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290113196339",
+    "item_name": "מלפפונים קורנישונים",
+    "num_stores": 5,
+    "cheap_store_id": "rami-levy-719",
+    "cheap_store_name": "רמי לוי — רוטשילד כפר סבא",
+    "cheap_price": 11.4,
+    "expensive_store_id": "carrefour-400",
+    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
+    "expensive_price": 15.9,
+    "spread_pct": 0.39473684210526316,
+    "flagged": false
+  },
+  {
     "item_code": "5601996209016",
     "item_name": "יין פורטה 6 רוזה",
     "num_stores": 10,
@@ -51768,7 +51742,7 @@
   {
     "item_code": "80785385",
     "item_name": "טיק טק מנטה עדין פרימיום",
-    "num_stores": 26,
+    "num_stores": 27,
     "cheap_store_id": "victory-079",
     "cheap_store_name": "ויקטורי — כפר סבא הירוקה",
     "cheap_price": 7.9,
@@ -55070,7 +55044,7 @@
   {
     "item_code": "7290020174949",
     "item_name": "פטריות פורטבלו 300 גרם",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "144",
     "cheap_store_name": "שופרסל — דיל שבירו כפר סבא",
     "cheap_price": 10.9,
@@ -56922,19 +56896,6 @@
     "cheap_price": 24.9,
     "expensive_store_id": "victory-079",
     "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
-    "expensive_price": 33.9,
-    "spread_pct": 0.3614457831325301,
-    "flagged": false
-  },
-  {
-    "item_code": "8718951197183",
-    "item_name": "מברשת שיניים קולגייט",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
     "expensive_price": 33.9,
     "spread_pct": 0.3614457831325301,
     "flagged": false
@@ -64311,19 +64272,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290113196339",
-    "item_name": "מלפפונים שלמים כבושים680",
-    "num_stores": 5,
-    "cheap_store_id": "259",
-    "cheap_store_name": "שופרסל — יוניברס גזית כ\"ס- ויצמן",
-    "cheap_price": 11.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 15.9,
-    "spread_pct": 0.3361344537815126,
-    "flagged": false
-  },
-  {
     "item_code": "7290117263563",
     "item_name": "חמאה מלוחה 200 גרם",
     "num_stores": 5,
@@ -64652,19 +64600,6 @@
     "item_code": "7290002317289",
     "item_name": "חצילים מוטולה 560 גר",
     "num_stores": 7,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 11.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 15.9,
-    "spread_pct": 0.3361344537815126,
-    "flagged": false
-  },
-  {
-    "item_code": "7290002317289",
-    "item_name": "חצילים מוטולה 560 גר",
-    "num_stores": 6,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 11.9,
@@ -66633,6 +66568,19 @@
     "cheap_price": 17.9,
     "expensive_store_id": "carrefour-473",
     "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 23.9,
+    "spread_pct": 0.335195530726257,
+    "flagged": false
+  },
+  {
+    "item_code": "7290019603566",
+    "item_name": "סוכריות טופי שמחות מ",
+    "num_stores": 7,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 17.9,
+    "expensive_store_id": "carrefour-404",
+    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
     "expensive_price": 23.9,
     "spread_pct": 0.335195530726257,
     "flagged": false
@@ -69256,6 +69204,19 @@
     "num_stores": 9,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 10.5,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 13.9,
+    "spread_pct": 0.3238095238095238,
+    "flagged": false
+  },
+  {
+    "item_code": "7290000287409",
+    "item_name": "סנובון לאסלה תות סנו",
+    "num_stores": 9,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 10.5,
     "expensive_store_id": "carrefour-473",
     "expensive_store_name": "קרפור — כפר סבא @ קוויק",
@@ -73534,47 +73495,8 @@
     "cheap_store_id": "victory-079",
     "cheap_store_name": "ויקטורי — כפר סבא הירוקה",
     "cheap_price": 12.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.3100775193798448,
-    "flagged": false
-  },
-  {
-    "item_code": "7290108355772",
-    "item_name": "קרמה דאו רול און 120",
-    "num_stores": 7,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 12.9,
     "expensive_store_id": "carrefour-404",
     "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.3100775193798448,
-    "flagged": false
-  },
-  {
-    "item_code": "7290108353969",
-    "item_name": "קרמה דיאודורנט ספריי",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 12.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.3100775193798448,
-    "flagged": false
-  },
-  {
-    "item_code": "7290108353952",
-    "item_name": "קרמה דיאודורנט ספריי",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 12.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
     "expensive_price": 16.9,
     "spread_pct": 0.3100775193798448,
     "flagged": false
@@ -74582,10 +74504,10 @@
   },
   {
     "item_code": "4006387144326",
-    "item_name": "*מבצע* קנקן סטייל אס",
+    "item_name": "קנקן סטייל אסנשיאל ח",
     "num_stores": 5,
-    "cheap_store_id": "yohananof-024",
-    "cheap_store_name": "יוחננוף — כפר סבא",
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 199.0,
     "expensive_store_id": "carrefour-404",
     "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
@@ -76427,32 +76349,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290110111557",
-    "item_name": "משקה פאוורייד ט.פירות500",
-    "num_stores": 13,
-    "cheap_store_id": "144",
-    "cheap_store_name": "שופרסל — דיל שבירו כפר סבא",
-    "cheap_price": 10.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 14.2,
-    "spread_pct": 0.30275229357798156,
-    "flagged": false
-  },
-  {
-    "item_code": "7290110111564",
-    "item_name": "משקה פאוורייד ט.הדרים500",
-    "num_stores": 9,
-    "cheap_store_id": "144",
-    "cheap_store_name": "שופרסל — דיל שבירו כפר סבא",
-    "cheap_price": 10.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 14.2,
-    "spread_pct": 0.30275229357798156,
-    "flagged": false
-  },
-  {
     "item_code": "7290019056546",
     "item_name": "פרוט ווטר אבטיח 1.5",
     "num_stores": 19,
@@ -76671,32 +76567,6 @@
     "expensive_store_name": "דור אלון — כפר סבא",
     "expensive_price": 6.9,
     "spread_pct": 0.3018867924528303,
-    "flagged": false
-  },
-  {
-    "item_code": "7290000023823",
-    "item_name": "קלאסיק סוביניון בלאן",
-    "num_stores": 13,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 32.8,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 42.7,
-    "spread_pct": 0.30182926829268314,
-    "flagged": false
-  },
-  {
-    "item_code": "7290017589565",
-    "item_name": "יין קלאסיק גוורץ 750",
-    "num_stores": 7,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 32.8,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 42.7,
-    "spread_pct": 0.30182926829268314,
     "flagged": false
   },
   {
@@ -77956,19 +77826,6 @@
     "cheap_price": 10.7,
     "expensive_store_id": "wolt-005",
     "expensive_store_name": "וולט מרקט — וולט מרקט | כפר סבא",
-    "expensive_price": 13.9,
-    "spread_pct": 0.2990654205607478,
-    "flagged": false
-  },
-  {
-    "item_code": "7290000287409",
-    "item_name": "סנובון לאסלה תות סנו",
-    "num_stores": 9,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 10.7,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
     "expensive_price": 13.9,
     "spread_pct": 0.2990654205607478,
     "flagged": false
@@ -79586,19 +79443,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290019603238",
-    "item_name": "אבקת סוכר 500 גרם",
-    "num_stores": 4,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 7.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 10.2,
-    "spread_pct": 0.29113924050632894,
-    "flagged": false
-  },
-  {
     "item_code": "7290107978347",
     "item_name": "מאסטר שף איטריות בינ",
     "num_stores": 15,
@@ -80686,19 +80530,6 @@
     "cheap_price": 6.9,
     "expensive_store_id": "victory-079",
     "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
-    "expensive_price": 8.9,
-    "spread_pct": 0.2898550724637681,
-    "flagged": false
-  },
-  {
-    "item_code": "72940983",
-    "item_name": "חומוס אחלה 250 גרם",
-    "num_stores": 9,
-    "cheap_store_id": "shukhair-011",
-    "cheap_store_name": "שוק העיר — כפר סבא מזרח",
-    "cheap_price": 6.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
     "expensive_price": 8.9,
     "spread_pct": 0.2898550724637681,
     "flagged": false
@@ -83746,19 +83577,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290002008460",
-    "item_name": "עטרות חום 1.5 הנמל",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 3.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 5.0,
-    "spread_pct": 0.2820512820512821,
-    "flagged": false
-  },
-  {
     "item_code": "7290013677303",
     "item_name": "תבלין חוואיג תימני ש",
     "num_stores": 5,
@@ -85429,8 +85247,8 @@
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 28.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
+    "expensive_store_id": "carrefour-010",
+    "expensive_store_name": "קרפור — קרפור היפר כפר סבא",
     "expensive_price": 36.9,
     "spread_pct": 0.2768166089965398,
     "flagged": false
@@ -86294,19 +86112,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290119421237",
-    "item_name": "תערובת להכנת קרם בורלה 100 גרם",
-    "num_stores": 7,
-    "cheap_store_id": "shukhair-011",
-    "cheap_store_name": "שוק העיר — כפר סבא מזרח",
-    "cheap_price": 10.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 13.9,
-    "spread_pct": 0.27522935779816515,
-    "flagged": false
-  },
-  {
     "item_code": "7290119372485",
     "item_name": "תפוצ'יפס מקס 160 ג",
     "num_stores": 11,
@@ -86738,7 +86543,7 @@
   {
     "item_code": "7290121160322",
     "item_name": "ניוקי תפוח אדמה מאסט",
-    "num_stores": 8,
+    "num_stores": 9,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 10.9,
@@ -92950,19 +92755,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290000403450",
-    "item_name": "גבינת מנצ'גו חצי קשה",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 199.0,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 250.0,
-    "spread_pct": 0.2562814070351759,
-    "flagged": false
-  },
-  {
     "item_code": "7290109581583",
     "item_name": "נקניקיה פרימיום ניו",
     "num_stores": 11,
@@ -95376,6 +95168,19 @@
     "cheap_price": 11.9,
     "expensive_store_id": "victory-097",
     "expensive_store_name": "ויקטורי — אינטרנט",
+    "expensive_price": 14.9,
+    "spread_pct": 0.25210084033613445,
+    "flagged": false
+  },
+  {
+    "item_code": "7290112490896",
+    "item_name": "בקבוק רוטב צ'ילי חרי",
+    "num_stores": 10,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 11.9,
+    "expensive_store_id": "victory-079",
+    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
     "expensive_price": 14.9,
     "spread_pct": 0.25210084033613445,
     "flagged": false
@@ -101562,8 +101367,8 @@
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 16.9,
-    "expensive_store_id": "tiv-taam-093",
-    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
+    "expensive_store_id": "victory-079",
+    "expensive_store_name": "ויקטורי — כפר סבא הירוקה",
     "expensive_price": 20.9,
     "spread_pct": 0.2366863905325444,
     "flagged": false
@@ -103594,32 +103399,6 @@
     "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
     "expensive_price": 8.5,
     "spread_pct": 0.23188405797101444,
-    "flagged": false
-  },
-  {
-    "item_code": "7290110115333",
-    "item_name": "פאנטה תות 1.5 ליטר",
-    "num_stores": 20,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 8.2,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 10.1,
-    "spread_pct": 0.2317073170731708,
-    "flagged": false
-  },
-  {
-    "item_code": "7290110115340",
-    "item_name": "פאנטה ענבים 1.5 ליטר",
-    "num_stores": 13,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 8.2,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 10.1,
-    "spread_pct": 0.2317073170731708,
     "flagged": false
   },
   {
@@ -107575,19 +107354,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290011051525",
-    "item_name": "ספרינג תה קר בטעם אפ",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 5.0,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 6.1,
-    "spread_pct": 0.21999999999999992,
-    "flagged": false
-  },
-  {
     "item_code": "7290001121054",
     "item_name": "נקניק צמד חמד 700  ג",
     "num_stores": 14,
@@ -108877,7 +108643,7 @@
   {
     "item_code": "7290020398598",
     "item_name": "חטיף פרוטאין מקס סופ",
-    "num_stores": 6,
+    "num_stores": 5,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 13.9,
@@ -109683,7 +109449,7 @@
   {
     "item_code": "8700216891011",
     "item_name": "חיתולי פמפרס פרימיום",
-    "num_stores": 21,
+    "num_stores": 20,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 34.5,
@@ -111847,6 +111613,19 @@
     "cheap_price": 8.2,
     "expensive_store_id": "394",
     "expensive_store_name": "שופרסל — אקספרס הכרמל כפר סבא",
+    "expensive_price": 9.9,
+    "spread_pct": 0.20731707317073186,
+    "flagged": false
+  },
+  {
+    "item_code": "7290110115333",
+    "item_name": "פאנטה תות 1.5 ליטר",
+    "num_stores": 20,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 8.2,
+    "expensive_store_id": "845",
+    "expensive_store_name": "שופרסל — אקספרס נחשון כפר סבא",
     "expensive_price": 9.9,
     "spread_pct": 0.20731707317073186,
     "flagged": false
@@ -115154,21 +114933,21 @@
     "flagged": false
   },
   {
-    "item_code": "7290017871370",
-    "item_name": "סבון ידיים מועשר 500",
-    "num_stores": 5,
+    "item_code": "7290117261538",
+    "item_name": "סלמון אטלנטי בשמן קנ",
+    "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 9.9,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_store_id": "rami-levy-719",
+    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
     "expensive_price": 11.9,
     "spread_pct": 0.20202020202020202,
     "flagged": false
   },
   {
-    "item_code": "7290117261538",
-    "item_name": "סלמון אטלנטי בשמן קנ",
+    "item_code": "7290004731670",
+    "item_name": "מטהר אויר בניחוח לבנ",
     "num_stores": 4,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
@@ -116092,38 +115871,12 @@
   {
     "item_code": "7290108357660",
     "item_name": "סנובון באבלס סנו 3 י",
-    "num_stores": 9,
+    "num_stores": 8,
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 14.9,
     "expensive_store_id": "wolt-005",
     "expensive_store_name": "וולט מרקט — וולט מרקט | כפר סבא",
-    "expensive_price": 17.9,
-    "spread_pct": 0.2013422818791945,
-    "flagged": false
-  },
-  {
-    "item_code": "7290019014003",
-    "item_name": "נוזל רצפות אואזיס טא",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 17.9,
-    "spread_pct": 0.2013422818791945,
-    "flagged": false
-  },
-  {
-    "item_code": "7290112005601",
-    "item_name": "איירוויק ספריי לבנדר",
-    "num_stores": 7,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 14.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
     "expensive_price": 17.9,
     "spread_pct": 0.2013422818791945,
     "flagged": false
@@ -117130,19 +116883,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290019603566",
-    "item_name": "סוכריות טופי שמחות מ",
-    "num_stores": 7,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 23.9,
-    "spread_pct": 0.20100502512562815,
-    "flagged": false
-  },
-  {
     "item_code": "7290108359831",
     "item_name": "שמן גוף בייבי כיף 50",
     "num_stores": 5,
@@ -117523,19 +117263,6 @@
     "item_code": "7290122161526",
     "item_name": "קרליין מגבונים דו פא",
     "num_stores": 5,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "tiv-taam-093",
-    "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
-    "expensive_price": 29.9,
-    "spread_pct": 0.20080321285140562,
-    "flagged": false
-  },
-  {
-    "item_code": "7290122161526",
-    "item_name": "קרליין מגבונים דו פא",
-    "num_stores": 4,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 24.9,
@@ -118625,32 +118352,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290019603412",
-    "item_name": "תערובת תיבול  על האש",
-    "num_stores": 4,
-    "cheap_store_id": "osher-ad-031",
-    "cheap_store_name": "אושר עד — כפר סבא",
-    "cheap_price": 7.5,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 9.0,
-    "spread_pct": 0.2,
-    "flagged": false
-  },
-  {
-    "item_code": "7290011830335",
-    "item_name": "מחית (סקוויז) תפוח ע",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 5.0,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 6.0,
-    "spread_pct": 0.2,
-    "flagged": false
-  },
-  {
     "item_code": "7290002043621",
     "item_name": "אקסטרה טורטיה ציפס ע",
     "num_stores": 7,
@@ -119075,19 +118776,6 @@
     "cheap_price": 6.6,
     "expensive_store_id": "394",
     "expensive_store_name": "שופרסל — אקספרס הכרמל כפר סבא",
-    "expensive_price": 7.9,
-    "spread_pct": 0.1969696969696971,
-    "flagged": false
-  },
-  {
-    "item_code": "7290018949269",
-    "item_name": "פחית לימוננדה- משקה",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 6.6,
-    "expensive_store_id": "dor-alon-582",
-    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
     "expensive_price": 7.9,
     "spread_pct": 0.1969696969696971,
     "flagged": false
@@ -121433,19 +121121,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290004731519",
-    "item_name": "מקסימה מרכך ומבשם כב",
-    "num_stores": 5,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 18.9,
-    "spread_pct": 0.18867924528301874,
-    "flagged": false
-  },
-  {
     "item_code": "7290013906502",
     "item_name": "פסטרמה פרגיות לבגט 1",
     "num_stores": 9,
@@ -121560,19 +121235,6 @@
     "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
     "expensive_price": 39.1,
     "spread_pct": 0.1884498480243162,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008636995",
-    "item_name": "גרעיני דלעת קלופים מיה 100 גרם",
-    "num_stores": 5,
-    "cheap_store_id": "shukhair-011",
-    "cheap_store_name": "שוק העיר — כפר סבא מזרח",
-    "cheap_price": 6.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 8.2,
-    "spread_pct": 0.1884057971014491,
     "flagged": false
   },
   {
@@ -123721,6 +123383,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290110115340",
+    "item_name": "פאנטה ענבים 1.5 ליטר",
+    "num_stores": 13,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 8.2,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 9.7,
+    "spread_pct": 0.1829268292682927,
+    "flagged": false
+  },
+  {
     "item_code": "5901867816641",
     "item_name": "בלוודר וודקה 700 מל",
     "num_stores": 6,
@@ -124845,8 +124520,8 @@
     "cheap_store_id": "rami-levy-033",
     "cheap_store_name": "רמי לוי — כפר סבא",
     "cheap_price": 17.7,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
     "expensive_price": 20.9,
     "spread_pct": 0.18079096045197737,
     "flagged": false
@@ -127699,123 +127374,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290008801843",
-    "item_name": "יין סלקטד קברנה סובנ",
-    "num_stores": 23,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008801850",
-    "item_name": "יין סלקטד אמרלד ריזל",
-    "num_stores": 22,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008805520",
-    "item_name": "יין סלקטד קברנה סובנ",
-    "num_stores": 18,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008801119",
-    "item_name": "סלקטד סובניון בלאן מ",
-    "num_stores": 10,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008801157",
-    "item_name": "יין סלקטד מרלו 750 מ",
-    "num_stores": 11,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290008805049",
-    "item_name": "יין סלקטד רוזה כרמל",
-    "num_stores": 8,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290016717099",
-    "item_name": "יין סלקטד אדום חצי י",
-    "num_stores": 9,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290017812847",
-    "item_name": "סלקטד פרנץ קולומברד",
-    "num_stores": 7,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
-    "item_code": "7290018294208",
-    "item_name": "סלקטד קברנה מוסקט -מ",
-    "num_stores": 9,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 36.9,
-    "expensive_store_id": "rami-levy-719",
-    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 43.2,
-    "spread_pct": 0.1707317073170733,
-    "flagged": false
-  },
-  {
     "item_code": "7501035011571",
     "item_name": "טקילה קוארבו אספסיאל",
     "num_stores": 4,
@@ -128643,19 +128201,6 @@
     "cheap_price": 5.9,
     "expensive_store_id": "victory-097",
     "expensive_store_name": "ויקטורי — אינטרנט",
-    "expensive_price": 6.9,
-    "spread_pct": 0.1694915254237288,
-    "flagged": false
-  },
-  {
-    "item_code": "7290019926146",
-    "item_name": "המיניונים - פסטה בצו",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-471",
-    "cheap_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
-    "cheap_price": 5.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
     "expensive_price": 6.9,
     "spread_pct": 0.1694915254237288,
     "flagged": false
@@ -132223,6 +131768,45 @@
     "flagged": false
   },
   {
+    "item_code": "7290008801843",
+    "item_name": "יין סלקטד קברנה סובנ",
+    "num_stores": 23,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
+    "item_code": "7290008801850",
+    "item_name": "יין סלקטד אמרלד ריזל",
+    "num_stores": 22,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
+    "item_code": "7290008805520",
+    "item_name": "יין סלקטד קברנה סובנ",
+    "num_stores": 18,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "752",
+    "expensive_store_name": "שופרסל — אקספרס כפר סבא דוכיפת",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
     "item_code": "7290019274940",
     "item_name": "חומר לניקוי וחיטוי מ",
     "num_stores": 6,
@@ -132231,6 +131815,45 @@
     "cheap_price": 36.9,
     "expensive_store_id": "682",
     "expensive_store_name": "שופרסל — BE כפר סבא צפון",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
+    "item_code": "7290008801119",
+    "item_name": "סלקטד סובניון בלאן מ",
+    "num_stores": 10,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
+    "item_code": "7290008801157",
+    "item_name": "יין סלקטד מרלו 750 מ",
+    "num_stores": 11,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 42.9,
+    "spread_pct": 0.16260162601626016,
+    "flagged": false
+  },
+  {
+    "item_code": "7290008805049",
+    "item_name": "יין סלקטד רוזה כרמל",
+    "num_stores": 8,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "dor-alon-582",
+    "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
     "expensive_price": 42.9,
     "spread_pct": 0.16260162601626016,
     "flagged": false
@@ -132863,6 +132486,32 @@
     "item_code": "7290008805384",
     "item_name": "יין סלקטד מוסקטו 750",
     "num_stores": 4,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "carrefour-404",
+    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
+    "expensive_price": 42.8,
+    "spread_pct": 0.1598915989159891,
+    "flagged": false
+  },
+  {
+    "item_code": "7290016717099",
+    "item_name": "יין סלקטד אדום חצי י",
+    "num_stores": 9,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 42.8,
+    "spread_pct": 0.1598915989159891,
+    "flagged": false
+  },
+  {
+    "item_code": "7290017812847",
+    "item_name": "סלקטד פרנץ קולומברד",
+    "num_stores": 7,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 36.9,
@@ -134415,6 +134064,32 @@
     "cheap_price": 32.8,
     "expensive_store_id": "dor-alon-582",
     "expensive_store_name": "דור אלון — טשרניחובסקי כ\"ס",
+    "expensive_price": 37.9,
+    "spread_pct": 0.15548780487804884,
+    "flagged": false
+  },
+  {
+    "item_code": "7290000023823",
+    "item_name": "קלאסיק סוביניון בלאן",
+    "num_stores": 13,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 32.8,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 37.9,
+    "spread_pct": 0.15548780487804884,
+    "flagged": false
+  },
+  {
+    "item_code": "7290017589565",
+    "item_name": "יין קלאסיק גוורץ 750",
+    "num_stores": 7,
+    "cheap_store_id": "rami-levy-033",
+    "cheap_store_name": "רמי לוי — כפר סבא",
+    "cheap_price": 32.8,
+    "expensive_store_id": "carrefour-471",
+    "expensive_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
     "expensive_price": 37.9,
     "spread_pct": 0.15548780487804884,
     "flagged": false
@@ -137977,19 +137652,6 @@
     "cheap_price": 19.9,
     "expensive_store_id": "rami-levy-719",
     "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
-    "expensive_price": 22.9,
-    "spread_pct": 0.15075376884422112,
-    "flagged": false
-  },
-  {
-    "item_code": "7290108358100",
-    "item_name": "סנופרש מקלות ריחניים",
-    "num_stores": 4,
-    "cheap_store_id": "yohananof-024",
-    "cheap_store_name": "יוחננוף — כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
     "expensive_price": 22.9,
     "spread_pct": 0.15075376884422112,
     "flagged": false
@@ -144196,6 +143858,19 @@
     "flagged": false
   },
   {
+    "item_code": "7290018294208",
+    "item_name": "סלקטד קברנה מוסקט -מ",
+    "num_stores": 9,
+    "cheap_store_id": "carrefour-010",
+    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
+    "cheap_price": 36.9,
+    "expensive_store_id": "rami-levy-719",
+    "expensive_store_name": "רמי לוי — רוטשילד כפר סבא",
+    "expensive_price": 41.9,
+    "spread_pct": 0.13550135501355015,
+    "flagged": false
+  },
+  {
     "item_code": "7290004135072",
     "item_name": "מעדן קרלו מיני שוקול",
     "num_stores": 4,
@@ -149136,19 +148811,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290112197580",
-    "item_name": "ריבת משמש לייט 250 ג",
-    "num_stores": 8,
-    "cheap_store_id": "yohananof-024",
-    "cheap_store_name": "יוחננוף — כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
-    "expensive_price": 17.9,
-    "spread_pct": 0.12578616352201247,
-    "flagged": false
-  },
-  {
     "item_code": "7290112197597",
     "item_name": "טרו ריבת פירות יער 2",
     "num_stores": 17,
@@ -151588,19 +151250,6 @@
     "cheap_price": 24.9,
     "expensive_store_id": "tiv-taam-093",
     "expensive_store_name": "טיב טעם — כפר סבא הירוקה",
-    "expensive_price": 27.9,
-    "spread_pct": 0.12048192771084339,
-    "flagged": false
-  },
-  {
-    "item_code": "52100071138",
-    "item_name": "אורגנו ( עלים ) 38 ג",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
     "expensive_price": 27.9,
     "spread_pct": 0.12048192771084339,
     "flagged": false
@@ -154312,19 +153961,6 @@
   {
     "item_code": "8431876071009",
     "item_name": "קרקרים חיטה מלאה 250",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 8.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 9.9,
-    "spread_pct": 0.11235955056179775,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071369170",
-    "item_name": "פלפל לבן טחון 50 גרם",
     "num_stores": 4,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
@@ -162032,32 +161668,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290111348044",
-    "item_name": "מגבת נייר בגליל אורך",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 21.9,
-    "spread_pct": 0.10050251256281408,
-    "flagged": false
-  },
-  {
-    "item_code": "8695543006781",
-    "item_name": "כדורי גבינת מוצרלה 2",
-    "num_stores": 4,
-    "cheap_store_id": "rami-levy-033",
-    "cheap_store_name": "רמי לוי — כפר סבא",
-    "cheap_price": 19.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 21.9,
-    "spread_pct": 0.10050251256281408,
-    "flagged": false
-  },
-  {
     "item_code": "8695543006804",
     "item_name": "גבינת cheese long שערות  גבינה( 200 גר",
     "num_stores": 6,
@@ -162978,32 +162588,6 @@
     "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
     "expensive_price": 98.9,
     "spread_pct": 0.10011123470522802,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071492809",
-    "item_name": "קרפור סנסיישן -פולי",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 99.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 109.9,
-    "spread_pct": 0.10010010010010009,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071492816",
-    "item_name": "קרפור סנסיישן -פולי",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 99.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 109.9,
-    "spread_pct": 0.10010010010010009,
     "flagged": false
   },
   {
@@ -164976,8 +164560,8 @@
     "cheap_store_id": "victory-097",
     "cheap_store_name": "ויקטורי — אינטרנט",
     "cheap_price": 10.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
+    "expensive_store_id": "carrefour-471",
+    "expensive_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
     "expensive_price": 11.9,
     "spread_pct": 0.09174311926605504,
     "flagged": false
@@ -166824,19 +166408,6 @@
     "cheap_price": 6.9,
     "expensive_store_id": "413",
     "expensive_store_name": "שופרסל — שופרסל ONLINE",
-    "expensive_price": 7.5,
-    "spread_pct": 0.08695652173913038,
-    "flagged": false
-  },
-  {
-    "item_code": "7290121163613",
-    "item_name": "מאסטר שף אטריות פאד",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 6.9,
-    "expensive_store_id": "carrefour-471",
-    "expensive_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
     "expensive_price": 7.5,
     "spread_pct": 0.08695652173913038,
     "flagged": false
@@ -169614,19 +169185,6 @@
     "item_code": "7290104963988",
     "item_name": "סקינגארד רולאון ילדי",
     "num_stores": 7,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 26.9,
-    "spread_pct": 0.08032128514056225,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071169763",
-    "item_name": "מכשיר גילוח לגבר בעל",
-    "num_stores": 4,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 24.9,
@@ -178672,32 +178230,6 @@
     "flagged": false
   },
   {
-    "item_code": "3560071517939",
-    "item_name": "קרפור - סירופ שתיה ל",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.06289308176100618,
-    "flagged": false
-  },
-  {
-    "item_code": "7290020253743",
-    "item_name": "צלחות מרק לבן 100 יח",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 15.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 16.9,
-    "spread_pct": 0.06289308176100618,
-    "flagged": false
-  },
-  {
     "item_code": "3616473966780",
     "item_name": "רדיד אלומיניום חזק ב",
     "num_stores": 5,
@@ -179699,19 +179231,6 @@
     "flagged": false
   },
   {
-    "item_code": "7290120094222",
-    "item_name": "מצופים לידיים גיל 3-",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 9.9,
-    "expensive_store_id": "wolt-005",
-    "expensive_store_name": "וולט מרקט — וולט מרקט | כפר סבא",
-    "expensive_price": 10.5,
-    "spread_pct": 0.060606060606060566,
-    "flagged": false
-  },
-  {
     "item_code": "7296073703792",
     "item_name": "שמן זית אורגני 750 מ\"ל",
     "num_stores": 12,
@@ -180539,19 +180058,6 @@
     "cheap_price": 16.9,
     "expensive_store_id": "carrefour-473",
     "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 17.9,
-    "spread_pct": 0.0591715976331361,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071488765",
-    "item_name": "כדוריות הבושם לכביסה",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 16.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
     "expensive_price": 17.9,
     "spread_pct": 0.0591715976331361,
     "flagged": false
@@ -181560,7 +181066,7 @@
   {
     "item_code": "8711000371206",
     "item_name": "קפסולות קפה12 ריסטרטו52ג",
-    "num_stores": 7,
+    "num_stores": 8,
     "cheap_store_id": "144",
     "cheap_store_name": "שופרסל — דיל שבירו כפר סבא",
     "cheap_price": 17.9,
@@ -183241,8 +182747,8 @@
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
     "cheap_price": 19.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
+    "expensive_store_id": "carrefour-471",
+    "expensive_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
     "expensive_price": 20.9,
     "spread_pct": 0.05025125628140704,
     "flagged": false
@@ -185302,32 +184808,6 @@
     "flagged": false
   },
   {
-    "item_code": "3560071465766",
-    "item_name": "קורנישון חמוץ מתוק 7",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "carrefour-404",
-    "expensive_store_name": "קרפור — קרפור סיטי רון כפר סבא",
-    "expensive_price": 25.9,
-    "spread_pct": 0.040160642570281124,
-    "flagged": false
-  },
-  {
-    "item_code": "3560071372187",
-    "item_name": "סירופ מייפל טהור 250",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 24.9,
-    "expensive_store_id": "carrefour-473",
-    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 25.9,
-    "spread_pct": 0.040160642570281124,
-    "flagged": false
-  },
-  {
     "item_code": "3560071356309",
     "item_name": "שישיית בירה בלונד אי",
     "num_stores": 5,
@@ -187052,19 +186532,6 @@
     "cheap_price": 7.9,
     "expensive_store_id": "carrefour-473",
     "expensive_store_name": "קרפור — כפר סבא @ קוויק",
-    "expensive_price": 8.1,
-    "spread_pct": 0.02531645569620244,
-    "flagged": false
-  },
-  {
-    "item_code": "7290103702311",
-    "item_name": "טאצ ממחטות כיס מנטול",
-    "num_stores": 4,
-    "cheap_store_id": "carrefour-010",
-    "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 7.9,
-    "expensive_store_id": "carrefour-400",
-    "expensive_store_name": "קרפור — קרפור סיטי קניון כפר סבא",
     "expensive_price": 8.1,
     "spread_pct": 0.02531645569620244,
     "flagged": false
@@ -203962,10 +203429,10 @@
     "num_stores": 5,
     "cheap_store_id": "carrefour-010",
     "cheap_store_name": "קרפור — קרפור היפר כפר סבא",
-    "cheap_price": 9.9,
-    "expensive_store_id": "carrefour-471",
-    "expensive_store_name": "קרפור — קרפור אונליין כפר סבא @ קרפור",
-    "expensive_price": 9.9,
+    "cheap_price": 145.0,
+    "expensive_store_id": "carrefour-473",
+    "expensive_store_name": "קרפור — כפר סבא @ קוויק",
+    "expensive_price": 145.0,
     "spread_pct": 0.0,
     "flagged": false
   },

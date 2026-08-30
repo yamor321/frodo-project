@@ -8,6 +8,7 @@ from __future__ import annotations
 from html import escape
 
 from etl.enrich.geocode import GeoPoint
+from etl.scoring.active_promos import ActivePromo, format_promo_end_date
 from etl.scoring.cross_branch_spread import SpreadResult
 from etl.scoring.store_ranking import StoreScore
 from etl.scrapers.shufersal import PriceRecord
@@ -74,6 +75,7 @@ def _deal_card(
     this_store_is_cheap: bool,
     image_urls: dict[str, str | None],
     base_path: str = "/frodo-project",
+    active_promo: ActivePromo | None = None,
 ) -> str:
     from etl.render.layout import thumb_html
 
@@ -85,13 +87,29 @@ def _deal_card(
     # &from= lets the product page highlight the row for the store the
     # visitor drilled down from (see .prow.highlight in etl/render/product.py).
     product_url = f"{base_path}/product/?code={s.item_code}&from={this_store_id}"
+
+    # Real confirmed sale price (see etl/scoring/active_promos.py) --
+    # regular price struck through, promo price highlighted, end date
+    # shown per explicit user request ("אם יש תוקף של המבצעים זה יהיה
+    # מעולה"). Shufersal only, v1 -- see docs/sources.md.
+    if active_promo is not None:
+        end_label = format_promo_end_date(active_promo.end_datetime)
+        end_html = f" עד {end_label}" if end_label else ""
+        price_html = (
+            f'<span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪{this_price:.2f}</span> '
+            f'<span class="ltr">₪{active_promo.discounted_price:.2f}</span> '
+            f'<span class="chip good">מבצע{end_html}</span>'
+        )
+    else:
+        price_html = f"₪{this_price:.2f}"
+
     return f"""
     <div class="card spread">
       <div class="info">
         {thumb_html(image_urls.get(s.item_code), s.item_name)}
         <div class="name"><a href="{product_url}">{escape(s.item_name)}</a><small>לעומת {escape(other_name)}: ₪{other_price:.2f}</small></div>
       </div>
-      <div class="prices">₪{this_price:.2f} <span class="chip {chip_class}">{sign}{s.spread_pct*100:.0f}%</span></div>
+      <div class="prices">{price_html} <span class="chip {chip_class}">{sign}{s.spread_pct*100:.0f}%</span></div>
     </div>"""
 
 
@@ -108,6 +126,7 @@ def render_store_html(
     address: str | None = None,
     base_path: str = "/frodo-project",
     is_online: bool = False,
+    active_promos: dict[str, ActivePromo] | None = None,
 ) -> str:
     from etl.render.layout import ESC_HTML_JS, page_shell
 
@@ -144,8 +163,13 @@ def render_store_html(
         else ""
     )
 
-    best_html = "\n".join(_deal_card(s, store_id, True, image_urls, base_path) for s in best_deals) or "<p>אין עדיין מספיק נתונים.</p>"
-    worst_html = "\n".join(_deal_card(s, store_id, False, image_urls, base_path) for s in worst_deals) or "<p>אין עדיין מספיק נתונים.</p>"
+    active_promos = active_promos or {}
+    best_html = "\n".join(
+        _deal_card(s, store_id, True, image_urls, base_path, active_promos.get(s.item_code)) for s in best_deals
+    ) or "<p>אין עדיין מספיק נתונים.</p>"
+    worst_html = "\n".join(
+        _deal_card(s, store_id, False, image_urls, base_path, active_promos.get(s.item_code)) for s in worst_deals
+    ) or "<p>אין עדיין מספיק נתונים.</p>"
 
     address_html = f'<p class="store-address">{escape(address)}</p>' if address else ""
 
