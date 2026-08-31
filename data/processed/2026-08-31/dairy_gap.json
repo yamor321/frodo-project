@@ -1667,15 +1667,27 @@
     "ambiguous": false
   },
   {
-    "item_code": "4823065727868",
-    "item_name": "שמנת חמוצה טבעית 15%",
+    "item_code": "7290000021853",
+    "item_name": "גבינה צהובה 28% במשק",
     "store_id": "530",
-    "actual_price": 9.9,
+    "actual_price": 32.0,
     "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
+      "גבינה חצי קשה עמק (רגילה) 28% שומן"
     ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 2.485915492957747,
+    "controlled_consumer_price": 52.85,
+    "gap_pct": -0.3945127719962157,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "טרה גבינה לבנה 5% 25",
+    "store_id": "530",
+    "actual_price": 5.87,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.0,
     "ambiguous": false
   },
   {
@@ -1690,18 +1702,6 @@
     "controlled_consumer_price": null,
     "gap_pct": null,
     "ambiguous": true
-  },
-  {
-    "item_code": "7290000021853",
-    "item_name": "גבינה צהובה 28% במשק",
-    "store_id": "530",
-    "actual_price": 32.0,
-    "controlled_product_names": [
-      "גבינה חצי קשה עמק (רגילה) 28% שומן"
-    ],
-    "controlled_consumer_price": 52.85,
-    "gap_pct": -0.3945127719962157,
-    "ambiguous": false
   },
   {
     "item_code": "7290000041858",
@@ -1777,15 +1777,15 @@
     "ambiguous": false
   },
   {
-    "item_code": "7290000474502",
-    "item_name": "טרה גבינה לבנה 5% 25",
+    "item_code": "4823065727868",
+    "item_name": "שמנת חמוצה טבעית 15%",
     "store_id": "530",
-    "actual_price": 5.87,
+    "actual_price": 9.9,
     "controlled_product_names": [
-      "גבינה לבנה 5%"
+      "שמנת חמוצה 15% שומן רגילה"
     ],
-    "controlled_consumer_price": 5.87,
-    "gap_pct": 0.0,
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 2.485915492957747,
     "ambiguous": false
   },
   {
@@ -2276,18 +2276,6 @@
     "ambiguous": false
   },
   {
-    "item_code": "7290000474502",
-    "item_name": "גבינה לבנה 5% טרה 25",
-    "store_id": "719",
-    "actual_price": 5.9,
-    "controlled_product_names": [
-      "גבינה לבנה 5%"
-    ],
-    "controlled_consumer_price": 5.87,
-    "gap_pct": 0.005110732538330536,
-    "ambiguous": false
-  },
-  {
     "item_code": "72961223",
     "item_name": "גיל תנובה 3% שומן 20",
     "store_id": "719",
@@ -2393,6 +2381,18 @@
     ],
     "controlled_consumer_price": 5.87,
     "gap_pct": -0.011925042589437867,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000474502",
+    "item_name": "גבינה לבנה 5% טרה 25",
+    "store_id": "719",
+    "actual_price": 5.9,
+    "controlled_product_names": [
+      "גבינה לבנה 5%"
+    ],
+    "controlled_consumer_price": 5.87,
+    "gap_pct": 0.005110732538330536,
     "ambiguous": false
   },
   {
@@ -2908,6 +2908,54 @@
     "ambiguous": false
   },
   {
+    "item_code": "4823065727868",
+    "item_name": "שמנת חמוצה טבעית 15% 180 גר` PRESIDENT",
+    "store_id": "097",
+    "actual_price": 9.9,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 2.485915492957747,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290000041858",
+    "item_name": "שמנת חמוצה יטבתה 15%",
+    "store_id": "097",
+    "actual_price": 3.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.1267605633802818,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125455",
+    "item_name": "שמנת חמוצה אורגינל 15% 200 מל פיקוח תנ",
+    "store_id": "097",
+    "actual_price": 2.84,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": 0.0,
+    "ambiguous": false
+  },
+  {
+    "item_code": "7290004125509",
+    "item_name": "שמנת חמוצה אורגינל 15% שומן חצי מנה פי",
+    "store_id": "097",
+    "actual_price": 2.2,
+    "controlled_product_names": [
+      "שמנת חמוצה 15% שומן רגילה"
+    ],
+    "controlled_consumer_price": 2.84,
+    "gap_pct": -0.22535211267605623,
+    "ambiguous": false
+  },
+  {
     "item_code": "72961223",
     "item_name": "גיל, לבן 3% שומן",
     "store_id": "079",
@@ -3089,53 +3137,5 @@
     "controlled_consumer_price": null,
     "gap_pct": null,
     "ambiguous": true
-  },
-  {
-    "item_code": "4823065727868",
-    "item_name": "שמנת חמוצה טבעית 15% 180 גר` PRESIDENT",
-    "store_id": "097",
-    "actual_price": 9.9,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 2.485915492957747,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290000041858",
-    "item_name": "שמנת חמוצה יטבתה 15%",
-    "store_id": "097",
-    "actual_price": 3.2,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.1267605633802818,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004125455",
-    "item_name": "שמנת חמוצה אורגינל 15% 200 מל פיקוח תנ",
-    "store_id": "097",
-    "actual_price": 2.84,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": 0.0,
-    "ambiguous": false
-  },
-  {
-    "item_code": "7290004125509",
-    "item_name": "שמנת חמוצה אורגינל 15% שומן חצי מנה פי",
-    "store_id": "097",
-    "actual_price": 2.2,
-    "controlled_product_names": [
-      "שמנת חמוצה 15% שומן רגילה"
-    ],
-    "controlled_consumer_price": 2.84,
-    "gap_pct": -0.22535211267605623,
-    "ambiguous": false
   }
 ]
