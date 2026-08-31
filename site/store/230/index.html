@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 48 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,495 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 47 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,509 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,14 +208,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290005008481&from=230">ספיד סטיק גל ספורט 85 ג</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪25.90</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip good">-30%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019462538&from=230">פטריות שימגי לבנות</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪15.90</small></div>
-      </div>
-      <div class="prices">₪12.90 <span class="chip good">-23%</span></div>
     </div>
 
     <div class="card spread">
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7296073362791&from=230">שורש פטרוזיליה (ק)</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪8.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪7.90</span> <span class="ltr">₪7.51</span> <span class="chip good">מבצע עד 01.01.2031</span> <span class="chip good">-13%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7296073706540&from=230">שורש פטרוזיליה (ק)</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip good">-13%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,618 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,629 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,618 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,629 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

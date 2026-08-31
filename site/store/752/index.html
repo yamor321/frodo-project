@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,710 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,732 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -213,7 +213,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290112197443&from=752">טרו שוקולד חלב 100 גרם</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪16.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290112197443&from=752">טרו שוקולד חלב 100 גרם</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip good">-13%</span></div>
     </div></section>
@@ -226,7 +226,23 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7701001013596&from=752">מארז שום יבש</a><small>לעומת יוחננוף — כפר סבא: ₪2.90</small></div>
       </div>
-      <div class="prices">₪7.90 <span class="chip warm">+172%</span></div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪7.90</span> <span class="ltr">₪3.90</span> <span class="chip good">מבצע עד 07.09.2026</span> <span class="chip warm">+172%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=5029053534589&from=752">טמפונים ללא מוליך מי</a><small>לעומת אושר עד — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪30.90 <span class="chip warm">+107%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000064871&from=752">מנה חמה פירה בצל אסם</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
+      </div>
+      <div class="prices">₪9.90 <span class="chip warm">+102%</span></div>
     </div>
 
     <div class="card spread">
@@ -267,27 +283,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290000034256&from=752">עוגיות תירוש הדר 175</a><small>לעומת רמי לוי — כפר סבא: ₪5.90</small></div>
       </div>
       <div class="prices">₪10.90 <span class="chip warm">+85%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290117382868&from=752">טורטיה כוסמין מאסטר</a><small>לעומת יוחננוף — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪14.50 <span class="chip warm">+84%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/000/008/077/1418/front_fr.5.400.jpg" alt="טיק טק מנדרינה ולימו" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=80771418&from=752">טיק טק מנדרינה ולימו</a><small>לעומת רמי לוי — כפר סבא: ₪3.80</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip warm">+82%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,772 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,794 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -385,7 +385,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,772 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,794 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

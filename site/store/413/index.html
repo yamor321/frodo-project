@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">WWW.SHUFERSAL.CO.IL</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 62 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,879 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 61 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,875 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -268,6 +268,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000446714&from=413">שמן שומשום כבישה קרה</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪49.90 <span class="chip warm">+532%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7296073345107&from=413">לחמניות המבורגר ללא גלוטן 4 יח`</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪7.90</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip warm">+114%</span></div>
@@ -307,14 +315,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018443835&from=413">עגבניות שרי לובלו</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪11.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪19.90</span> <span class="ltr">₪15.90</span> <span class="chip good">מבצע עד 06.09.2026</span> <span class="chip warm">+67%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/727/099/9012/front_it.3.400.jpg" alt="שמן גרעיני ענבים נטורפוד 1 ליטר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=8007270999012&from=413">שמן גרעיני ענבים נטורפוד 1 ליטר</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪32.90</small></div>
       </div>
@@ -331,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">15,680 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">15,572 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "15,680 מוצרים בקטלוג הסניף";
+  const defaultHint = "15,572 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
