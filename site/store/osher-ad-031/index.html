@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 86 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,516 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 86 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,509 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -205,7 +205,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290003029884&from=osher-ad-031">מארז משקה חלב בטעם מ</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪17.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003029884&from=osher-ad-031">מארז משקה חלב בטעם מ</a><small>לעומת ויקטורי — אינטרנט: ₪17.90</small></div>
       </div>
       <div class="prices">₪1.90 <span class="chip good">-842%</span></div>
     </div>
@@ -216,14 +216,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290122781663&from=osher-ad-031">פתיתים ללא גלוטן  אס</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪15.90</small></div>
       </div>
       <div class="prices">₪1.90 <span class="chip good">-737%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/964/4095/front_en.5.400.jpg" alt="מיקס כוכבים שוקולד ח" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019644095&from=osher-ad-031">מיקס כוכבים שוקולד ח</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪5.90</small></div>
-      </div>
-      <div class="prices">₪0.90 <span class="chip good">-556%</span></div>
     </div>
 
     <div class="card spread">
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014760141&from=osher-ad-031">משקה שקדים אלטרנטיב</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-483%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=osher-ad-031">מילקשייק קצפת ותותים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪1.90 <span class="chip good">-421%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,795 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,781 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,795 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,781 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

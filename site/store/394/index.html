@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,356 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,362 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -245,7 +245,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
     </div>
@@ -253,15 +253,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8009470013031&from=394">מונג פרש נתחי עוף וירקות</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290113302341&from=394">חטיפי עוף ואורז לכלב 80</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪12.90</small></div>
       </div>
-      <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
+      <div class="prices">₪12.90 <span class="chip good">-0%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8009470013055&from=394">מונג פרש פטה ונתחי כבש</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=8009470013031&from=394">מונג פרש נתחי עוף וירקות</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
     </div></section>
@@ -275,14 +275,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290000204215&from=394">כריות יפניות ניקול 6</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
       </div>
       <div class="prices">₪15.90 <span class="chip warm">+224%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110119362&from=394">פריגת קליר בטעם אפרס</a><small>לעומת אושר עד — כפר סבא: ₪3.90</small></div>
-      </div>
-      <div class="prices">₪10.90 <span class="chip warm">+179%</span></div>
     </div>
 
     <div class="card spread">
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290108507997&from=394">חמאה רכה למריחה ללא</a><small>לעומת רמי לוי — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪19.70 <span class="chip warm">+99%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000493176&from=394">רוטב צלי לבשר אסם 22</a><small>לעומת רמי לוי — כפר סבא: ₪3.50</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip warm">+97%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,472 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,478 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,472 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,478 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

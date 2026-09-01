@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,167 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,158 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -303,6 +303,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/249/2982/front_en.3.400.jpg" alt="מרק פטריות ר.טבעיים" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290112492982&from=375">מרק פטריות ר.טבעיים</a><small>לעומת אושר עד — כפר סבא: ₪17.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪37.90</span> <span class="ltr">₪22.90</span> <span class="chip good">מבצע עד 13.09.2026</span> <span class="chip warm">+112%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290013358417&from=375">מאסטר שף רוטב טריאקי</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
       </div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290000346021&from=375">הגן הקסום חליטת קמומ</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪22.90</small></div>
       </div>
       <div class="prices">₪41.90 <span class="chip warm">+83%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018394144&from=375">בצלצלי איזי שאלוט חו</a><small>לעומת רמי לוי — כפר סבא: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪15.90 <span class="chip warm">+79%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,283 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,274 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,283 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,274 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

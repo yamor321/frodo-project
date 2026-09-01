@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,833 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,853 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,6 +208,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=8714789218465&from=144">2 מברשות קולגייט סופט</a><small>לעומת ויקטורי — אינטרנט: ₪37.90</small></div>
       </div>
       <div class="prices">₪17.90 <span class="chip good">-112%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000965031&from=144">אבטיח במיכל</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪5.90</small></div>
+      </div>
+      <div class="prices">₪2.90 <span class="chip good">-103%</span></div>
     </div>
 
     <div class="card spread">
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290002766056&from=144">עגבניות שרי תמר</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪9.90</span> <span class="ltr">₪3.90</span> <span class="chip good">מבצע עד 07.09.2026</span> <span class="chip good">-101%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000979427&from=144">עגבניות שרי כתום</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪19.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪9.90</span> <span class="ltr">₪3.90</span> <span class="chip good">מבצע עד 07.09.2026</span> <span class="chip good">-101%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -280,14 +280,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=3600524245863&from=144">מסכה הידרה היאלורוני</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪39.90</span> <span class="ltr">₪29.90</span> <span class="chip good">מבצע עד 13.09.2026</span> <span class="chip warm">+21%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290004030018&from=144">פריניב מיץ לימון לתי</a><small>לעומת רמי לוי — כפר סבא: ₪6.90</small></div>
       </div>
       <div class="prices">₪7.90 <span class="chip warm">+14%</span></div>
@@ -295,7 +287,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,741 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,753 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -393,7 +385,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,741 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,753 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
