@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 19 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,799 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 19 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,796 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -228,14 +228,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=6001135009498&from=dor-alon-582">שטיפת פה ליסטרין פרש</a><small>לעומת שופרסל — שלי כ&quot;ס- רוטשילד: ₪24.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip good">-47%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/657/4120/front_he.3.400.jpg" alt="שלגון גומיגם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290106574120&from=dor-alon-582">שלגון גומיגם</a><small>לעומת דור אלון — כפר סבא: ₪13.90</small></div>
       </div>
@@ -253,7 +245,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016094022&from=dor-alon-582">אולטרסול 50/200 תרסי</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪67.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290016094022&from=dor-alon-582">אולטרסול 50/200 תרסי</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪67.90</small></div>
       </div>
       <div class="prices">₪49.90 <span class="chip good">-36%</span></div>
     </div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290016094039&from=dor-alon-582">אולטרסול קידס ספריי</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪67.90</small></div>
       </div>
       <div class="prices">₪49.90 <span class="chip good">-36%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/005/8580/front_hr.3.400.jpg" alt="קוקילידה 80 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000058580&from=dor-alon-582">קוקילידה 80 גרם</a><small>לעומת דור אלון — כפר סבא: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪12.90 <span class="chip good">-31%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,298 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,282 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,298 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,282 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

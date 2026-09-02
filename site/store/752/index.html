@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,732 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,730 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -240,14 +240,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000965031&from=752">אבטיח במיכל</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪2.90</small></div>
-      </div>
-      <div class="prices">₪5.90 <span class="chip warm">+103%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000064871&from=752">מנה חמה פירה בצל אסם</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip warm">+102%</span></div>
@@ -283,11 +275,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290112964410&from=752">רוטב אלף האיים לסלט</a><small>לעומת רמי לוי — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip warm">+90%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/003/4256/front_en.3.400.jpg" alt="עוגיות תירוש הדר 175" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000034256&from=752">עוגיות תירוש הדר 175</a><small>לעומת רמי לוי — כפר סבא: ₪5.90</small></div>
+      </div>
+      <div class="prices">₪10.90 <span class="chip warm">+85%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,794 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,792 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -385,7 +385,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,794 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,792 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

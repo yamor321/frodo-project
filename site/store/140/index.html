@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 46 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,193 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 46 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,191 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -280,22 +280,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=726529983463&from=140">ענבים אדומים</a><small>לעומת שופרסל — יוניברס גזית כ&quot;ס- ויצמן: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪29.90 <span class="chip warm">+77%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290013128324&from=140">ענבים אדומים פלם</a><small>לעומת שופרסל — יוניברס גזית כ&quot;ס- ויצמן: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪29.90 <span class="chip warm">+77%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290015766012&from=140">שרי ליקופן ארוז</a><small>לעומת יוחננוף — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪12.90 <span class="chip warm">+63%</span></div>
@@ -331,11 +315,27 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290114313926&from=140">מולר סימפליי שמינייה</a><small>לעומת רמי לוי — כפר סבא: ₪29.90</small></div>
       </div>
       <div class="prices">₪43.90 <span class="chip warm">+47%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=8710847908446&from=140">אקס ספריי אנטיפרספיר</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
+      </div>
+      <div class="prices">₪24.90 <span class="chip warm">+39%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290016334623&from=140">סלרי עלים (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪5.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+34%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,243 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,244 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,243 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,244 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

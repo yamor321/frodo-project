@@ -197,19 +197,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 83 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,041 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 83 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,050 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290120344556&from=yohananof-024">קוביות שום 80 גרם</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪1.90 <span class="chip good">-421%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -252,16 +244,24 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/666/3091/front_he.3.400.jpg" alt="לאבנה 9% 500 גרם" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290106663091&from=yohananof-024">לאבנה 9% 500 גרם</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪24.20</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116536972&from=yohananof-024">DOVE</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪23.90</small></div>
       </div>
-      <div class="prices">₪9.90 <span class="chip good">-144%</span></div>
+      <div class="prices">₪9.90 <span class="chip good">-141%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116536972&from=yohananof-024">DOVE</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪23.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=59096900&from=yohananof-024">דאב דאו רולאון מלפפו</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪23.90</small></div>
+      </div>
+      <div class="prices">₪9.90 <span class="chip good">-141%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=59096917&from=yohananof-024">דאב רולאון אוריגינל</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪23.90</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip good">-141%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">11,968 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">11,971 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "11,968 מוצרים בקטלוג הסניף";
+  const defaultHint = "11,971 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

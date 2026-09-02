@@ -225,6 +225,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290002881865&from=carrefour-471">פטריות שמפיניון חתוכ</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪6.30</small></div>
+      </div>
+      <div class="prices">₪5.50 <span class="chip good">-15%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290014472235&from=carrefour-471">פקאן סיני מסוכר בקופ</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪31.90</small></div>
       </div>
       <div class="prices">₪27.90 <span class="chip good">-14%</span></div>
@@ -252,14 +260,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290015130301&from=carrefour-471">WIN חטיף חלבון בטעם</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪16.50</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip good">-11%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290001548011&from=carrefour-471">טחינה ירוקה 250 מונט</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪16.40</small></div>
-      </div>
-      <div class="prices">₪14.90 <span class="chip good">-10%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -331,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,747 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,752 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,747 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,752 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

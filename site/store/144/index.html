@@ -197,11 +197,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,853 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,865 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290005678332&from=144">ענבים שחורים סייבל</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪49.90</small></div>
+      </div>
+      <div class="prices">₪19.90 <span class="chip good">-151%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -213,7 +221,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000965031&from=144">אבטיח במיכל</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪5.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000965031&from=144">אבטיח במיכל</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪5.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-103%</span></div>
     </div>
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290000993560&from=144">עגבניות שרי שוקו</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪9.90</span> <span class="ltr">₪3.90</span> <span class="chip good">מבצע עד 07.09.2026</span> <span class="chip good">-101%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290002766056&from=144">עגבניות שרי תמר</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪19.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪9.90</span> <span class="ltr">₪3.90</span> <span class="chip good">מבצע עד 07.09.2026</span> <span class="chip good">-101%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -287,7 +287,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,753 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,767 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -385,7 +385,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,753 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,767 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
