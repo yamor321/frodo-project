@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 83 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,050 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 83 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,045 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -221,7 +221,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7701001013596&from=yohananof-024">מארז שום יבש</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪7.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7701001013596&from=yohananof-024">מארז שום יבש</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-172%</span></div>
     </div>
@@ -288,14 +288,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290013558909&from=yohananof-024">ליידי נובה-סלנובה</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪12.90 <span class="chip warm">+30%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290009077667&from=yohananof-024">מלפפון/ירקות במשקל</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪35.00</small></div>
       </div>
       <div class="prices">₪45.00 <span class="chip warm">+29%</span></div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290001354551&from=yohananof-024">פולי סויה שדה בשקית</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪5.90</small></div>
       </div>
       <div class="prices">₪7.00 <span class="chip warm">+19%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/319/3000/front_en.3.400.jpg" alt="פלפל שיפקונית בית הש" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290113193000&from=yohananof-024">פלפל שיפקונית בית הש</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪14.90 <span class="chip warm">+16%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">11,971 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">11,955 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "11,971 מוצרים בקטלוג הסניף";
+  const defaultHint = "11,955 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

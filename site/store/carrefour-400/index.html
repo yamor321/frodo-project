@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 30 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,560 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 30 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,568 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -264,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290114310246&from=carrefour-400">גבינה גרנה פדנו 29%</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪24.50 <span class="chip warm">+147%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290101114598&from=carrefour-400">מאגדת שלגוני פלדמן 9</a><small>לעומת אושר עד — כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪33.90 <span class="chip warm">+128%</span></div>
@@ -315,11 +307,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014763395&from=carrefour-400">גבינה עמק 28% 600 גר</a><small>לעומת אושר עד — כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices">₪40.90 <span class="chip warm">+106%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290112965301&from=carrefour-400">מרק נמס עוף אסם 2*26</a><small>לעומת אושר עד — כפר סבא: ₪3.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+103%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,831 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,836 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -417,7 +417,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,831 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,836 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
