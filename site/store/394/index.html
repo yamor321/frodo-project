@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,372 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,366 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,6 +208,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=4033100014529&from=394">אל די סלימס חפיסה</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪37.90</small></div>
       </div>
       <div class="prices">₪32.00 <span class="chip good">-18%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-14%</span></div>
     </div>
 
     <div class="card spread">
@@ -245,15 +253,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=50000577965&from=394">טייסטי נתחי עוף כבד156ג</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=50000577965&from=394">טייסטי נתחי עוף כבד156ג</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪6.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,485 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,481 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,485 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,481 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

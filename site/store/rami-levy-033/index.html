@@ -220,6 +220,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000688084&from=rami-levy-033">מי עדן ספורט 0.5</a><small>לעומת דור אלון — כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪2.50 <span class="chip good">-256%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/905/6119/front_en.3.400.jpg" alt="סודה שוופס 1.5 ליטר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290019056119&from=rami-levy-033">סודה שוופס 1.5 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
       </div>
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290010237531&from=rami-levy-033">פפסי משקה קולה מוגז</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪3.80 <span class="chip good">-161%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7579/front_he.3.400.jpg" alt="גזוז בטעם לימון ליים" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290010237579&from=rami-levy-033">גזוז בטעם לימון ליים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪3.80 <span class="chip good">-161%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -272,7 +272,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=693493247054&from=rami-levy-033">דובדבנים פירות השלום ארוז</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪16.00</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=693493247054&from=rami-levy-033">דובדבנים פירות השלום ארוז</a><small>לעומת ויקטורי — אינטרנט: ₪16.00</small></div>
       </div>
       <div class="prices">₪26.90 <span class="chip warm">+68%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">14,566 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">14,581 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "14,566 מוצרים בקטלוג הסניף";
+  const defaultHint = "14,581 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

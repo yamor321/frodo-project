@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 79 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 9,568 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 79 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 9,558 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -216,14 +216,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=9771565038326&from=carrefour-010">ידיעות אחרונות יום ב</a><small>לעומת רמי לוי — רוטשילד כפר סבא: ₪4.00</small></div>
       </div>
       <div class="prices">₪0.90 <span class="chip good">-344%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016006322&from=carrefour-010">מי עדן 1 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
-      </div>
-      <div class="prices">₪3.00 <span class="chip good">-263%</span></div>
     </div>
 
     <div class="card spread">
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/006/6332/front_en.7.400.jpg" alt="** אפרופו 50 גרם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290000066332&from=carrefour-010">** אפרופו 50 גרם</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪4.50 <span class="chip good">-120%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/068/7109/front_fr.12.400.jpg" alt="במבה במילוי קרם נוגט" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290100687109&from=carrefour-010">במבה במילוי קרם נוגט</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪4.50 <span class="chip good">-120%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">12,491 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">12,488 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "12,491 מוצרים בקטלוג הסניף";
+  const defaultHint = "12,488 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 73 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,893 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 73 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,891 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,6 +272,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=4820077162472&from=259">גלידת שמנת מיני מוצ</a><small>לעומת יוחננוף — כפר סבא: ₪29.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪41.90</span> <span class="ltr">₪29.90</span> <span class="chip good">מבצע עד 13.09.2026</span> <span class="chip warm">+40%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290017593111&from=259">מארז תירס לבן - שקיל</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪11.90 <span class="chip warm">+34%</span></div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=3600524245771&from=259">מסכה פול רזיסט 300 מ</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪39.90</span> <span class="ltr">₪29.90</span> <span class="chip good">מבצע עד 13.09.2026</span> <span class="chip warm">+21%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=3600524246716&from=259">מסכה שמנים 300 מל</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪39.90</span> <span class="ltr">₪29.90</span> <span class="chip good">מבצע עד 13.09.2026</span> <span class="chip warm">+21%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,866 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,860 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,866 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,860 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

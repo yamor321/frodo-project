@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,723 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,720 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -264,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000964614&from=335">קלמנטינה 70</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪15.90 <span class="chip warm">+79%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290111568961&from=335">בייגלה טבעות עם מלח</a><small>לעומת אושר עד — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪15.90 <span class="chip warm">+79%</span></div>
@@ -283,6 +275,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290019153078&from=335">שוופס ביטר למון לייט</a><small>לעומת רמי לוי — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪13.90 <span class="chip warm">+56%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000453125&from=335">שמרית + משפר אפייה 1</a><small>לעומת רמי לוי — כפר סבא: ₪6.90</small></div>
+      </div>
+      <div class="prices">₪9.90 <span class="chip warm">+43%</span></div>
     </div>
 
     <div class="card spread">
@@ -319,7 +319,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,770 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,767 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -417,7 +417,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,770 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,767 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
