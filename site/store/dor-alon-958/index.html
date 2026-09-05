@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 7 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 906 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 7 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 903 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -311,23 +311,23 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014581036&from=dor-alon-958">פחם דליק 2 ק&quot;ג</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪22.90 <span class="chip warm">+232%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/905/6966/front_en.24.400.jpg" alt="מי עדן 1.5ל" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290019056966&from=dor-alon-958">מי עדן 1.5ל</a><small>לעומת רמי לוי — כפר סבא: ₪3.50</small></div>
       </div>
       <div class="prices">₪10.90 <span class="chip warm">+211%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/233/1018/front_he.4.400.jpg" alt="מים מינרלים נביעות 5" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290002331018&from=dor-alon-958">מים מינרלים נביעות 5</a><small>לעומת רמי לוי — כפר סבא: ₪2.90</small></div>
+      </div>
+      <div class="prices">₪8.90 <span class="chip warm">+207%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,131 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,130 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -425,7 +425,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,131 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,130 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

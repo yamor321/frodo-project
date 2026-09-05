@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,608 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,609 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -303,6 +303,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/807/680/019/5033/front_en.158.400.jpg" alt="ספגטיני מס 3 500 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=8076800195033&from=615">ספגטיני מס 3 500 גרם</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪7.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪11.20</span> <span class="ltr">₪8.90</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip warm">+42%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=33200004165&from=615">כדוריות בושם עוצמתיו</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪49.90</small></div>
       </div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=4045787068610&from=615">פרוטאין קולור 9 בלונ</a><small>לעומת רמי לוי — כפר סבא: ₪16.90</small></div>
       </div>
       <div class="prices">₪22.90 <span class="chip warm">+36%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290104966484&from=615">מסכה ללא שטיפה שמן ק</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪27.20</small></div>
-      </div>
-      <div class="prices">₪35.90 <span class="chip warm">+32%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,370 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,376 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,370 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,376 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

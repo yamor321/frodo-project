@@ -197,11 +197,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 21 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,261 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 21 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,258 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
-  <section class="list"><p>אין עדיין מספיק נתונים.</p></section>
+  <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/940/1766/front_en.3.400.jpg" alt="חטיף פרוטאין ציפס 72גר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019401766&from=682">חטיף פרוטאין ציפס 72גר</a><small>לעומת דור אלון — כפר סבא: ₪22.90</small></div>
+      </div>
+      <div class="prices">₪17.90 <span class="chip good">-28%</span></div>
+    </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,7 +279,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,590 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,578 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -370,7 +377,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,590 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,578 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
