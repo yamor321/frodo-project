@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.carrefour.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,726 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,704 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -225,14 +225,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019926092&from=carrefour-471">המיניונים - פסטה בצו</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪5.90 <span class="chip good">-17%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290019926146&from=carrefour-471">המיניונים - פסטה בצו</a><small>לעומת ויקטורי — אינטרנט: ₪6.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip good">-17%</span></div>
@@ -257,9 +249,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8720701141407&from=carrefour-471">שוקולד טוניס מריר מע</a><small>לעומת ויקטורי — אינטרנט: ₪24.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=8720701141407&from=carrefour-471">שוקולד טוניס מריר מע</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪24.90</small></div>
       </div>
       <div class="prices">₪21.90 <span class="chip good">-14%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7291045000350&from=carrefour-471">פחם 2 ק&quot;ג מותג המלך</a><small>לעומת שופרסל — שופרסל ONLINE: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪14.90 <span class="chip good">-13%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -331,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,817 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,795 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,817 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,795 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
