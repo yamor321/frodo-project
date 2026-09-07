@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 27 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,273 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 28 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,217 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -280,14 +280,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018825228&from=wolt-005">תפו&quot;א דוד משה אדום</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪32.90 <span class="chip warm">+270%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/596/4564/front_he.3.400.jpg" alt="חומוס אחלה 400 גרם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290105964564&from=wolt-005">חומוס אחלה 400 גרם</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
       </div>
@@ -320,23 +312,31 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/677/5801/front_yi.3.400.jpg" alt="רוגעלך בטעם שוקולד א" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290006775801&from=wolt-005">רוגעלך בטעם שוקולד א</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000189659&from=wolt-005">מטליות לחות לרצפה ני</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
       </div>
-      <div class="prices">₪18.10 <span class="chip warm">+129%</span></div>
+      <div class="prices">₪15.50 <span class="chip warm">+125%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000189659&from=wolt-005">מטליות לחות לרצפה ני</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116536262&from=wolt-005">מרכך בדין אקסטרא כחו</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
-      <div class="prices">₪15.50 <span class="chip warm">+125%</span></div>
+      <div class="prices">₪21.90 <span class="chip warm">+121%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116536279&from=wolt-005">מרכך בדין אקסטרא ורו</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪21.90 <span class="chip warm">+121%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,537 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,547 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -434,7 +434,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,537 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,547 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

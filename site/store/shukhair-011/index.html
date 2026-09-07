@@ -197,19 +197,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,770 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,590 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018825228&from=shukhair-011">תפו&quot;א דוד משה אדום</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪32.90</small></div>
-      </div>
-      <div class="prices">₪8.90 <span class="chip good">-270%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/5777/front_en.13.400.jpg" alt="מים מנרליים נביעות 1.5 ליטר" loading="lazy"></div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=5000159560511&from=shukhair-011">סניקרס חטיף בודד  50 גרם</a><small>לעומת דור אלון — כפר סבא: ₪8.90</small></div>
       </div>
       <div class="prices">₪4.90 <span class="chip good">-82%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=5000159561976&from=shukhair-011">באונטי חטיף בודד 57 גרם</a><small>לעומת דור אלון — כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪4.90 <span class="chip good">-82%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -295,10 +295,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290111347764&from=shukhair-011">תחבושות קוטקס נייט</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/386/4492/front_he.3.400.jpg" alt="סרדין בשמן חריף וילי" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003864492&from=shukhair-011">סרדין בשמן חריף וילי</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
       </div>
-      <div class="prices">₪22.90 <span class="chip warm">+131%</span></div>
+      <div class="prices">₪6.90 <span class="chip warm">+138%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,254 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,125 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,254 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,125 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

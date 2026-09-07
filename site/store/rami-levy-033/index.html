@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 94 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,163 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 93 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,816 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,9 +272,9 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=693493247054&from=rami-levy-033">דובדבנים פירות השלום ארוז</a><small>לעומת ויקטורי — אינטרנט: ₪16.00</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003681792&from=rami-levy-033">סוכריות טופי מיה 600</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
-      <div class="prices">₪26.90 <span class="chip warm">+68%</span></div>
+      <div class="prices">₪16.90 <span class="chip warm">+71%</span></div>
     </div>
 
     <div class="card spread">
@@ -291,6 +291,22 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290000976433&from=rami-levy-033">קשיו טבעי במשקל</a><small>לעומת אושר עד — כפר סבא: ₪85.00</small></div>
       </div>
       <div class="prices">₪111.20 <span class="chip warm">+31%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290108358896&from=rami-levy-033">20 שקיות אשפה סנו סושי 80*90</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪21.90 <span class="chip warm">+30%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290122634259&from=rami-levy-033">צוקטה שוק.מריר54% 4*100ג</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪24.90</small></div>
+      </div>
+      <div class="prices">₪31.90 <span class="chip warm">+28%</span></div>
     </div>
 
     <div class="card spread">
@@ -315,27 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290016188608&from=rami-levy-033">למברוסקו לבן חצי יבש</a><small>לעומת יוחננוף — כפר סבא: ₪23.90</small></div>
       </div>
       <div class="prices">₪29.90 <span class="chip warm">+25%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290108357318&from=rami-levy-033">אוקסיג`ן אבקה עוצמתית להסרת כתמים</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪20.20 <span class="chip warm">+20%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290108357325&from=rami-levy-033">אוקסיג&#x27;ן תוסף כביסה</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪20.20 <span class="chip warm">+20%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">14,591 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">14,608 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "14,591 מוצרים בקטלוג הסניף";
+  const defaultHint = "14,608 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

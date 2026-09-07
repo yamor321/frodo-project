@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 37 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,405 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 37 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,381 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -229,7 +229,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/870/3991/front_he.4.400.jpg" alt="עוגיית חלבון דאבל שוקולד" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018703991&from=648">עוגיית חלבון דאבל שוקולד</a><small>לעומת ויקטורי — אינטרנט: ₪15.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018703991&from=648">עוגיית חלבון דאבל שוקולד</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪15.90</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div></section>
@@ -279,14 +279,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/113/2507/front_iw.4.400.jpg" alt="סן בנדטו מוגז 500 מל" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290011132507&from=648">סן בנדטו מוגז 500 מל</a><small>לעומת ויקטורי — כפר סבא הירוקה: ₪3.50</small></div>
-      </div>
-      <div class="prices">₪6.70 <span class="chip warm">+91%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112969538&from=648">מ.חמה נודלס טעם ויאט</a><small>לעומת יוחננוף — כפר סבא: ₪5.50</small></div>
       </div>
@@ -299,11 +291,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290010117864&from=648">דוריטוס חטיף תירס בט</a><small>לעומת רמי לוי — כפר סבא: ₪3.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip warm">+77%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290107544481&from=648">קרם להסרת שיער</a><small>לעומת רמי לוי — כפר סבא: ₪14.70</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪25.50</span> <span class="ltr">₪15.00</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip warm">+73%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,355 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,351 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -401,7 +401,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,355 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,351 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
