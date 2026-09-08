@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,378 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,370 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -236,14 +236,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/476/0141/front_en.8.400.jpg" alt="משקה שקדים אלטרנטיב" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014760141&from=osher-ad-031">משקה שקדים אלטרנטיב</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪2.90 <span class="chip good">-483%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=osher-ad-031">מילקשייק קצפת ותותים</a><small>לעומת דור אלון — כפר סבא: ₪9.90</small></div>
       </div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=osher-ad-031">משקה פונץ בננה בקבוק</a><small>לעומת דור אלון — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪1.90 <span class="chip good">-316%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מים מי עדן 1 ליטר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=osher-ad-031">מים מי עדן 1 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
+      </div>
+      <div class="prices">₪2.90 <span class="chip good">-276%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -304,14 +304,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290005678165&from=osher-ad-031">ענבים ירוקים ארלי סוויט</a><small>לעומת שופרסל — יוניברס גזית כ&quot;ס- ויצמן: ₪15.90</small></div>
-      </div>
-      <div class="prices">₪24.90 <span class="chip warm">+57%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290003996117&from=osher-ad-031">כרוב לבן חסלט-מהדרין (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪20.90 <span class="chip warm">+40%</span></div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290017079950&from=osher-ad-031">סרדינים בשמן קנולה (</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪7.00</small></div>
       </div>
       <div class="prices">₪8.90 <span class="chip warm">+27%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290016334579&from=osher-ad-031">פטרוזיליה ארוזה (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪3.90</small></div>
+      </div>
+      <div class="prices">₪4.90 <span class="chip warm">+26%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,782 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,786 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,782 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,786 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
