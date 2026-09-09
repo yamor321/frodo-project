@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,370 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,371 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -252,18 +252,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=osher-ad-031">משקה פונץ בננה בקבוק</a><small>לעומת דור אלון — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪1.90 <span class="chip good">-316%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מים מי עדן 1 ליטר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=osher-ad-031">מים מי עדן 1 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-276%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000336626&from=osher-ad-031">מארז סבן אפ זירו 4*3</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪17.10</small></div>
+      </div>
+      <div class="prices">₪4.90 <span class="chip good">-249%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,786 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,795 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,786 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,795 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 25 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,166 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 25 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,164 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -237,14 +237,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290111564505&from=375">קרחון אננס כשר לפסח 80 ג</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪4.90</small></div>
-      </div>
-      <div class="prices">₪3.00 <span class="chip good">-63%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290121290272&from=375">אל די כחול חפיסה</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪39.00</small></div>
       </div>
       <div class="prices">₪34.50 <span class="chip good">-13%</span></div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290121290333&from=375">כאמל צהוב סופט חפיסה</a><small>לעומת דור אלון — כפר סבא: ₪43.00</small></div>
       </div>
       <div class="prices">₪40.50 <span class="chip good">-6%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290115190342&from=375">אל אם בלו קצר פאקט</a><small>לעומת שופרסל — שופרסל ONLINE: ₪430.00</small></div>
+      </div>
+      <div class="prices">₪420.00 <span class="chip good">-2%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,285 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,289 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,285 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,289 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

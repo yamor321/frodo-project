@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">2 יעקב כהן</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 21 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,366 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 21 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,378 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -251,6 +251,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/937/4083/front_en.3.400.jpg" alt="משקה קאופריי 3% יטבת" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119374083&from=carrefour-404">משקה קאופריי 3% יטבת</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
+      </div>
+      <div class="prices">₪18.90 <span class="chip warm">+174%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290010883363&from=carrefour-404">כפפות אלוורה S סנו ס</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
       </div>
@@ -268,14 +276,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290003578412&from=carrefour-404">חצאי אפרסק בסירופ וי</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
-      </div>
-      <div class="prices">₪11.90 <span class="chip warm">+143%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290111347757&from=carrefour-404">תחבושות קוטקס נייט נ</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪23.90 <span class="chip warm">+141%</span></div>
@@ -283,7 +283,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,695 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,705 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -381,7 +381,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,695 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,705 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,721 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,723 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -280,6 +280,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=dor-alon-582">משקה פונץ בננה בקבוק</a><small>לעומת אושר עד — כפר סבא: ₪1.90</small></div>
+      </div>
+      <div class="prices">₪6.50 <span class="chip warm">+242%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000286549&from=dor-alon-582">מטליות לניקוי כללי ס</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip warm">+204%</span></div>
@@ -291,14 +299,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290122783377&from=dor-alon-582">ביסלי מאנציז מיקס 1</a><small>לעומת יוחננוף — כפר סבא: ₪4.50</small></div>
       </div>
       <div class="prices">₪12.90 <span class="chip warm">+187%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290118427629&from=dor-alon-582">מנה חמה מרק בסגנון ר</a><small>לעומת אושר עד — כפר סבא: ₪5.90</small></div>
-      </div>
-      <div class="prices">₪16.90 <span class="chip warm">+186%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,285 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,284 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,285 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,284 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

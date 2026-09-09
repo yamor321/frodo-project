@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 40 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,535 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 40 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,539 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -229,7 +229,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290003145768&from=171">בוטן מצופה 50גרם</a><small>לעומת שופרסל — BE מאיר-כפרסבא: ₪3.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003145768&from=171">בוטן מצופה 50גרם</a><small>לעומת שופרסל — BE מאיר-כפר סבא: ₪3.90</small></div>
       </div>
       <div class="prices">₪3.50 <span class="chip good">-11%</span></div>
     </div>
@@ -304,14 +304,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290001485033&from=171">גבינת שמנת שום שמיר</a><small>לעומת רמי לוי — כפר סבא: ₪10.90</small></div>
-      </div>
-      <div class="prices">₪16.50 <span class="chip warm">+51%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000986210&from=171">שמיר תפזורת (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪3.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip warm">+51%</span></div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=55500014026&from=171">כלורקס תרסיס קלין אפ</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
       </div>
       <div class="prices">₪26.90 <span class="chip warm">+50%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/403/035/2513/front_it.78.400.jpg" alt="ריו מרה מארז 160X2 א" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=8004030352513&from=171">ריו מרה מארז 160X2 א</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪24.90</small></div>
+      </div>
+      <div class="prices">₪36.90 <span class="chip warm">+48%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,612 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,616 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,612 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,616 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
