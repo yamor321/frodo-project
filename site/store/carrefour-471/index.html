@@ -240,14 +240,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/513/0301/front_en.3.400.jpg" alt="WIN חטיף חלבון בטעם" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015130301&from=carrefour-471">WIN חטיף חלבון בטעם</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪16.50</small></div>
-      </div>
-      <div class="prices">₪14.90 <span class="chip good">-11%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290001548011&from=carrefour-471">טחינה ירוקה 250 מונט</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪16.40</small></div>
       </div>
@@ -284,22 +276,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018571088&from=carrefour-471">טופי חמוצמוץ מיה 540</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+101%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018571064&from=carrefour-471">טופי מקלונים מיה 400</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+101%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112005502&from=carrefour-471">אקטיב פרש קומפליט כו</a><small>לעומת רמי לוי — כפר סבא: ₪29.90</small></div>
       </div>
       <div class="prices">₪55.50 <span class="chip warm">+86%</span></div>
@@ -319,11 +295,27 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=8693495053693&from=carrefour-471">מברשת קולגייט 360 רב</a><small>לעומת יוחננוף — כפר סבא: ₪24.90</small></div>
       </div>
       <div class="prices">₪39.90 <span class="chip warm">+60%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290013144805&from=carrefour-471">אייס קפה לייט 300 גר</a><small>לעומת רמי לוי — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪23.50 <span class="chip warm">+58%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290010650767&from=carrefour-471">אנדיב אדום</a><small>לעומת רמי לוי — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪23.10 <span class="chip warm">+55%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,821 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,820 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -421,7 +413,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,821 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,820 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

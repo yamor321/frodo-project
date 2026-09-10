@@ -197,11 +197,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 32 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,470 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 32 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,467 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7702018441075&from=carrefour-400">סכיני גילוח פיוזן יד</a><small>לעומת שופרסל — BE כפר סבא צפון: ₪199.00</small></div>
+      </div>
+      <div class="prices">₪139.90 <span class="chip good">-42%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -216,14 +224,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290012491078&from=carrefour-400">סבון קלנדולה לתינוק</a><small>לעומת שופרסל — BE כפר סבא צפון: ₪44.90</small></div>
       </div>
       <div class="prices">₪36.90 <span class="chip good">-22%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290013215901&from=carrefour-400">צמד פטריות חורש</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪22.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip good">-15%</span></div>
     </div>
 
     <div class="card spread">
@@ -319,7 +319,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,851 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,860 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -417,7 +417,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,851 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,860 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
