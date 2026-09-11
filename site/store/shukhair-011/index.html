@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,627 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,797 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -303,18 +303,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=856591000895&from=shukhair-011">חטיפים עבאדי בטעם טב</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+152%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/386/4492/front_he.3.400.jpg" alt="סרדין בשמן חריף וילי" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290003864492&from=shukhair-011">סרדין בשמן חריף וילי</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip warm">+138%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290111347764&from=shukhair-011">תחבושות קוטקס נייט</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪22.90 <span class="chip warm">+131%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,229 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,440 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,229 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,440 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
