@@ -197,11 +197,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 57 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,257 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 57 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,272 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/846/4208/front_en.3.400.jpg" alt="בירה מכבי 7.9 330 מל" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290008464208&from=rami-levy-719">בירה מכבי 7.9 330 מל</a><small>לעומת דור אלון — כפר סבא: ₪15.90</small></div>
+      </div>
+      <div class="prices">₪6.30 <span class="chip good">-152%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -254,14 +262,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/585/4040/front_he.3.400.jpg" alt="אסקימו משמש" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290005854040&from=rami-levy-719">אסקימו משמש</a><small>לעומת דור אלון — כפר סבא: ₪5.90</small></div>
-      </div>
-      <div class="prices">₪3.30 <span class="chip good">-79%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290005854606&from=rami-levy-719">אסקימו אננס</a><small>לעומת דור אלון — כפר סבא: ₪5.90</small></div>
       </div>
       <div class="prices">₪3.30 <span class="chip good">-79%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,302 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,329 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,302 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,329 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 28 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,197 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 28 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,186 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -244,14 +244,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290104963544&from=wolt-005">Contour &amp; Define Kit ערכה לחיטוב ופיסול הפנים</a><small>לעומת שופרסל — BE מאיר-כפר סבא: ₪80.90</small></div>
-      </div>
-      <div class="prices">₪51.90 <span class="chip good">-56%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/380/002/040/1552/front_en.6.400.jpg" alt="חטיף שוקולד קיט קט צ׳אנקי פאנקי" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=3800020401552&from=wolt-005">חטיף שוקולד קיט קט צ׳אנקי פאנקי</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪6.90</small></div>
       </div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290104969744&from=wolt-005">מסיר איפור דו-פאזי קמומיל</a><small>לעומת שופרסל — BE מאיר-כפר סבא: ₪56.50</small></div>
       </div>
       <div class="prices">₪36.90 <span class="chip good">-53%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018755938&from=wolt-005">מסטיגם גלידה בטעם וניל ומסטיק</a><small>לעומת דור אלון — כפר סבא: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪8.50 <span class="chip good">-52%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,515 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,491 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,515 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,491 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,797 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,955 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -287,6 +287,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019644798&from=shukhair-011">מיקס קורנפלקס שוקולד</a><small>לעומת אושר עד — כפר סבא: ₪0.90</small></div>
+      </div>
+      <div class="prices">₪5.90 <span class="chip warm">+556%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/964/4927/front_en.5.400.jpg" alt="מיקס בייגלה שוקולד ל" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290019644927&from=shukhair-011">מיקס בייגלה שוקולד ל</a><small>לעומת אושר עד — כפר סבא: ₪0.90</small></div>
       </div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290112006646&from=shukhair-011">מילוי מבשם אוטומטי א</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪21.90 <span class="chip warm">+121%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/543/7212/front_he.5.400.jpg" alt="שמן זית כתית ספרדי ט" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290005437212&from=shukhair-011">שמן זית כתית ספרדי ט</a><small>לעומת אושר עד — כפר סבא: ₪22.90</small></div>
-      </div>
-      <div class="prices">₪49.90 <span class="chip warm">+118%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,440 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,684 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,440 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,684 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

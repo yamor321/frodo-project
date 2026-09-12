@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 40 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,548 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 40 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,559 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -287,10 +287,26 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290013284150&from=171">פריניר מלפפון במלח 1</a><small>לעומת רמי לוי — כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪14.90 <span class="chip warm">+67%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/003/338/322/0291/front_fr.4.400.jpg" alt="אוכמניות 125 גרם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=33383220291&from=171">אוכמניות 125 גרם</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip warm">+67%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/148/5019/front_en.3.400.jpg" alt="גבינת קרם שמנת 5% טר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290001485019&from=171">גבינת קרם שמנת 5% טר</a><small>לעומת רמי לוי — כפר סבא: ₪10.90</small></div>
+      </div>
+      <div class="prices">₪16.50 <span class="chip warm">+51%</span></div>
     </div>
 
     <div class="card spread">
@@ -315,27 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=55500014026&from=171">כלורקס תרסיס קלין אפ</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
       </div>
       <div class="prices">₪26.90 <span class="chip warm">+50%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/403/035/2513/front_it.78.400.jpg" alt="ריו מרה מארז 160X2 א" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8004030352513&from=171">ריו מרה מארז 160X2 א</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪24.90</small></div>
-      </div>
-      <div class="prices">₪36.90 <span class="chip warm">+48%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290008349956&from=171">פרימוורה מעדן אוכמני</a><small>לעומת רמי לוי — כפר סבא: ₪13.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+43%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,630 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,642 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,630 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,642 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
