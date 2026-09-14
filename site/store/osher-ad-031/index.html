@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 84 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,300 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 85 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,336 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -260,10 +260,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מים מי עדן 1 ליטר" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=osher-ad-031">מים מי עדן 1 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=osher-ad-031">משקה פונץ בננה בקבוק</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪7.90</small></div>
       </div>
-      <div class="prices">₪2.90 <span class="chip good">-276%</span></div>
+      <div class="prices">₪1.90 <span class="chip good">-316%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -275,6 +275,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290015855228&from=osher-ad-031">אספרגוס</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪6.99</small></div>
       </div>
       <div class="prices">₪27.90 <span class="chip warm">+299%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=4251039439712&from=osher-ad-031">מצת אבן</a><small>לעומת Yellow — שרונים- לירון גרינבר: ₪4.00</small></div>
+      </div>
+      <div class="prices">₪14.90 <span class="chip warm">+272%</span></div>
     </div>
 
     <div class="card spread">
@@ -320,14 +328,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015356688&from=osher-ad-031">ארק שליט קלאסי 700 מ</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪41.90</small></div>
-      </div>
-      <div class="prices">₪54.90 <span class="chip warm">+31%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290119377053&from=osher-ad-031">ממרח פסק זמן פרה 500</a><small>לעומת יוחננוף — כפר סבא: ₪16.90</small></div>
       </div>
       <div class="prices">₪21.90 <span class="chip warm">+30%</span></div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,787 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,780 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,787 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,780 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

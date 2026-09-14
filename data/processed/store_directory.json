@@ -166,15 +166,18 @@
   },
   "yellow-234": {
     "address": "בן יהודה מול חטיבת ביניים בר-לב",
-    "name": "שרונים- לירון גרינבר"
+    "is_online": false,
+    "name": "Yellow — שרונים- לירון גרינבר"
   },
   "yellow-235": {
     "address": "32 התעש פינת הפועל",
-    "name": "איצטדיון כס - ניתוב"
+    "is_online": false,
+    "name": "Yellow — איצטדיון כס - ניתוב"
   },
   "yellow-251": {
     "address": "את עתיר ידע ליד כביש 55, כפר סבא מ",
-    "name": "כפר סבא מזרח -   עבד"
+    "is_online": false,
+    "name": "Yellow — כפר סבא מזרח - עבד"
   },
   "yohananof-024": {
     "address": "unknown",
