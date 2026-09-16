@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.quik.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 16 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,137 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,158 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -244,6 +244,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/6132/front_en.3.400.jpg" alt="סירופ פריגת בטעם לימ" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290110116132&from=carrefour-473">סירופ פריגת בטעם לימ</a><small>לעומת אושר עד — כפר סבא: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪24.90 <span class="chip warm">+180%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290110116125&from=carrefour-473">סירופ פריגת בטעם פטל</a><small>לעומת אושר עד — כפר סבא: ₪8.90</small></div>
       </div>
@@ -256,19 +264,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014325050&from=carrefour-473">קורנפלור מיה 500 גרם</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪7.20 <span class="chip warm">+148%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290003578412&from=carrefour-473">חצאי אפרסק בסירופ וי</a><small>לעומת אושר עד — כפר סבא: ₪4.90</small></div>
-      </div>
-      <div class="prices">₪11.90 <span class="chip warm">+143%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,397 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,420 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -366,7 +366,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,397 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,420 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

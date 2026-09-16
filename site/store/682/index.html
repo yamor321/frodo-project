@@ -196,8 +196,8 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1924423,34.8889114" target="_blank" rel="noopener">נווט בגוגל מפות</a>
   </div>
   
-  <div style="margin:-10px 0 18px;"><span class="chip warm">המחירים כאן מהאיסוף האחרון שהצליח, 2026-09-12 — הריצה הנוכחית לא הצליחה לרענן אותם</span></div>
-  <div class="storecard"><span class="score">מדד חיסכון: 23 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,548 מוצרים משותפים</span></div>
+  
+  <div class="storecard"><span class="score">מדד חיסכון: 21 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,204 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -216,14 +216,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290019401780&from=682">חטיף פרוטאין ציפס 72גרם</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪19.90</small></div>
       </div>
       <div class="prices">₪17.90 <span class="chip good">-11%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/870/3991/front_he.4.400.jpg" alt="עוגיית חלבון דאבל שוקולד" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018703991&from=682">עוגיית חלבון דאבל שוקולד</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪16.00</small></div>
-      </div>
-      <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=8718951265738&from=682">קולגייט משחת ילדים 3</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪25.60</span> <span class="ltr">₪20.90</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip warm">+115%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290016321531&from=682">מגע המשי רצועות שעוו</a><small>לעומת רמי לוי — כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices">₪38.50 <span class="chip warm">+93%</span></div>
@@ -283,19 +283,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290116535333&from=682">וזלין פטרולאום גלי 8</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪14.90 <span class="chip warm">+89%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4005808890576&from=682">קרם ידיים סופט ניווא</a><small>לעומת רמי לוי — כפר סבא: ₪12.10</small></div>
-      </div>
-      <div class="prices">₪22.50 <span class="chip warm">+86%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,592 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,580 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -393,7 +385,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,592 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,580 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
