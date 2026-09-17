@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 31 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,238 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 31 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,235 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -216,14 +216,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290008611374&from=wolt-005">דג פילה אמנון אמנון עם פס עור</a><small>לעומת שופרסל — שלי כ&quot;ס- רוטשילד: ₪39.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-478%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290004480332&from=wolt-005">גאודה בקר משולשים</a><small>לעומת שופרסל — שלי כ&quot;ס- רוטשילד: ₪142.00</small></div>
-      </div>
-      <div class="prices">₪25.90 <span class="chip good">-448%</span></div>
     </div>
 
     <div class="card spread">
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=8000380213504&from=wolt-005">מארז גלידת סנדוויץ׳ לואקר טורטינה</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪55.90</small></div>
+      </div>
+      <div class="prices">₪34.90 <span class="chip good">-60%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=8000380213498&from=wolt-005">מארז גלידת סנדוויץ׳ לואקר אגוזי לוז</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪55.90</small></div>
       </div>
       <div class="prices">₪34.90 <span class="chip good">-60%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,464 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,463 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,464 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,463 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

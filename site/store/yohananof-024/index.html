@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,704 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,701 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -295,6 +295,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290011332983&from=yohananof-024">מגבונאף קמיל בלו</a><small>לעומת שופרסל — BE כפר סבא: ₪19.90</small></div>
+      </div>
+      <div class="prices">₪25.10 <span class="chip warm">+26%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/253/3795/front_he.3.400.jpg" alt="נשנושי פיצה עם זיתים" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290002533795&from=yohananof-024">נשנושי פיצה עם זיתים</a><small>לעומת אושר עד — כפר סבא: ₪23.90</small></div>
       </div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7613036962230&from=yohananof-024">פריסקיז פאוצ סלמון 85 ג</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip warm">+20%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7613036965248&from=yohananof-024">פריסקיז פאוצ הודו 85 גר</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
-      </div>
-      <div class="prices">₪5.90 <span class="chip warm">+20%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">11,879 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">11,878 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "11,879 מוצרים בקטלוג הסניף";
+  const defaultHint = "11,878 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

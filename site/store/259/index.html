@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 74 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,873 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 74 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,878 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -221,9 +221,25 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000965031&from=259">אבטיח במיכל</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪5.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000964317&from=259">תפוז ירוק ברשת למיץ</a><small>לעומת שופרסל — אקספרס כ&quot;ס- הגליל: ₪12.90</small></div>
       </div>
-      <div class="prices">₪2.90 <span class="chip good">-103%</span></div>
+      <div class="prices">₪6.90 <span class="chip good">-87%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000964348&from=259">תפוז למיץ ברשת</a><small>לעומת שופרסל — אקספרס כ&quot;ס- הגליל: ₪12.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪6.90</span> <span class="ltr">₪6.56</span> <span class="chip good">מבצע עד 01.01.2031</span> <span class="chip good">-87%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000964508&from=259">תפוז</a><small>לעומת שופרסל — אקספרס כ&quot;ס- הגליל: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-87%</span></div>
     </div>
 
     <div class="card spread">
@@ -248,22 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290018825006&from=259">גזר ארוז</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪6.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪3.90</span> <span class="ltr">₪2.90</span> <span class="chip good">מבצע עד 21.09.2026</span> <span class="chip good">-77%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290005678318&from=259">ענבים ירוקים אוטום קריספ</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪34.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip good">-75%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/017/0053/front_fr.4.400.jpg" alt="שוקולד פרה חלב 100ג עלית" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000170053&from=259">שוקולד פרה חלב 100ג עלית</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪14.90</small></div>
-      </div>
-      <div class="prices">₪8.50 <span class="chip good">-75%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,922 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,923 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,922 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,923 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
