@@ -197,11 +197,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 25 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,880 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 25 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,882 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290002608363&from=dor-alon-582">לחמניית המבורגר חצוי</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-87%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7298074500615&from=dor-alon-582">ערכה לבדיקת הריון בו</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪35.90</small></div>
       </div>
       <div class="prices">₪25.90 <span class="chip good">-39%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016094022&from=dor-alon-582">אולטרסול 50/200 תרסי</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪67.90</small></div>
-      </div>
-      <div class="prices">₪49.90 <span class="chip good">-36%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,315 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,321 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,315 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,321 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

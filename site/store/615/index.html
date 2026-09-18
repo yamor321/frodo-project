@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,564 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,571 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -205,7 +205,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8693495052047&from=615">פלמוליב מוצק אורכיד4*90ג</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪19.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=8693495052047&from=615">פלמוליב מוצק אורכיד90*4ג</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices">₪10.90 <span class="chip good">-83%</span></div>
     </div>
@@ -327,15 +327,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290113560901&from=615">משחת סנסודיין הלבנה</a><small>לעומת רמי לוי — כפר סבא: ₪26.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/400/2203/front_he.4.400.jpg" alt="חליטת לימונית ולואיז" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290014002203&from=615">חליטת לימונית ולואיז</a><small>לעומת רמי לוי — כפר סבא: ₪19.80</small></div>
       </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪34.90</span> <span class="ltr">₪25.00</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip warm">+30%</span></div>
+      <div class="prices">₪26.90 <span class="chip warm">+36%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,340 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,364 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,340 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,364 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
