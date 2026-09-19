@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">בן יהודה מול חטיבת ביניים בר-לב</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,542 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,541 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -240,6 +240,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/871/050/247/0035/front_en.6.400.jpg" alt="מרבה פטיסרי ק.אגוזים" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=8710502470035&from=yellow-234">מרבה פטיסרי ק.אגוזים</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪15.90</small></div>
+      </div>
+      <div class="prices">₪14.00 <span class="chip good">-14%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290017617459&from=yellow-234">נתחי טונה בהירה בשמן</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪25.90</small></div>
       </div>
@@ -250,14 +258,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=5000267015200&from=yellow-234">ויסקי גוני ווקר 200</a><small>לעומת דור אלון — כפר סבא: ₪46.90</small></div>
-      </div>
-      <div class="prices">₪41.90 <span class="chip good">-12%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/501/010/380/0051/front_fr.8.400.jpg" alt="ויסקי גאנד בי 200" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=5010103800051&from=yellow-234">ויסקי גאנד בי 200</a><small>לעומת דור אלון — כפר סבא: ₪46.90</small></div>
       </div>
       <div class="prices">₪41.90 <span class="chip good">-12%</span></div>
     </div></section>
@@ -331,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,061 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,062 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,061 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,062 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

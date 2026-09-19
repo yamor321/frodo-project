@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 38 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,369 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 37 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,370 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -229,7 +229,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290011447281&from=648">מטרנה חלבי שלב 2 700ג</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪56.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290011447281&from=648">מטרנה חלבי שלב 2 700ג</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪56.90</small></div>
       </div>
       <div class="prices">₪54.90 <span class="chip good">-4%</span></div>
     </div></section>
@@ -279,14 +279,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116532424&from=648">דאב ספריי אגס ואלוור</a><small>לעומת יוחננוף — כפר סבא: ₪11.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+67%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/007/5204/front_he.5.400.jpg" alt="לחמית חיטה מלאה 10*2" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290000075204&from=648">לחמית חיטה מלאה 10*2</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
       </div>
@@ -299,11 +291,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290006983176&from=648">לחמית שיפון אסם 250</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪13.20 <span class="chip warm">+67%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/657/2027/front_en.3.400.jpg" alt="לחמית חמישה דגנים אס" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290106572027&from=648">לחמית חמישה דגנים אס</a><small>לעומת רמי לוי — כפר סבא: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪13.20 <span class="chip warm">+67%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,334 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,355 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -401,7 +401,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,334 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,355 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
