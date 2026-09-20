@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 23 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,208 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 22 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,208 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -311,14 +311,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7579/front_he.3.400.jpg" alt="גזוז בטעם לימון ליים" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290010237579&from=dor-alon-958">גזוז בטעם לימון ליים</a><small>לעומת רמי לוי — כפר סבא: ₪3.80</small></div>
-      </div>
-      <div class="prices">₪9.90 <span class="chip warm">+161%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/023/7562/front_he.3.400.jpg" alt="מירינדה בקבוק 500 מ&quot;" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290010237562&from=dor-alon-958">מירינדה בקבוק 500 מ&quot;</a><small>לעומת רמי לוי — כפר סבא: ₪3.80</small></div>
       </div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290008464475&from=dor-alon-958">בירה מכבי 500 פחית</a><small>לעומת רמי לוי — כפר סבא: ₪7.50</small></div>
       </div>
       <div class="prices">₪17.90 <span class="chip warm">+139%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/000/008/017/7180/front_en.16.400.jpg" alt="קינדר סיריאל" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=80177180&from=dor-alon-958">קינדר סיריאל</a><small>לעומת רמי לוי — כפר סבא: ₪3.40</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+132%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,390 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,389 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,390 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,389 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
