@@ -193,19 +193,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.carrefour.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,606 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,605 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/844/529/196/4983/front_en.3.400.jpg" alt="קראנץ וופל 130 גרם א" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8445291964983&from=carrefour-471">קראנץ וופל 130 גרם א</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪4.20 <span class="chip good">-112%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -299,7 +291,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,881 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,879 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -397,7 +389,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,881 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,879 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
