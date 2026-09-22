@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">בן יהודה מול חטיבת ביניים בר-לב</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,539 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 24 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,535 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -275,14 +275,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/938/1432/front_he.3.400.jpg" alt="ציטוס איקס עיגול פיצ" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290119381432&from=yellow-234">ציטוס איקס עיגול פיצ</a><small>לעומת אושר עד — כפר סבא: ₪3.70</small></div>
-      </div>
-      <div class="prices">₪8.00 <span class="chip warm">+116%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/000/008/005/0025/front_en.12.400.jpg" alt="טיק טק תפוז 24 יחידו" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=80050025&from=yellow-234">טיק טק תפוז 24 יחידו</a><small>לעומת רמי לוי — כפר סבא: ₪3.80</small></div>
       </div>
@@ -327,11 +319,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290112346087&from=yellow-234">ציטוס קראנץ 80 גר</a><small>לעומת רמי לוי — כפר סבא: ₪4.60</small></div>
       </div>
       <div class="prices">₪8.00 <span class="chip warm">+74%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000060828&from=yellow-234">פסטה קרניים בינוניות</a><small>לעומת רמי לוי — כפר סבא: ₪4.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+61%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,061 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,063 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,061 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,063 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
