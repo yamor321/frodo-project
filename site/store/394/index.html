@@ -197,11 +197,27 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 20 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,344 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 20 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,346 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-14%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=50000577965&from=394">טייסטי נתחי עוף כבד156ג</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪7.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-14%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -224,22 +240,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290115190038&from=394">מרלבורו רד קצר סופט חפ</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪47.00</small></div>
       </div>
       <div class="prices">₪46.50 <span class="chip good">-1%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=50000577958&from=394">פריסטייסטי עוף טונה156ג</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=50000577965&from=394">טייסטי נתחי עוף כבד156ג</a><small>לעומת יוחננוף — כפר סבא: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
     </div>
 
     <div class="card spread">
@@ -312,7 +312,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290108507997&from=394">חמאה רכה למריחה ללא</a><small>לעומת רמי לוי — כפר סבא: ₪9.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290108507997&from=394">*מבצע* חמאה רכה למרי</a><small>לעומת יוחננוף — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪19.70 <span class="chip warm">+99%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,469 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,472 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,469 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,472 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
