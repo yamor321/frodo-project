@@ -193,27 +193,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.carrefour.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,567 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,591 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290013310163&from=carrefour-471">איזילייט מדליק פחם מ</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-43%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4810168059897&from=carrefour-471">חתיכות פילה דג הרינג</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪25.50</small></div>
-      </div>
-      <div class="prices">₪22.20 <span class="chip good">-15%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -249,17 +233,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290112006455&from=carrefour-471">פיניש קפסולות אולטימ</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪69.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290015130288&from=carrefour-471">WIN חטיף חלבון קראנצ</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪16.00</small></div>
       </div>
-      <div class="prices">₪64.90 <span class="chip good">-8%</span></div>
+      <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015130288&from=carrefour-471">WIN חטיף חלבון קראנצ</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪16.00</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290117260739&from=carrefour-471">מקלוני גריסיני ללא ג</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪21.00</small></div>
       </div>
-      <div class="prices">₪14.90 <span class="chip good">-7%</span></div>
+      <div class="prices">₪19.90 <span class="chip good">-6%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -331,7 +315,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,856 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,872 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +413,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,856 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,872 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
