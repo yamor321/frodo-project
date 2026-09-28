@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 38 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,710 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 38 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,699 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -312,6 +312,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290113764019&from=tiv-taam-093">*מבצע* מכשיר להכנת ס</a><small>לעומת יוחננוף — כפר סבא: ₪199.00</small></div>
+      </div>
+      <div class="prices">₪499.00 <span class="chip warm">+151%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112495754&from=tiv-taam-093">רוטב לסלט אלף האיים</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪18.50 <span class="chip warm">+134%</span></div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290112495785&from=tiv-taam-093">רוטב שום הלמנס 300 ג</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪18.50 <span class="chip warm">+134%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290112495792&from=tiv-taam-093">רוטב שום לייט הלמנס</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪18.50 <span class="chip warm">+134%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">7,788 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">7,756 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "7,788 מוצרים בקטלוג הסניף";
+  const defaultHint = "7,756 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
