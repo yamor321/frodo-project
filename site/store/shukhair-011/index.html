@@ -197,19 +197,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 56 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,538 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 56 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,458 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/5777/front_en.13.400.jpg" alt="מים מנרליים נביעות 1.5 ליטר" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110115777&from=shukhair-011">מים מנרליים נביעות 1.5 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
-      </div>
-      <div class="prices">₪3.00 <span class="chip good">-263%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290110115265&from=shukhair-011">ספרייט 1.5 ליטר</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪15.90</small></div>
+      </div>
+      <div class="prices">₪8.20 <span class="chip good">-94%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/5203/front_en.6.400.jpg" alt="קוקה קולה 1.5 ליטר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290110115203&from=shukhair-011">קוקה קולה 1.5 ליטר</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪15.90</small></div>
       </div>
       <div class="prices">₪8.20 <span class="chip good">-94%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,058 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,931 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,058 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,931 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
