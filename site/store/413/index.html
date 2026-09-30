@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">WWW.SHUFERSAL.CO.IL</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 61 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,808 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 61 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,809 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -276,6 +276,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290002321750&from=413">דג פילה אמנון מוקפא בציפוי קרח</a><small>לעומת וולט מרקט — Wolt Market | Kfar Saba: ₪5.50</small></div>
+      </div>
+      <div class="prices">₪29.90 <span class="chip warm">+444%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=9771565025005&from=413">מעריב שישי</a><small>לעומת רמי לוי — כפר סבא: ₪6.00</small></div>
       </div>
       <div class="prices">₪22.00 <span class="chip warm">+267%</span></div>
@@ -319,19 +327,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=4005808670314&from=413">קרם לחות לפנים לעור</a><small>לעומת רמי לוי — כפר סבא: ₪40.40</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪70.90</span> <span class="ltr">₪42.54</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip warm">+75%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015519793&from=413">מחצלת 2*3 CAMP &amp; GO</a><small>לעומת Yellow — שרונים- לירון גרינבר: ₪59.90</small></div>
-      </div>
-      <div class="prices">₪99.00 <span class="chip warm">+65%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">15,748 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">15,702 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "15,748 מוצרים בקטלוג הסניף";
+  const defaultHint = "15,702 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

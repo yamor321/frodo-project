@@ -197,19 +197,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,559 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,558 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8693495052047&from=615">פלמוליב מוצק אורכיד4*90ג</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪19.90</small></div>
-      </div>
-      <div class="prices">₪10.90 <span class="chip good">-83%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7509546063843&from=615">דאודורנט ספריי פאור150מל</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪24.20</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip good">-43%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7509546691534&from=615">משחת שינ.טוטאל פחם 75מ&quot;ל</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪27.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪19.90</span> <span class="ltr">₪13.90</span> <span class="chip good">מבצע עד 05.10.2026</span> <span class="chip good">-40%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,340 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,354 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,340 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,354 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
