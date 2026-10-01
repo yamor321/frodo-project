@@ -193,11 +193,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.quik.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,152 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,136 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/543/7946/front_en.3.400.jpg" alt="ספגטי בילג&#x27;ו טעמן 50" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290005437946&from=carrefour-473">ספגטי בילג&#x27;ו טעמן 50</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪4.90</small></div>
+      </div>
+      <div class="prices">₪4.10 <span class="chip good">-20%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/249/0674/front_he.3.400.jpg" alt="קונפיטורה 778 דובדבן" loading="lazy"></div>
@@ -275,7 +283,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,413 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,396 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -373,7 +381,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,413 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,396 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

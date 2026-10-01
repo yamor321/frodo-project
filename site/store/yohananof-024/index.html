@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,693 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 82 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,683 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,14 +208,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290122783377&from=yohananof-024">ביסלי מאנציז מיקס 1</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪15.90</small></div>
       </div>
       <div class="prices">₪4.50 <span class="chip good">-253%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=59096900&from=yohananof-024">דאב דאו רולאון מלפפו</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪29.90</small></div>
-      </div>
-      <div class="prices">₪9.90 <span class="chip good">-202%</span></div>
     </div>
 
     <div class="card spread">
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290118427223&from=yohananof-024">במבה</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪3.90 <span class="chip good">-154%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290118423966&from=yohananof-024">דובונים לבבות 40 גרם</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪9.90</small></div>
       </div>
       <div class="prices">₪3.90 <span class="chip good">-154%</span></div>
     </div></section>
@@ -328,14 +328,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7613036962230&from=yohananof-024">פריסקיז פאוצ סלמון 85 ג</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7613036962230&from=yohananof-024">פריסקיז פאוצ&#x27; סלמון 85 ג</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip warm">+20%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">11,841 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">11,840 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "11,841 מוצרים בקטלוג הסניף";
+  const defaultHint = "11,840 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

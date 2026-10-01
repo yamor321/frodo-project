@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,453 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,449 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,6 +208,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290017275147&from=carrefour-400">עוגת שמרים אישית דני</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪8.00</small></div>
       </div>
       <div class="prices">₪4.00 <span class="chip good">-100%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7702018441075&from=carrefour-400">סכיני גילוח פיוזן יד</a><small>לעומת שופרסל — BE כפר סבא צפון: ₪199.00</small></div>
+      </div>
+      <div class="prices">₪139.90 <span class="chip good">-42%</span></div>
     </div>
 
     <div class="card spread">
@@ -304,6 +312,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116535371&from=carrefour-400">קורנפלקס תלמה 400 גר</a><small>לעומת אושר עד — כפר סבא: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪26.90 <span class="chip warm">+109%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112495778&from=carrefour-400">רוטב אלף האיים לייט</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
       </div>
       <div class="prices">₪15.90 <span class="chip warm">+101%</span></div>
@@ -315,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290110115357&from=carrefour-400">סודה קינלי 1.5 ליטר</a><small>לעומת רמי לוי — כפר סבא: ₪3.30</small></div>
       </div>
       <div class="prices">₪6.60 <span class="chip warm">+100%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/088/491/212/9512/front_en.51.400.jpg" alt="דגני קקאו פבלס פוסט" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=884912129512&from=carrefour-400">דגני קקאו פבלס פוסט</a><small>לעומת יוחננוף — כפר סבא: ₪14.90</small></div>
-      </div>
-      <div class="prices">₪27.90 <span class="chip warm">+87%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,800 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,802 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -425,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,800 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,802 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
