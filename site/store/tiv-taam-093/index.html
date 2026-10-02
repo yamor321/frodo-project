@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 38 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,679 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 38 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,676 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,14 +208,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290015855228&from=tiv-taam-093">אספרגוס</a><small>לעומת אושר עד — כפר סבא: ₪27.90</small></div>
       </div>
       <div class="prices">₪6.99 <span class="chip good">-299%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/5777/front_en.13.400.jpg" alt="נביעות 1.5 ליטר" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290110115777&from=tiv-taam-093">נביעות 1.5 ליטר</a><small>לעומת דור אלון — כפר סבא: ₪10.90</small></div>
-      </div>
-      <div class="prices">₪3.90 <span class="chip good">-179%</span></div>
     </div>
 
     <div class="card spread">
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/233/1124/front_he.13.400.jpg" alt="מים נביעות בטעם תפוח 0.5 ליטר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290002331124&from=tiv-taam-093">מים נביעות בטעם תפוח 0.5 ליטר</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪12.00</small></div>
+      </div>
+      <div class="prices">₪6.00 <span class="chip good">-100%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/233/1155/front_fr.3.400.jpg" alt="מים נביעות בטעם אפרסק  0.5 ליטר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290002331155&from=tiv-taam-093">מים נביעות בטעם אפרסק  0.5 ליטר</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪12.00</small></div>
       </div>
       <div class="prices">₪6.00 <span class="chip good">-100%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">7,745 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">7,744 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "7,745 מוצרים בקטלוג הסניף";
+  const defaultHint = "7,744 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

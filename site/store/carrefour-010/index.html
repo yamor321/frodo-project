@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 79 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 9,338 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 79 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 9,341 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -312,30 +312,30 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290002782735&from=carrefour-010">דאודורנט ספריי לגבר</a><small>לעומת רמי לוי — כפר סבא: ₪15.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+25%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=769904001703&from=carrefour-010">שקדי מרק 220 גרם</a><small>לעומת רמי לוי — כפר סבא: ₪12.90</small></div>
-      </div>
-      <div class="prices">₪15.90 <span class="chip warm">+23%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=5000277001019&from=carrefour-010">וויסקי דיוארס וויט ל</a><small>לעומת רמי לוי — כפר סבא: ₪89.90</small></div>
       </div>
       <div class="prices">₪107.20 <span class="chip warm">+19%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/962/1492/front_en.3.400.jpg" alt="מנת פסטה נפוליטנה בר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019621492&from=carrefour-010">מנת פסטה נפוליטנה בר</a><small>לעומת רמי לוי — כפר סבא: ₪7.60</small></div>
+      </div>
+      <div class="prices">₪9.00 <span class="chip warm">+18%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=9001616860997&from=carrefour-010">זוג מוצצים סיליקון פ</a><small>לעומת רמי לוי — כפר סבא: ₪39.30</small></div>
+      </div>
+      <div class="prices">₪44.90 <span class="chip warm">+14%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">12,460 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">12,450 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "12,460 מוצרים בקטלוג הסניף";
+  const defaultHint = "12,450 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
