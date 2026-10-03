@@ -229,6 +229,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7296073748236&from=36">מיקס עוגיות כתר 500 גרם</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪15.90 <span class="chip good">-6%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7296073748311&from=36">עוגיו.רשת קינמון500 ניני</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪16.90</small></div>
       </div>
       <div class="prices">₪15.90 <span class="chip good">-6%</span></div>
@@ -254,14 +262,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7296073748229&from=36">עוגיות גרנולה 500ג ניני</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪16.90</small></div>
-      </div>
-      <div class="prices">₪15.90 <span class="chip good">-6%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7296073748243&from=36">עוגיות כתר ריבה500ג ניני</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪16.90</small></div>
       </div>
       <div class="prices">₪15.90 <span class="chip good">-6%</span></div>
     </div></section>
@@ -314,7 +314,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000518251&from=36">ממתיק זהב מתוק וקל 1</a><small>לעומת רמי לוי — כפר סבא: ₪10.90</small></div>
       </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪18.90</span> <span class="ltr">₪11.90</span> <span class="chip good">מבצע עד 03.10.2026</span> <span class="chip warm">+73%</span></div>
+      <div class="prices">₪18.90 <span class="chip warm">+73%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,843 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,841 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,843 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,841 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 22 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,188 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 22 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,190 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -271,14 +271,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <section class="list">
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=dor-alon-958">מילקשייק קצפת ותותים</a><small>לעומת אושר עד — כפר סבא: ₪1.90</small></div>
-      </div>
-      <div class="prices">₪9.90 <span class="chip warm">+421%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/011/011/5777/front_en.13.400.jpg" alt="מים מנרליים נביעות 1.5 ליטר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290110115777&from=dor-alon-958">מים מנרליים נביעות 1.5 ליטר</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪3.00</small></div>
       </div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=80177180&from=dor-alon-958">קינדר סיריאל</a><small>לעומת רמי לוי — כפר סבא: ₪3.40</small></div>
       </div>
       <div class="prices">₪7.90 <span class="chip warm">+132%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000136141&from=dor-alon-958">פפסי 1.5 לי&#x27;</a><small>לעומת רמי לוי — כפר סבא: ₪6.20</small></div>
+      </div>
+      <div class="prices">₪13.90 <span class="chip warm">+124%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,372 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,375 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,372 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,375 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
