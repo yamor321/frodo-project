@@ -190,10 +190,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <div class="kicker">Frodo Project · דף סניף</div>
   <h1>שופרסל — אקספרס כפר סבא דוכיפת</h1>
-  <p class="store-address">5דוכיפת</p>
+  <p class="store-address">5 דוכיפת</p>
+  <div class="navrow">
+    <a class="navbtn" href="https://waze.com/ul?ll=32.1846318,34.9294381&navigate=yes" target="_blank" rel="noopener">🧭 נווט בוויז</a>
+    <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1846318,34.9294381" target="_blank" rel="noopener">נווט בגוגל מפות</a>
+  </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 16 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,742 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 16 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,736 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -291,7 +295,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,799 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,793 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -389,7 +393,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,799 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,793 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
