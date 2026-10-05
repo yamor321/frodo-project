@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">32 התעש פינת הפועל</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,817 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,818 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -268,14 +268,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=yellow-235">משקה פונץ בננה בקבוק</a><small>לעומת אושר עד — כפר סבא: ₪1.90</small></div>
-      </div>
-      <div class="prices">₪7.90 <span class="chip warm">+316%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000688084&from=yellow-235">מי עדן ספורט 0.5</a><small>לעומת רמי לוי — כפר סבא: ₪2.50</small></div>
       </div>
       <div class="prices">₪9.00 <span class="chip warm">+260%</span></div>
@@ -307,6 +299,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290105368959&from=yellow-235">משקה פונץ בננה בקבוק</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+172%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/871/200/005/0146/front_en.52.400.jpg" alt="היינקן 0% אלכוהול בודד 330 מ&quot;ל" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=8712000050146&from=yellow-235">היינקן 0% אלכוהול בודד 330 מ&quot;ל</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪5.90</small></div>
       </div>
@@ -331,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,558 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,563 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,558 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,563 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

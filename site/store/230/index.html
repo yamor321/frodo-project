@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 49 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,530 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 49 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,544 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,6 +272,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290011498948&from=230">חטיפי תמר מצופה שוקו</a><small>לעומת יוחננוף — כפר סבא: ₪15.90</small></div>
+      </div>
+      <div class="prices">₪23.90 <span class="chip warm">+50%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=35000458476&from=230">קולגייט מברשת ילדים</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
       </div>
       <div class="prices">₪25.90 <span class="chip warm">+45%</span></div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=80686000440&from=230">ג&#x27;ים בים לבן כשר</a><small>לעומת רמי לוי — כפר סבא: ₪86.90</small></div>
       </div>
       <div class="prices">₪114.90 <span class="chip warm">+32%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/587/9712/front_en.3.400.jpg" alt="תערובת אפיית לעוגות" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015879712&from=230">תערובת אפיית לעוגות</a><small>לעומת יוחננוף — כפר סבא: ₪18.90</small></div>
-      </div>
-      <div class="prices">₪24.90 <span class="chip warm">+32%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,650 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,666 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,650 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,666 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
