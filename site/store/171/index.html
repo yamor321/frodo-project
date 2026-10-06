@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 41 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,587 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 41 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,581 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -271,6 +271,22 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <section class="list">
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290001867037&from=171">תפוח אדמה לבן ארוז</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
+      </div>
+      <div class="prices">₪8.90 <span class="chip warm">+82%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018825631&from=171">תפוחי אדמה לבן ארוז</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪4.90</small></div>
+      </div>
+      <div class="prices">₪8.90 <span class="chip warm">+82%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/611/800/006/1090/front_he.20.400.jpg" alt="סרדינים בשמן סויה טנג&#x27;יר 125 גרם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=6118000061090&from=171">סרדינים בשמן סויה טנג&#x27;יר 125 גרם</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪4.90</small></div>
       </div>
@@ -315,27 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290017457932&from=171">סוד מרכך מרוכז כחול</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
       </div>
       <div class="prices">₪17.90 <span class="chip warm">+50%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=55500014026&from=171">כלורקס תרסיס קלין אפ</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
-      </div>
-      <div class="prices">₪26.90 <span class="chip warm">+50%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/403/035/2513/front_it.78.400.jpg" alt="ריו מרה מארז 160X2 א" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8004030352513&from=171">ריו מרה מארז 160X2 א</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪24.90</small></div>
-      </div>
-      <div class="prices">₪36.90 <span class="chip warm">+48%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,666 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,659 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,666 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,659 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

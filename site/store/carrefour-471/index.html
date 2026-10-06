@@ -193,27 +193,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.carrefour.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,574 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,570 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290010650279&from=carrefour-471">לקט פיטריות לפסטה (ת</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪17.90</small></div>
-      </div>
-      <div class="prices">₪9.90 <span class="chip good">-81%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/871/050/244/7006/front_en.3.400.jpg" alt="מרבה קוקי&#x27;ס אנד קרים" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=8710502447006&from=carrefour-471">מרבה קוקי&#x27;ס אנד קרים</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪14.90</small></div>
-      </div>
-      <div class="prices">₪10.90 <span class="chip good">-37%</span></div>
-    </div>
-
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/500/010/847/8119/front_en.85.400.jpg" alt="קוואקר שיבולת שועל 5" loading="lazy"></div>
@@ -228,14 +212,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014094369&from=carrefour-471">ששון הקולה שקד טבעי</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪27.90</small></div>
       </div>
       <div class="prices">₪22.90 <span class="chip good">-22%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/506/031/912/0153/front_en.7.400.jpg" alt="הייר ליבינג - קמומיל" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=5060319120153&from=carrefour-471">הייר ליבינג - קמומיל</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪21.90</small></div>
-      </div>
-      <div class="prices">₪18.20 <span class="chip good">-20%</span></div>
     </div>
 
     <div class="card spread">
@@ -323,7 +299,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,834 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,825 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -421,7 +397,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,834 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,825 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

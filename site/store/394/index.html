@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 20 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,366 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 20 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,356 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -208,6 +208,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290002319191&from=394">עדשים ירוקות 500 גרם מיה</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪10.20</small></div>
       </div>
       <div class="prices">₪8.00 <span class="chip good">-27%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290001041192&from=394">עדשים אדומות 1 ק&quot;ג מיה</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪13.90 <span class="chip good">-22%</span></div>
     </div>
 
     <div class="card spread">
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=8009470013079&from=394">מונג פרש פטה ונתחי בקר</a><small>לעומת יוחננוף — כפר סבא: ₪6.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8009470013086&from=394">מונג פרש פטה ונתחי סלמון</a><small>לעומת יוחננוף — כפר סבא: ₪6.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-0%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -283,6 +283,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7701001013596&from=394">מארז שום יבש</a><small>לעומת יוחננוף — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪7.90 <span class="chip warm">+172%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/386/4492/front_he.3.400.jpg" alt="סרדין בשמן חריף וילי" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003864492&from=394">סרדין בשמן חריף וילי</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip warm">+138%</span></div>
     </div>
 
     <div class="card spread">
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290003643325&from=394">קוסקוס בינוני 350 גר</a><small>לעומת רמי לוי — כפר סבא: ₪5.00</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip warm">+98%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7750535770000&from=394">אוכמניות 125 גרם</a><small>לעומת רמי לוי — כפר סבא: ₪10.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+83%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">4,484 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">4,476 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "4,484 מוצרים בקטלוג הסניף";
+  const defaultHint = "4,476 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
