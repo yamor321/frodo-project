@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 49 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,196 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 48 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,206 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,6 +272,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290016682366&from=140">מיץ תפוחים פריניב 2</a><small>לעומת אושר עד — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪28.90</span> <span class="ltr">₪19.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+94%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290010650194&from=140">ג&#x27;ינג&#x27;ר ארוז 250ג חו</a><small>לעומת רמי לוי — כפר סבא: ₪8.80</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip warm">+92%</span></div>
@@ -288,14 +296,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016682366&from=140">מיץ תפוחים פריניב 2</a><small>לעומת אושר עד — כפר סבא: ₪16.90</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪28.90</span> <span class="ltr">₪19.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+71%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=8717163655764&from=140">רקסונה דאודורנט ספרי</a><small>לעומת רמי לוי — כפר סבא: ₪13.90</small></div>
       </div>
       <div class="prices">₪21.50 <span class="chip warm">+55%</span></div>
@@ -304,7 +304,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290016334609&from=140">נענע ארוזה (ק)</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪3.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290016334609&from=140">נענע ארוזה )ק(</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪3.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip warm">+51%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,250 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,259 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,250 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,259 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

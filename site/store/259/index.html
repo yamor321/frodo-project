@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 74 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,888 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 74 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,897 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -205,23 +205,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018825020&from=259">תפוח אדמה לבן גורמה</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪32.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000965055&from=259">מלון מובחר</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪8.90</small></div>
       </div>
-      <div class="prices">₪7.90 <span class="chip good">-316%</span></div>
+      <div class="prices">₪4.90 <span class="chip good">-82%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018619308&from=259">תפוח אדמה אגו שף</a><small>לעומת אושר עד — כפר סבא: ₪19.90</small></div>
-      </div>
-      <div class="prices">₪7.90 <span class="chip good">-152%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/762/221/069/6878/front_de.40.400.jpg" alt="מילקה נוסיני 31.5 גרםn" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7622210696878&from=259">מילקה נוסיני 31.5 גרםn</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪8.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/762/221/069/6878/front_de.40.400.jpg" alt="מילקה נוסיני 31.5 גרםn\" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7622210696878&from=259">מילקה נוסיני 31.5 גרםn\</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪8.90</small></div>
       </div>
       <div class="prices">₪4.90 <span class="chip good">-82%</span></div>
     </div>
@@ -262,6 +254,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/390/3955/front_he.4.400.jpg" alt="שוק.חלב+קרם חלב100ג עלית" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290003903955&from=259">שוק.חלב+קרם חלב100ג עלית</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪8.50 <span class="chip good">-75%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/875/0677/front_he.10.400.jpg" alt="שוקולד פרה ממולדה100ג" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290008750677&from=259">שוקולד פרה ממולדה100ג</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪14.90</small></div>
       </div>
       <div class="prices">₪8.50 <span class="chip good">-75%</span></div>
     </div></section>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,952 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,964 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,952 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,964 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
