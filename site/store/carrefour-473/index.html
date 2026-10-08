@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.quik.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,136 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 5,149 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -217,6 +217,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <h2 class="section-title">הכי יקר כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000662213&from=carrefour-473">פילה סלמון קפוא תנובה - 150 גרם</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪15.50</small></div>
+      </div>
+      <div class="prices">₪99.90 <span class="chip warm">+545%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -271,19 +279,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290116536972&from=carrefour-473">DOVE</a><small>לעומת יוחננוף — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪23.90 <span class="chip warm">+141%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290001041017&from=carrefour-473">חוואיג תימני מיה 50</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
-      </div>
-      <div class="prices">₪7.00 <span class="chip warm">+141%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,401 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,414 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -381,7 +381,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,401 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,414 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

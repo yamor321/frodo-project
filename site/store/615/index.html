@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,598 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 54 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,589 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -303,14 +303,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/400/2203/front_he.4.400.jpg" alt="חליטת לימונית ולואיז" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014002203&from=615">חליטת לימונית ולואיז</a><small>לעומת יוחננוף — כפר סבא: ₪17.90</small></div>
-      </div>
-      <div class="prices">₪26.90 <span class="chip warm">+50%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/807/680/815/0072/front_fr.365.400.jpg" alt="ספגטי מס 7 500 גרם" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=8076808150072&from=615">ספגטי מס 7 500 גרם</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪7.90</small></div>
       </div>
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=33200004165&from=615">כדוריות בושם עוצמתיו</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪49.90</small></div>
       </div>
       <div class="prices">₪69.90 <span class="chip warm">+40%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=33200976424&from=615">כדוריות בושם עוצמתיו</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪49.90</small></div>
+      </div>
+      <div class="prices">₪69.90 <span class="chip warm">+40%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,346 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,360 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,346 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,360 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
