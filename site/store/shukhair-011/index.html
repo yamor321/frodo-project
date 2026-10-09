@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 57 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,354 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 57 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 4,489 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -252,16 +252,16 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/500/015/955/9485/front_tr.35.400.jpg" alt="טוויקס חטיף בודד 50 גרם" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=5000159559485&from=shukhair-011">טוויקס חטיף בודד 50 גרם</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪9.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/500/015/956/0511/front_en.5.400.jpg" alt="סניקרס חטיף בודד  50 גרם" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=5000159560511&from=shukhair-011">סניקרס חטיף בודד  50 גרם</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪9.90</small></div>
       </div>
       <div class="prices">₪4.90 <span class="chip good">-102%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/500/015/956/0511/front_en.5.400.jpg" alt="סניקרס חטיף בודד  50 גרם" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=5000159560511&from=shukhair-011">סניקרס חטיף בודד  50 גרם</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪9.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=5000159561976&from=shukhair-011">באונטי חטיף בודד 57 גרם</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪9.90</small></div>
       </div>
       <div class="prices">₪4.90 <span class="chip good">-102%</span></div>
     </div></section>
@@ -275,14 +275,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290019644927&from=shukhair-011">מיקס בייגלה שוקולד ל</a><small>לעומת אושר עד — כפר סבא: ₪0.90</small></div>
       </div>
       <div class="prices">₪5.90 <span class="chip warm">+556%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=856591000895&from=shukhair-011">חטיפים עבאדי בטעם טב</a><small>לעומת אושר עד — כפר סבא: ₪7.90</small></div>
-      </div>
-      <div class="prices">₪19.90 <span class="chip warm">+152%</span></div>
     </div>
 
     <div class="card spread">
@@ -331,11 +323,19 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=8714789218465&from=shukhair-011">2 מברשות קולגייט סופט</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪17.90</small></div>
       </div>
       <div class="prices">₪34.90 <span class="chip warm">+95%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290003681792&from=shukhair-011">סוכריות טופי מיה 600</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪17.90 <span class="chip warm">+81%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,785 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,971 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,785 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,971 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
