@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 32 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,189 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 35 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,115 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -220,14 +220,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290008611374&from=wolt-005">דג פילה אמנון אמנון עם פס עור</a><small>לעומת שופרסל — שלי כ&quot;ס- רוטשילד: ₪39.90</small></div>
-      </div>
-      <div class="prices">₪6.90 <span class="chip good">-478%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/380/002/040/1552/front_en.6.400.jpg" alt="חטיף שוקולד קיט קט צ׳אנקי פאנקי" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=3800020401552&from=wolt-005">חטיף שוקולד קיט קט צ׳אנקי פאנקי</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪9.90</small></div>
       </div>
@@ -244,8 +236,16 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/844/529/196/4983/front_en.3.400.jpg" alt="חטיף וופל שוקולד קראנץ׳" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=8445291964983&from=wolt-005">חטיף וופל שוקולד קראנץ׳</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪8.90</small></div>
+      </div>
+      <div class="prices">₪4.90 <span class="chip good">-82%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=6920354826191&from=wolt-005">‫‫משחת שיניים קולגייט</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪13.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=6920354826191&from=wolt-005">‫‫משחת שיניים קולגייט</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪13.90</small></div>
       </div>
       <div class="prices">₪7.90 <span class="chip good">-76%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,426 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,417 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,426 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,417 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

@@ -193,11 +193,35 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">https://www.carrefour.co.il</p>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 55 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,548 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 56 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 8,549 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116534459&from=carrefour-471">קליק בר קרם חלב ועוג</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪10.90</small></div>
+      </div>
+      <div class="prices">₪5.90 <span class="chip good">-85%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119381784&from=carrefour-471">דוריטוס בטעם גריל 18</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪15.00</small></div>
+      </div>
+      <div class="prices">₪9.50 <span class="chip good">-58%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290013310163&from=carrefour-471">איזילייט מדליק פחם מ</a><small>לעומת וולט מרקט — וולט מרקט | כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪6.90 <span class="chip good">-43%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/500/010/847/8119/front_en.85.400.jpg" alt="קוואקר שיבולת שועל 5" loading="lazy"></div>
@@ -217,9 +241,25 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290019462156&from=carrefour-471">מיני בורגר פטריות טב</a><small>לעומת שופרסל — שופרסל ONLINE: ₪35.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290017217338&from=carrefour-471">נרות חימום ריחניים ב</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪14.90</small></div>
       </div>
-      <div class="prices">₪34.90 <span class="chip good">-3%</span></div>
+      <div class="prices">₪13.90 <span class="chip good">-7%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290019462156&from=carrefour-471">מיני בורגר פטריות טב</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪36.90</small></div>
+      </div>
+      <div class="prices">₪34.90 <span class="chip good">-6%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290115252460&from=carrefour-471">מקלות כוסמין 200 גרם</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪29.50</small></div>
+      </div>
+      <div class="prices">₪28.50 <span class="chip good">-4%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -291,7 +331,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">9,825 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">9,826 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -389,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "9,825 מוצרים בקטלוג הסניף";
+  const defaultHint = "9,826 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
