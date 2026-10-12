@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">את עתיר ידע ליד כביש 55, כפר סבא מ</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 6 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,403 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 8 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,301 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -204,6 +204,38 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290103702236&from=yellow-251">מפות שולחן שישייה</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪11.90</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip good">-72%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=5054563301611&from=yellow-251">זוגות AQF 75*2</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪10.00 <span class="chip good">-69%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290005124686&from=yellow-251">בליסטיקס תות</a><small>לעומת שופרסל — BE כפר סבא צפון: ₪16.50</small></div>
+      </div>
+      <div class="prices">₪13.90 <span class="chip good">-19%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290103700195&from=yellow-251">רדיד אלומיניום קצר</a><small>לעומת קרפור — כפר סבא @ קוויק: ₪12.90</small></div>
+      </div>
+      <div class="prices">₪10.90 <span class="chip good">-18%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/761/7466/front_en.4.400.jpg" alt="נתחי טונה בהירה במים" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290017617466&from=yellow-251">נתחי טונה בהירה במים</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪25.90</small></div>
+      </div>
+      <div class="prices">₪22.90 <span class="chip good">-13%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -260,7 +292,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000136240&from=yellow-251">סודה טמפו 1.5 ליטר</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290010237548&from=yellow-251">פפסי מקס 500 מ&quot;ל</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪10.00 <span class="chip warm">+245%</span></div>
     </div>
@@ -275,7 +307,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,711 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,706 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -373,7 +405,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,711 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,706 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
