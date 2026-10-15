@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   <div style="margin:-10px 0 18px;"><span class="chip neutral">סניף אונליין בלבד — משלוחים/איסוף, אין כניסה פיזית לקונים</span></div>
   
-  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,148 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 33 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,145 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -245,6 +245,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290014218932&from=wolt-005">חטיפי פיצה עם 100% גבינה, בתוספת זיתים מעדנות</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪45.90</small></div>
+      </div>
+      <div class="prices">₪25.90 <span class="chip good">-77%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=6920354826191&from=wolt-005">‫‫משחת שיניים קולגייט</a><small>לעומת שופרסל — אקספרס כפר סבא דוכיפת: ₪13.90</small></div>
       </div>
       <div class="prices">₪7.90 <span class="chip good">-76%</span></div>
@@ -256,14 +264,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=4005808890507&from=wolt-005">קרם לחות ניוואה סופט רב שימושי - 200 מ״ל</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪36.90</small></div>
       </div>
       <div class="prices">₪22.90 <span class="chip good">-61%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8000380213504&from=wolt-005">מארז גלידת סנדוויץ׳ לואקר טורטינה</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪55.90</small></div>
-      </div>
-      <div class="prices">₪34.90 <span class="chip good">-60%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">5,447 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">5,443 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "5,447 מוצרים בקטלוג הסניף";
+  const defaultHint = "5,443 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
