@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 34 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,486 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,492 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -244,14 +244,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116532042&from=carrefour-400">קליק כריות נוגט 65 ג</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪11.90</small></div>
-      </div>
-      <div class="prices">₪8.90 <span class="chip good">-34%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/317/973/001/1024/front_en.3.400.jpg" alt="פרייה מים מינרלים 33" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=3179730011024&from=carrefour-400">פרייה מים מינרלים 33</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪10.00</small></div>
       </div>
@@ -261,9 +253,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014094352&from=carrefour-400">ששון הקולה אגוז מלך</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪21.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=4820154723428&from=carrefour-400">גלידת שמנת וניל ותות</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪11.00</small></div>
       </div>
-      <div class="prices">₪18.90 <span class="chip good">-16%</span></div>
+      <div class="prices">₪8.90 <span class="chip good">-24%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/482/015/472/3442/front_en.3.400.jpg" alt="גלידת שמנת וניל ושוק" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=4820154723442&from=carrefour-400">גלידת שמנת וניל ושוק</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪11.00</small></div>
+      </div>
+      <div class="prices">₪8.90 <span class="chip good">-24%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,843 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,881 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,843 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,881 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
