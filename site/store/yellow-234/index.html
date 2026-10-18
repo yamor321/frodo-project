@@ -300,6 +300,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119381807&from=yellow-234">דוריטוס חטיף תירס מת</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪8.60</small></div>
+      </div>
+      <div class="prices">₪15.00 <span class="chip warm">+74%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112346087&from=yellow-234">צ&#x27;יטוס קראנצ&#x27; בטעם ש</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪4.70</small></div>
       </div>
       <div class="prices">₪8.00 <span class="chip warm">+70%</span></div>
@@ -319,19 +327,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290014466609&from=yellow-234">יין גמלא מרלו</a><small>לעומת אושר עד — כפר סבא: ₪50.20</small></div>
       </div>
       <div class="prices">₪79.90 <span class="chip warm">+59%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116531748&from=yellow-234">קליק שוקו מיקס חום ל</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪7.50</small></div>
-      </div>
-      <div class="prices">₪11.90 <span class="chip warm">+59%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,018 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,017 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,018 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,017 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
