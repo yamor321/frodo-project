@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,474 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,477 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -228,14 +228,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/400/041/721/2009/front_en.125.400.jpg" alt="ריטר מריר בטעם תפוז" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=4000417212009&from=carrefour-400">ריטר מריר בטעם תפוז</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪12.90</small></div>
-      </div>
-      <div class="prices">₪8.90 <span class="chip good">-45%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290122782431&from=carrefour-400">אסם פודינג טעם פרלין</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪7.90</small></div>
       </div>
@@ -248,6 +240,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=3179730011024&from=carrefour-400">פרייה מים מינרלים 33</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪10.00</small></div>
       </div>
       <div class="prices">₪7.80 <span class="chip good">-28%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290104065934&from=carrefour-400">עלי רוקט 150גרם טעם</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪14.90</small></div>
+      </div>
+      <div class="prices">₪11.90 <span class="chip good">-25%</span></div>
     </div>
 
     <div class="card spread">
@@ -280,7 +280,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290116536910&from=carrefour-400">מרכך בדין מרוכז בייב</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290018893920&from=carrefour-400">סוכריות גלי לוקיטוס</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪21.90 <span class="chip warm">+121%</span></div>
     </div>
@@ -288,7 +288,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290018893920&from=carrefour-400">סוכריות גלי לוקיטוס</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290116536910&from=carrefour-400">מרכך בדין מרוכז בייב</a><small>לעומת אושר עד — כפר סבא: ₪9.90</small></div>
       </div>
       <div class="prices">₪21.90 <span class="chip warm">+121%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,866 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,872 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,866 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,872 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
