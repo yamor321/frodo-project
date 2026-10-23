@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">32 התעש פינת הפועל</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,798 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 18 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,797 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -201,15 +201,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=4251039439712&from=yellow-235">מצת אבן</a><small>לעומת אושר עד — כפר סבא: ₪14.90</small></div>
-      </div>
-      <div class="prices">₪4.00 <span class="chip good">-272%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=5054563301611&from=yellow-235">זוגות AQF 75*2</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪16.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=5054563301611&from=yellow-235">זוגות AQF 75*2</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪16.90</small></div>
       </div>
       <div class="prices">₪10.00 <span class="chip good">-69%</span></div>
     </div>
@@ -233,7 +225,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290103701017&from=yellow-235">טאצ נייר אפיה</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪11.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290103701017&from=yellow-235">טאצ נייר אפיה</a><small>לעומת קרפור — קרפור סיטי רון כפר סבא: ₪11.90</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip good">-20%</span></div>
     </div>
@@ -260,6 +252,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290103700195&from=yellow-235">רדיד אלומיניום קצר</a><small>לעומת קרפור — קרפור סיטי קניון כפר סבא: ₪12.90</small></div>
       </div>
       <div class="prices">₪10.90 <span class="chip good">-18%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/761/7466/front_en.4.400.jpg" alt="נתחי טונה בהירה במים" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290017617466&from=yellow-235">נתחי טונה בהירה במים</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪25.90</small></div>
+      </div>
+      <div class="prices">₪22.90 <span class="chip good">-13%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -324,14 +324,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=5904941751975&from=yellow-235">משקה אנרגיה בלו דיי</a><small>לעומת רמי לוי — כפר סבא: ₪3.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290118424048&from=yellow-235">דובונים כוכבים 40 גר</a><small>לעומת יוחננוף — כפר סבא: ₪3.90</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip warm">+154%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,591 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,592 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -429,7 +429,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,591 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,592 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
