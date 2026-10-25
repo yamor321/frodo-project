@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,729 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,721 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -255,6 +255,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/455/4903/front_fr.7.400.jpg" alt="גלידת פנטזיה שוקו ונ" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290004554903&from=335">גלידת פנטזיה שוקו ונ</a><small>לעומת רמי לוי — כפר סבא: ₪23.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪37.90</span> <span class="ltr">₪28.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+59%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000453125&from=335">שמרית + משפר אפייה 1</a><small>לעומת רמי לוי — כפר סבא: ₪6.90</small></div>
       </div>
@@ -283,19 +291,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290004091217&from=335">גודרס להברקת כלי כסף</a><small>לעומת רמי לוי — כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip warm">+34%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014648081&from=335">10סכין גילוח חדפLA BELLE</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪9.90</small></div>
-      </div>
-      <div class="prices">₪12.90 <span class="chip warm">+30%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,777 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,769 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -393,7 +393,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,777 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,769 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
