@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 16 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,759 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 15 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,761 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -248,6 +248,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290014731264&from=752">כוס 180 ספלאש ארוז 1</a><small>לעומת קרפור — קרפור היפר כפר סבא: ₪4.00</small></div>
+      </div>
+      <div class="prices">₪7.90 <span class="chip warm">+98%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290000493176&from=752">רוטב צלי לבשר אסם 22</a><small>לעומת רמי לוי — כפר סבא: ₪3.50</small></div>
       </div>
       <div class="prices">₪6.90 <span class="chip warm">+97%</span></div>
@@ -283,19 +291,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290113560383&from=752">משחת סנסודיין הלבנה</a><small>לעומת רמי לוי — כפר סבא: ₪24.90</small></div>
       </div>
       <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪42.90</span> <span class="ltr">₪32.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+72%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290015766043&from=752">שרי מיקס ארוז</a><small>לעומת יוחננוף — כפר סבא: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪14.90 <span class="chip warm">+67%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,814 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,816 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -393,7 +393,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,814 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,816 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

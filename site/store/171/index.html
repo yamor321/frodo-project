@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 41 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,575 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 41 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,567 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -295,6 +295,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290011570781&from=171">תערובת להכנת עוגה בט</a><small>לעומת יוחננוף — כפר סבא: ₪14.90</small></div>
+      </div>
+      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪22.90</span> <span class="ltr">₪17.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+54%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/148/5019/front_en.3.400.jpg" alt="גבינת קרם שמנת 5% טר" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290001485019&from=171">גבינת קרם שמנת 5% טר</a><small>לעומת רמי לוי — כפר סבא: ₪10.90</small></div>
       </div>
@@ -312,30 +320,22 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290108353327&from=171">כיף שמפו לניקוי עמוק</a><small>לעומת רמי לוי — כפר סבא: ₪9.90</small></div>
+      </div>
+      <div class="prices">₪14.50 <span class="chip warm">+46%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290112495747&from=171">רוטב צ&#x27;ילי מתוק מופח</a><small>לעומת רמי לוי — כפר סבא: ₪11.90</small></div>
       </div>
       <div class="prices">₪16.90 <span class="chip warm">+42%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8717163647301&from=171">אקס ספריי אנטי פספרנ</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
-      </div>
-      <div class="prices">₪24.90 <span class="chip warm">+39%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8720181058004&from=171">אקס ספריי דרק 150 מל</a><small>לעומת רמי לוי — כפר סבא: ₪17.90</small></div>
-      </div>
-      <div class="prices">₪24.90 <span class="chip warm">+39%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,650 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,643 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,650 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,643 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
