@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">32 התעש פינת הפועל</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,725 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 14 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,723 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -236,6 +236,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=5038483574386&from=yellow-235">דורקס Thin Feel</a><small>לעומת דור אלון — כפר סבא: ₪19.90</small></div>
       </div>
       <div class="prices">₪17.90 <span class="chip good">-11%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/800/007/005/3465/front_de.13.400.jpg" alt="לוואצה אורו חוזק 8" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=8000070053465&from=yellow-235">לוואצה אורו חוזק 8</a><small>לעומת דור אלון — טשרניחובסקי כ&quot;ס: ₪25.90</small></div>
+      </div>
+      <div class="prices">₪23.90 <span class="chip good">-8%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -307,7 +315,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,606 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,599 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -405,7 +413,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,606 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,599 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

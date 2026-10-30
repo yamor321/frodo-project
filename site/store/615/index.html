@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,507 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 53 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,502 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -237,14 +237,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=8001841893990&from=615">פיירי פלטינום למדיח30טב</a><small>לעומת טיב טעם — כפר סבא הירוקה: ₪51.50</small></div>
-      </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪39.90</span> <span class="ltr">₪29.90</span> <span class="chip good">מבצע עד 02.11.2026</span> <span class="chip good">-29%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290011332983&from=615">מגבונאף קמיל בלו</a><small>לעומת יוחננוף — כפר סבא: ₪25.10</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip good">-26%</span></div>
@@ -264,6 +256,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290012116629&from=615">סנו די לתינוקות לילדים50</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪24.90</small></div>
       </div>
       <div class="prices">₪19.90 <span class="chip good">-25%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/607/359/6387/front_he.5.400.jpg" alt="טחינה גולמית 500 גרם סלה" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7296073596387&from=615">טחינה גולמית 500 גרם סלה</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪16.90</small></div>
+      </div>
+      <div class="prices">₪13.60 <span class="chip good">-24%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,400 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,409 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,400 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,409 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

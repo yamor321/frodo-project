@@ -190,14 +190,10 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <div class="kicker">Frodo Project · דף סניף</div>
   <h1>שופרסל — אקספרס כ&quot;ס- בן גוריון</h1>
-  <p class="store-address">בן גוריון 35</p>
-  <div class="navrow">
-    <a class="navbtn" href="https://waze.com/ul?ll=32.1718868,34.9103858&navigate=yes" target="_blank" rel="noopener">🧭 נווט בוויז</a>
-    <a class="navbtn" href="https://www.google.com/maps/dir/?api=1&destination=32.1718868,34.9103858" target="_blank" rel="noopener">נווט בגוגל מפות</a>
-  </div>
+  <p class="store-address">בן גוריון35</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,711 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 36 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,709 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -303,7 +299,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">2,769 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">2,766 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -401,7 +397,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "2,769 מוצרים בקטלוג הסניף";
+  const defaultHint = "2,766 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");

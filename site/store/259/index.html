@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 73 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,706 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 73 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 7,710 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -272,6 +272,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290001476208&from=259">גבינה ברי פקאן גד במ</a><small>לעומת אושר עד — כפר סבא: ₪119.00</small></div>
+      </div>
+      <div class="prices">₪175.00 <span class="chip warm">+47%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290117905456&from=259">פרוסות פלפל חלפיניו</a><small>לעומת אושר עד — כפר סבא: ₪6.90</small></div>
       </div>
       <div class="prices">₪9.90 <span class="chip warm">+43%</span></div>
@@ -323,19 +331,11 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=3600524246907&from=259">לוריאל גליקוליק גלוס</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
       </div>
       <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=3600524263782&from=259">מסכה דרים לונג תלתלי</a><small>לעומת רמי לוי — כפר סבא: ₪32.90</small></div>
-      </div>
-      <div class="prices">₪39.90 <span class="chip warm">+21%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">8,877 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">8,881 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "8,877 מוצרים בקטלוג הסניף";
+  const defaultHint = "8,881 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
