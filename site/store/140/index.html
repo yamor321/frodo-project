@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 50 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,182 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 50 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 3,188 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -252,18 +252,18 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/000/007/298/9395/front_en.3.400.jpg" alt="טילון קרם עוגיות בן&amp;גריס" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=72989395&from=140">טילון קרם עוגיות בן&amp;גריס</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪14.90</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=80480280048&from=140">וודקה גריי גוס 200 מ&quot;ל</a><small>לעומת דור אלון — כפר סבא: ₪79.90</small></div>
       </div>
-      <div class="prices">₪11.90 <span class="chip good">-25%</span></div>
+      <div class="prices">₪62.90 <span class="chip good">-27%</span></div>
     </div>
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290004554293&from=140">קרחון אסקימו ענבים</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪5.90</small></div>
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/000/007/298/9395/front_en.3.400.jpg" alt="טילון קרם עוגיות בן&amp;גריס" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=72989395&from=140">טילון קרם עוגיות בן&amp;גריס</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪14.90</small></div>
       </div>
-      <div class="prices">₪4.90 <span class="chip good">-20%</span></div>
+      <div class="prices">₪11.90 <span class="chip good">-25%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -322,7 +322,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/180/0840/front_en.3.400.jpg" alt="רפי כהן סלט טחינה בל" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290011800840&from=140">רפי כהן סלט טחינה בל</a><small>לעומת רמי לוי — כפר סבא: ₪14.90</small></div>
       </div>
-      <div class="prices"><span class="ltr" style="text-decoration:line-through;color:var(--ink-muted);font-weight:400;">₪21.90</span> <span class="ltr">₪18.90</span> <span class="chip good">מבצע עד 31.10.2026</span> <span class="chip warm">+47%</span></div>
+      <div class="prices">₪21.90 <span class="chip warm">+47%</span></div>
     </div>
 
     <div class="card spread">
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">3,241 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">3,248 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "3,241 מוצרים בקטלוג הסניף";
+  const defaultHint = "3,248 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
