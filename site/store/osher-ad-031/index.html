@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 81 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,814 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 81 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,810 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -221,14 +221,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000319124&from=osher-ad-031">סלמי סרוולט יחיעם  ר</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪46.90</small></div>
-      </div>
-      <div class="prices">₪7.90 <span class="chip good">-494%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
         <div class="name"><a href="/frodo-project/product/?code=7290008350150&from=osher-ad-031">בצק פילו מוכן לאפיה</a><small>לעומת שוק העיר — כפר סבא מזרח: ₪16.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-483%</span></div>
@@ -237,7 +229,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/458/4351/front_he.3.400.jpg" alt="גבינת שמנת 5% סימפונ" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290004584351&from=osher-ad-031">גבינת שמנת 5% סימפונ</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪13.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290004584351&from=osher-ad-031">גבינת שמנת 5% סימפונ</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪13.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-379%</span></div>
     </div>
@@ -245,7 +237,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/536/6993/front_en.3.400.jpg" alt="גבינת שמנת פלפל שיפק" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290105366993&from=osher-ad-031">גבינת שמנת פלפל שיפק</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪13.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290105366993&from=osher-ad-031">גבינת שמנת פלפל שיפק</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪13.90</small></div>
+      </div>
+      <div class="prices">₪2.90 <span class="chip good">-379%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/010/794/4472/front_he.14.400.jpg" alt="גבינת שמנת שום שמיר" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290107944472&from=osher-ad-031">גבינת שמנת שום שמיר</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪13.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-379%</span></div>
     </div>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,425 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,423 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,425 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,423 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
