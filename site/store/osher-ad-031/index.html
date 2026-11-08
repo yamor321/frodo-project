@@ -197,7 +197,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   </div>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 80 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,803 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 80 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 2,792 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -213,17 +213,9 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/458/4351/front_he.3.400.jpg" alt="גבינת שמנת 5% סימפונ" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290004584351&from=osher-ad-031">גבינת שמנת 5% סימפונ</a><small>לעומת שופרסל — אקספרס נחשון כפר סבא: ₪13.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290004584351&from=osher-ad-031">גבינת שמנת 5% סימפונ</a><small>לעומת שופרסל — אקספרס הכרמל כפר סבא: ₪13.90</small></div>
       </div>
       <div class="prices">₪2.90 <span class="chip good">-379%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290119387076&from=osher-ad-031">מילקשייק קצפת ותותים</a><small>לעומת Yellow — איצטדיון כס - ניתוב: ₪8.90</small></div>
-      </div>
-      <div class="prices">₪1.90 <span class="chip good">-368%</span></div>
     </div>
 
     <div class="card spread">
@@ -261,9 +253,17 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290119386062&from=osher-ad-031">משקה שיבולת שועל בטע</a><small>לעומת שופרסל — שופרסל ONLINE: ₪14.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290119386062&from=osher-ad-031">משקה שיבולת שועל בטע</a><small>לעומת שופרסל — דיל שבירו כפר סבא: ₪14.90</small></div>
       </div>
       <div class="prices">₪3.90 <span class="chip good">-282%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000136240&from=osher-ad-031">סודה טמפו 1.5 ליטר</a><small>לעומת Yellow — כפר סבא מזרח - עבד: ₪10.00</small></div>
+      </div>
+      <div class="prices">₪2.90 <span class="chip good">-245%</span></div>
     </div></section>
 
   <h2 class="section-title">הכי יקר כאן</h2>
@@ -335,7 +335,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">6,401 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">6,389 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -433,7 +433,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "6,401 מוצרים בקטלוג הסניף";
+  const defaultHint = "6,389 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
