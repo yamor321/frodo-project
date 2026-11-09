@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">את עתיר ידע ליד כביש 55, כפר סבא מ</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 6 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,290 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 4 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,265 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -216,14 +216,6 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
         <div class="name"><a href="/frodo-project/product/?code=7290110115180&from=yellow-251">מים מינרליים נביעות</a><small>לעומת רמי לוי — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪11.90 <span class="chip warm">+310%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מים מי עדן 1 ליטר" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=yellow-251">מים מי עדן 1 ליטר</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
-      </div>
-      <div class="prices">₪11.50 <span class="chip warm">+297%</span></div>
     </div>
 
     <div class="card spread">
@@ -260,6 +252,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
+        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מי עדן 1 לי" loading="lazy"></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=yellow-251">מי עדן 1 לי</a><small>לעומת רמי לוי — כפר סבא: ₪3.50</small></div>
+      </div>
+      <div class="prices">₪11.50 <span class="chip warm">+229%</span></div>
+    </div>
+
+    <div class="card spread">
+      <div class="info">
         <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/233/1018/front_he.4.400.jpg" alt="מים מינרלים נביעות 5" loading="lazy"></div>
         <div class="name"><a href="/frodo-project/product/?code=7290002331018&from=yellow-251">מים מינרלים נביעות 5</a><small>לעומת רמי לוי — כפר סבא: ₪2.90</small></div>
       </div>
@@ -268,7 +268,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,601 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,586 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -366,7 +366,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,601 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,586 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
