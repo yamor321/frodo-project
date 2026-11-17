@@ -193,7 +193,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <p class="store-address">את עתיר ידע ליד כביש 55, כפר סבא מ</p>
   
   
-  <div class="storecard"><span class="score">מדד חיסכון: 4 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,265 מוצרים משותפים</span></div>
+  <div class="storecard"><span class="score">מדד חיסכון: 4 מתוך 100 (ככל שגבוה יותר -- זול יותר) · 1,254 מוצרים משותפים</span></div>
 
   <h2 class="section-title">הכי משתלם כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה נמוך משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
@@ -202,6 +202,14 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   <h2 class="section-title">הכי יקר כאן</h2>
   <p class="section-sub">מוצרים שהמחיר בסניף הזה גבוה משמעותית לעומת סניפים אחרים, על אותו ברקוד בדיוק.</p>
   <section class="list">
+    <div class="card spread">
+      <div class="info">
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=7290122783926&from=yellow-251">במבה מאנצ&#x27; בטעם חמוץ</a><small>לעומת אושר עד — כפר סבא: ₪1.90</small></div>
+      </div>
+      <div class="prices">₪9.90 <span class="chip warm">+421%</span></div>
+    </div>
+
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
@@ -237,7 +245,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
     <div class="card spread">
       <div class="info">
         <div class="thumb empty">—</div>
-        <div class="name"><a href="/frodo-project/product/?code=7290000136240&from=yellow-251">סודה טמפו 1.5 ליטר</a><small>לעומת אושר עד — כפר סבא: ₪2.90</small></div>
+        <div class="name"><a href="/frodo-project/product/?code=7290000136240&from=yellow-251">סודה 1.5 ליטר</a><small>לעומת רמי לוי — כפר סבא: ₪2.90</small></div>
       </div>
       <div class="prices">₪10.00 <span class="chip warm">+245%</span></div>
     </div>
@@ -252,23 +260,15 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
 
     <div class="card spread">
       <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/001/479/1336/front_ru.6.400.jpg" alt="מי עדן 1 לי" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290014791336&from=yellow-251">מי עדן 1 לי</a><small>לעומת רמי לוי — כפר סבא: ₪3.50</small></div>
+        <div class="thumb empty">—</div>
+        <div class="name"><a href="/frodo-project/product/?code=8717163647226&from=yellow-251">דאו ספריי אקס בלאק 1</a><small>לעומת אושר עד — כפר סבא: ₪5.90</small></div>
       </div>
-      <div class="prices">₪11.50 <span class="chip warm">+229%</span></div>
-    </div>
-
-    <div class="card spread">
-      <div class="info">
-        <div class="thumb"><img src="https://images.openfoodfacts.org/images/products/729/000/233/1018/front_he.4.400.jpg" alt="מים מינרלים נביעות 5" loading="lazy"></div>
-        <div class="name"><a href="/frodo-project/product/?code=7290002331018&from=yellow-251">מים מינרלים נביעות 5</a><small>לעומת רמי לוי — כפר סבא: ₪2.90</small></div>
-      </div>
-      <div class="prices">₪9.00 <span class="chip warm">+210%</span></div>
+      <div class="prices">₪19.90 <span class="chip warm">+237%</span></div>
     </div></section>
 
   <h2 class="section-title">חיפוש מוצר בסניף הזה</h2>
   <input id="searchBox" type="text" placeholder="הקלד שם מוצר, למשל חלב או שוקולד..." autocomplete="off" aria-label="חיפוש מוצר בקטלוג הסניף">
-  <div id="searchHint" aria-live="polite">1,586 מוצרים בקטלוג הסניף</div>
+  <div id="searchHint" aria-live="polite">1,577 מוצרים בקטלוג הסניף</div>
   <div id="searchResults" aria-live="polite"></div>
 
   <footer class="sitefoot">
@@ -366,7 +366,7 @@ section.list{ display:flex; flex-direction:column; gap:12px; }
   const box = document.getElementById("searchBox");
   const results = document.getElementById("searchResults");
   const hint = document.getElementById("searchHint");
-  const defaultHint = "1,586 מוצרים בקטלוג הסניף";
+  const defaultHint = "1,577 מוצרים בקטלוג הסניף";
 
   function escHtml(s){
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
